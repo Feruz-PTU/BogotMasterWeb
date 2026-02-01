@@ -1,0 +1,141 @@
+.gallery-section {
+    padding: 80px 20px;
+    background-color: var(--color-secondary);
+    /* Beige background */
+    width: 100%;
+}
+
+.gallery-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.gallery-header h2 {
+    font-size: 42px;
+    color: #1A1A1A;
+    font-weight: 700;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.gallery-card-item {
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+}
+
+.gallery-card-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+}
+
+.gallery-card-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    /* Square images as per reference */
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    background-color: #f0f0f0;
+    /* Placeholder bg */
+}
+
+.gallery-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gallery-card-item:hover .gallery-card-image img {
+    transform: scale(1.05);
+}
+
+.gallery-card-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 0 4px;
+}
+
+.gallery-card-content h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1A1A1A;
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+}
+
+.gallery-card-content p {
+    font-size: 13px;
+    color: #888888;
+    margin: 0 0 20px 0;
+    line-height: 1.5;
+    flex-grow: 1;
+}
+
+.btn-price {
+    width: 100%;
+    background-color: #636053;
+    /* Dark earthy brown/grey from image */
+    color: #FFFFFF;
+    border: none;
+    padding: 14px;
+    border-radius: 30px;
+    /* Pill shape */
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: auto;
+}
+
+.btn-price:hover {
+    background-color: var(--color-primary);
+    /* Use theme green on hover or lighter brown */
+    color: white;
+}
+
+/* Optional: To mimic the mixed light/dark buttons, we can add a variant class, 
+   but for now we stick to the polished primary dark style. */
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .gallery-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 992px) {
+    .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .gallery-header h2 {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+}

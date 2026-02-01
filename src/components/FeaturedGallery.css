@@ -1,0 +1,87 @@
+.featured-gallery-section {
+    padding: 80px 5%;
+    max-width: 100%;
+    margin: 0 auto;
+    background-color: #F9F9F9;
+    /* Light background */
+}
+
+.gallery-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.gallery-header h2 {
+    font-size: 2.5rem;
+    color: #333;
+    font-weight: 700;
+}
+
+.featured-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 columns as requested by implication of "gallery" usually being denser, or stick to 3? 
+       The user said "place the photos", existing gallery had 5. I'll go with 4 as a good balance for 14 images. */
+    gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.featured-gallery-card {
+    background: transparent;
+    border-radius: 8px;
+    /* Reduced from 20px */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.featured-gallery-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.card-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    /* Square aspect ratio for uniformity */
+    height: auto;
+    overflow: hidden;
+    border-radius: 8px;
+    /* Reduced from 20px */
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    border-radius: 8px;
+    /* Reduced from 20px */
+}
+
+.featured-gallery-card:hover .card-image img {
+    transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .featured-gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .featured-gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .featured-gallery-grid {
+        grid-template-columns: 1fr;
+    }
+}

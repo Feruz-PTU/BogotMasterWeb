@@ -1,0 +1,218 @@
+.navbar {
+    position: fixed;
+    /* Fixed to stay on top */
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+/* Gradient Blur Background */
+.navbar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    z-index: -1;
+    background-color: var(--color-secondary);
+    /* Solid background color as requested */
+}
+
+.navbar-container {
+    max-width: 100%;
+    /* Fluid width */
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    padding: 0 5%;
+}
+
+.navbar-logo img {
+    height: 50px;
+    /* Slightly smaller for elegance */
+    width: auto;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+}
+
+.navbar-links a {
+    font-weight: 500;
+    color: var(--color-text-dark);
+    font-size: 0.95rem;
+    /* More refined size */
+    letter-spacing: 0.02em;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.navbar-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--color-primary);
+    transition: width 0.3s ease;
+}
+
+.navbar-links a:hover {
+    color: var(--color-primary);
+}
+
+.navbar-links a:hover::after {
+    width: 100%;
+}
+
+.btn-contact {
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    display: inline-block;
+    /* Pill shape */
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.lang-btn {
+    background: transparent;
+    border: 1px solid var(--color-text-dark);
+    color: var(--color-text-dark);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-right: 15px;
+    transition: all 0.3s ease;
+}
+
+.lang-btn:hover {
+    background-color: var(--color-text-dark);
+    color: white;
+}
+
+.lang-btn-mobile {
+    display: none;
+}
+
+.navbar-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+}
+
+.navbar-toggle span {
+    width: 25px;
+    height: 3px;
+    background-color: var(--color-text-dark);
+}
+
+@media (max-width: 900px) {
+    .navbar-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .navbar-links {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 90px;
+        /* Match navbar height */
+        left: 0;
+        width: 100%;
+        height: 0;
+        /* Hidden by default */
+        background-color: var(--color-secondary);
+        /* Match page bg */
+        padding: 0;
+        overflow: hidden;
+        transition: height 0.4s ease, padding 0.4s ease;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .navbar-links.active {
+        height: calc(100vh - 90px);
+        /* Full height minus header */
+        padding: 40px 20px;
+    }
+
+    .navbar-links a {
+        font-size: 1.5rem;
+        /* Larger text for mobile */
+    }
+
+    .navbar-cta-container {
+        display: none;
+        /* Hide CTA on mobile for simplicity or move inside menu */
+    }
+
+    .lang-btn-mobile {
+        display: inline-block;
+        font-size: 1.2rem;
+        padding: 10px 25px;
+        border: 1px solid var(--color-text-dark);
+        border-radius: 30px;
+        background: transparent;
+        color: var(--color-text-dark);
+        margin-top: 10px;
+    }
+
+    .navbar-toggle {
+        display: flex;
+    }
+
+    /* Burger Animation */
+    .navbar-toggle span {
+        transition: all 0.3s ease-in-out;
+        transform-origin: 5px 1px;
+    }
+
+    .navbar-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(0px, 0px);
+    }
+
+    .navbar-toggle.active span:nth-child(2) {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    .navbar-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(0px, -2px);
+    }
+}
+
+/* Mobile S (320px) */
+/* Mobile M & L (375px - 425px) */
+@media (max-width: 430px) {
+    .navbar-logo img {
+        height: 44px;
+    }
+}
+
+/* Mobile S (320px) */
+@media (max-width: 360px) {
+    .navbar-logo img {
+        height: 40px;
+        /* Reduced for small screens */
+    }
+}

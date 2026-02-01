@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://bogotmaster.org/sitemap.xml

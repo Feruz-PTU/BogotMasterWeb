@@ -1,0 +1,166 @@
+.about-section {
+    padding: 80px 5%;
+    max-width: 100%;
+    background-color: transparent;
+    /* Inherits body background */
+}
+
+.about-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.about-header h2 {
+    font-size: 2.5rem;
+    color: #2b2b2b;
+    /* Dark grey/black */
+    font-weight: 700;
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+    max-width: 1400px;
+    /* Constrain width on huge screens */
+    margin: 0 auto;
+}
+
+/* Image Collage Layout */
+.about-images {
+    display: grid;
+    /* Ratio based on natural widths: img17 (227px) vs img18 (415px) is roughly 1:1.8 */
+    grid-template-columns: 1fr 1.8fr;
+    grid-template-rows: auto auto;
+    gap: 20px;
+    height: auto;
+    /* Let content dictate height */
+}
+
+.image-main {
+    /* Landscape Image (16) goes TOP, spans full width */
+    grid-column: 1 / span 2;
+    grid-row: 1;
+}
+
+.image-secondary {
+    /* Portrait Image (17) goes BOTTOM LEFT */
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.image-tertiary {
+    /* Landscape Image (18) goes BOTTOM RIGHT */
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.about-images img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+.about-text {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding-top: 10px;
+}
+
+.about-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #4a4a4a;
+    text-align: justify;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.about-benefits {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.about-benefits li {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 1rem;
+    color: #555;
+    font-weight: 500;
+}
+
+.check-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #5A7D7C;
+    /* Teal-ish green from design? Or Primary? */
+    border-radius: 50%;
+    color: #5A7D7C;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.btn-details {
+    background-color: #6D6352;
+    /* Brownish from screenshot */
+    color: white;
+    border: none;
+    padding: 14px 40px;
+    border-radius: 30px;
+    /* Pill shape */
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: background 0.3s;
+    margin-top: 10px;
+}
+
+.btn-details:hover {
+    background-color: #554d40;
+}
+
+/* Responsiveness */
+@media (max-width: 1024px) {
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .about-images {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-description {
+        text-align: left;
+        /* Fix for weird gaps on mobile */
+        font-size: 0.9rem;
+    }
+
+    .about-benefits li {
+        font-size: 0.9rem;
+    }
+
+    .btn-details {
+        width: 100%;
+        text-align: center;
+    }
+}
