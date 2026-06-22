@@ -1,6 +1,4 @@
-import React from 'react';
 import './Certificates.css';
-
 import { useLanguage } from '../context/LanguageContext';
 
 const Certificates = () => {
@@ -15,8 +13,9 @@ const Certificates = () => {
 
     return (
         <section className="certificates-section">
-            <div className="certificates-header">
-                <h2>{t('certificates_title')}</h2>
+            <div className="section-header">
+                <span className="section-label">{t('documentation_label')}</span>
+                <h2 className="section-title">{t('certificates_title')}</h2>
             </div>
 
             <div className="certificates-wrapper">

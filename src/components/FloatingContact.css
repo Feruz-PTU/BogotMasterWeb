@@ -1,0 +1,96 @@
+.floating-contact {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 900;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+/* Main toggle button */
+.fc-toggle {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: var(--color-primary, #515E3B);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+    cursor: pointer;
+    border: none;
+    transition: transform 0.25s ease, background 0.25s ease;
+    order: 3;
+}
+
+.fc-toggle svg {
+    width: 26px;
+    height: 26px;
+}
+
+.fc-toggle:hover {
+    transform: scale(1.06);
+    background: var(--color-primary-dark, #3D472C);
+}
+
+/* Channel buttons */
+.fc-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    /* Hidden state */
+    opacity: 0;
+    transform: translateY(16px) scale(0.6);
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.fc-btn svg {
+    width: 26px;
+    height: 26px;
+}
+
+.fc-whatsapp { background: #25D366; order: 1; }
+.fc-telegram { background: #229ED9; order: 2; }
+
+.fc-btn:hover {
+    filter: brightness(1.07);
+    transform: translateY(0) scale(1.08);
+}
+
+/* Open state reveals the channel buttons */
+.floating-contact.open .fc-btn {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+.floating-contact.open .fc-telegram { transition-delay: 0.04s; }
+.floating-contact.open .fc-whatsapp { transition-delay: 0.08s; }
+
+@media (max-width: 600px) {
+    .floating-contact {
+        right: 16px;
+        bottom: 16px;
+    }
+
+    .fc-toggle {
+        width: 52px;
+        height: 52px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fc-btn,
+    .fc-toggle {
+        transition: none;
+    }
+}

@@ -1,0 +1,117 @@
+/* ── Base ── */
+.skeleton {
+    position: relative;
+    overflow: hidden;
+    display: block;
+    background-color: #e2e5e7;
+    line-height: 1;
+    width: 100%;
+}
+
+.skeleton::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.6) 50%,
+        transparent 100%
+    );
+    animation: skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-shimmer {
+    to { transform: translateX(100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .skeleton::after {
+        animation: none;
+    }
+}
+
+/* ── Types ── */
+.skeleton-text {
+    height: 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 4px;
+}
+
+.skeleton-title {
+    height: 2rem;
+    width: 60%;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+}
+
+.skeleton-rect {
+    height: 200px;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.skeleton-circle {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+/* ── ProductCard skeleton ── */
+.product-card-skeleton {
+    background: #fff;
+    border-radius: 20px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card-skeleton .sk-image {
+    aspect-ratio: 1;
+    height: auto;
+    border-radius: 12px;
+    margin-bottom: 16px;
+}
+
+.product-card-skeleton .sk-title {
+    height: 1.2rem;
+    width: 80%;
+    margin-bottom: 8px;
+    border-radius: 4px;
+}
+
+.product-card-skeleton .sk-text {
+    height: 0.8rem;
+    margin-bottom: 4px;
+    border-radius: 4px;
+}
+
+.product-card-skeleton .sk-button {
+    height: 40px;
+    width: 120px;
+    margin-top: 12px;
+    border-radius: 30px;
+}
+
+/* ── ProductDetail action skeletons ── */
+.sk-pd-action {
+    height: 50px;
+    border-radius: 30px;
+    margin-bottom: 0;
+    width: 160px;
+    flex-shrink: 0;
+}
+
+.sk-pd-action--secondary {
+    width: 120px;
+}
+
+@media (max-width: 600px) {
+    .sk-pd-action,
+    .sk-pd-action--secondary {
+        width: 100%;
+        height: 46px;
+        flex-shrink: 1;
+    }
+}

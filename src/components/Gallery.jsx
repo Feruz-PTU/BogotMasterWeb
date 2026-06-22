@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import { useContent } from '../context/ContentContext';
+import { ProductCardSkeleton } from './Skeleton';
 import './Gallery.css';
 import PriceModal from './PriceModal';
 
@@ -16,6 +18,7 @@ const Gallery = () => {
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const { t } = useLanguage();
+    const { loading } = useContent();
 
     const handlePriceClick = (product) => {
         setSelectedProduct(product);
@@ -33,8 +36,12 @@ const Gallery = () => {
                 <h2>{t('our_products')}</h2>
             </div>
             <div className="gallery-grid">
-                {galleryImages.map((item) => (
-                    <div key={item.id} className="gallery-card-item">
+                {loading
+                    ? Array(8).fill(0).map((_, i) => (
+                        <ProductCardSkeleton key={i} />
+                    ))
+                    : galleryImages.map((item) => (
+                        <div key={item.id} className="gallery-card-item">
                         <div className="gallery-card-image">
                             <img src={item.src} alt={t(`${item.translationKey}_title`)} loading="lazy" />
                         </div>

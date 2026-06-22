@@ -1,0 +1,44 @@
+.quote-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 12px 18px;
+    border: 2px solid var(--color-primary, #515E3B);
+    border-radius: 30px;
+    background: transparent;
+    color: var(--color-primary, #515E3B);
+    font-family: var(--font-family-body, 'Poppins', sans-serif);
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.quote-btn svg {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+}
+
+.quote-btn:hover {
+    background: rgba(81, 94, 59, 0.08);
+}
+
+.quote-btn.active {
+    background: var(--color-primary, #515E3B);
+    color: #fff;
+}
+
+.quote-btn.active:hover {
+    background: var(--color-primary-dark, #3D472C);
+    border-color: var(--color-primary-dark, #3D472C);
+}
+
+/* Compact variant for tight card layouts */
+.quote-btn.compact {
+    padding: 10px 14px;
+    font-size: 0.82rem;
+    margin-top: 8px;
+}

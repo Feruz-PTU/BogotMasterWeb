@@ -2,7 +2,6 @@
     background-color: var(--color-primary);
     color: white;
     padding: 60px 20px 20px;
-    margin-top: 80px;
 }
 
 .footer-content {
@@ -19,7 +18,6 @@
     height: 40px;
     margin-bottom: 20px;
     filter: brightness(0) invert(1);
-    /* Make logo white if it's dark, otherwise adjust */
 }
 
 .footer-links h4,
@@ -42,4 +40,36 @@
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     font-size: 0.9rem;
     opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .footer {
+        padding: 48px 20px 20px;
+    }
+
+    .footer-content {
+        gap: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer {
+        padding: 40px 16px 16px;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        margin-bottom: 28px;
+    }
+
+    .footer-links h4,
+    .footer-contact h4 {
+        font-size: 1rem;
+        margin-bottom: 14px;
+    }
+
+    .footer-bottom {
+        font-size: 0.8rem;
+    }
 }

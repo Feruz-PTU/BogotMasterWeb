@@ -1,21 +1,46 @@
-/* Import Poppins */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+/* Poppins is loaded via <link> in index.html (preconnect + non-blocking) */
 
 :root {
     --color-primary: #515E3B;
-    /* Main color from requirements */
+    --color-primary-dark: #3D472C;
+    --color-primary-light: #6B7D4F;
     --color-secondary: #F5F4F0;
-    /* Soft beige background */
+    --color-bg-warm: #FAF9F6;
     --color-text-dark: #1A1A1A;
+    --color-text-muted: #666666;
     --color-text-light: #FFFFFF;
 
-    --font-family: 'Poppins', sans-serif;
+    --font-family-body: 'Poppins', sans-serif;
+    --font-family: var(--font-family-body);
+    --font-family-heading: 'Poppins', sans-serif;
+
+    /* Shadows - Softened and more subtle */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.08);
 
     /* Spacing */
     --spacing-sm: 8px;
     --spacing-md: 16px;
     --spacing-lg: 32px;
     --spacing-xl: 64px;
+    
+    --transition-smooth: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html {
+    font-size: 90%;
+    overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 81%;
+    }
+}
+
+body {
+    overflow-x: hidden;
 }
 
 * {
@@ -24,17 +49,77 @@
     padding: 0;
 }
 
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border: 2px solid var(--color-secondary);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary-dark);
+}
+
 body {
-    font-family: var(--font-family);
-    background-color: var(--color-secondary);
+    font-family: var(--font-family-body);
+    background-color: var(--color-bg-warm);
     color: var(--color-text-dark);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
-    /* Smoother fonts */
     -moz-osx-font-smoothing: grayscale;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-heading);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
 
+/* ── Unified Section Headers ────────────────────────────────────────────── */
+.section-header {
+    text-align: center;
+    margin-bottom: 64px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section-label {
+    display: inline-block;
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 16px;
+    padding: 6px 16px;
+    background: rgba(81, 94, 59, 0.06);
+    border-radius: 4px;
+}
+
+.section-title {
+    font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+    font-weight: 800;
+    color: var(--color-text-dark);
+    line-height: 1.15;
+    margin-bottom: 20px;
+}
+
+.section-subtitle {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+}
 
 img {
     max-width: 100%;
@@ -54,20 +139,61 @@ ul {
 /* Global Button Styles */
 button,
 .btn-primary,
-.btn-contact {
-    font-family: var(--font-family);
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+.btn-contact,
+.btn-details {
+    font-family: var(--font-family-body);
+    transition: var(--transition-smooth);
+    cursor: pointer;
+    border: none;
+    outline: none;
 }
 
 button:hover,
 .btn-primary:hover,
-.btn-contact:hover {
+.btn-contact:hover,
+.btn-details:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 15px rgba(81, 94, 59, 0.3);
+    background-color: #333;
+    box-shadow: none;
 }
 
 button:active,
 .btn-primary:active,
 .btn-contact:active {
     transform: translateY(0);
+}
+
+/* Professional Reveal Animations */
+.reveal {
+    opacity: 1;
+    transform: none;
+    transition: opacity 1s cubic-bezier(0.2, 1, 0.3, 1),
+                transform 1.2s cubic-bezier(0.2, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+@media (max-width: 640px) {
+    .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
 }

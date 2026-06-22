@@ -1,34 +1,41 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 import './Footer.css';
-import { CONTACT_INFO, COMPANY_INFO } from '../config';
-
+import { useContent } from '../context/ContentContext';
 import { useLanguage } from '../context/LanguageContext';
 
 const Footer = () => {
     const { t } = useLanguage();
+    const { settings } = useContent();
+
+    const email = settings?.email || 'bogotmaster@gmail.com';
+    const address = settings?.address || '';
+
     return (
-        <footer className="footer" id="contact">
+        <footer className="footer reveal">
             <div className="footer-content">
-                <div className="footer-logo">
-                    <img src="/images/B5-logo.png" alt="Feruz" />
+                <div className="footer-logo reveal reveal-delay-1">
+                    <Link to="/">
+                        <img src="/Logo/new-logo.png" alt="Bogot Master" />
+                    </Link>
                     <p>{t('footer_slogan')}</p>
                 </div>
-                <div className="footer-links">
+                <div className="footer-links reveal reveal-delay-2">
                     <h4>{t('footer_quick_links')}</h4>
                     <ul>
-                        <li><a href="#home">{t('home')}</a></li>
-                        <li><a href="#about">{t('about')}</a></li>
-                        <li><a href="#products">{t('products')}</a></li>
+                        <li><Link to="/">{t('home')}</Link></li>
+                        <li><Link to="/about">{t('about')}</Link></li>
+                        <li><Link to="/products">{t('products')}</Link></li>
+                        <li><Link to="/contact">{t('contact')}</Link></li>
                     </ul>
                 </div>
-                <div className="footer-contact">
+                <div className="footer-contact reveal reveal-delay-3">
                     <h4>{t('footer_contact_us')}</h4>
-                    <p>{CONTACT_INFO.address}</p>
-                    <p>{CONTACT_INFO.email}</p>
+                    <p>{address}</p>
+                    <p>{email}</p>
                 </div>
             </div>
             <div className="footer-bottom">
-                <p>&copy; {new Date().getFullYear()} {COMPANY_INFO.name}. {t('footer_rights')}</p>
+                <p>&copy; {new Date().getFullYear()} Bogot Master. {t('footer_rights')}</p>
             </div>
         </footer>
     );

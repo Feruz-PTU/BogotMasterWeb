@@ -1,0 +1,337 @@
+/* Floating cart button (bottom-left, opposite the contact FAB) */
+.quote-fab {
+    position: fixed;
+    left: 24px;
+    bottom: 24px;
+    z-index: 900;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: var(--color-primary, #515E3B);
+    color: #fff;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+    cursor: pointer;
+    transition: transform 0.25s ease, background 0.25s ease;
+}
+
+@media (hover: hover) {
+    .quote-fab:hover {
+        transform: scale(1.06);
+        background: var(--color-primary-dark, #3D472C);
+    }
+}
+
+.quote-fab svg {
+    width: 26px;
+    height: 26px;
+}
+
+.quote-fab-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    border-radius: 11px;
+    background: #d9534f;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+/* Overlay */
+.quote-cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1300; /* Higher than navbar z-index (1200) */
+}
+
+.quote-cart-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Drawer */
+.quote-cart {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 400px;
+    max-width: 90vw;
+    height: 100%;
+    background: #fff;
+    z-index: 1301; /* Higher than overlay and navbar (1200) */
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.15);
+    transform: translateX(100%);
+    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    overflow-y: auto;
+}
+
+.quote-cart.open {
+    transform: translateX(0);
+}
+
+.quote-cart-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.quote-cart-head h3 {
+    font-family: var(--font-family-heading, serif);
+    font-size: 1.4rem;
+    color: var(--color-text-dark, #1A1A1A);
+}
+
+.quote-cart-close {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: var(--color-secondary, #F5F4F0);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #333;
+}
+
+.quote-cart-close svg { width: 18px; height: 18px; }
+
+.quote-cart-empty {
+    color: var(--color-text-muted, #666);
+    text-align: center;
+    margin-top: 40px;
+}
+
+.quote-cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.quote-cart-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 14px;
+}
+
+.quote-cart-item img {
+    width: 52px;
+    height: 52px;
+    object-fit: cover;
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+
+.quote-cart-item-body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.quote-cart-item-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text-dark, #1A1A1A);
+}
+
+.quote-cart-qty {
+    width: 100%;
+    padding: 6px 10px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-family: inherit;
+}
+
+.quote-cart-qty:focus {
+    outline: none;
+    border-color: var(--color-primary, #515E3B);
+}
+
+.quote-cart-remove {
+    width: 34px;
+    height: 34px;
+    border: none;
+    background: transparent;
+    color: #b94a48;
+    cursor: pointer;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.quote-cart-remove:hover { background: rgba(185, 74, 72, 0.1); }
+.quote-cart-remove svg { width: 18px; height: 18px; }
+
+.quote-cart-clear {
+    align-self: flex-end;
+    margin: 12px 0;
+    background: none;
+    border: none;
+    color: var(--color-text-muted, #666);
+    font-size: 0.82rem;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.quote-cart-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    padding-top: 18px;
+    margin-top: 4px;
+}
+
+.qc-field { display: flex; flex-direction: column; gap: 4px; }
+
+.quote-cart-form input,
+.quote-cart-form textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    resize: vertical;
+}
+
+.quote-cart-form input:focus,
+.quote-cart-form textarea:focus {
+    outline: none;
+    border-color: var(--color-primary, #515E3B);
+}
+
+.quote-cart-form input.error { border-color: #d9534f; }
+
+.qc-error { color: #d9534f; font-size: 0.75rem; }
+
+.qc-success {
+    background: #e6f4ea;
+    color: #2e7d32;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    text-align: center;
+}
+
+.qc-error-box {
+    background: #fdecea;
+    color: #c0392b;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    text-align: center;
+}
+
+.quote-cart-submit {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 30px;
+    background: var(--color-primary, #515E3B);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.25s ease;
+}
+
+.quote-cart-submit:hover:not(:disabled) { background: var(--color-primary-dark, #3D472C); }
+.quote-cart-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+@media (max-width: 768px) {
+    .quote-fab {
+        left: 16px;
+        bottom: 16px;
+        width: 52px;
+        height: 52px;
+    }
+
+    .quote-cart-form input,
+    .quote-cart-form textarea {
+        font-size: 16px;
+    }
+
+    .quote-cart-overlay {
+        position: fixed !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        height: auto !important;
+        min-height: -webkit-fill-available;
+        min-height: 100dvh;
+    }
+
+    /* Full-screen on mobile */
+    .quote-cart {
+        position: fixed !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        min-height: -webkit-fill-available;
+        min-height: 100dvh;
+        border-radius: 0 !important;
+        transform: translateX(100%);
+        padding: 24px 16px 32px;
+        box-shadow: none;
+    }
+
+    .quote-cart.open {
+        transform: translateX(0);
+    }
+
+    /* Drag handle indicator */
+    .quote-cart-head::before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 36px;
+        height: 4px;
+        background: rgba(0, 0, 0, 0.15);
+        border-radius: 2px;
+    }
+
+    .quote-cart-head {
+        position: relative;
+        padding-top: 14px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .quote-cart, .quote-cart-overlay, .quote-fab { transition: none; }
+}

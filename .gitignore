@@ -1,0 +1,61 @@
+# Dependencies
+node_modules
+# package-lock.json is NOT ignored to ensure consistent builds
+
+
+# Build output
+dist
+build
+.vite
+
+# Environment variables
+.env
+.env.local
+.env.production
+.env.development
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Testing
+coverage
+*.lcov
+.nyc_output
+
+# Temporary files
+*.tmp
+*.temp
+.cache
+.preview/
+
+# AI assistant files & one-off helper scripts (local only, not in repo)
+CLAUDE.md
+FEATURES.md
+EMAIL_SETUP.md
+fix_hero_bg.js
+rename_optimize.js
+optimize_images.js
+.claude/
+.cursor/
+AGENTS.md

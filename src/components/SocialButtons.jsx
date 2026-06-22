@@ -1,22 +1,24 @@
-import React from 'react';
 import './SocialButtons.css';
+import { useContent } from '../context/ContentContext';
+import { useLanguage } from '../context/LanguageContext';
 import { CONTACT_INFO } from '../config';
 
 const SocialButtons = ({ productName = '' }) => {
-    const phoneNumber = CONTACT_INFO.social.whatsapp;
-    const telegramUsername = CONTACT_INFO.social.telegram;
+    const { settings } = useContent();
+    const { t } = useLanguage();
+
+    const phoneNumber = settings?.whatsapp || CONTACT_INFO.social.whatsapp;
+    const telegramUsername = settings?.telegram || CONTACT_INFO.social.telegram;
 
     const getWhatsAppLink = () => {
-        const message = productName
-            ? `Здравствуйте! Интересует ${productName}. Можете предоставить информацию о цене?`
-            : 'Здравствуйте! Хочу узнать больше о вашей продукции.';
+        const template = productName ? t('social_msg_product') : t('social_msg_general');
+        const message = template.replace('{product}', productName);
         return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     };
 
     const getTelegramLink = () => {
-        const message = productName
-            ? `Здравствуйте! Интересует ${productName}. Можете предоставить информацию о цене?`
-            : 'Здравствуйте! Хочу узнать больше о вашей продукции.';
+        const template = productName ? t('social_msg_product') : t('social_msg_general');
+        const message = template.replace('{product}', productName);
         return `https://t.me/${telegramUsername}?text=${encodeURIComponent(message)}`;
     };
 

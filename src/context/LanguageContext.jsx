@@ -1,262 +1,69 @@
-import React, { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext, useEffect, useCallback } from 'react';
+import { SEED_TRANSLATIONS } from '../data/seed';
 
 const LanguageContext = createContext();
 
 export const useLanguage = () => useContext(LanguageContext);
 
+const DEFAULT_LANGUAGES = SEED_TRANSLATIONS.languages;
+const DEFAULT_STRINGS = { ru: SEED_TRANSLATIONS.ru, en: SEED_TRANSLATIONS.en };
+
 export const LanguageProvider = ({ children }) => {
-    const [language, setLanguage] = useState('ru');
-
-    const translations = {
-        ru: {
-            home: 'Главная',
-            products: 'Каталог',
-            about: 'О Компании',
-            contact: 'Контакты',
-            contactBtn: 'Связаться',
-            langBtn: 'EN',
-            // SEO
-            meta_title: 'Bogot Master — Экспорт корня солодки из Узбекистана',
-            meta_description: 'Bogot Master — ведущий производитель и экспортер корня солодки в Узбекистане. Оптовые поставки экстракта, корня, слайсов и гранул солодки по всему миру.',
-            meta_keywords: 'корень солодки, солодка оптом, экспорт солодки, экстракт солодки, Узбекистан, Bogot Master, licorice root, licorice',
-            og_title: 'Bogot Master — Экспорт Качественной Солодки',
-            og_description: 'Производство и экспорт корня солодки высшего качества из Узбекистана. Надежный партнер для вашего бизнеса.',
-            schema_description: 'Семейная компания, специализирующаяся на заготовке, переработке и экспорте корня солодки из Узбекистана.',
-            hero_image_alt: 'Корни солодки из Узбекистана',
-            // About Section
-            about_title: 'О компании',
-            about_p1: 'Bogot Master — семейная компания, основанная в 2014 году, специализирующаяся на заготовке, переработке и экспорте корня солодки.',
-            about_p2: 'Компания осуществляет экспорт корня солодки в различных формах поставки и работает со всеми необходимыми разрешительными документами и сертификатами, в соответствии с требованиями стран-импортёров.',
-            about_p3: 'Производственные и заготовительные мощности Bogot Master позволяют осуществлять экспорт до 1 500 тонн корня солодки в год. В деятельности компании задействовано более 20 сотрудников, обеспечивающих контроль качества, переработку, упаковку и логистику продукции.',
-            about_p4: 'Заготовка корня солодки осуществляется с соблюдением установленных технологических и экологических требований. Компания ориентирована на стабильные долгосрочные поставки и индивидуальный подход к требованиям заказчиков по форме, фракции и упаковке продукции.',
-            about_benefit_1: 'Поставка по всему Миру',
-            about_benefit_2: 'Сотрудничество на оптом',
-            about_benefit_3: 'Качество и сертификация',
-            about_benefit_4: 'Все виды в наличии круглый год',
-            about_img_1: 'Склад хранения солодки',
-            about_img_2: 'Работник с продукцией',
-            about_img_3: 'Погрузка в грузовик',
-            read_more: 'Подробнее',
-            consultation_title: 'Консультация о компании',
-            // Products Section
-            our_products: 'Наша Продукция',
-            get_price: 'Узнать цену',
-            product_1_title: 'Бочонок A',
-            product_1_desc: 'Корень солодки, нарезанный на отрезки длиной 5-8 см, отборная резка по размеру (диаметр A - большой).',
-            product_2_title: 'Бочонок очищенный mix',
-            product_2_desc: 'Очищенный корень солодки, нарезанный на отрезки длиной 5-8 см, смешанная фракция.',
-            product_3_title: 'Гранулы',
-            product_3_desc: 'Корень солодки в гранулированной нарезке.',
-            product_4_title: 'Измельченный',
-            product_4_desc: 'Корень солодки измельченый, смешанный помол.',
-            product_5_title: 'Палочки отборные стд',
-            product_5_desc: 'Корень солодки нарезки стандартного калибра.',
-            product_6_title: 'Палочки отборные',
-            product_6_desc: 'Корень солодки нарезаный палочеками, отборные по размеру.',
-            product_7_title: 'Палочки очищенные',
-            product_7_desc: 'Очищенный корень солодки в палочках.',
-            product_8_title: 'Порошок',
-            product_8_desc: 'Корень солодки полу-мелкого помола, порошкообразный.',
-            product_9_title: 'Слайс A',
-            product_9_desc: 'Корень солодки резаный, отборные срезы по размеру (диаметр A - большой).',
-            product_10_title: 'Слайс mix',
-            product_10_desc: 'Корень солодки резаный, смешанная фракция.',
-            product_11_title: 'Таблетка A',
-            product_11_desc: 'Корень солодки нарезаный таблеткой, отборное по размеру (диаметр A - большой).',
-            product_13_title: 'Таблетка mix',
-            product_13_desc: 'Корень солодки нарезанный вертикально, смешанные размеры.',
-            product_14_title: 'Щепки',
-            product_14_desc: 'Корень солодки дробленный в виде щепки.',
-            product_15_title: 'Индивидуальный заказ',
-            product_15_desc: 'Производство и поставка корня солодки по индивидуальным требованиям.',
-            product_16_title: 'Экстракт корня солодки',
-            product_16_title: 'Экстракт корня солодки',
-            product_16_desc: 'Экстракт корня солодки в порошкообразной и жидкой форме.',
-            // Hero Section
-            hero_title: 'Экспортёр солодки\nдля B2B-клиентов',
-            hero_subtitle: 'Объёмы поставок, рынки, ключевые преимущества',
-            hero_cta: 'Запросить коммерческое предложение',
-            hero_modal_title: 'Коммерческое предложение',
-            // Certificates Section
-            certificates_title: 'Наши документы',
-            cert_1: 'Выписка из реестра',
-            cert_2: 'Свидетельство НДС',
-            cert_3: 'Свидетельство о регистрации',
-            cert_4: 'Удостоверение о регистрации',
-            // Featured Gallery
-            gallery_title: 'Галерея',
-            // Partners
-            partners_title: 'Наши Партнеры',
-            // Contact Section
-            contact_title: 'Контакты',
-            contact_cta_title: 'Вам нужна дополнительная информация?',
-            contact_cta_text: 'Напишите нам и наш специалист перезвонит вам.',
-            contact_cta_btn: 'Написать',
-            contact_address: 'Адрес',
-            address_line_1: '220204, Боготский район,',
-            address_line_2: 'Хорезмская область, Республика Узбекистан.',
-            contact_phone: 'Номер телефона',
-            contact_email: 'Почта',
-            contact_website: 'Сайт',
-            form_name: 'Ф.И.О',
-            form_name_placeholder: 'Иван Иванов',
-            form_email: 'Ваша почта',
-            form_email_error: 'Введите email',
-            form_email_invalid: 'Неверный формат email',
-            form_comment: 'Комментарий',
-            form_success: '✓ Сообщение отправлено! Мы свяжемся с вами в ближайшее время.',
-            form_error: '✗ Произошла ошибка. Попробуйте позже или свяжитесь с нами напрямую.',
-            form_submit: 'Отправить',
-            form_sending: 'Отправка...',
-            // Footer
-            footer_slogan: 'Совершенство в каждой детали.',
-            footer_quick_links: 'Быстрые ссылки',
-            footer_contact_us: 'Связаться с нами',
-            footer_rights: 'Все права защищены.',
-            // Price Modal
-            modal_price_title: 'Запрос цены',
-            modal_info_title: 'Запрос дополнительной информации',
-            modal_phone: 'Телефон',
-            modal_phone_error: 'Введите номер телефона',
-            modal_phone_invalid: 'Неверный формат телефона',
-            modal_quantity: 'Количество',
-            modal_quantity_error: 'Укажите количество',
-            modal_quantity_placeholder: 'Например: 100 кг, 1 тонна',
-            modal_comment_placeholder: 'Дополнительная информация...',
-            modal_submit: 'Отправить запрос',
-            modal_success: 'Спасибо! Мы свяжемся с вами в ближайшее время.',
-            modal_error: 'Произошла ошибка. Попробуйте позже.'
-        },
-        en: {
-            home: 'Home',
-            products: 'Products',
-            about: 'About',
-            contact: 'Contact',
-            contactBtn: 'Contact Us',
-            langBtn: 'RU',
-            // SEO
-            meta_title: 'Bogot Master — Licorice Root Export from Uzbekistan',
-            meta_description: 'Bogot Master is a leading manufacturer and exporter of licorice root in Uzbekistan. Wholesale supply of licorice extract, root, slices, and granules worldwide.',
-            meta_keywords: 'licorice root, licorice wholesale, licorice export, licorice extract, Uzbekistan, Bogot Master',
-            og_title: 'Bogot Master — Premium Licorice Export',
-            og_description: 'Production and export of high-quality licorice root from Uzbekistan. A reliable partner for your business.',
-            schema_description: 'Family-owned company specializing in the harvesting, processing, and export of licorice root from Uzbekistan.',
-            hero_image_alt: 'Licorice Roots from Uzbekistan',
-            // About Section
-            about_title: 'About Company',
-            about_p1: 'Bogot Master is a family-owned company established in 2014, specializing in the harvesting, processing, and export of licorice root.',
-            about_p2: 'The company supplies licorice root in multiple forms and operates in full compliance with international trade regulations, holding all required permits and certificates in accordance with the standards of importing countries.',
-            about_p3: 'Bogot Master’s harvesting and processing capacity enables the export of up to 1,500 tons of licorice root annually. The company employs over 20 specialists who ensure consistent quality control, processing, packaging, and efficient logistics.',
-            about_p4: 'Licorice root is harvested in strict accordance with approved technological and environmental standards. Bogot Master is committed to long-term, reliable partnerships and offers a flexible, customer-oriented approach to product form, size fraction, and packaging requirements.',
-            about_benefit_1: 'Worldwide supply',
-            about_benefit_2: 'Wholesale cooperation',
-            about_benefit_3: 'Certified quality standards',
-            about_benefit_4: 'Year-round product availability',
-            about_img_1: 'Warehouse storage',
-            about_img_2: 'Worker with product',
-            about_img_3: 'Truck loading',
-            read_more: 'Read More',
-            consultation_title: 'Consultation about company',
-            // Products Section
-            our_products: 'Our Products',
-            get_price: 'Get Price',
-            product_1_title: 'Fingers A',
-            product_1_desc: 'Licorice root cut into 5-8 cm lengths, selected cut by size (diameter A - large).',
-            product_2_title: 'Fingers Peeled mix',
-            product_2_desc: 'Peeled Licorice root cut into 5-8 cm lengths, mixed sizes.',
-            product_3_title: 'Granules',
-            product_3_desc: 'Licorice root cut into granules.',
-            product_4_title: 'Crushed',
-            product_4_desc: 'Crushed licorice root, mixed grind.',
-            product_5_title: 'Standard caliber sticks',
-            product_5_desc: 'Licorice root cut into sticks of standard calibre.',
-            product_6_title: 'Selected sticks',
-            product_6_desc: 'Licorice root cut into sticks selected by size.',
-            product_7_title: 'Peeled sticks',
-            product_7_desc: 'Peeled licorice root cut into sticks.',
-            product_8_title: 'Powder',
-            product_8_desc: 'Licorice root semifine grind, powdered.',
-            product_9_title: 'Slice A',
-            product_9_desc: 'Sliced licorice root, selected slices by size (diameter A - large).',
-            product_10_title: 'Slice mix',
-            product_10_desc: 'Sliced licorice root, mixed fraction.',
-            product_11_title: 'Tablet A',
-            product_11_desc: 'Licorice root cut into tablets, selected by size (diameter A - large).',
-            product_13_title: 'Tablet mix',
-            product_13_desc: 'Licorice root cut vertically, mixed sizes.',
-            product_14_title: 'Licorice chips',
-            product_14_desc: 'Crushed licorice root in chip form.',
-            product_15_title: 'Individual order',
-            product_15_desc: 'Production and supply of licorice root according to individual requirements.',
-            product_16_title: 'Licorice root extract',
-            product_16_desc: 'Licorice root extract in powdered and liquid form.',
-            // Hero Section
-            hero_title: 'Licorice Exporter\nfor B2B Clients',
-            hero_subtitle: 'Supply volumes, markets, key advantages',
-            hero_cta: 'Request Commercial Proposal',
-            hero_modal_title: 'Commercial Proposal',
-            // Certificates Section
-            certificates_title: 'Our Documents',
-            cert_1: 'Registry Extract',
-            cert_2: 'VAT Certificate',
-            cert_3: 'Registration Certificate',
-            cert_4: 'Registration ID',
-            // Featured Gallery
-            gallery_title: 'Gallery',
-            // Partners
-            partners_title: 'Our Partners',
-            // Contact Section
-            contact_title: 'Contacts',
-            contact_cta_title: 'Need more information?',
-            contact_cta_text: 'Write to us and our specialist will call you back.',
-            contact_cta_btn: 'Write to us',
-            contact_address: 'Address',
-            address_line_1: '220204, Bogot district,',
-            address_line_2: 'Khorezm region, Republic of Uzbekistan.',
-            contact_phone: 'Phone Number',
-            contact_email: 'Email',
-            contact_website: 'Website',
-            form_name: 'Full Name',
-            form_name_placeholder: 'John Doe',
-            form_email: 'Your Email',
-            form_email_error: 'Enter email',
-            form_email_invalid: 'Invalid email format',
-            form_comment: 'Comment',
-            form_success: '✓ Message sent! We will contact you shortly.',
-            form_error: '✗ An error occurred. Please try again later or contact us directly.',
-            form_submit: 'Submit',
-            form_sending: 'Sending...',
-            // Footer
-            footer_slogan: 'Excellence in every detail.',
-            footer_quick_links: 'Quick Links',
-            footer_contact_us: 'Contact Us',
-            footer_rights: 'All rights reserved.',
-            // Price Modal
-            modal_price_title: 'Price Request',
-            modal_info_title: 'Request Additional Info',
-            modal_phone: 'Phone',
-            modal_phone_error: 'Enter phone number',
-            modal_phone_invalid: 'Invalid phone format',
-            modal_quantity: 'Quantity',
-            modal_quantity_error: 'Specify quantity',
-            modal_quantity_placeholder: 'E.g., 100 kg, 1 ton',
-            modal_comment_placeholder: 'Additional information...',
-            modal_submit: 'Send Request',
-            modal_success: 'Thank you! We will contact you shortly.',
-            modal_error: 'An error occurred. Please try again later.'
+    const [language, setLanguage] = useState(() => {
+        try {
+            const stored = localStorage.getItem('lang');
+            return stored || DEFAULT_LANGUAGES[0]?.code || 'ru';
+        } catch {
+            return 'ru';
         }
-    };
+    });
+    const [languages, setLanguages] = useState(DEFAULT_LANGUAGES);
+    const [allTranslations, setAllTranslations] = useState(DEFAULT_STRINGS);
 
-    const t = (key) => {
-        return translations[language][key] || key;
-    };
+    const loadTranslations = useCallback(async () => {
+        try {
+            const { fetchTranslations } = await import('../supabase/data');
+            const data = await fetchTranslations();
+            if (!data) return;
+            
+            if (data.languages?.length) setLanguages(data.languages);
+            
+            const merged = {};
+            const langs = data.languages?.length ? data.languages : DEFAULT_LANGUAGES;
+            
+            langs.forEach(lang => {
+                merged[lang.code] = {
+                    ...(SEED_TRANSLATIONS[lang.code] || SEED_TRANSLATIONS.en || {}),
+                    ...(data[lang.code] || {}),
+                };
+            });
+            setAllTranslations(merged);
+        } catch (err) {
+            console.error('Error loading translations:', err);
+        }
+    }, []);
 
-    const switchLanguage = (lang) => {
-        setLanguage(lang);
+    useEffect(() => {
+        loadTranslations();
+    }, [loadTranslations]);
+
+    const t = useCallback((key) => {
+        if (!allTranslations) return key;
+        return allTranslations[language]?.[key] ??
+               allTranslations['en']?.[key] ??
+               allTranslations['ru']?.[key] ??
+               key;
+    }, [allTranslations, language]);
+
+    const switchLanguage = (code) => {
+        setLanguage(code);
+        try {
+            localStorage.setItem('lang', code);
+        } catch { /* ignore */ }
     };
 
     return (
-        <LanguageContext.Provider value={{ language, switchLanguage, t }}>
+        <LanguageContext.Provider value={{ language, languages, switchLanguage, t, refreshTranslations: loadTranslations }}>
             {children}
         </LanguageContext.Provider>
     );

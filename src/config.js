@@ -1,26 +1,10 @@
 /**
  * Website Configuration
- * 
- * use this file to update the content of the website
- * 
- * 1. EmailJS Configuration:
- *    To change where emails are sent, you need to update these values.
- *    - Sign up/Login to https://dashboard.emailjs.com/
- *    - Service ID: Found in the "Email Services" tab
- *    - Template IDs: Found in the "Email Templates" tab
- *    - Public Key: Found in the "Account" (or "Integration") settings
- * 
- * 2. Contact Information:
- *    Update the details below to change what is displayed on the website.
+ *
+ * Use this file to update the contact details shown on the website.
+ * Email sending is handled server-side by the /api/send function (Resend) —
+ * see DEPLOY.md and api/send.js. No email keys live here.
  */
-
-export const EMAILJS_CONFIG = {
-    serviceId: 'service_c1bng4d',
-    contactTemplateId: 'template_ad477gp',
-    priceTemplateId: 'template_2p6utf9',
-    publicKey: 'nMDfGjw5mSsW-3-QT'
-};
-
 
 export const CONTACT_INFO = {
     email: 'bogotmaster@gmail.com',
@@ -42,6 +26,5 @@ export const CONTACT_INFO = {
 };
 
 export const COMPANY_INFO = {
-    name: 'Feruz', // or Glabra, checking footer/logo
-    // Add more if needed
+    name: 'Bogot Master',
 };

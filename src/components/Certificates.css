@@ -1,7 +1,7 @@
 .certificates-section {
     padding: 60px 5%;
     text-align: center;
-    /* Background matches body/about */
+    background-color: transparent;
 }
 
 .certificates-header h2 {
@@ -21,15 +21,10 @@
 }
 
 .certificates-container {
-    background: #FAFAFA;
-    /* Explicit white/off-white background for container? Or just cards? 
-    Screenshot shows a large white rounded container holding ALL certs? 
-    Yes, "rounded rect" background behind the items. */
     background: white;
     border-radius: 40px;
     padding: 40px 20px;
     flex-grow: 1;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
 }
 
 .certificates-grid {
@@ -45,31 +40,37 @@
     align-items: center;
     gap: 15px;
     cursor: pointer;
-    transition: transform 0.3s;
     text-decoration: none;
-}
-
-.certificate-item:hover {
-    transform: translateY(-5px);
 }
 
 .cert-icon-box {
     width: 64px;
     height: 64px;
     border: 1px solid #333;
-    /* Thin black border as per screenshot */
     border-radius: 16px;
-    /* Soft square */
     display: flex;
     align-items: center;
     justify-content: center;
     color: #333;
-    transition: all 0.3s;
 }
 
-.certificate-item:hover .cert-icon-box {
-    background: #333;
-    color: white;
+@media (hover: hover) {
+    .certificate-item {
+        transition: transform 0.3s;
+    }
+
+    .certificate-item:hover {
+        transform: translateY(-5px);
+    }
+
+    .cert-icon-box {
+        transition: all 0.3s;
+    }
+
+    .certificate-item:hover .cert-icon-box {
+        background: #333;
+        color: white;
+    }
 }
 
 .cert-title {
@@ -78,9 +79,8 @@
     line-height: 1.4;
     max-width: 180px;
     margin: 0 auto;
+    font-weight: 500;
 }
-
-
 
 /* Response */
 @media (max-width: 1024px) {
@@ -92,10 +92,11 @@
 
 @media (max-width: 600px) {
     .certificates-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .certificates-container {
         padding: 30px 15px;
+        border-radius: 20px;
     }
 }

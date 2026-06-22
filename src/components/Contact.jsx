@@ -2,13 +2,22 @@ import React, { useState } from 'react';
 import './Contact.css';
 import SocialButtons from './SocialButtons';
 import { sendContactEmail, isEmailConfigured } from '../services/emailService';
-import PriceModal from './PriceModal';
-import { CONTACT_INFO } from '../config';
-
+import { useContent } from '../context/ContentContext';
+import { useReveal } from '../hooks/useReveal';
 import { useLanguage } from '../context/LanguageContext';
 
-const Contact = () => {
-    const { t } = useLanguage();
+const Contact = ({ openPopup }) => {
+    useReveal();
+    const { t, language } = useLanguage();
+    const { settings } = useContent();
+    const contactInfo = {
+        phone: settings?.phone || [],
+        email: settings?.email || '',
+        address: settings?.address || '',
+        website: settings?.website || '',
+        whatsapp: settings?.whatsapp || '',
+        telegram: settings?.telegram || '',
+    };
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -18,17 +27,12 @@ const Contact = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState(null);
 
-    // Popup state
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
-
-    const openPopup = () => setIsPopupOpen(true);
-    const closePopup = () => setIsPopupOpen(false);
 
     const validateForm = () => {
         const newErrors = {};
 
         if (!formData.name.trim()) {
-            newErrors.name = t('form_name_placeholder'); // Using placeholder as error for simplicity or add specific errors
+            newErrors.name = t('form_name_placeholder');
         }
 
         if (!formData.email.trim()) {
@@ -47,14 +51,12 @@ const Contact = () => {
             ...prev,
             [name]: value
         }));
-        // Clear error for this field when user starts typing
         if (errors[name]) {
             setErrors(prev => ({
                 ...prev,
                 [name]: ''
             }));
         }
-        // Clear submit status when user edits
         if (submitStatus) {
             setSubmitStatus(null);
         }
@@ -71,30 +73,23 @@ const Contact = () => {
         setSubmitStatus(null);
 
         try {
-            // Check if EmailJS is configured
             if (!isEmailConfigured()) {
-                console.warn('EmailJS not configured. See src/services/emailService.js');
-                // Simulate success for demo purposes
+                console.warn('Email not configured. See src/services/emailService.js');
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 setSubmitStatus('success');
             } else {
-                // Send email via EmailJS
-                const result = await sendContactEmail(formData);
-
+                const result = await sendContactEmail(formData, language);
                 if (result.success) {
                     setSubmitStatus('success');
                 } else {
                     throw new Error(result.message);
                 }
             }
-
-            // Reset form on success
             setFormData({
                 name: '',
                 email: '',
                 message: ''
             });
-
         } catch (error) {
             console.error('Error submitting form:', error);
             setSubmitStatus('error');
@@ -104,9 +99,9 @@ const Contact = () => {
     };
 
     return (
-        <section className="contact-section" id="contact">
+        <section className="contact-section reveal" id="contact">
             {/* CTA Banner */}
-            <div className="contact-cta-wrapper">
+            <div className="contact-cta-wrapper reveal">
                 <div className="contact-cta">
                     <div className="contact-cta-content">
                         <h3>{t('contact_cta_title')}</h3>
@@ -119,7 +114,7 @@ const Contact = () => {
             {/* Main Contact Content */}
             <div className="contact-container">
                 {/* Left Column - Details */}
-                <div className="contact-info">
+                <div className="contact-info reveal reveal-delay-1">
                     <h2>{t('contact_title')}</h2>
 
                     <div className="contact-details">
@@ -145,7 +140,7 @@ const Contact = () => {
                             </div>
                             <div className="contact-text">
                                 <h4>{t('contact_phone')}</h4>
-                                {CONTACT_INFO.phone.map((phone, index) => (
+                                {contactInfo.phone.map((phone, index) => (
                                     <p key={index}>{phone}</p>
                                 ))}
                             </div>
@@ -160,7 +155,7 @@ const Contact = () => {
                             </div>
                             <div className="contact-text">
                                 <h4>{t('contact_email')}</h4>
-                                <p>{CONTACT_INFO.email}</p>
+                                <p>{contactInfo.email}</p>
                             </div>
                         </div>
 
@@ -173,14 +168,14 @@ const Contact = () => {
                             </div>
                             <div className="contact-text">
                                 <h4>{t('contact_website')}</h4>
-                                <p>{CONTACT_INFO.website}</p>
+                                <p>{contactInfo.website}</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 {/* Right Column - Form */}
-                <div className="contact-form-wrapper">
+                <div className="contact-form-wrapper reveal reveal-delay-2">
                     <form className="contact-form" onSubmit={handleSubmit}>
                         <div className="form-group">
                             <label>{t('form_name')}</label>
@@ -203,7 +198,7 @@ const Contact = () => {
                                 value={formData.email}
                                 onChange={handleChange}
                                 className={`form-input ${errors.email ? 'error' : ''}`}
-                                placeholder="global.uz@gmail.com*"
+                                placeholder={`${t('form_email_placeholder')}*`}
                             />
                             {errors.email && <span className="error-message">{errors.email}</span>}
                         </div>
@@ -244,12 +239,7 @@ const Contact = () => {
                 </div>
             </div>
 
-            <PriceModal
-                isOpen={isPopupOpen}
-                onClose={closePopup}
-                productTitle={t('modal_info_title')}
-            />
-        </section >
+        </section>
     );
 };
 

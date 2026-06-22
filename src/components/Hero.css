@@ -1,30 +1,3 @@
-/* Animations */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes float {
-    0% {
-        transform: translate(0px, 0px) scale(1.1);
-    }
-
-    50% {
-        transform: translate(-10px, -15px) scale(1.1);
-    }
-
-    100% {
-        transform: translate(0px, 0px) scale(1.1);
-    }
-}
-
 .hero {
     width: 100%;
     min-height: 100vh;
@@ -74,68 +47,49 @@
 }
 
 .hero-content h1 {
-    font-size: clamp(2.5rem, 5vw, 5rem);
-    /* Reduced max size to prevent wrapping */
-    /* Responsive font size */
+    font-family: var(--font-family-heading);
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
     font-weight: 800;
-    /* Extra bold */
-    color: #2A2A2A;
-    /* Darker black/grey */
+    color: var(--color-text-dark);
     margin-bottom: 24px;
-    line-height: 1.1;
-    text-transform: uppercase;
-    letter-spacing: -0.02em;
-    /* Tighter letter spacing for impactful headers */
-    opacity: 0;
-    animation: fadeInUp 0.8s ease-out forwards;
+    line-height: 1.05;
+    text-transform: none; /* Changed from uppercase for Playfair Display elegance */
+    letter-spacing: -0.01em;
 }
 
 .hero-content p {
-    font-size: clamp(1.1rem, 1.5vw, 1.35rem);
-    color: #555;
+    font-size: clamp(1.1rem, 1.5vw, 1.4rem);
+    color: var(--color-text-muted);
     margin-bottom: 40px;
     font-weight: 400;
     max-width: 600px;
-    opacity: 0;
-    animation: fadeInUp 0.8s ease-out 0.2s forwards;
-    /* Delay */
 }
 
 .btn-primary {
-    background: linear-gradient(110deg, var(--color-primary) 70%, #222 70%);
-    /* Sharp angled split */
+    background: linear-gradient(110deg, var(--color-primary) 70%, #2A2A2A 70%);
     background-size: 250% 100%;
-    /* Extra width for sliding effect */
     background-position: 80% 0;
-    /* Align split */
     color: white;
     padding: 22px 50px;
     border: none;
     border-radius: 60px;
     font-size: 1.15rem;
     cursor: pointer;
-    font-family: inherit;
+    font-family: var(--font-family-body);
     font-weight: 700;
-    box-shadow: 0 15px 30px rgba(81, 94, 59, 0.3);
-    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: none; /* Removed shadow per request */
+    transition: var(--transition-smooth);
     position: relative;
     overflow: hidden;
     letter-spacing: 0.02em;
-    opacity: 0;
-    animation: fadeInUp 0.8s ease-out 0.4s forwards;
-    white-space: normal;
-    /* Allow text to wrap on mobile */
-    max-width: 100%;
-    /* Prevent overflow */
 }
 
-.btn-primary:hover {
-    background-position: 10% 0;
-    /* Slide the dark section across or away */
-    padding-right: 60px;
-    /* Subtle expansion */
-    box-shadow: 0 20px 40px rgba(81, 94, 59, 0.5);
-    transform: translateY(-4px);
+@media (hover: hover) {
+    .btn-primary:hover {
+        background-position: 10% 0;
+        transform: translateY(-2px);
+        box-shadow: none;
+    }
 }
 
 .btn-primary:active {
@@ -175,148 +129,110 @@
     }
 }
 
-/* Mobile Layout (Stacked) - Starts below iPad width */
-@media (max-width: 750px) {
+/* Mobile Layout */
+@media (max-width: 640px) {
     .hero {
-        min-height: 90vh;
-        background-image: url('/images/mobile-main-hero-image.png');
-        background-size: 100%;
-        background-repeat: no-repeat;
-        background-position: center bottom;
-        justify-content: center;
-        padding: 80px 5% 80px;
-        align-items: center;
+        /* Locked to exactly one viewport — stats cannot bleed through */
+        height: 100svh;
+        min-height: unset;
         flex-direction: column;
+        /* Center the whole image+content block, space fills above & below */
+        justify-content: center;
+        align-items: center;
+        /* Push center down to account for the fixed navbar */
+        padding-top: 72px;
+        padding-left: 0;
+        padding-right: 0;
+        padding-bottom: 0;
+        overflow: hidden;
+        background-image: none;
+        background-color: var(--color-secondary);
     }
 
-    .hero-image {
+    .hero::before {
         display: none;
     }
 
-    .hero::before {
-        width: 100%;
-        height: 60%;
-        background: linear-gradient(to bottom, var(--color-secondary) 0%, var(--color-secondary) 50%, rgba(245, 244, 240, 0.1) 100%);
+    /* ---- IMAGE FIRST (natural size, sits above content) ---- */
+    .hero-image {
+        order: -1;
+        flex: 0 0 auto;
+        width: 85%;
+        /* Fixed comfortable height — not too big, not too small */
+        height: 220px;
+        background-image: url('/images/mobile-main-hero-image.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-color: transparent;
+        /* Small gap between image and text */
+        margin-bottom: 16px;
     }
 
+    .hero-image img {
+        display: none;
+    }
+
+    /* ---- TEXT + BUTTON directly below image ---- */
     .hero-content {
+        order: 0;
+        flex: 0 0 auto;
         text-align: center;
-        max-width: 100%;
-        padding: 0;
-        margin-top: 20px;
+        padding: 0 7%;
         width: 100%;
+        z-index: 2;
+        box-sizing: border-box;
     }
 
     .hero-content h1 {
-        font-size: 2.2rem;
-        margin-bottom: 16px;
+        font-size: clamp(1.5rem, 5.5vw, 2.1rem);
+        margin-bottom: 8px;
         line-height: 1.2;
+        opacity: 1;
+        animation: none;
     }
 
     .hero-content p {
-        font-size: 1rem;
-        margin-bottom: 24px;
-        padding: 0 10px;
+        font-size: clamp(0.82rem, 3.2vw, 0.92rem);
+        margin-bottom: 20px;
+        padding: 0;
+        max-width: 100%;
+        opacity: 1;
+        animation: none;
     }
 
     .btn-primary {
-        font-size: 0.95rem;
-        padding: 16px 24px;
-        width: 90%;
-        max-width: 320px;
+        font-size: clamp(0.82rem, 3.2vw, 0.92rem);
+        padding: 12px 26px;
+        width: auto;
         margin: 0 auto;
         display: block;
+        opacity: 1;
+        animation: none;
     }
 }
 
-@media (max-width: 480px) {
-    .hero {
-        background-size: 100%;
-        background-position: center bottom;
-        padding: 80px 20px 80px;
-    }
-
-    .hero::before {
-        height: 55%;
-    }
-
-    .hero-content h1 {
-        font-size: 1.75rem;
-        /* Smaller for very small screens */
-    }
-
-    .hero-content p {
-        font-size: 0.9rem;
-    }
-
-    .btn-primary {
-        font-size: 0.8rem;
-        padding: 12px 16px;
-        width: auto;
-        /* Allow it to shrink if needed, or keep max-width but smaller padding */
-        max-width: 100%;
+/* Short phones (e.g. older iPhones, slim landscape-ish) — shrink image */
+@media (max-width: 640px) and (max-height: 700px) {
+    .hero-image {
+        height: 170px;
+        margin-bottom: 12px;
     }
 }
 
-/* Mobile S (320px) */
-/* Mobile M (375px - 414px) */
-/* Mobile M (375px - 414px) */
-/* Mobile M & L (375px - 425px) */
-@media (max-width: 430px) {
-    .hero {
-        padding: 50px 20px 50px;
-        /* Reduced vertical padding further */
-        background-position: center 110%;
-        /* Push image down slightly so button doesn't cover it */
-    }
-
-    .hero-content {
-        margin-top: 10px;
-    }
-
-    .hero-content h1 {
-        font-size: 1.5rem;
-        /* Reduced from 1.6rem to prevent excessive wrapping */
-        margin-bottom: 20px;
-    }
-
-    .hero-content p {
-        font-size: 0.95rem;
-        margin-bottom: 30px;
-        padding: 0 5px;
-    }
-
-    .btn-primary {
-        font-size: 0.85rem;
-        padding: 14px 24px;
-        width: 100%;
-        max-width: 300px;
-        margin: 0 auto;
-    }
-}
-
-/* Mobile S (320px) */
+/* Extra-small phones */
 @media (max-width: 360px) {
     .hero {
-        padding: 60px 15px 60px;
-        /* Reduced vertical padding */
+        padding-top: 64px;
+    }
+
+    .hero-image {
+        height: 190px;
+        width: 90%;
     }
 
     .hero-content h1 {
-        font-size: 1.5rem;
-        /* Further reduced */
-    }
-
-    .hero-content p {
-        font-size: 0.85rem;
-        margin-bottom: 20px;
-    }
-
-    .btn-primary {
-        font-size: 0.75rem;
-        padding: 10px 15px;
-        width: 100%;
-        /* Full width on tiny screens looks better */
+        font-size: 1.35rem;
     }
 }
 
