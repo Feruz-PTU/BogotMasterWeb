@@ -28,7 +28,6 @@ function App() {
                     <Route path="/contact" element={<ContactPage addToast={addToast} />} />
                     <Route path="/admin/login" element={<AdminLogin />} />
                     <Route path="/admin" element={<AdminDashboard />} />
-                    <Route path="/admin/products/new" element={<AdminDashboard />} />
                     <Route path="/admin/products/:productSlug" element={<AdminDashboard />} />
                     <Route path="/admin/:tab" element={<AdminDashboard />} />
                     <Route path="*" element={<NotFound />} />
