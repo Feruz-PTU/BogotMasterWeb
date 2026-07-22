@@ -1,0 +1,334 @@
+﻿<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HAYOT CHIPS — 2 kg karton qadoq dizayni (400 × 300 × 150 mm) · UZ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold:#E8A93C; --gold-deep:#C8862E; --gold-light:#F5CE7E;
+    --white:#FEFDF9; --green:#3F5D28; --green-mid:#5C8A3A; --green-light:#8FBF5A; --green-pale:#EFF6E4;
+    --brown:#5E3F22; --brown-mid:#8A5A28; --kraft:#C9A876;
+    --orange:#E87A2C; --yellow:#F6C445;
+    --ink:#3A2C1B; --paper:#F4F2EC; --card:#FFFFFF; --line:#E4DFD4;
+    --cut:#8A5A28; --crease:#5C8A3A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Nunito Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.5}
+  h1,h2,h3{font-family:'Baloo 2',cursive}
+  .mono{font-family:'IBM Plex Mono',monospace}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+  header.doc{padding:36px 0 20px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  header.doc .brandline{display:flex;align-items:center;gap:16px}
+  header.doc svg{height:52px;width:auto}
+  .doc-meta{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#7a6f5d;text-align:right;line-height:1.7}
+  .doc-title{font-size:15px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--brown)}
+  .doc-sub{font-size:13px;color:#7a6f5d}
+
+  section{margin:0 0 34px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:20px 26px 0;flex-wrap:wrap}
+  .sec-head h2{font-size:24px;color:var(--brown)}
+  .sec-head .tag{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#8a7f6c;letter-spacing:.03em}
+
+  /* ---------- 3D studio ---------- */
+  .studio{background:#fff;padding:60px 20px 40px;display:flex;flex-direction:column;align-items:center;gap:8px}
+  .stage{width:min(760px,100%);height:520px;display:flex;align-items:center;justify-content:center;perspective:1600px;perspective-origin:50% 30%}
+  .box3d{position:relative;width:400px;height:150px;transform-style:preserve-3d;
+         transform:rotateX(-24deg) rotateY(-32deg);animation:hover 7s ease-in-out infinite}
+  @keyframes hover{0%,100%{transform:rotateX(-24deg) rotateY(-32deg) translateY(0)}50%{transform:rotateX(-24deg) rotateY(-30deg) translateY(-10px)}}
+  @media (prefers-reduced-motion: reduce){.box3d{animation:none}}
+  .face{position:absolute;top:0;left:0;backface-visibility:hidden;box-shadow:inset 0 0 0 1px rgba(94,63,34,.10)}
+  .face svg{display:block;width:100%;height:100%}
+  .f-front {width:400px;height:150px;transform:translateZ(150px)}
+  .f-back  {width:400px;height:150px;transform:rotateY(180deg) translateZ(150px)}
+  .f-right {width:300px;height:150px;left:50px;transform:rotateY(90deg) translateZ(200px)}
+  .f-left  {width:300px;height:150px;left:50px;transform:rotateY(-90deg) translateZ(200px)}
+  .f-top   {width:400px;height:300px;top:-75px;transform:rotateX(90deg) translateZ(75px)}
+  .f-bottom{width:400px;height:300px;top:-75px;transform:rotateX(-90deg) translateZ(75px)}
+  .shade{position:absolute;inset:0;pointer-events:none}
+  .f-front  .shade{background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(94,63,34,.06))}
+  .f-right  .shade{background:linear-gradient(180deg,rgba(58,44,27,.16),rgba(58,44,27,.26))}
+  .f-top    .shade{background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,0))}
+  .floor{width:560px;height:64px;margin-top:-96px;border-radius:50%;
+         background:radial-gradient(ellipse at center,rgba(58,44,27,.26),rgba(58,44,27,0) 68%);
+         filter:blur(6px);transform:translateZ(0)}
+  .studio-caption{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#8a7f6c;margin-top:26px;text-align:center}
+
+  .spec-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));border-top:1px solid var(--line)}
+  .spec{padding:18px 26px;border-right:1px solid var(--line)}
+  .spec:last-child{border-right:0}
+  .spec .k{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#8a7f6c;margin-bottom:4px}
+  .spec .v{font-weight:700;font-size:15px;color:var(--brown)}
+
+  /* ---------- interaktiv 3D ko'rik ---------- */
+  .viewer{position:relative;height:600px;overflow:hidden;
+          background:radial-gradient(ellipse 80% 72% at 50% 34%,#ffffff,#f0ebde 74%,#e7e1d0);
+          display:flex;align-items:center;justify-content:center;
+          perspective:6800px;perspective-origin:50% 42%;
+          cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
+  .viewer.dragging{cursor:grabbing}
+  /* Geometriya 4× kattalikda quriladi va scale(.25) bilan kichraytiriladi —
+     shu tufayli har bir yuz 4× yuqori aniqlikda rasterlanadi (tiniq, xira emas). */
+  .viewer .box3d{animation:none;will-change:transform;width:1600px;height:600px;
+          transform:scale(.25) rotateX(-22deg) rotateY(-30deg)}
+  .viewer .f-front {width:1600px;height:600px;transform:translateZ(600px)}
+  .viewer .f-back  {width:1600px;height:600px;transform:rotateY(180deg) translateZ(600px)}
+  .viewer .f-right {width:1200px;height:600px;left:200px;transform:rotateY(90deg) translateZ(800px)}
+  .viewer .f-left  {width:1200px;height:600px;left:200px;transform:rotateY(-90deg) translateZ(800px)}
+  .viewer .f-top   {width:1600px;height:1200px;top:-300px;transform:rotateX(90deg) translateZ(300px)}
+  .viewer .f-bottom{width:1600px;height:1200px;top:-300px;transform:rotateX(-90deg) translateZ(300px)}
+  .viewer-floor{position:absolute;bottom:60px;width:500px;height:54px;border-radius:50%;
+          background:radial-gradient(ellipse at center,rgba(58,44,27,.20),rgba(58,44,27,0) 70%);
+          filter:blur(7px);pointer-events:none}
+  .viewer-hint{position:absolute;left:0;right:0;bottom:15px;text-align:center;
+          font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#a3987f;pointer-events:none}
+  .viewer-controls{position:absolute;top:14px;right:16px;display:flex;flex-direction:column;gap:8px;z-index:5}
+  .viewer-controls button{font-family:'IBM Plex Mono',monospace;font-size:17px;line-height:1;
+          width:36px;height:36px;border:1px solid var(--line);background:rgba(255,255,255,.94);
+          color:var(--brown);border-radius:10px;cursor:pointer;
+          display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+  .viewer-controls button:hover{background:var(--green-pale);border-color:var(--green-light)}
+  .viewer-controls button:active{transform:translateY(1px)}
+  @media (max-width:640px){.viewer{height:440px;perspective:4800px}}
+
+  /* ---------- dieline & panels ---------- */
+  .pad{padding:22px 26px 30px}
+  .dieline-scroll{overflow-x:auto}
+  .dieline-scroll svg{min-width:820px;width:100%;height:auto;display:block}
+  .legend{display:flex;gap:26px;flex-wrap:wrap;align-items:center;padding:14px 26px 22px;font-size:13px;color:#5c5344}
+  .legend .sw{display:inline-block;width:34px;height:0;border-top:2.5px solid var(--cut);vertical-align:middle;margin-right:8px}
+  .legend .sw.crease{border-top-style:dashed;border-top-color:var(--crease)}
+  .legend .note{font-size:12px;color:#8a7f6c}
+
+
+  footer{padding:10px 0 46px;font-size:12.5px;color:#8a7f6c;text-align:center}
+
+  @media print{
+    body{background:#fff}
+    .card{border:none;border-radius:0}
+    section{break-inside:avoid;page-break-inside:avoid;margin-bottom:18px}
+    .box3d{animation:none}
+  }
+  @media (max-width:640px){
+    .stage{height:420px;perspective:1100px}
+    .box3d{transform:scale(.72) rotateX(-24deg) rotateY(-32deg)}
+    @keyframes hover{0%,100%{transform:scale(.72) rotateX(-24deg) rotateY(-32deg)}50%{transform:scale(.72) rotateX(-24deg) rotateY(-30deg) translateY(-8px)}}
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════ UMUMIY SVG KUTUBXONASI — vacrispud-defs.js dan yuklanadi ══════════════════════ -->
+<script src="vacrispud-defs.js"></script>
+
+<div class="wrap">
+
+  <!-- ═══════ Hujjat sarlavhasi ═══════ -->
+  <header class="doc">
+    <div class="brandline">
+      <svg viewBox="0 0 252 52" role="img" aria-label="HAYOT CHIPS logotipi"><use href="#sLogo"/></svg>
+      <div>
+        <div class="doc-title">Qadoq Dizayni Taqdimoti</div>
+        <div class="doc-sub">Vakuumda qovurilgan kartoshka chipslari · 2 kg savdo kartoni</div>
+      </div>
+    </div>
+    <div class="doc-meta">
+      KARTON: 400 × 300 × 150 mm (U × K × B)<br>
+      MASSHTAB: 1 birlik = 1 mm · VEKTOR / BOSMAGA TAYYOR<br>
+      HUJJAT: VS-PKG-001 · KONSEPT v2.0 (UZ)
+    </div>
+  </header>
+
+  <!-- ═══════ 3D studiya ko'rinishi ═══════ -->
+  <section class="card">
+    <div class="sec-head">
+      <h2>01 · Interaktiv 3D Ko'rinish</h2>
+      <span class="tag">SICHQONCHADA AYLANTIRING · G'ILDIRAKDA ZUM</span>
+    </div>
+    <div class="viewer" id="viewer3d">
+      <div class="viewer-controls">
+        <button id="zoomIn" type="button" title="Kattalashtirish" aria-label="Kattalashtirish">+</button>
+        <button id="zoomOut" type="button" title="Kichraytirish" aria-label="Kichraytirish">&#8722;</button>
+        <button id="reset3d" type="button" title="Qayta o'rnatish" aria-label="Qayta o'rnatish">&#8635;</button>
+      </div>
+      <div class="viewer-floor"></div>
+      <div class="box3d" id="ibox">
+        <div class="face f-front"><svg viewBox="0 0 400 150"><use href="#pFront"/></svg></div>
+        <div class="face f-back"><svg viewBox="0 0 400 150"><use href="#pBack"/></svg></div>
+        <div class="face f-right"><svg viewBox="0 0 300 150"><use href="#pRight"/></svg></div>
+        <div class="face f-left"><svg viewBox="0 0 300 150"><use href="#pLeft"/></svg></div>
+        <div class="face f-top"><svg viewBox="0 0 400 300"><use href="#pTop"/></svg></div>
+        <div class="face f-bottom"><svg viewBox="0 0 400 300"><use href="#pBottom"/></svg></div>
+      </div>
+      <div class="viewer-hint">Aylantirish uchun bosib torting · zum uchun g&#39;ildirak · ikki marta bosib qayta o&#39;rnating</div>
+    </div>
+    <div class="spec-strip">
+      <div class="spec"><div class="k">Tashqi o'lchamlar</div><div class="v">400 × 300 × 150 mm</div></div>
+      <div class="spec"><div class="k">Sof og'irlik</div><div class="v">2 kg (2000 g)</div></div>
+      <div class="spec"><div class="k">Material</div><div class="v">E-flute gofrokarton</div></div>
+      <div class="spec"><div class="k">Bosma pardozi</div><div class="v">Mat lak, 4 rangli ofset</div></div>
+      <div class="spec"><div class="k">Grafika</div><div class="v">100% vektor · istalgan o'lchamda aniq</div></div>
+    </div>
+  </section>
+
+  <!-- ═══════ Dieline ═══════ -->
+  <section class="card">
+    <div class="sec-head">
+      <h2>02 · Yoyilgan Dieline — Barcha Olti Panel</h2>
+      <span class="tag">ORTOGRAFIK · 1 BIRLIK = 1 mm</span>
+    </div>
+    <div class="pad dieline-scroll">
+      <svg viewBox="0 0 1150 1050" font-family="'IBM Plex Mono',monospace">
+        <use href="#pLeft"   x="70"  y="370" width="300" height="150"/>
+        <use href="#pTop"    x="370" y="70"  width="400" height="300"/>
+        <use href="#pFront"  x="370" y="370" width="400" height="150"/>
+        <use href="#pRight"  x="770" y="370" width="300" height="150"/>
+        <use href="#pBottom" x="370" y="520" width="400" height="300"/>
+        <use href="#pBack"   x="370" y="820" width="400" height="150"/>
+        <path d="M1070 378 L1092 386 L1092 504 L1070 512 Z" fill="#EADFC8" stroke="#8A5A28" stroke-width="2"/>
+        <text x="1081" y="450" font-size="9" fill="#8A5A28" text-anchor="middle" transform="rotate(90 1081 450)">YELIM TILI</text>
+        <path d="M370 70 L770 70 L770 370 L1070 370 L1070 378 L1092 386 L1092 504 L1070 512 L1070 520 L770 520 L770 970 L370 970 L370 520 L70 520 L70 370 L370 370 Z"
+              fill="none" stroke="#8A5A28" stroke-width="2.6"/>
+        <g stroke="#5C8A3A" stroke-width="2" stroke-dasharray="9 6" fill="none">
+          <line x1="370" y1="370" x2="770" y2="370"/>
+          <line x1="370" y1="520" x2="770" y2="520"/>
+          <line x1="370" y1="370" x2="370" y2="520"/>
+          <line x1="770" y1="370" x2="770" y2="520"/>
+          <line x1="370" y1="820" x2="770" y2="820"/>
+          <line x1="1070" y1="378" x2="1070" y2="512"/>
+        </g>
+        <g font-size="11" fill="#6b6152" letter-spacing="1">
+          <text x="570" y="60" text-anchor="middle">USTKI · 400 × 300</text>
+          <text x="220" y="362" text-anchor="middle">CHAP YON · 300 × 150</text>
+          <text x="920" y="362" text-anchor="middle">O'NG YON · 300 × 150</text>
+          <text x="220" y="393" text-anchor="middle" fill="#8a7f6c" font-size="10">▾ yuqoriga buklanadi</text>
+          <text x="570" y="393" text-anchor="middle" fill="#8a7f6c" font-size="10">OLD · 400 × 150</text>
+          <text x="570" y="545" text-anchor="middle" fill="#8a7f6c" font-size="10">OSTKI · 400 × 300</text>
+          <text x="570" y="845" text-anchor="middle" fill="#8a7f6c" font-size="10">ORQA · 400 × 150</text>
+        </g>
+        <g stroke="#6b6152" stroke-width="1.4" fill="#6b6152" font-size="14">
+          <line x1="370" y1="42" x2="770" y2="42" marker-start="url(#arr)" marker-end="url(#arr)"/>
+          <line x1="370" y1="34" x2="370" y2="66" stroke-width="1"/><line x1="770" y1="34" x2="770" y2="66" stroke-width="1"/>
+          <text x="570" y="32" text-anchor="middle" stroke="none">400 mm</text>
+
+          <line x1="340" y1="70" x2="340" y2="370" marker-start="url(#arr)" marker-end="url(#arr)"/>
+          <line x1="332" y1="70" x2="366" y2="70" stroke-width="1"/><line x1="332" y1="370" x2="366" y2="370" stroke-width="1"/>
+          <text x="326" y="226" text-anchor="middle" stroke="none" transform="rotate(-90 326 226)">300 mm</text>
+
+          <line x1="1118" y1="370" x2="1118" y2="520" marker-start="url(#arr)" marker-end="url(#arr)"/>
+          <line x1="1096" y1="370" x2="1126" y2="370" stroke-width="1"/><line x1="1096" y1="520" x2="1126" y2="520" stroke-width="1"/>
+          <text x="1140" y="450" text-anchor="middle" stroke="none" transform="rotate(-90 1140 450)">150 mm</text>
+
+          <line x1="70" y1="548" x2="370" y2="548" marker-start="url(#arr)" marker-end="url(#arr)"/>
+          <line x1="70" y1="540" x2="70" y2="556" stroke-width="1"/><line x1="370" y1="540" x2="370" y2="556" stroke-width="1"/>
+          <text x="220" y="572" text-anchor="middle" stroke="none">300 mm</text>
+
+          <line x1="342" y1="820" x2="342" y2="970" marker-start="url(#arr)" marker-end="url(#arr)"/>
+          <line x1="334" y1="820" x2="366" y2="820" stroke-width="1"/><line x1="334" y1="970" x2="366" y2="970" stroke-width="1"/>
+          <text x="326" y="895" text-anchor="middle" stroke="none" transform="rotate(-90 326 895)">150 mm</text>
+        </g>
+        <g transform="translate(790,590)" font-size="12" fill="#6b6152">
+          <rect width="300" height="180" fill="#fff" stroke="#CFC8B8" stroke-width="1.4"/>
+          <text x="16" y="30" font-family="'Baloo 2',cursive" font-size="17" fill="#5E3F22" font-weight="700">HAYOT CHIPS · 2 kg karton</text>
+          <line x1="16" y1="42" x2="284" y2="42" stroke="#E4DFD4"/>
+          <text x="16" y="64">U × K × B: 400 × 300 × 150 mm</text>
+          <text x="16" y="86">Masshtab: 1 birlik = 1 mm</text>
+          <text x="16" y="108">Karton: E-flute gofro, mat lak</text>
+          <text x="16" y="130">Bleed: 3 mm barcha kesish qirralari</text>
+          <text x="16" y="152">Hujjat: VS-PKG-001 · v2.0 (UZ)</text>
+        </g>
+      </svg>
+    </div>
+    <div class="legend">
+      <span><span class="sw"></span>Kesish chizig'i</span>
+      <span><span class="sw crease"></span>Buklash chizig'i</span>
+      <span class="note">Taqdimot dieline'i — qolip tayyorlashdan oldin ishlab chiqaruvchi chang qopqoqlari, qulf tillari va 3 mm bleed qo'shadi.</span>
+    </div>
+  </section>
+
+  <!-- ═══════ Panellar alohida — vacrispud-panellar-uz.html ga ko'chirildi ═══════ -->
+  <section class="card">
+    <div class="sec-head">
+      <h2>03 · Har Bir Panel Alohida (Ortografik)</h2>
+      <span class="tag">ALOHIDA FAYLGA KO'CHIRILDI</span>
+    </div>
+    <div class="pad">
+      Har bir panelning ortografik ko'rinishi endi alohida sahifada — qutining muayyan tomoniga
+      e'tibor qaratish uchun: <a href="vacrispud-panellar-uz.html"><strong>vacrispud-panellar-uz.html</strong></a>
+    </div>
+  </section>
+
+  <footer>
+    HAYOT CHIPS — ushbu dizayn kontsepti uchun yaratilgan xayoliy brend. Barcha grafika original vektor illyustratsiya —
+    istalgan o'lchamda bosmaga tayyor. Brauzerda oching · sahifalangan taqdimot uchun Print / Save as PDF dan foydalaning.
+  </footer>
+</div>
+
+<!-- ═══════ Interaktiv 3D boshqaruvi ═══════ -->
+<script>
+(function(){
+  var viewer=document.getElementById('viewer3d');
+  var box=document.getElementById('ibox');
+  if(!viewer||!box) return;
+
+  var HOME={rx:-22, ry:-30, zoom:1};
+  var rx=HOME.rx, ry=HOME.ry, zoom=HOME.zoom;
+  var auto=true, dragging=false, lastX=0, lastY=0;
+
+  var SS=4; // supersampling: geometriya SS× katta, shuning uchun scale(zoom/SS)
+  function clampZoom(z){ return Math.min(2.6, Math.max(0.4, z)); }
+  function apply(){
+    box.style.transform='scale('+(zoom/SS).toFixed(4)+') rotateX('+rx.toFixed(2)+'deg) rotateY('+ry.toFixed(2)+'deg)';
+  }
+  var raf=null;
+  function spin(){ if(!auto){ raf=null; return; } ry+=0.22; apply(); raf=requestAnimationFrame(spin); }
+  function startSpin(){ if(auto && raf===null) raf=requestAnimationFrame(spin); }
+  function stopSpin(){ auto=false; if(raf!==null){ cancelAnimationFrame(raf); raf=null; } }
+  function home(keepAuto){ rx=HOME.rx; ry=HOME.ry; zoom=HOME.zoom; apply(); if(keepAuto){ auto=true; startSpin(); } else { auto=false; } }
+  apply();
+  startSpin(); // sekin bo'sh aylanish — birinchi ta'sirgacha
+
+  viewer.addEventListener('pointerdown',function(e){
+    dragging=true; stopSpin(); lastX=e.clientX; lastY=e.clientY;
+    viewer.classList.add('dragging');
+    try{ viewer.setPointerCapture(e.pointerId); }catch(_){}
+  });
+  viewer.addEventListener('pointermove',function(e){
+    if(!dragging) return;
+    ry += (e.clientX-lastX)*0.4;
+    rx -= (e.clientY-lastY)*0.4;
+    lastX=e.clientX; lastY=e.clientY;
+    apply();
+  });
+  function stopDrag(){ if(dragging){ dragging=false; viewer.classList.remove('dragging'); } }
+  viewer.addEventListener('pointerup',stopDrag);
+  viewer.addEventListener('pointercancel',stopDrag);
+
+  viewer.addEventListener('wheel',function(e){
+    e.preventDefault();
+    stopSpin();
+    zoom=clampZoom(zoom*(e.deltaY<0?1.09:0.917));
+    apply();
+  },{passive:false});
+
+  viewer.addEventListener('dblclick',function(){ home(false); });
+
+  var zi=document.getElementById('zoomIn'),
+      zo=document.getElementById('zoomOut'),
+      rs=document.getElementById('reset3d');
+  if(zi) zi.addEventListener('click',function(){ zoom=clampZoom(zoom*1.15); apply(); });
+  if(zo) zo.addEventListener('click',function(){ zoom=clampZoom(zoom/1.15); apply(); });
+  if(rs) rs.addEventListener('click',function(){ home(true); });
+  // tugmalar bosilganda aylantirish boshlanmasin
+  [zi,zo,rs].forEach(function(b){ if(b) b.addEventListener('pointerdown',function(e){ e.stopPropagation(); }); });
+})();
+</script>
+
+</body>
+</html>
