@@ -488,6 +488,39 @@
     border-color: #f2eab3;
 }
 
+/* Inline hide-from-site (eye) quick-toggle */
+.admin-eye-toggle-sm {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border: 1px solid #e2dccb;
+    border-radius: 4px;
+    color: #a89a6b;
+    cursor: pointer;
+    transition: all 0.2s;
+    padding: 0;
+}
+
+.admin-eye-toggle-sm:hover {
+    background: #fdf0ee;
+    border-color: #f0cfc9;
+}
+
+.admin-eye-toggle-sm.active {
+    background: #fdf0ee;
+    color: #b04a3a;
+    border-color: #f0cfc9;
+}
+
+/* Hidden products stay manageable in admin but read as inactive */
+.admin-product-row.is-hidden > img,
+.admin-product-row.is-hidden .admin-product-row-info {
+    opacity: 0.45;
+}
+
 /* Inline featured (star) quick-toggle */
 .admin-star-toggle {
     display: inline-flex;

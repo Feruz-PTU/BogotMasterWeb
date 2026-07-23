@@ -371,7 +371,7 @@ const AdminDashboard = () => {
                 const defaults = { botanical_name: 'Glycyrrhiza glabra', origin: 'Uzbekistan', part_used: 'Root', cultivation: 'Wild + artificial', form_cut_type: '', cut_size: '', diameter_grade: '', processing: '', packaging: 'PP bags 25 kg', moq: '', moisture: '≤ 8%', ash: '≤ 9%', glycyrrhizin: '', foreign_matter: '≤ 1%', heavy_metals: 'Within WHO/EU limits', pesticide_residues: 'Within WHO/EU limits', tpc: '≤ 100,000 CFU/g', yeast_mould: '≤ 1,000 CFU/g', e_coli: 'Absent', salmonella: 'Absent', shelf_life: '24 months', storage: '≤ 25°C, cool dry, no sunlight', documents: [] };
                 const s = {}; langs.forEach(l => { s[l.code] = { ...defaults }; });
                 const langFields = {}; langs.forEach(l => { langFields[`title_${l.code}`] = ''; langFields[`desc_${l.code}`] = ''; });
-                setProductForm({ slug: '', ...langFields, featured: false, order: products.length > 0 ? Math.max(...products.map(p => p.order || 0)) + 1 : 1, image: '', specs: s });
+                setProductForm({ slug: '', ...langFields, featured: false, hidden: false, order: products.length > 0 ? Math.max(...products.map(p => p.order || 0)) + 1 : 1, image: '', specs: s });
                 setImageFile(null); setImagePreview('');
             }
             return;
@@ -474,6 +474,7 @@ const AdminDashboard = () => {
             slug: '',
             ...langFields,
             featured: false,
+            hidden: false,
             order: products.length > 0 ? Math.max(...products.map(p => p.order || 0)) + 1 : 1,
             image: '',
             specs: (() => {
@@ -647,8 +648,8 @@ const AdminDashboard = () => {
             cancelEdit(!isAdding);
             showToast(isAdding ? 'Product added.' : 'Product saved.');
         } catch (err) {
-            console.error(err);
-            showToast('Error saving product.');
+            console.error('[saveProduct]', err);
+            showToast(`Error saving product: ${err?.message || err}`);
         } finally {
             setProductSaving(false);
         }
@@ -683,6 +684,18 @@ const AdminDashboard = () => {
         try {
             await saveProduct(updated);
             showToast(updated.featured ? 'Added to Home (featured).' : 'Removed from Home.');
+        } catch {
+            setProducts(prev => prev.map(p => (p.slug === product.slug ? product : p)));
+            showToast('Error updating product.');
+        }
+    };
+
+    const toggleHidden = async (product) => {
+        const updated = { ...product, hidden: !product.hidden };
+        setProducts(prev => prev.map(p => (p.slug === product.slug ? updated : p)));
+        try {
+            await saveProduct(updated);
+            showToast(updated.hidden ? 'Product hidden from the site.' : 'Product visible on the site.');
         } catch {
             setProducts(prev => prev.map(p => (p.slug === product.slug ? product : p)));
             showToast('Error updating product.');
@@ -1981,7 +1994,7 @@ const AdminDashboard = () => {
                                             pagedProducts.map((product, index) => {
                                                 const globalIndex = productsPage * PRODUCTS_PER_PAGE + index;
                                                 return (
-                                                <div key={product.slug} className="admin-product-row">
+                                                <div key={product.slug} className={`admin-product-row ${product.hidden ? 'is-hidden' : ''}`}>
                                                     {canReorder && (
                                                         <div className="admin-reorder">
                                                             <button
@@ -2015,6 +2028,26 @@ const AdminDashboard = () => {
                                                             <svg viewBox="0 0 24 24" width="14" height="14" fill={product.featured ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                                                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                                                             </svg>
+                                                        </button>
+                                                        <button
+                                                            className={`admin-eye-toggle-sm ${product.hidden ? 'active' : ''}`}
+                                                            onClick={() => toggleHidden(product)}
+                                                            title={product.hidden ? 'Hidden from the site — click to show' : 'Click to hide from the site'}
+                                                            aria-pressed={!!product.hidden}
+                                                        >
+                                                            {product.hidden ? (
+                                                                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                                                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
+                                                                    <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
+                                                                    <path d="M14.12 14.12a3 3 0 1 1-4.24-4.24" />
+                                                                    <line x1="1" y1="1" x2="23" y2="23" />
+                                                                </svg>
+                                                            ) : (
+                                                                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                                                    <circle cx="12" cy="12" r="3" />
+                                                                </svg>
+                                                            )}
                                                         </button>
                                                     </div>
                                                     <img src={product.image} alt={product.title_en} />

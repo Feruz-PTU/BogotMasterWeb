@@ -37,7 +37,8 @@ export const ContentProvider = ({ children }) => {
 
     const lang = language || 'ru';
 
-    const products = rawProducts.map(p => ({
+    // Products flagged `hidden` in the admin panel never reach the public site.
+    const products = rawProducts.filter(p => !p.hidden).map(p => ({
         ...p,
         title: p[`title_${lang}`] || p.title_ru || '',
         description: p[`desc_${lang}`] || p.desc_ru || '',
