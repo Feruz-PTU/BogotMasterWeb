@@ -64,7 +64,7 @@
     border: 3px solid white;
 }
 
-/* Portrait image â€” anchor slightly above center so head is visible */
+/* Portrait image — anchor slightly above center so head is visible */
 .image-secondary img {
     object-position: left 5%;
 }
@@ -190,7 +190,7 @@
     }
 }
 
-/* â”€â”€ About Page Extra Sections â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── About Page Extra Sections ───────────────────────────────────────────── */
 .about-extra-section {
     padding: 80px 5%;
     background-color: white;

@@ -1,4 +1,4 @@
-/* â”€â”€ Featured products section â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Featured products section ───────────────────────────────────────────── */
 .home-products-section {
     padding: 100px 7%;
     background-color: #fff;
@@ -159,7 +159,7 @@
     }
 }
 
-/* â”€â”€ About snippet â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── About snippet ────────────────────────────────────────────────────────── */
 .home-about-snippet {
     padding: 72px 7% 64px;
     background-color: var(--color-secondary);
@@ -257,7 +257,7 @@
     }
 }
 
-/* â”€â”€ Responsive â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Responsive ───────────────────────────────────────────────────────────── */
 @media (max-width: 1200px) {
     .home-products-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -273,7 +273,7 @@
         padding: 60px 7%;
     }
 
-    /* â”€â”€ About snippet tablet/mobile layout â”€â”€ */
+    /* ── About snippet tablet/mobile layout ── */
     .home-about-snippet {
         padding: 60px 7%;
     }
@@ -367,12 +367,12 @@
 }
 
 @media (max-width: 600px) {
-    /* â”€â”€ Section wrapper â”€â”€ */
+    /* ── Section wrapper ── */
     .home-products-section {
         padding: 48px 4% 56px;
     }
 
-    /* â”€â”€ Header: title stacked above "view all" link, centered â”€â”€ */
+    /* ── Header: title stacked above "view all" link, centered ── */
     .home-products-header {
         flex-direction: column;
         align-items: center;
@@ -390,13 +390,13 @@
         padding: 8px 22px;
     }
 
-    /* â”€â”€ 2-column grid, consistent on all phone widths â”€â”€ */
+    /* ── 2-column grid, consistent on all phone widths ── */
     .home-products-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
     }
 
-    /* â”€â”€ Card â”€â”€ */
+    /* ── Card ── */
     .home-product-card {
         padding: 10px;
         border-radius: 16px;
@@ -423,7 +423,7 @@
         line-height: 1.4;
     }
 
-    /* Price button â€” full-width, easy to tap (min 44px) */
+    /* Price button — full-width, easy to tap (min 44px) */
     .btn-price {
         padding: 12px 8px;
         font-size: 0.78rem;
@@ -431,7 +431,7 @@
         min-height: 44px;
     }
 
-    /* â”€â”€ Footer CTA â”€â”€ */
+    /* ── Footer CTA ── */
     .home-products-footer {
         margin-top: 28px;
     }

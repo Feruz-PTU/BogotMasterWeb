@@ -73,7 +73,7 @@ const TRANSLATION_GROUPS = [
             { key: 'process_label', label: 'Small label' },
             { key: 'process_title', label: 'Section title' },
             { key: 'process_subtitle', label: 'Subtitle', multiline: true },
-            { key: 'process_stage', label: 'Stage label (e.g. Stage/Ð­Ñ‚Ð°Ð¿)' },
+            { key: 'process_stage', label: 'Stage label (e.g. Stage/Этап)' },
             { key: 'process_1_title', label: 'Step 1 Title' },
             { key: 'process_1_desc', label: 'Step 1 Desc', multiline: true },
             { key: 'process_2_title', label: 'Step 2 Title' },
@@ -374,7 +374,7 @@ const AdminDashboard = () => {
                 setProdLangTab(firstLangCode());
                 setNewDocInput('');
                 const langs = adminTranslations.languages || [{ code: 'ru' }, { code: 'en' }];
-                const defaults = { botanical_name: 'Glycyrrhiza glabra', origin: 'Uzbekistan', part_used: 'Root', cultivation: 'Wild + artificial', form_cut_type: '', cut_size: '', diameter_grade: '', processing: '', packaging: 'PP bags 25 kg', moq: '', moisture: 'â‰¤ 8%', ash: 'â‰¤ 9%', glycyrrhizin: '', foreign_matter: 'â‰¤ 1%', heavy_metals: 'Within WHO/EU limits', pesticide_residues: 'Within WHO/EU limits', tpc: 'â‰¤ 100,000 CFU/g', yeast_mould: 'â‰¤ 1,000 CFU/g', e_coli: 'Absent', salmonella: 'Absent', shelf_life: '24 months', storage: 'â‰¤ 25Â°C, cool dry, no sunlight', documents: [] };
+                const defaults = { botanical_name: 'Glycyrrhiza glabra', origin: 'Uzbekistan', part_used: 'Root', cultivation: 'Wild + artificial', form_cut_type: '', cut_size: '', diameter_grade: '', processing: '', packaging: 'PP bags 25 kg', moq: '', moisture: '≤ 8%', ash: '≤ 9%', glycyrrhizin: '', foreign_matter: '≤ 1%', heavy_metals: 'Within WHO/EU limits', pesticide_residues: 'Within WHO/EU limits', tpc: '≤ 100,000 CFU/g', yeast_mould: '≤ 1,000 CFU/g', e_coli: 'Absent', salmonella: 'Absent', shelf_life: '24 months', storage: '≤ 25°C, cool dry, no sunlight', documents: [] };
                 const s = {}; langs.forEach(l => { s[l.code] = { ...defaults }; });
                 const langFields = {}; langs.forEach(l => { langFields[`title_${l.code}`] = ''; langFields[`desc_${l.code}`] = ''; });
                 setProductForm({ slug: '', ...langFields, featured: false, hidden: false, order: products.length > 0 ? Math.max(...products.map(p => p.order || 0)) + 1 : 1, image: '', specs: s });
@@ -445,14 +445,14 @@ const AdminDashboard = () => {
         onRebuildStatus((result) => {
             setToast(
                 result.success
-                    ? result.message || 'Rebuilding the siteâ€¦'
+                    ? result.message || 'Rebuilding the site…'
                     : `Saved, but the rebuild did not start: ${result.message}`
             );
             setTimeout(() => setToast(''), 6000);
         });
     }, []);
 
-    // â”€â”€ Products â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── Products ──────────────────────────────────────────────────────────────
 
     const firstLangCode = () => adminTranslations.languages?.[0]?.code || 'ru';
 
@@ -508,18 +508,18 @@ const AdminDashboard = () => {
                     processing: '',
                     packaging: 'PP bags 25 kg',
                     moq: '',
-                    moisture: 'â‰¤ 8%',
-                    ash: 'â‰¤ 9%',
+                    moisture: '≤ 8%',
+                    ash: '≤ 9%',
                     glycyrrhizin: '',
-                    foreign_matter: 'â‰¤ 1%',
+                    foreign_matter: '≤ 1%',
                     heavy_metals: 'Within WHO/EU limits',
                     pesticide_residues: 'Within WHO/EU limits',
-                    tpc: 'â‰¤ 100,000 CFU/g',
-                    yeast_mould: 'â‰¤ 1,000 CFU/g',
+                    tpc: '≤ 100,000 CFU/g',
+                    yeast_mould: '≤ 1,000 CFU/g',
                     e_coli: 'Absent',
                     salmonella: 'Absent',
                     shelf_life: '24 months',
-                    storage: 'â‰¤ 25Â°C, cool dry, no sunlight',
+                    storage: '≤ 25°C, cool dry, no sunlight',
                     documents: [],
                 };
                 const s = {};
@@ -562,7 +562,7 @@ const AdminDashboard = () => {
     };
 
 
-    // â”€â”€ Translations â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── Translations ──────────────────────────────────────────────────────────
 
     const handleTranslationChange = (langCode, key, value) => {
         setTranslationsDirty(true);
@@ -753,7 +753,7 @@ const AdminDashboard = () => {
     // Reorder is only meaningful on the full, unfiltered list.
     const canReorder = !searchTerm && !filterFeatured;
 
-    // â”€â”€ Settings â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── Settings ──────────────────────────────────────────────────────────────
 
     const handleSettingsChange = (key, value) => {
         setSettings(prev => ({ ...prev, [key]: value }));
@@ -777,7 +777,7 @@ const AdminDashboard = () => {
         }
     };
 
-    // â”€â”€ Inquiries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── Inquiries ─────────────────────────────────────────────────────────────
 
     const openInquiry = async (inq) => {
         setSelectedInquiry(inq);
@@ -850,7 +850,7 @@ const AdminDashboard = () => {
     const pagedProducts = filteredProducts.slice(productsPage * PRODUCTS_PER_PAGE, (productsPage + 1) * PRODUCTS_PER_PAGE);
     const pagedInquiries = filteredInquiries.slice(inqPage * INQ_PER_PAGE, (inqPage + 1) * INQ_PER_PAGE);
 
-    // â”€â”€ Gallery â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── Gallery ───────────────────────────────────────────────────────────────
 
     const handleGalleryUpload = async (files) => {
         const fileArr = Array.from(files).filter(f => f.type.startsWith('image/'));
@@ -907,7 +907,7 @@ const AdminDashboard = () => {
         });
     };
 
-    // â”€â”€ Seed â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── Seed ──────────────────────────────────────────────────────────────────
 
     const handleSeed = async () => {
         const seeded = await isDatabaseSeeded();
@@ -952,7 +952,7 @@ const AdminDashboard = () => {
         });
     };
 
-    // â”€â”€ Dashboard analytics (derived) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── Dashboard analytics (derived) ──────────────────────────────────────────
     const inqDate = (inq) => {
         const v = inq.createdAt || inq.timestamp;
         if (!v) return null;
@@ -1236,10 +1236,10 @@ const AdminDashboard = () => {
                 {/* Main content */}
                 <main className="admin-main">
 
-                    {/* â”€â”€ Loading skeleton (tab-aware) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+                    {/* ── Loading skeleton (tab-aware) ──────────────────────────── */}
                     {dataLoading && (tab === 'dashboard' || tab === 'products' || tab === 'inquiries' || tab === 'stats' || tab === 'gallery' || tab === 'settings') && (
                         <div className="admin-section">
-                            {/* â”€â”€ Loading Skeleton Header â”€â”€ */}
+                            {/* ── Loading Skeleton Header ── */}
                             {!(tab === 'inquiries') ? (
                                 <div className="admin-skeleton-header">
                                     <div className="admin-skel admin-skel-title" />
@@ -1280,7 +1280,7 @@ const AdminDashboard = () => {
                                 </div>
                             </>)}
 
-                            {/* Products skeleton â€” list rows */}
+                            {/* Products skeleton — list rows */}
                             {tab === 'products' && (
                                 <div className="admin-products-list">
                                     {[...Array(6)].map((_, i) => (
@@ -1296,7 +1296,7 @@ const AdminDashboard = () => {
                                 </div>
                             )}
 
-                            {/* Inquiries skeleton â€” list or detail */}
+                            {/* Inquiries skeleton — list or detail */}
                             {tab === 'inquiries' && (
                                 selectedInquiry ? (
                                     /* Detail skeleton */
@@ -1371,7 +1371,7 @@ const AdminDashboard = () => {
                                 )
                             )}
 
-                            {/* Stats skeleton â€” KPIs + two tall cards */}
+                            {/* Stats skeleton — KPIs + two tall cards */}
                             {tab === 'stats' && (<>
                                 <div className="admin-stats-grid" style={{gridTemplateColumns:'repeat(3,1fr)'}}>
                                     {[...Array(3)].map((_, i) => (
@@ -1385,7 +1385,7 @@ const AdminDashboard = () => {
                                 <div className="admin-skel admin-skel-card-tall" style={{marginTop:12}} />
                             </>)}
 
-                            {/* Gallery skeleton â€” upload bar + image grid */}
+                            {/* Gallery skeleton — upload bar + image grid */}
                             {tab === 'gallery' && (<>
                                 <div className="admin-skeleton-header">
                                     <div className="admin-skel admin-skel-title" style={{ width: 180 }} />
@@ -1399,7 +1399,7 @@ const AdminDashboard = () => {
                                 </div>
                             </>)}
 
-                            {/* Settings skeleton â€” section cards with field rows */}
+                            {/* Settings skeleton — section cards with field rows */}
                             {tab === 'settings' && (<>
                                 <div className="admin-skeleton-header">
                                     <div className="admin-skel admin-skel-title" style={{ width: 120 }} />
@@ -1427,8 +1427,8 @@ const AdminDashboard = () => {
                         </div>
                     )}
 
-                    {/* â”€â”€ Tab content (hidden while loading) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-                    {/* â”€â”€ Dashboard tab â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+                    {/* ── Tab content (hidden while loading) ────────────────────── */}
+                    {/* ── Dashboard tab ─────────────────────────────────────────── */}
                     {!dataLoading && tab === 'dashboard' && (
                         <div className="admin-section">
                             <div className="admin-section-header">
@@ -1466,10 +1466,10 @@ const AdminDashboard = () => {
 
                             {/* Charts row */}
                             <div className="admin-dash-grid">
-                                {/* Inquiries over 14 days â€” line chart */}
+                                {/* Inquiries over 14 days — line chart */}
                                 <div className="admin-card admin-card-wide">
                                     <div className="admin-card-head">
-                                        <h3>Inquiries â€” last {last30Days.length} days</h3>
+                                        <h3>Inquiries — last {last30Days.length} days</h3>
                                         <span className="admin-card-meta">{last30Days.reduce((s, d) => s + d.count, 0)} total</span>
                                     </div>
                                     {(() => {
@@ -1569,7 +1569,7 @@ const AdminDashboard = () => {
                                     })()}
                                 </div>
 
-                                {/* Inquiry type breakdown â€” donut */}
+                                {/* Inquiry type breakdown — donut */}
                                 <div className="admin-card">
                                     <div className="admin-card-head">
                                         <h3>Inquiry Types</h3>
@@ -1651,7 +1651,7 @@ const AdminDashboard = () => {
                                                         <strong>{inq.name}</strong>
                                                         <span>{inq.email}</span>
                                                     </div>
-                                                    <span className="admin-recent-date">{inqDate(inq)?.toLocaleDateString() || 'â€”'}</span>
+                                                    <span className="admin-recent-date">{inqDate(inq)?.toLocaleDateString() || '—'}</span>
                                                     {!inq.read && <span className="admin-unread-dot" />}
                                                 </div>
                                             ))}
@@ -1662,7 +1662,7 @@ const AdminDashboard = () => {
                         </div>
                     )}
 
-                    {/* â”€â”€ Products tab â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+                    {/* ── Products tab ──────────────────────────────────────────── */}
                     {!dataLoading && tab === 'products' && (
                         <div className="admin-section">
                             {!editingProduct && !isAdding && (
@@ -1685,7 +1685,7 @@ const AdminDashboard = () => {
                                     </div>
 
                                     <div className="admin-form-body">
-                                        {/* Left panel â€” image + meta */}
+                                        {/* Left panel — image + meta */}
                                         <div className="admin-form-aside">
                                             <input
                                                 type="file"
@@ -1753,7 +1753,7 @@ const AdminDashboard = () => {
                                             </div>
                                         </div>
 
-                                        {/* Right panel â€” titles + descriptions */}
+                                        {/* Right panel — titles + descriptions */}
                                         <div className="admin-form-fields">
                                             {(() => {
                                                 const langs = adminTranslations.languages || [{ code: 'ru', label: 'RU', name: 'Russian' }, { code: 'en', label: 'EN', name: 'English' }];
@@ -1762,7 +1762,7 @@ const AdminDashboard = () => {
                                                 return (
                                                     <>
                                                         <p className="admin-form-section-label">Translations</p>
-                                                        {/* Language picker â€” one language at a time keeps the form tidy with many languages */}
+                                                        {/* Language picker — one language at a time keeps the form tidy with many languages */}
                                                         <div className="admin-field admin-prod-lang-select">
                                                             <label>Editing language</label>
                                                             <select
@@ -1829,7 +1829,7 @@ const AdminDashboard = () => {
                                             {openSpecSections.physical && (<>
                                                 <div className="admin-fields-row">
                                                     <div className="admin-field"><label>Form / cut type</label><input value={productForm.specs?.[prodLangTab]?.form_cut_type || ''} onChange={e => handleSpecChange('form_cut_type', e.target.value)} placeholder="e.g. Fingers, Sticks, Powder" /></div>
-                                                    <div className="admin-field"><label>Cut size / length</label><input value={productForm.specs?.[prodLangTab]?.cut_size || ''} onChange={e => handleSpecChange('cut_size', e.target.value)} placeholder="e.g. 5â€“8 cm" /></div>
+                                                    <div className="admin-field"><label>Cut size / length</label><input value={productForm.specs?.[prodLangTab]?.cut_size || ''} onChange={e => handleSpecChange('cut_size', e.target.value)} placeholder="e.g. 5–8 cm" /></div>
                                                 </div>
                                                 <div className="admin-fields-row">
                                                     <div className="admin-field"><label>Diameter grade</label><input value={productForm.specs?.[prodLangTab]?.diameter_grade || ''} onChange={e => handleSpecChange('diameter_grade', e.target.value)} placeholder="e.g. A / B / C" /></div>
@@ -1848,12 +1848,12 @@ const AdminDashboard = () => {
                                             </button>
                                             {openSpecSections.quality && (<>
                                                 <div className="admin-fields-row">
-                                                    <div className="admin-field"><label>Moisture</label><input value={productForm.specs?.[prodLangTab]?.moisture || ''} onChange={e => handleSpecChange('moisture', e.target.value)} placeholder="â‰¤ 8%" /></div>
-                                                    <div className="admin-field"><label>Ash</label><input value={productForm.specs?.[prodLangTab]?.ash || ''} onChange={e => handleSpecChange('ash', e.target.value)} placeholder="â‰¤ 9%" /></div>
+                                                    <div className="admin-field"><label>Moisture</label><input value={productForm.specs?.[prodLangTab]?.moisture || ''} onChange={e => handleSpecChange('moisture', e.target.value)} placeholder="≤ 8%" /></div>
+                                                    <div className="admin-field"><label>Ash</label><input value={productForm.specs?.[prodLangTab]?.ash || ''} onChange={e => handleSpecChange('ash', e.target.value)} placeholder="≤ 9%" /></div>
                                                 </div>
                                                 <div className="admin-fields-row">
-                                                    <div className="admin-field"><label>Glycyrrhizin</label><input value={productForm.specs?.[prodLangTab]?.glycyrrhizin || ''} onChange={e => handleSpecChange('glycyrrhizin', e.target.value)} placeholder="â‰¥ 4% (root) / 8â€“12% (extract)" /></div>
-                                                    <div className="admin-field"><label>Foreign matter</label><input value={productForm.specs?.[prodLangTab]?.foreign_matter || ''} onChange={e => handleSpecChange('foreign_matter', e.target.value)} placeholder="â‰¤ 1%" /></div>
+                                                    <div className="admin-field"><label>Glycyrrhizin</label><input value={productForm.specs?.[prodLangTab]?.glycyrrhizin || ''} onChange={e => handleSpecChange('glycyrrhizin', e.target.value)} placeholder="≥ 4% (root) / 8–12% (extract)" /></div>
+                                                    <div className="admin-field"><label>Foreign matter</label><input value={productForm.specs?.[prodLangTab]?.foreign_matter || ''} onChange={e => handleSpecChange('foreign_matter', e.target.value)} placeholder="≤ 1%" /></div>
                                                 </div>
                                                 <div className="admin-fields-row">
                                                     <div className="admin-field"><label>Heavy metals</label><input value={productForm.specs?.[prodLangTab]?.heavy_metals || ''} onChange={e => handleSpecChange('heavy_metals', e.target.value)} placeholder="Within WHO/EU limits" /></div>
@@ -1868,8 +1868,8 @@ const AdminDashboard = () => {
                                             </button>
                                             {openSpecSections.microbiology && (<>
                                                 <div className="admin-fields-row">
-                                                    <div className="admin-field"><label>TPC</label><input value={productForm.specs?.[prodLangTab]?.tpc || ''} onChange={e => handleSpecChange('tpc', e.target.value)} placeholder="â‰¤ 100,000 CFU/g" /></div>
-                                                    <div className="admin-field"><label>Yeast & Mould</label><input value={productForm.specs?.[prodLangTab]?.yeast_mould || ''} onChange={e => handleSpecChange('yeast_mould', e.target.value)} placeholder="â‰¤ 1,000 CFU/g" /></div>
+                                                    <div className="admin-field"><label>TPC</label><input value={productForm.specs?.[prodLangTab]?.tpc || ''} onChange={e => handleSpecChange('tpc', e.target.value)} placeholder="≤ 100,000 CFU/g" /></div>
+                                                    <div className="admin-field"><label>Yeast & Mould</label><input value={productForm.specs?.[prodLangTab]?.yeast_mould || ''} onChange={e => handleSpecChange('yeast_mould', e.target.value)} placeholder="≤ 1,000 CFU/g" /></div>
                                                 </div>
                                                 <div className="admin-fields-row">
                                                     <div className="admin-field"><label>E. coli</label><input value={productForm.specs?.[prodLangTab]?.e_coli || ''} onChange={e => handleSpecChange('e_coli', e.target.value)} placeholder="Absent" /></div>
@@ -1885,7 +1885,7 @@ const AdminDashboard = () => {
                                             {openSpecSections.storage && (
                                                 <div className="admin-fields-row">
                                                     <div className="admin-field"><label>Shelf life</label><input value={productForm.specs?.[prodLangTab]?.shelf_life || ''} onChange={e => handleSpecChange('shelf_life', e.target.value)} placeholder="24 months" /></div>
-                                                    <div className="admin-field"><label>Storage conditions</label><input value={productForm.specs?.[prodLangTab]?.storage || ''} onChange={e => handleSpecChange('storage', e.target.value)} placeholder="â‰¤ 25Â°C, cool dry, no sunlight" /></div>
+                                                    <div className="admin-field"><label>Storage conditions</label><input value={productForm.specs?.[prodLangTab]?.storage || ''} onChange={e => handleSpecChange('storage', e.target.value)} placeholder="≤ 25°C, cool dry, no sunlight" /></div>
                                                 </div>
                                             )}
 
@@ -1958,7 +1958,7 @@ const AdminDashboard = () => {
                                                                         type="button"
                                                                         onClick={() => handleSpecChange('documents', currentDocs.filter((_, idx) => idx !== i))}
                                                                         aria-label="Remove"
-                                                                    >Ã—</button>
+                                                                    >×</button>
                                                                 </li>
                                                             ))}
                                                         </ul>
@@ -1975,7 +1975,7 @@ const AdminDashboard = () => {
                                             onClick={saveProductEdit}
                                             disabled={productSaving}
                                         >
-                                            {productSaving ? 'Savingâ€¦' : (isAdding ? 'Add Product' : 'Save Changes')}
+                                            {productSaving ? 'Saving…' : (isAdding ? 'Add Product' : 'Save Changes')}
                                         </button>
                                         <button className="admin-btn-secondary" onClick={() => cancelEdit(true)}>
                                             Cancel
@@ -2039,11 +2039,11 @@ const AdminDashboard = () => {
                                                         </div>
                                                     )}
                                                     <div className="admin-product-order-wrap">
-                                                        <span className="admin-product-order" title="Display order">{product.order ?? 'â€”'}</span>
+                                                        <span className="admin-product-order" title="Display order">{product.order ?? '—'}</span>
                                                         <button
                                                             className={`admin-star-toggle-sm ${product.featured ? 'active' : ''}`}
                                                             onClick={() => toggleFeatured(product)}
-                                                            title={product.featured ? 'Featured on Home â€” click to remove' : 'Click to feature on Home'}
+                                                            title={product.featured ? 'Featured on Home — click to remove' : 'Click to feature on Home'}
                                                             aria-pressed={!!product.featured}
                                                         >
                                                             <svg viewBox="0 0 24 24" width="14" height="14" fill={product.featured ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -2053,7 +2053,7 @@ const AdminDashboard = () => {
                                                         <button
                                                             className={`admin-eye-toggle-sm ${product.hidden ? 'active' : ''}`}
                                                             onClick={() => toggleHidden(product)}
-                                                            title={product.hidden ? 'Hidden from the site â€” click to show' : 'Click to hide from the site'}
+                                                            title={product.hidden ? 'Hidden from the site — click to show' : 'Click to hide from the site'}
                                                             aria-pressed={!!product.hidden}
                                                         >
                                                             {product.hidden ? (
@@ -2103,20 +2103,20 @@ const AdminDashboard = () => {
                                         )}
                                     </div>
                                     <div className="admin-pagination">
-                                        <button className="admin-page-btn" onClick={() => setProductsPage(p => p - 1)} disabled={productsPage === 0}>â€¹ Prev</button>
+                                        <button className="admin-page-btn" onClick={() => setProductsPage(p => p - 1)} disabled={productsPage === 0}>‹ Prev</button>
                                         <span className="admin-page-info">Page {productsPage + 1} of {Math.max(productsTotalPages, 1)}</span>
-                                        <button className="admin-page-btn" onClick={() => setProductsPage(p => p + 1)} disabled={productsPage >= productsTotalPages - 1 || productsTotalPages <= 1}>Next â€º</button>
+                                        <button className="admin-page-btn" onClick={() => setProductsPage(p => p + 1)} disabled={productsPage >= productsTotalPages - 1 || productsTotalPages <= 1}>Next ›</button>
                                     </div>
                                 </>
                             )}
                         </div>
                     )}
 
-                    {/* â”€â”€ Inquiries tab â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+                    {/* ── Inquiries tab ─────────────────────────────────────────── */}
                     {!dataLoading && tab === 'inquiries' && (
                         <div className="admin-section">
 
-                            {/* â”€â”€ Detail view â”€â”€ */}
+                            {/* ── Detail view ── */}
                             {selectedInquiry ? (
                                 <>
                                     <div className="admin-section-header">
@@ -2136,18 +2136,18 @@ const AdminDashboard = () => {
                                     </div>
 
                                     <div className="admin-inq-detail-body">
-                                        {/* Left â€” contact info */}
+                                        {/* Left — contact info */}
                                         <div className="admin-inq-detail-aside">
                                             <div className="admin-inq-avatar">
                                                 {(selectedInquiry.name || '?')[0].toUpperCase()}
                                             </div>
-                                            <h3 className="admin-inq-detail-name">{selectedInquiry.name || 'â€”'}</h3>
+                                            <h3 className="admin-inq-detail-name">{selectedInquiry.name || '—'}</h3>
                                             {selectedInquiry.company && <p className="admin-inq-detail-company">{selectedInquiry.company}</p>}
 
                                             <div className="admin-inq-meta-list">
                                                 <div className="admin-inq-meta-row">
                                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                                                    <a href={`mailto:${selectedInquiry.email}`}>{selectedInquiry.email || 'â€”'}</a>
+                                                    <a href={`mailto:${selectedInquiry.email}`}>{selectedInquiry.email || '—'}</a>
                                                 </div>
                                                 {selectedInquiry.phone && (
                                                     <div className="admin-inq-meta-row">
@@ -2157,7 +2157,7 @@ const AdminDashboard = () => {
                                                 )}
                                                 <div className="admin-inq-meta-row">
                                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                                    <span>{inqDate(selectedInquiry)?.toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' }) || 'â€”'}</span>
+                                                    <span>{inqDate(selectedInquiry)?.toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' }) || '—'}</span>
                                                 </div>
                                             </div>
 
@@ -2166,7 +2166,7 @@ const AdminDashboard = () => {
                                             </div>
                                         </div>
 
-                                        {/* Right â€” inquiry content */}
+                                        {/* Right — inquiry content */}
                                         <div className="admin-inq-detail-main">
                                             {/* Product / quantity */}
                                             {(selectedInquiry.product || selectedInquiry.quantity) && (
@@ -2226,12 +2226,12 @@ const AdminDashboard = () => {
                                     </div>
                                 </>
                             ) : (
-                                /* â”€â”€ List view â”€â”€ */
+                                /* ── List view ── */
                                 <>
                                     <div className="admin-section-header">
                                         <h2>Inquiries <span className="admin-count">({inquiries.length} total{unreadCount > 0 ? `, ${unreadCount} unread` : ''})</span></h2>
                                         <div style={{ display: 'flex', gap: '8px' }}>
-                                            <button className="admin-btn-secondary" onClick={loadData}>â†º Refresh</button>
+                                            <button className="admin-btn-secondary" onClick={loadData}>↺ Refresh</button>
                                             {unreadCount > 0 && (
                                                 <button className="admin-btn-secondary" onClick={markAllRead}>Mark all read</button>
                                             )}
@@ -2318,19 +2318,19 @@ const AdminDashboard = () => {
                                                                 <td>
                                                                     <span className="admin-tcell-name">
                                                                         {!inq.read && <span className="admin-unread-dot" />}
-                                                                        {inq.name || 'â€”'}
+                                                                        {inq.name || '—'}
                                                                     </span>
                                                                 </td>
-                                                                <td className="admin-tcell-muted">{inq.email || 'â€”'}</td>
+                                                                <td className="admin-tcell-muted">{inq.email || '—'}</td>
                                                                 <td className="admin-tcell-muted">
                                                                     {inq.product
                                                                         ? inq.product
                                                                         : Array.isArray(inq.items) && inq.items.length > 0
                                                                             ? `${inq.items.length} product(s)`
-                                                                            : 'â€”'}
+                                                                            : '—'}
                                                                 </td>
                                                                 <td className="admin-tcell-muted">
-                                                                    {inqDate(inq)?.toLocaleString(undefined, { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) || 'â€”'}
+                                                                    {inqDate(inq)?.toLocaleString(undefined, { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) || '—'}
                                                                 </td>
                                                                 <td onClick={e => e.stopPropagation()}>
                                                                     <button className="admin-btn-secondary admin-btn-sm" onClick={() => openInquiry(inq)}>View</button>
@@ -2349,7 +2349,7 @@ const AdminDashboard = () => {
                                                                                     <strong>Requested products:</strong>
                                                                                     <ul style={{ margin: '6px 0 0', paddingLeft: '18px' }}>
                                                                                         {inq.items.map((it, idx) => (
-                                                                                            <li key={idx}>{it.title}{it.quantity ? ` â€” ${it.quantity}` : ''}</li>
+                                                                                            <li key={idx}>{it.title}{it.quantity ? ` — ${it.quantity}` : ''}</li>
                                                                                         ))}
                                                                                     </ul>
                                                                                 </div>
@@ -2378,16 +2378,16 @@ const AdminDashboard = () => {
                                         </table>
                                     </div>
                                     <div className="admin-pagination">
-                                        <button className="admin-page-btn" onClick={() => setInqPage(p => p - 1)} disabled={inqPage === 0}>â€¹ Prev</button>
+                                        <button className="admin-page-btn" onClick={() => setInqPage(p => p - 1)} disabled={inqPage === 0}>‹ Prev</button>
                                         <span className="admin-page-info">Page {inqPage + 1} of {Math.max(inqTotalPages, 1)}</span>
-                                        <button className="admin-page-btn" onClick={() => setInqPage(p => p + 1)} disabled={inqPage >= inqTotalPages - 1 || inqTotalPages <= 1}>Next â€º</button>
+                                        <button className="admin-page-btn" onClick={() => setInqPage(p => p + 1)} disabled={inqPage >= inqTotalPages - 1 || inqTotalPages <= 1}>Next ›</button>
                                     </div>
                                 </>
                             )}
                         </div>
                     )}
 
-                    {/* â”€â”€ Stats tab â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+                    {/* ── Stats tab ─────────────────────────────────────────────── */}
                     {!dataLoading && tab === 'stats' && (
                         <div className="admin-section">
                             <div className="admin-section-header">
@@ -2405,7 +2405,7 @@ const AdminDashboard = () => {
                                         }
                                     }}
                                 >
-                                    {statsLoading ? 'Refreshingâ€¦' : 'â†º Refresh'}
+                                    {statsLoading ? 'Refreshing…' : '↺ Refresh'}
                                 </button>
                             </div>
 
@@ -2425,7 +2425,7 @@ const AdminDashboard = () => {
                                 </div>
                             </div>
 
-                            {/* Product page views â€” full-width table */}
+                            {/* Product page views — full-width table */}
                             <div className="admin-card admin-card-full">
                                 <div className="admin-card-head">
                                     <h3>Product Page Views</h3>
@@ -2478,9 +2478,9 @@ const AdminDashboard = () => {
                                 )}
                                 {Math.ceil(pageStats.productViews.length / 20) > 1 && (
                                     <div className="admin-pagination">
-                                        <button className="admin-page-btn" onClick={() => setStatsPvPage(p => p - 1)} disabled={statsPvPage === 0}>â€¹ Prev</button>
+                                        <button className="admin-page-btn" onClick={() => setStatsPvPage(p => p - 1)} disabled={statsPvPage === 0}>‹ Prev</button>
                                         <span className="admin-page-info">Page {statsPvPage + 1} of {Math.ceil(pageStats.productViews.length / 20)}</span>
-                                        <button className="admin-page-btn" onClick={() => setStatsPvPage(p => p + 1)} disabled={statsPvPage >= Math.ceil(pageStats.productViews.length / 20) - 1}>Next â€º</button>
+                                        <button className="admin-page-btn" onClick={() => setStatsPvPage(p => p + 1)} disabled={statsPvPage >= Math.ceil(pageStats.productViews.length / 20) - 1}>Next ›</button>
                                     </div>
                                 )}
                             </div>
@@ -2527,16 +2527,16 @@ const AdminDashboard = () => {
                                 )}
                                 {Math.ceil(pageStats.all.length / 20) > 1 && (
                                     <div className="admin-pagination">
-                                        <button className="admin-page-btn" onClick={() => setStatsAllPage(p => p - 1)} disabled={statsAllPage === 0}>â€¹ Prev</button>
+                                        <button className="admin-page-btn" onClick={() => setStatsAllPage(p => p - 1)} disabled={statsAllPage === 0}>‹ Prev</button>
                                         <span className="admin-page-info">Page {statsAllPage + 1} of {Math.ceil(pageStats.all.length / 20)}</span>
-                                        <button className="admin-page-btn" onClick={() => setStatsAllPage(p => p + 1)} disabled={statsAllPage >= Math.ceil(pageStats.all.length / 20) - 1}>Next â€º</button>
+                                        <button className="admin-page-btn" onClick={() => setStatsAllPage(p => p + 1)} disabled={statsAllPage >= Math.ceil(pageStats.all.length / 20) - 1}>Next ›</button>
                                     </div>
                                 )}
                             </div>
                         </div>
                     )}
 
-                    {/* â”€â”€ Gallery tab â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+                    {/* ── Gallery tab ───────────────────────────────────────────── */}
                     {!dataLoading && tab === 'gallery' && (
                         <div className="admin-section">
                             {/* Lightbox */}
@@ -2566,7 +2566,7 @@ const AdminDashboard = () => {
                                     disabled={galleryUploading}
                                 >
                                     {galleryUploading
-                                        ? `Uploading ${galleryUploadProgress.done}/${galleryUploadProgress.total}â€¦`
+                                        ? `Uploading ${galleryUploadProgress.done}/${galleryUploadProgress.total}…`
                                         : '+ Upload Images'}
                                 </button>
                             </div>
@@ -2595,13 +2595,13 @@ const AdminDashboard = () => {
                                 {galleryUploading ? (
                                     <>
                                         <div className="admin-gallery-drop-spinner" />
-                                        <p>Uploading {galleryUploadProgress.done} of {galleryUploadProgress.total}â€¦</p>
+                                        <p>Uploading {galleryUploadProgress.done} of {galleryUploadProgress.total}…</p>
                                     </>
                                 ) : (
                                     <>
                                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                                         <p>Drag & drop images here, or <span>click to browse</span></p>
-                                        <small>Multiple files supported Â· JPG, PNG, WebP</small>
+                                        <small>Multiple files supported · JPG, PNG, WebP</small>
                                     </>
                                 )}
                             </div>
@@ -2644,13 +2644,13 @@ const AdminDashboard = () => {
                         </div>
                     )}
 
-                    {/* â”€â”€ Settings tab (includes Database) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+                    {/* ── Settings tab (includes Database) ──────────────────────── */}
                     {!dataLoading && tab === 'settings' && (
                         <div className="admin-section">
                             <div className="admin-section-header">
                                 <h2>Settings</h2>
                                 <button className="admin-btn-primary" onClick={saveSettingsData} disabled={settingsSaving}>
-                                    {settingsSaving ? 'Savingâ€¦' : 'Save Settings'}
+                                    {settingsSaving ? 'Saving…' : 'Save Settings'}
                                 </button>
                             </div>
 
@@ -2723,7 +2723,7 @@ const AdminDashboard = () => {
                                 <p className="admin-settings-desc">Populate Firestore for the first time, or reset all content to built-in defaults. Seeding overwrites existing data.</p>
                                 <div className="admin-settings-seed-row">
                                     <button className="admin-btn-secondary" onClick={handleSeed} disabled={seeding}>
-                                        {seeding ? 'Seedingâ€¦' : 'Seed (skip if data exists)'}
+                                        {seeding ? 'Seeding…' : 'Seed (skip if data exists)'}
                                     </button>
                                     <button className="admin-btn-danger" onClick={forceSeed} disabled={seeding}>
                                         Force re-seed (overwrites all)
@@ -2734,7 +2734,7 @@ const AdminDashboard = () => {
                         </div>
                     )}
 
-                    {/* â”€â”€ Languages tab â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+                    {/* ── Languages tab ─────────────────────────────────────────── */}
                     {!dataLoading && tab === 'languages' && (
                         <div className="admin-section">
                             <div className="admin-section-header">
@@ -2746,7 +2746,7 @@ const AdminDashboard = () => {
                                 </div>
                                 <div className="admin-save-group">
                                     {translationsDirty && (
-                                        <span className="admin-unsaved-pill">â— Unsaved changes</span>
+                                        <span className="admin-unsaved-pill">● Unsaved changes</span>
                                     )}
                                     <button
                                         className="admin-btn-primary"
@@ -2754,7 +2754,7 @@ const AdminDashboard = () => {
                                         disabled={translationsSaving || !translationsDirty}
                                     >
                                         {translationsSaving
-                                            ? 'Savingâ€¦'
+                                            ? 'Saving…'
                                             : translationsDirty
                                                 ? 'Save changes'
                                                 : 'Saved'}
@@ -2762,7 +2762,7 @@ const AdminDashboard = () => {
                                 </div>
                             </div>
 
-                            {/* â”€â”€ Language management â”€â”€ */}
+                            {/* ── Language management ── */}
                             <div className="admin-settings-card">
                                 <div className="admin-settings-card-head">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
@@ -2791,14 +2791,14 @@ const AdminDashboard = () => {
                                 </div>
                             </div>
 
-                            {/* â”€â”€ Translation editor â”€â”€ */}
+                            {/* ── Translation editor ── */}
                             <div className="admin-settings-card">
                                 <div className="admin-settings-card-head">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
                                     <h3>Edit Translations</h3>
                                 </div>
 
-                                {/* Language picker â€” dropdown scales cleanly with many languages */}
+                                {/* Language picker — dropdown scales cleanly with many languages */}
                                 <div className="admin-field admin-prod-lang-select">
                                     <label>Editing language</label>
                                     <select

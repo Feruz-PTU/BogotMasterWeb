@@ -30,13 +30,13 @@ const About = ({ headingLevel = 'h2' }) => {
                 <div className="about-content">
                     <div className="about-images reveal reveal-delay-1">
                         <div className="image-main">
-                            <img src="/images/image16.png" alt={t('about_img_1')} loading="lazy" />
+                            <img src="/images/image16.webp" alt={t('about_img_1')} loading="lazy" />
                         </div>
                         <div className="image-secondary">
-                            <img src="/images/image17.png" alt={t('about_img_2')} loading="lazy" />
+                            <img src="/images/image17.webp" alt={t('about_img_2')} loading="lazy" />
                         </div>
                         <div className="image-tertiary">
-                            <img src="/images/image18.png" alt={t('about_img_3')} loading="lazy" />
+                            <img src="/images/image18.webp" alt={t('about_img_3')} loading="lazy" />
                         </div>
                     </div>
                     <div className="about-text reveal reveal-delay-2">

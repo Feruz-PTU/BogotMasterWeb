@@ -21,6 +21,7 @@ const HomeCTA = () => {
                         </LocalLink>
                         <LocalLink to="/about" className="btn-secondary-outline">
                             {t('read_more')}
+                            <span className="sr-only"> — {t('about_title')}</span>
                         </LocalLink>
                     </div>
                 </div>

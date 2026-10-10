@@ -242,7 +242,7 @@
 }
 
 .pd-doc-list li::before {
-    content: 'Ã¢Å“â€œ';
+    content: '✓';
     position: absolute;
     left: 0;
     color: #515E3B;
@@ -372,7 +372,7 @@
     transform: translateX(4px);
 }
 
-/* Progress bar Ã¢â‚¬â€ hidden on desktop */
+/* Progress bar — hidden on desktop */
 .pd-related-progress-container {
     display: none;
 }

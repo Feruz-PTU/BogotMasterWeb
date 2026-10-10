@@ -43,12 +43,26 @@ const Home = ({ addToast }) => {
                 in index.html, so /about, /contact and /admin each downloaded
                 164 KB of hero image they never showed. */}
             <Helmet>
+                {/* Two preloads, one per breakpoint. Below 641px the hero <img>
+                    is display:none and the visible hero is a CSS background,
+                    which the browser cannot discover until it has parsed the
+                    stylesheet — that background is the LCP element on mobile
+                    and was never preloaded. The old setup preloaded the
+                    DESKTOP image on every device, so phones spent high-priority
+                    bandwidth on a file they never showed. */}
                 <link
                     rel="preload"
                     as="image"
                     href="/images/hero-bg-new.webp"
                     fetchPriority="high"
                     media="(min-width: 641px)"
+                />
+                <link
+                    rel="preload"
+                    as="image"
+                    href="/images/mobile-main-hero-image.webp"
+                    fetchPriority="high"
+                    media="(max-width: 640px)"
                 />
             </Helmet>
 
@@ -114,17 +128,17 @@ const Home = ({ addToast }) => {
                     <h2 className="section-title" style={{ gridColumn: '1 / span 2', marginBottom: '40px' }}>{t('about_title')}</h2>
                     
                     <div className="home-about-images reveal reveal-delay-1">
-                        <img src="/images/image16.png" alt={t('about_img_1')} width="435" height="324" loading="lazy" decoding="async" />
+                        <img src="/images/image16.webp" alt={t('about_img_1')} width="435" height="324" loading="lazy" decoding="async" />
                         {/* image17 is rendered twice (desktop + mobile copies)
                             and only one is ever visible, so the hidden one
                             carries alt="" to avoid the same description being
                             announced twice. */}
-                        <img src="/images/image17.png" alt={t('about_img_2')} className="desktop-only-about-img" width="227" height="265" loading="lazy" decoding="async" />
+                        <img src="/images/image17.webp" alt={t('about_img_2')} className="desktop-only-about-img" width="227" height="265" loading="lazy" decoding="async" />
                     </div>
                     <div className="home-about-text reveal reveal-delay-2">
                         <div className="home-about-mobile-layout">
                             <div className="home-about-mobile-img">
-                                <img src="/images/image17.png" alt="" width="227" height="265" loading="lazy" decoding="async" />
+                                <img src="/images/image17.webp" alt="" width="227" height="265" loading="lazy" decoding="async" />
                             </div>
                             <div className="home-about-paragraphs">
                                 <p>{t('about_p1')}</p>
@@ -141,7 +155,14 @@ const Home = ({ addToast }) => {
                             <li><CheckIcon />{t('about_benefit_3')}</li>
                             <li><CheckIcon />{t('about_benefit_4')}</li>
                         </ul>
-                        <LocalLink to="/about" className="btn-details">{t('read_more')}</LocalLink>
+                        {/* "Read More" on its own is a generic link label.
+                            The extra words are visually hidden, so the button
+                            looks identical but the link now says what it
+                            leads to — for screen readers and for search. */}
+                        <LocalLink to="/about" className="btn-details">
+                            {t('read_more')}
+                            <span className="sr-only"> — {t('about_title')}</span>
+                        </LocalLink>
                     </div>
                 </div>
             </section>

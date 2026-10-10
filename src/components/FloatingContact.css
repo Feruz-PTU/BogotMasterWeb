@@ -46,11 +46,17 @@
     justify-content: center;
     color: #fff;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
-    /* Hidden state */
+    /* Hidden state.
+       opacity + pointer-events do NOT remove an element from the tab order,
+       so both channel links stayed keyboard-focusable and screen-reader
+       readable while invisible, on every page. `visibility` is the part that
+       actually hides them, delayed so the reveal animation still plays. */
     opacity: 0;
+    visibility: hidden;
     transform: translateY(16px) scale(0.6);
     pointer-events: none;
-    transition: opacity 0.25s ease, transform 0.25s ease;
+    transition: opacity 0.25s ease, transform 0.25s ease,
+                visibility 0s linear 0.25s;
 }
 
 .fc-btn svg {
@@ -68,9 +74,12 @@
 
 /* Open state reveals the channel buttons */
 .floating-contact.open .fc-btn {
+    visibility: visible;
     opacity: 1;
     transform: translateY(0) scale(1);
     pointer-events: auto;
+    transition: opacity 0.25s ease, transform 0.25s ease,
+                visibility 0s linear 0s;
 }
 
 .floating-contact.open .fc-telegram { transition-delay: 0.04s; }

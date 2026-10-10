@@ -76,7 +76,15 @@
     z-index: 1301; /* Higher than overlay and navbar (1200) */
     box-shadow: -10px 0 40px rgba(0, 0, 0, 0.15);
     transform: translateX(100%);
-    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    /* `transform` alone slides the panel off-screen but leaves everything in
+       it focusable and in the tab order. With items saved in the cart (they
+       persist in localStorage) a keyboard user tabbing any page fell into
+       five invisible form fields and three invisible buttons, with nothing
+       announced because the panel is aria-hidden. `visibility` is what
+       actually removes it, delayed so the slide-out animation still plays. */
+    visibility: hidden;
+    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+                visibility 0s linear 0.32s;
     display: flex;
     flex-direction: column;
     padding: 24px;
@@ -85,6 +93,9 @@
 
 .quote-cart.open {
     transform: translateX(0);
+    visibility: visible;
+    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+                visibility 0s linear 0s;
 }
 
 .quote-cart-head {

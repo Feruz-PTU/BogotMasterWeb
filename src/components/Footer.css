@@ -16,6 +16,10 @@
 
 .footer-logo img {
     height: 40px;
+    /* The width/height attributes on the <img> (904x904, for CLS) would
+       otherwise set the used width to 904px while CSS pinned the height to
+       40px, stretching a square logo to 342x40. */
+    width: auto;
     margin-bottom: 20px;
     filter: brightness(0) invert(1);
 }
@@ -88,4 +92,15 @@
 .footer-contact a:focus-visible {
     text-decoration: underline;
     opacity: 1;
+}
+/* Tappable targets. The phone and email links are new here; as bare inline
+   text they were under the 24x24 minimum and sat too close together. */
+.footer-contact a {
+    display: inline-block;
+    min-height: 24px;
+    padding: 4px 0;
+}
+
+.footer-address p {
+    margin-bottom: 2px;
 }

@@ -33,7 +33,11 @@ const OUT_FILE = resolve(ROOT, 'src/data/build-content.json');
 function loadDotEnv() {
     const file = resolve(ROOT, '.env');
     if (!existsSync(file)) return;
-    for (const line of readFileSync(file, 'utf8').split(/\r?\n/)) {
+    // Strip a UTF-8 BOM: an editor (or PowerShell's Set-Content) can add one,
+    // and it silently corrupts the first variable NAME, so the value looks
+    // missing for no visible reason.
+    const raw = readFileSync(file, 'utf8').replace(/^﻿/, '');
+    for (const line of raw.split(/\r?\n/)) {
         const match = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/i);
         if (!match) continue;
         const [, key, rawValue] = match;

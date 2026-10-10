@@ -54,11 +54,23 @@ function whenIdle(fn) {
     }
 }
 
+/**
+ * Switched off for the rest of the page after the first failure.
+ *
+ * The `events` table is created by supabase/phase2-migration.sql. Until that
+ * has been run, every call would 404 — and a failed request is logged by the
+ * browser no matter how the promise is handled, so an un-migrated site would
+ * fill the console with errors. One attempt, then silence.
+ */
+let disabled = false;
+
 export function track(name, extra = {}) {
     if (typeof window === 'undefined') return;
+    if (disabled) return;
     if (!ALLOWED.has(name)) return;
 
     whenIdle(async () => {
+        if (disabled) return;
         try {
             const { recordEvent } = await import('./supabase/data');
             await recordEvent({
@@ -69,7 +81,9 @@ export function track(name, extra = {}) {
                 ...extra,
             });
         } catch {
-            /* analytics must never break the page */
+            // Analytics must never break the page, and must never keep
+            // retrying something that is not there.
+            disabled = true;
         }
     });
 }

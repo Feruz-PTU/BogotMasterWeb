@@ -188,10 +188,10 @@ const FeaturedGallery = () => {
             {/* Lightbox Modal */}
             {activeImage && createPortal(
                 <div className="gallery-lightbox" onClick={() => setActiveImage(null)}>
-                    <button className="lightbox-close" onClick={() => setActiveImage(null)} aria-label="Close">âœ•</button>
+                    <button className="lightbox-close" onClick={() => setActiveImage(null)} aria-label="Close">✕</button>
                     
                     <button className="lightbox-arrow prev" onClick={handlePrevImage} aria-label="Previous image">
-                        â€¹
+                        ‹
                     </button>
                     
                     <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
@@ -199,7 +199,7 @@ const FeaturedGallery = () => {
                     </div>
                     
                     <button className="lightbox-arrow next" onClick={handleNextImage} aria-label="Next image">
-                        â€º
+                        ›
                     </button>
                 </div>,
                 document.body

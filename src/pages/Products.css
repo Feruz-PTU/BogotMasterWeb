@@ -23,7 +23,7 @@
     margin: 0 auto;
 }
 
-/* Reuse gallery card styles â€” they're defined in Gallery.css (globally scoped) */
+/* Reuse gallery card styles — they're defined in Gallery.css (globally scoped) */
 /* Override card image to be a link */
 .products-grid .gallery-card-image {
     display: block;

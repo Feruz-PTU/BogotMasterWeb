@@ -100,11 +100,16 @@ const Navbar = () => {
                             type="button"
                             className={`lang-dropdown-btn ${langDropdownOpen ? 'active' : ''}`}
                             onClick={() => setLangDropdownOpen(!langDropdownOpen)}
-                            aria-label={t('nav_select_language')}
                             aria-expanded={langDropdownOpen}
                             aria-controls="lang-menu"
                             aria-haspopup="true"
                         >
+                            {/* Visually-hidden text rather than aria-label: an
+                                aria-label of "Select language" REPLACED the
+                                visible "EN", so voice-control users saying
+                                "click EN" could not activate it. This way the
+                                accessible name contains the visible text. */}
+                            <span className="sr-only">{t('nav_select_language')}</span>
                             <span className="lang-code-current">
                                 {currentLang.label}
                             </span>
