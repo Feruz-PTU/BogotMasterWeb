@@ -7,7 +7,9 @@ module.exports = {
         'plugin:react/jsx-runtime',
         'plugin:react-hooks/recommended',
     ],
-    ignorePatterns: ['dist', 'node_modules', '.eslintrc.cjs', '*.config.js'],
+    // dist-ssr is the generated server bundle; linting build output reports
+    // errors in third-party code that cannot be fixed here.
+    ignorePatterns: ['dist', 'dist-ssr', 'node_modules', '.eslintrc.cjs', '*.config.js'],
     parserOptions: { ecmaVersion: 'latest', sourceType: 'module', ecmaFeatures: { jsx: true } },
     settings: { react: { version: '18.2' } },
     plugins: ['react-refresh'],

@@ -3,9 +3,14 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
     plugins: [react()],
+    ssr: {
+        // react-helmet-async ships CommonJS. Left external, the prerender step
+        // imports the SSR bundle as ESM and Node cannot see its named exports
+        // ("does not provide an export named 'Helmet'"). Bundling it resolves
+        // the named exports at build time instead.
+        noExternal: ['react-helmet-async'],
+    },
     build: {
-        // Strip console/debugger from the production bundle. The server-side
-        // logging in api/send.js is unaffected — that is not bundled by Vite.
         rollupOptions: {
             output: {
                 manualChunks(id) {
@@ -27,7 +32,8 @@ export default defineConfig({
             },
         },
     },
-    esbuild: {
-        drop: ['console', 'debugger'],
-    },
+    // NOTE: Vite 8 transforms with oxc, not esbuild, so an `esbuild: { drop }`
+    // block here is silently ignored (it prints a warning and does nothing).
+    // Stripping console statements is deferred rather than faked — see
+    // "NeededManual changes.txt", section F.
 })

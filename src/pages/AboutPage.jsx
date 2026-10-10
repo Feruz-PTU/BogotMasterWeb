@@ -7,7 +7,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { useReveal } from '../hooks/useReveal';
 
 const AboutPage = () => {
-    const { t, language } = useLanguage();
+    const { t } = useLanguage();
     useReveal();
     return (
         <Layout>

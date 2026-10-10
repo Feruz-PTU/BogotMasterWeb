@@ -47,7 +47,7 @@ const Home = ({ addToast }) => {
                     rel="preload"
                     as="image"
                     href="/images/hero-bg-new.webp"
-                    fetchpriority="high"
+                    fetchPriority="high"
                     media="(min-width: 641px)"
                 />
             </Helmet>

@@ -13,13 +13,35 @@
  * Run: node scripts/fetch-content.mjs
  */
 
-import { writeFileSync, mkdirSync } from 'node:fs';
+import { writeFileSync, mkdirSync, readFileSync, existsSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { LANGUAGE_CODES, DEFAULT_LANGUAGE } from '../src/i18n/languages.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const OUT_FILE = resolve(__dirname, '../src/data/build-content.json');
+const ROOT = resolve(__dirname, '..');
+const OUT_FILE = resolve(ROOT, 'src/data/build-content.json');
+
+/**
+ * Load .env for local runs.
+ *
+ * Vite loads .env automatically, but this is a plain Node script, so it does
+ * not. On Vercel there is no .env file — the variables are already in the
+ * environment — hence "if it exists", and real environment variables always
+ * win over the file.
+ */
+function loadDotEnv() {
+    const file = resolve(ROOT, '.env');
+    if (!existsSync(file)) return;
+    for (const line of readFileSync(file, 'utf8').split(/\r?\n/)) {
+        const match = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/i);
+        if (!match) continue;
+        const [, key, rawValue] = match;
+        if (process.env[key]) continue;
+        process.env[key] = rawValue.replace(/^(['"])(.*)\1$/, '$2');
+    }
+}
+loadDotEnv();
 
 const SUPABASE_URL = process.env.VITE_SUPABASE_URL;
 const SUPABASE_KEY = process.env.VITE_SUPABASE_ANON_KEY;

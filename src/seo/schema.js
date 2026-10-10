@@ -15,10 +15,10 @@ import { LIVE_LANGUAGES, localizedPath } from '../i18n/languages';
 
 export const SITE_URL = 'https://bogotmaster.org';
 
-/** Stated in the About copy: "established in 2014" / "основанная в 2014 году". */
+/** Stated in the About copy: "established in 2014" / "Ð¾ÑÐ½Ð¾Ð²Ð°Ð½Ð½Ð°Ñ Ð² 2014 Ð³Ð¾Ð´Ñƒ". */
 export const FOUNDING_YEAR = 2014;
 
-/** Calculated, never hardcoded — the old "10+" was frozen and is now wrong. */
+/** Calculated, never hardcoded â€” the old "10+" was frozen and is now wrong. */
 export const yearsInBusiness = (now = new Date()) =>
     now.getFullYear() - FOUNDING_YEAR;
 
@@ -33,7 +33,7 @@ const abs = (path) =>
 
 const toE164 = (phone) => '+' + String(phone).replace(/[^\d]/g, '');
 
-/** Organization — the root entity every other node points at. */
+/** Organization â€” the root entity every other node points at. */
 function organizationNode(t) {
     return {
         '@type': 'Organization',
@@ -74,7 +74,7 @@ function organizationNode(t) {
     };
 }
 
-function websiteNode(lang) {
+function websiteNode() {
     return {
         '@type': 'WebSite',
         '@id': ID.website,
@@ -117,7 +117,7 @@ function breadcrumbNode(canonical, trail) {
 /**
  * Product. Intentionally has no `offers`: there is no price anywhere in this
  * project and the whole site is request-a-quote. Google will note "missing
- * offers" in Search Console — that is expected and correct, not a bug. A fake
+ * offers" in Search Console â€” that is expected and correct, not a bug. A fake
  * price would be worse than no rich result.
  */
 function productNode({ product, canonical, lang }) {
@@ -185,7 +185,7 @@ export function buildGraph({
     products,
     breadcrumb,
 }) {
-    const graph = [organizationNode(t), websiteNode(lang)];
+    const graph = [organizationNode(t), websiteNode()];
 
     const pageType =
         kind === 'products'

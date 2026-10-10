@@ -1,16 +1,16 @@
-// Vercel serverless function — sends email via Resend.
+// Vercel serverless function â€” sends email via Resend.
 // The RESEND_API_KEY stays server-side and is never exposed to the browser.
 //
-// Required environment variables (set in Vercel → Project → Settings → Env Vars):
-//   RESEND_API_KEY     — from https://resend.com/api-keys
-//   CONTACT_TO_EMAIL   — inbox that receives leads (e.g. bogotmaster@gmail.com)
-//   CONTACT_FROM_EMAIL — verified sender on the Resend domain
+// Required environment variables (set in Vercel â†’ Project â†’ Settings â†’ Env Vars):
+//   RESEND_API_KEY     â€” from https://resend.com/api-keys
+//   CONTACT_TO_EMAIL   â€” inbox that receives leads (e.g. bogotmaster@gmail.com)
+//   CONTACT_FROM_EMAIL â€” verified sender on the Resend domain
 //                        (e.g. "Bogot Master <noreply@bogotmaster.org>")
 
 import { Resend } from 'resend';
 
 // Quotes are escaped too. Nothing currently places user text inside an HTML
-// attribute, so this is not a live hole — but if a future edit ever does, an
+// attribute, so this is not a live hole â€” but if a future edit ever does, an
 // apostrophe in a company name would silently break out of the attribute.
 const esc = (s = '') =>
     String(s)
@@ -22,9 +22,9 @@ const esc = (s = '') =>
 
 const AUTO_REPLY = {
     ru: (name, product) =>
-        `Здравствуйте, ${name}!\n\nСпасибо за ваш запрос${product ? ` по продукту «${product}»` : ''}.\nНаш специалист свяжется с вами в течение 24 часов.\n\nС уважением,\nКоманда Bogot Master`,
+        `Ð—Ð´Ñ€Ð°Ð²ÑÑ‚Ð²ÑƒÐ¹Ñ‚Ðµ, ${name}!\n\nÐ¡Ð¿Ð°ÑÐ¸Ð±Ð¾ Ð·Ð° Ð²Ð°Ñˆ Ð·Ð°Ð¿Ñ€Ð¾Ñ${product ? ` Ð¿Ð¾ Ð¿Ñ€Ð¾Ð´ÑƒÐºÑ‚Ñƒ Â«${product}Â»` : ''}.\nÐÐ°Ñˆ ÑÐ¿ÐµÑ†Ð¸Ð°Ð»Ð¸ÑÑ‚ ÑÐ²ÑÐ¶ÐµÑ‚ÑÑ Ñ Ð²Ð°Ð¼Ð¸ Ð² Ñ‚ÐµÑ‡ÐµÐ½Ð¸Ðµ 24 Ñ‡Ð°ÑÐ¾Ð².\n\nÐ¡ ÑƒÐ²Ð°Ð¶ÐµÐ½Ð¸ÐµÐ¼,\nÐšÐ¾Ð¼Ð°Ð½Ð´Ð° Bogot Master`,
     en: (name, product) =>
-        `Hello, ${name}!\n\nThank you for your inquiry${product ? ` regarding «${product}»` : ''}.\nOur specialist will contact you within 24 hours.\n\nBest regards,\nBogot Master Team`,
+        `Hello, ${name}!\n\nThank you for your inquiry${product ? ` regarding Â«${product}Â»` : ''}.\nOur specialist will contact you within 24 hours.\n\nBest regards,\nBogot Master Team`,
 };
 
 // Site design tokens (CLAUDE.md): olive #515E3B, beige #F5F4F0, Poppins.
@@ -47,13 +47,13 @@ function shell(inner, { footerNote = '' } = {}) {
         <tr>
           <td style="background:${OLIVE};padding:28px 32px;">
             <div style="font-family:${FONT};color:#ffffff;font-size:20px;font-weight:600;letter-spacing:2px;">BOGOT&nbsp;MASTER</div>
-            <div style="font-family:${FONT};color:#d7dccb;font-size:12px;letter-spacing:1px;margin-top:4px;">LICORICE ROOT EXPORT · UZBEKISTAN</div>
+            <div style="font-family:${FONT};color:#d7dccb;font-size:12px;letter-spacing:1px;margin-top:4px;">LICORICE ROOT EXPORT Â· UZBEKISTAN</div>
           </td>
         </tr>
         <tr><td style="padding:32px;font-family:${FONT};color:${INK};">${inner}</td></tr>
         <tr>
           <td style="background:${BEIGE};padding:20px 32px;font-family:${FONT};color:${MUTED};font-size:12px;line-height:1.6;border-top:1px solid ${LINE};">
-            ${footerNote ? `${footerNote}<br>` : ''}Bogot Master · bogotmaster.org
+            ${footerNote ? `${footerNote}<br>` : ''}Bogot Master Â· bogotmaster.org
           </td>
         </tr>
       </table>
@@ -72,7 +72,7 @@ export function businessHtml(d) {
     const itemsRows = Array.isArray(d.items) && d.items.length
         ? `<p style="margin:24px 0 8px;color:${MUTED};font-size:13px;text-transform:uppercase;letter-spacing:1px;">Items</p>
            <ul style="margin:0;padding-left:18px;color:${INK};font-size:14px;line-height:1.8;">
-             ${d.items.map(i => `<li>${esc(i.title)}${i.quantity ? ` — <strong>${esc(i.quantity)}</strong>` : ''}</li>`).join('')}
+             ${d.items.map(i => `<li>${esc(i.title)}${i.quantity ? ` â€” <strong>${esc(i.quantity)}</strong>` : ''}</li>`).join('')}
            </ul>` : '';
 
     const inner = `
@@ -106,16 +106,21 @@ export function autoReplyHtml(message) {
       <table role="presentation" cellpadding="0" cellspacing="0">
         <tr><td style="color:${MUTED};font-size:13px;line-height:1.7;font-family:${FONT};">
           <strong style="color:${OLIVE};">Bogot Master</strong><br>
-          Licorice Root Export · Uzbekistan<br>
+          Licorice Root Export Â· Uzbekistan<br>
           bogotmaster.org
         </td></tr>
       </table>`;
 
-    return shell(inner, { footerNote: 'This is an automated confirmation — no need to reply.' });
+    return shell(inner, { footerNote: 'This is an automated confirmation â€” no need to reply.' });
 }
 
 const EMAIL_RE = /^[^\s@,<>]+@[^\s@,<>]+\.[^\s@,<>]+$/;
 const TYPES = new Set(['contact', 'price', 'quote']);
+/* eslint-disable no-control-regex --
+   Matching control characters is the entire point of these two helpers: it is
+   what stops a newline in a name or email field from injecting an extra mail
+   header (a second recipient, a forged reply-to). */
+
 // Single-line clamp: strip all control chars (blocks header/subject injection).
 const clamp = (v, n) =>
     (typeof v === 'string' ? v.replace(/[\x00-\x1f\x7f]/g, '').slice(0, n) : '');
@@ -124,9 +129,10 @@ const clampText = (v, n) =>
     (typeof v === 'string'
         ? v.replace(/\r\n?/g, '\n').replace(/[\x00-\x09\x0b-\x1f\x7f]/g, '').slice(0, n)
         : '');
+/* eslint-enable no-control-regex */
 
 // Best-effort in-memory rate limit. Serverless instances are ephemeral so this
-// only throttles within a warm instance — a backstop, not a guarantee. For hard
+// only throttles within a warm instance â€” a backstop, not a guarantee. For hard
 // limits add Cloudflare Turnstile (CAPTCHA) + Upstash rate limiting (see DEPLOY.md).
 const HITS = new Map(); // ip -> number[] (timestamps)
 const RL_WINDOW_MS = 10 * 60 * 1000;
@@ -144,7 +150,7 @@ function rateLimited(ip) {
 //
 // This previously returned `true` when the Origin header was absent, which
 // meant any scripted request (curl, a bot, anything that is not a browser)
-// was waved straight through — the check only ever stopped cross-site
+// was waved straight through â€” the check only ever stopped cross-site
 // submissions from inside a browser. A real browser form post always sends
 // Origin, so a missing one is now refused.
 function originAllowed(req) {
@@ -283,7 +289,7 @@ export default async function handler(req, res) {
                 from: CONTACT_FROM_EMAIL,
                 to: d.email,
                 subject: language === 'ru'
-                    ? 'Спасибо за ваш запрос | Bogot Master'
+                    ? 'Ð¡Ð¿Ð°ÑÐ¸Ð±Ð¾ Ð·Ð° Ð²Ð°Ñˆ Ð·Ð°Ð¿Ñ€Ð¾Ñ | Bogot Master'
                     : 'Thank you for your inquiry | Bogot Master',
                 html: autoReplyHtml(body),
             });

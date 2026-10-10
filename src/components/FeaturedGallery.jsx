@@ -57,6 +57,7 @@ const FeaturedGallery = () => {
                 window.removeEventListener('keydown', handleKeyDown);
             };
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- handleNextImage/handlePrevImage are recreated every render; re-binding the listener on each one would thrash. They only read activeImage and shuffled, which are listed.
     }, [activeImage, shuffled]);
 
     // Track scroll position to update the progress bar
@@ -187,10 +188,10 @@ const FeaturedGallery = () => {
             {/* Lightbox Modal */}
             {activeImage && createPortal(
                 <div className="gallery-lightbox" onClick={() => setActiveImage(null)}>
-                    <button className="lightbox-close" onClick={() => setActiveImage(null)} aria-label="Close">✕</button>
+                    <button className="lightbox-close" onClick={() => setActiveImage(null)} aria-label="Close">âœ•</button>
                     
                     <button className="lightbox-arrow prev" onClick={handlePrevImage} aria-label="Previous image">
-                        ‹
+                        â€¹
                     </button>
                     
                     <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
@@ -198,7 +199,7 @@ const FeaturedGallery = () => {
                     </div>
                     
                     <button className="lightbox-arrow next" onClick={handleNextImage} aria-label="Next image">
-                        ›
+                        â€º
                     </button>
                 </div>,
                 document.body

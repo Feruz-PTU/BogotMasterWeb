@@ -5,6 +5,23 @@ import {
     LIVE_LANGUAGES,
     isLiveLanguage,
 } from '../i18n/languages';
+import { FALLBACK_STRINGS } from '../i18n/fallback-strings';
+
+/**
+ * Database strings win; the bundled defaults fill any gap. Without this, a
+ * deploy made before the SQL migration has run would render raw key names on
+ * every page ("skip_to_content", "Slice A — seo_suffix_licorice").
+ */
+function withFallbacks(fromDatabase) {
+    const merged = {};
+    for (const { code } of LIVE_LANGUAGES) {
+        merged[code] = {
+            ...(FALLBACK_STRINGS[code] || {}),
+            ...(fromDatabase?.[code] || {}),
+        };
+    }
+    return merged;
+}
 
 const LanguageContext = createContext();
 
@@ -27,8 +44,8 @@ export const LanguageProvider = ({ language, children }) => {
     // Translations are baked into the build. Public pages therefore need zero
     // network requests to render text, and the server HTML and the first
     // browser render are byte-identical (no flash, no hydration mismatch).
-    const [allTranslations, setAllTranslations] = useState(
-        BUILD_CONTENT.translations
+    const [allTranslations, setAllTranslations] = useState(() =>
+        withFallbacks(BUILD_CONTENT.translations)
     );
 
     /** Admin-only: pull the newest strings after an edit. */
@@ -40,6 +57,7 @@ export const LanguageProvider = ({ language, children }) => {
             const merged = {};
             for (const { code } of LIVE_LANGUAGES) {
                 merged[code] = {
+                    ...(FALLBACK_STRINGS[code] || {}),
                     ...(BUILD_CONTENT.translations[code] || {}),
                     ...(data[code] || {}),
                 };
