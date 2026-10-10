@@ -75,3 +75,43 @@
         gap: 12px;
     }
 }
+
+/* Intro line and closing call to action. The catalogue previously ended
+   straight after the last product card with nothing to act on. */
+.products-page-intro {
+    max-width: 640px;
+    margin: 12px auto 0;
+    color: #5A5A5A;
+    line-height: 1.7;
+}
+
+.products-page-cta {
+    max-width: 680px;
+    margin: 64px auto 0;
+    text-align: center;
+    padding: 36px 24px;
+    background: var(--color-secondary);
+    border-radius: 12px;
+}
+
+.products-page-cta h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+}
+
+.products-page-cta p {
+    color: #5A5A5A;
+    margin-bottom: 20px;
+    line-height: 1.7;
+}
+
+.products-page-cta .btn-primary {
+    display: inline-block;
+    padding: 13px 30px;
+    background: var(--color-primary);
+    color: #fff;
+    border-radius: 6px;
+    font-weight: 600;
+}

@@ -9,9 +9,14 @@ const CheckIcon = () => (
     </svg>
 );
 
-const About = () => {
+/**
+ * `headingLevel` lets the About page render this as its <h1> while the home
+ * page keeps it as an <h2>. The About page previously had no <h1> at all.
+ */
+const About = ({ headingLevel = 'h2' }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const { t } = useLanguage();
+    const Heading = headingLevel;
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
@@ -20,18 +25,18 @@ const About = () => {
         <section className="about-section reveal" id="about">
             <div className="about-container">
                 <div className="about-header reveal">
-                    <h2>{t('about_title')}</h2>
+                    <Heading>{t('about_title')}</Heading>
                 </div>
                 <div className="about-content">
                     <div className="about-images reveal reveal-delay-1">
                         <div className="image-main">
-                            <img src="/images/image16.png" alt={t('about_img_1')} loading="lazy" />
+                            <img src="/images/image16.webp" alt={t('about_img_1')} loading="lazy" />
                         </div>
                         <div className="image-secondary">
-                            <img src="/images/image17.png" alt={t('about_img_2')} loading="lazy" />
+                            <img src="/images/image17.webp" alt={t('about_img_2')} loading="lazy" />
                         </div>
                         <div className="image-tertiary">
-                            <img src="/images/image18.png" alt={t('about_img_3')} loading="lazy" />
+                            <img src="/images/image18.webp" alt={t('about_img_3')} loading="lazy" />
                         </div>
                     </div>
                     <div className="about-text reveal reveal-delay-2">
@@ -59,6 +64,16 @@ const About = () => {
                                 {t('about_benefit_4')}
                             </li>
                         </ul>
+                        {/* `openModal` was defined but wired to nothing, so the
+                            About page mounted a quote dialog that could never
+                            be opened and had no working call to action. */}
+                        <button
+                            type="button"
+                            className="btn-primary about-cta"
+                            onClick={openModal}
+                        >
+                            {t('get_price')}
+                        </button>
                     </div>
                 </div>
             </div>

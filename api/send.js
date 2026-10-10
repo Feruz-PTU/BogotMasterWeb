@@ -9,8 +9,16 @@
 
 import { Resend } from 'resend';
 
+// Quotes are escaped too. Nothing currently places user text inside an HTML
+// attribute, so this is not a live hole — but if a future edit ever does, an
+// apostrophe in a company name would silently break out of the attribute.
 const esc = (s = '') =>
-    String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
 
 const AUTO_REPLY = {
     ru: (name, product) =>
@@ -77,6 +85,11 @@ export function businessHtml(d) {
         ${row('Company', d.company)}
         ${row('Product', d.product)}
         ${row('Quantity', d.quantity)}
+        ${row('Destination country', d.destination_country)}
+        ${row('Port / city', d.destination_port)}
+        ${row('Incoterms', d.incoterms)}
+        ${row('Total quantity', [d.total_quantity, d.quantity_unit].filter(Boolean).join(' '))}
+        ${row('Needed by', d.timeline)}
       </table>
       ${itemsRows}
       ${d.message ? `
@@ -103,6 +116,11 @@ export function autoReplyHtml(message) {
 
 const EMAIL_RE = /^[^\s@,<>]+@[^\s@,<>]+\.[^\s@,<>]+$/;
 const TYPES = new Set(['contact', 'price', 'quote']);
+/* eslint-disable no-control-regex --
+   Matching control characters is the entire point of these two helpers: it is
+   what stops a newline in a name or email field from injecting an extra mail
+   header (a second recipient, a forged reply-to). */
+
 // Single-line clamp: strip all control chars (blocks header/subject injection).
 const clamp = (v, n) =>
     (typeof v === 'string' ? v.replace(/[\x00-\x1f\x7f]/g, '').slice(0, n) : '');
@@ -111,6 +129,7 @@ const clampText = (v, n) =>
     (typeof v === 'string'
         ? v.replace(/\r\n?/g, '\n').replace(/[\x00-\x09\x0b-\x1f\x7f]/g, '').slice(0, n)
         : '');
+/* eslint-enable no-control-regex */
 
 // Best-effort in-memory rate limit. Serverless instances are ephemeral so this
 // only throttles within a warm instance — a backstop, not a guarantee. For hard
@@ -127,19 +146,51 @@ function rateLimited(ip) {
     return false;
 }
 
-// Reject browser requests coming from a different site (basic anti-abuse).
-// Same-origin fetches send an Origin whose host matches the request host. If
-// ALLOWED_ORIGIN is set it takes precedence (comma-separated list of hosts).
+// Reject requests that do not come from this site.
+//
+// This previously returned `true` when the Origin header was absent, which
+// meant any scripted request (curl, a bot, anything that is not a browser)
+// was waved straight through — the check only ever stopped cross-site
+// submissions from inside a browser. A real browser form post always sends
+// Origin, so a missing one is now refused.
 function originAllowed(req) {
     const origin = req.headers.origin;
-    if (!origin) return true; // non-browser / same-origin without Origin — allow
+    if (!origin) return false;
+
     let host;
-    try { host = new URL(origin).host; } catch { return false; }
+    try {
+        host = new URL(origin).host;
+    } catch {
+        return false;
+    }
+
     const allow = (process.env.ALLOWED_ORIGIN || '')
-        .split(',').map(s => s.trim()).filter(Boolean);
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
     if (allow.length) return allow.includes(host);
     return host === req.headers.host;
 }
+
+// Server-side repeat of the two client-side bot checks. A bot that posts
+// directly to this endpoint never runs the client code, so the checks have to
+// exist here too.
+const MIN_FILL_MS = 3000;
+function looksAutomated(body) {
+    if (typeof body.company_website === 'string' && body.company_website.trim() !== '') {
+        return true; // honeypot filled
+    }
+    const elapsed = Number(body.elapsed_ms);
+    if (Number.isFinite(elapsed) && elapsed > 0 && elapsed < MIN_FILL_MS) {
+        return true; // submitted faster than a human can type
+    }
+    return false;
+}
+
+// Vercel parses the body before the handler runs, so a very large payload is
+// already buffered by then. Refusing early on Content-Length keeps the obvious
+// abuse cheap. The real forms are well under 10 KB.
+const MAX_BODY_BYTES = 32 * 1024;
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
@@ -150,7 +201,17 @@ export default async function handler(req, res) {
         return res.status(403).json({ success: false, message: 'Forbidden' });
     }
 
-    const ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || 'unknown';
+    const declared = Number(req.headers['content-length'] || 0);
+    if (declared > MAX_BODY_BYTES) {
+        return res.status(413).json({ success: false, message: 'Payload too large' });
+    }
+
+    // Prefer Vercel's own client IP header; x-forwarded-for is client-settable
+    // at the left-most position in the general case.
+    const ip =
+        req.headers['x-real-ip'] ||
+        (req.headers['x-forwarded-for'] || '').split(',')[0].trim() ||
+        'unknown';
     if (rateLimited(ip)) {
         return res.status(429).json({ success: false, message: 'Too many requests' });
     }
@@ -162,6 +223,12 @@ export default async function handler(req, res) {
     }
 
     const body = req.body || {};
+
+    // Looks like a bot: answer 200 so it believes it succeeded, and send
+    // nothing. Returning an error would tell it which check to defeat.
+    if (looksAutomated(body)) {
+        return res.status(200).json({ success: true });
+    }
 
     // Validate + clamp every field. Reject (not truncate) so abuse is visible.
     const email = clamp(body.email, 254).trim();
@@ -185,6 +252,13 @@ export default async function handler(req, res) {
         product: clamp(body.product, 200),
         quantity: clamp(body.quantity, 64),
         message: clampText(body.message, 5000),
+        // Optional B2B trade terms from the quote form.
+        destination_country: clamp(body.destination_country, 80),
+        destination_port: clamp(body.destination_port, 80),
+        incoterms: clamp(body.incoterms, 24),
+        total_quantity: clamp(body.total_quantity, 32),
+        quantity_unit: clamp(body.quantity_unit, 16),
+        timeline: clamp(body.timeline, 80),
         items: Array.isArray(body.items)
             ? body.items.slice(0, 20).map(i => ({
                 title: clamp(i?.title, 200),
@@ -194,7 +268,8 @@ export default async function handler(req, res) {
     };
 
     const resend = new Resend(RESEND_API_KEY);
-    const language = body.language === 'en' ? 'en' : 'ru';
+    // English is the site's default language now, so it is the fallback.
+    const language = body.language === 'ru' ? 'ru' : 'en';
 
     try {
         // 1) Notify the business. reply_to = customer, so a reply goes straight back.

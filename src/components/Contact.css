@@ -23,7 +23,7 @@
     overflow: hidden;
 }
 
-.contact-cta-content h3 {
+.contact-cta-content .contact-cta-title {
     font-size: 24px;
     font-weight: 500;
     margin-bottom: 10px;
@@ -109,9 +109,9 @@
     color: #1A1A1A;
 }
 
-.contact-text h4 {
+.contact-text h3 {
     font-size: 14px;
-    color: #888;
+    color: #6B6B6B;
     margin-bottom: 4px;
     font-weight: 400;
 }
@@ -149,10 +149,10 @@
     width: 100%;
     padding: 16px 20px;
     background-color: transparent;
-    border: 1px solid #D1D5DB;
+    border: 1px solid #8A8A8A;
     border-radius: 30px;
     font-size: 14px;
-    color: #6B7280;
+    color: #4B5160;
     outline: none;
     transition: border-color 0.3s ease;
     font-family: var(--font-family);
@@ -165,10 +165,10 @@
     /* Slightly lighter bg for textarea block visual */
     background-color: transparent;
     /* Or match design explicitly */
-    border: 1px solid #D1D5DB;
+    border: 1px solid #8A8A8A;
     border-radius: 20px;
     font-size: 14px;
-    color: #6B7280;
+    color: #4B5160;
     outline: none;
     resize: none;
     min-height: 150px;
@@ -182,13 +182,13 @@
 
 .form-input.error,
 .form-textarea.error {
-    border-color: #EF4444;
+    border-color: #C62828;
     background-color: #FEF2F2;
 }
 
 .error-message {
     font-size: 13px;
-    color: #EF4444;
+    color: #C62828;
     margin-top: 6px;
     display: block;
 }
@@ -206,7 +206,7 @@
 
 .error-message-box {
     background-color: #FEE2E2;
-    border: 1px solid #EF4444;
+    border: 1px solid #C62828;
     color: #991B1B;
     padding: 14px 18px;
     border-radius: 12px;
@@ -279,7 +279,7 @@
         padding: 40px 30px;
     }
 
-    .contact-cta-content h3 {
+    .contact-cta-content .contact-cta-title {
         font-size: 20px;
     }
 }
@@ -305,7 +305,7 @@
         border-radius: 16px;
     }
 
-    .contact-cta-content h3 {
+    .contact-cta-content .contact-cta-title {
         font-size: 1.15rem;
     }
 
@@ -325,4 +325,49 @@
     .contact-item {
         gap: 14px;
     }
+}
+/* ── Added in the SEO/accessibility pass ───────────────────────────────── */
+
+/* The contact details are links now, not plain text. Keep them looking like
+   the surrounding copy until hovered, so the layout is unchanged. */
+.contact-text p a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.contact-text p a:hover,
+.contact-text p a:focus-visible {
+    color: var(--color-primary);
+    border-bottom-color: currentColor;
+}
+
+.form-reply-note {
+    margin-top: 12px;
+    font-size: 0.85rem;
+    color: #5A5A5A;
+    text-align: center;
+}
+
+.form-privacy-note {
+    margin-top: 6px;
+    font-size: 0.78rem;
+    color: #5A5A5A;
+    text-align: center;
+}
+
+.form-privacy-note a {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+.error-message-box p {
+    margin: 0 0 4px;
+}
+
+.error-message-box a {
+    color: #C62828;
+    font-weight: 600;
+    text-decoration: underline;
 }

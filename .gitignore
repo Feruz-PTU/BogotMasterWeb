@@ -1,12 +1,23 @@
-# Dependencies
+﻿# Dependencies
 node_modules
 # package-lock.json is NOT ignored to ensure consistent builds
 
 
 # Build output
 dist
+dist-ssr
 build
 .vite
+
+# Generated at build time by scripts/fetch-content.mjs (live Supabase snapshot).
+# Never commit it: it would go stale and could be published instead of real data.
+src/data/build-content.json
+
+# Design mock-ups: kept on disk, not in the repo (24 MB of PNGs).
+resource/
+
+# Owner's manual setup notes - contains security steps, keep out of the repo.
+NeededManual changes.txt
 
 # Environment variables
 .env
@@ -59,3 +70,4 @@ optimize_images.js
 .claude/
 .cursor/
 AGENTS.md
+

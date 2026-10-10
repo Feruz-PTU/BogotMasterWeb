@@ -285,3 +285,14 @@
         gap: 16px;
     }
 }
+/* CTA on the About page (the modal existed but had no trigger). */
+.about-cta {
+    margin-top: 26px;
+    display: inline-block;
+    padding: 13px 30px;
+    background: var(--color-primary);
+    color: #fff;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+}

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './PriceModal.css';
 import SocialButtons from './SocialButtons';
 import SuccessModal from './SuccessModal';
-import { sendPriceInquiryEmail, isEmailConfigured } from '../services/emailService';
+import { sendPriceInquiryEmail } from '../services/emailService';
 import { useLanguage } from '../context/LanguageContext';
 
 const PriceModal = ({ isOpen, onClose, productTitle }) => {
@@ -83,19 +83,16 @@ const PriceModal = ({ isOpen, onClose, productTitle }) => {
         setIsSubmitting(true);
 
         try {
-            if (!isEmailConfigured()) {
-                console.warn('Email not configured. See src/services/emailService.js');
-                // Simulate success for demo purposes
-                await new Promise(resolve => setTimeout(resolve, 1000));
-            } else {
-                const result = await sendPriceInquiryEmail({
-                    ...formData,
-                    product: productTitle
-                }, language);
+            // `isEmailConfigured()` was hardcoded to return true, so this
+            // branch's "simulate success for demo purposes" path was dead
+            // code that could only ever mislead.
+            const result = await sendPriceInquiryEmail({
+                ...formData,
+                product: productTitle
+            }, language);
 
-                if (!result.success) {
-                    throw new Error(result.message);
-                }
+            if (!result.success) {
+                throw new Error(result.message);
             }
 
             // Reset form

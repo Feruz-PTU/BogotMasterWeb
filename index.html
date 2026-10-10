@@ -5,17 +5,20 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/Logo/new-logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bogot Master Licorice Export</title>
-    <meta name="description" content="Bogot Master — Экспорт корня солодки из Узбекистана" />
+    <title>Bogot Master</title>
 
-    <!-- Fonts: preconnect + load (replaces render-blocking CSS @import) -->
+    <!-- Fonts. Playfair Display was requested here but used by no stylesheet,
+         so two of the seven font files were downloaded for nothing. Poppins
+         800 IS used (section titles, hero h1) and was previously missing,
+         so the browser was faking it. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Poppins:wght@300;400;500;600;700&display=swap" />
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" />
 
-    <!-- Preload the hero LCP image (homepage) -->
-    <link rel="preload" as="image" href="/images/hero-bg-new.webp" fetchpriority="high" />
+    <!-- The hero image preload lives on the home page only (injected per route),
+         not here. In the old setup every route — /about, /contact, /admin —
+         downloaded 164 KB of hero image it never displayed. -->
 </head>
 
 <body>

@@ -7,20 +7,28 @@ import { useLanguage } from '../context/LanguageContext';
 import { useReveal } from '../hooks/useReveal';
 
 const AboutPage = () => {
-    const { t, language } = useLanguage();
+    const { t } = useLanguage();
     useReveal();
     return (
         <Layout>
-            <SEO title={t('about_meta_title')} description={t('about_meta_desc')} />
+            <SEO
+                kind="about"
+                routePath="/about"
+                title={t('about_meta_title')}
+                description={t('about_meta_desc')}
+            />
             <div style={{ paddingTop: '30px' }}>
-                <div className="reveal"><About /></div>
-                
+                <div className="reveal"><About headingLevel="h1" /></div>
+
                 {/* Mission Section */}
                 <section className="about-extra-section reveal">
                     <div className="about-extra-container">
                         <div className="about-extra-grid">
                             <div className="about-extra-content">
-                                <h2>{t('about_title')} & {t('footer_slogan')}</h2>
+                                {/* Was `{about_title} & {footer_slogan}`, which
+                                    composed the nonsense heading "About Company
+                                    & Excellence in every detail." */}
+                                <h2>{t('about_mission_title')}</h2>
                                 <p>{t('about_p3')}</p>
                                 <p>{t('about_p4')}</p>
                             </div>

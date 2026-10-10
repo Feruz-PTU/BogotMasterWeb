@@ -97,7 +97,10 @@
     text-transform: uppercase;
     letter-spacing: 0.1em;
     margin-bottom: 12px;
-    opacity: 0.6;
+    /* `opacity: 0.6` faded #515E3B to an effective #959C86 on the warm
+       background: 2.7:1 at 9px bold, well under the 4.5:1 minimum. Dropping
+       the opacity keeps the same colour family at 6.3:1, with no change to
+       the layout or the typeface. */
 }
 
 .process-text h3 {

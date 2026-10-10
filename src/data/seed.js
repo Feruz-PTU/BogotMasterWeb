@@ -491,5 +491,8 @@ export const SEED_SETTINGS = {
     website_display: 'bogotmaster.org',
     whatsapp: '998995129826',
     telegram: 'e_f_r_u_z_0_0_2_6',
-    gallery: Array.from({ length: 14 }, (_, i) => `/gallary photos/${i}.jpg`),
+    // Folder renamed from "gallary photos" (misspelled, and the space had to
+    // be %20-encoded in every URL) to "gallery". The paths stored in Supabase
+    // are updated by supabase/phase2-migration.sql.
+    gallery: Array.from({ length: 14 }, (_, i) => `/gallery/${i}.jpg`),
 };

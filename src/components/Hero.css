@@ -160,7 +160,7 @@
         width: 85%;
         /* Fixed comfortable height — not too big, not too small */
         height: 220px;
-        background-image: url('/images/mobile-main-hero-image.png');
+        background-image: url('/images/mobile-main-hero-image.webp');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center center;

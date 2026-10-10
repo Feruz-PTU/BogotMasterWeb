@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './QuoteCart.css';
 import { useQuote } from '../context/QuoteContext';
 import { useLanguage } from '../context/LanguageContext';
-import { sendQuoteEmail, isEmailConfigured } from '../services/emailService';
+import { sendQuoteEmail } from '../services/emailService';
 import SuccessModal from './SuccessModal';
 
 const emptyForm = { name: '', company: '', email: '', phone: '', message: '' };
@@ -49,12 +49,8 @@ const QuoteCart = () => {
         if (items.length === 0 || !validate()) return;
         setSubmitting(true);
         try {
-            if (!isEmailConfigured()) {
-                await new Promise(r => setTimeout(r, 800));
-            } else {
-                const res = await sendQuoteEmail(form, items, language);
-                if (!res.success) throw new Error(res.message);
-            }
+            const res = await sendQuoteEmail(form, items, language);
+            if (!res.success) throw new Error(res.message);
             setStatus('success');
             setShowSuccess(true);
             setForm(emptyForm);

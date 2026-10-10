@@ -57,6 +57,7 @@ const FeaturedGallery = () => {
                 window.removeEventListener('keydown', handleKeyDown);
             };
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- handleNextImage/handlePrevImage are recreated every render; re-binding the listener on each one would thrash. They only read activeImage and shuffled, which are listed.
     }, [activeImage, shuffled]);
 
     // Track scroll position to update the progress bar
