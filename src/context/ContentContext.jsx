@@ -1,88 +1,136 @@
-import { createContext, useContext, useState, useEffect } from 'react';
-import { SEED_PRODUCTS, SEED_SETTINGS } from '../data/seed';
+import { createContext, useContext, useState, useMemo, useCallback } from 'react';
+import BUILD_CONTENT from '../data/build-content.json';
 import { useLanguage } from './LanguageContext';
+import { DEFAULT_LANGUAGE } from '../i18n/languages';
 
 const ContentContext = createContext();
 
 export const useContent = () => useContext(ContentContext);
 
+/**
+ * Content comes from `build-content.json`, a snapshot taken from Supabase at
+ * build time (see scripts/fetch-content.mjs).
+ *
+ * Public pages make NO database calls at all. That is what makes the
+ * prerendered HTML and the hydrated page identical, and it removes three
+ * network round-trips from every page load. When an admin saves a change the
+ * site rebuilds (see api/rebuild.js), so the snapshot is never stale.
+ *
+ * The admin dashboard calls refreshProducts()/refreshSettings() explicitly,
+ * because it must see un-published edits immediately.
+ */
 export const ContentProvider = ({ children }) => {
     const { language } = useLanguage();
-    const [rawProducts, setRawProducts] = useState(SEED_PRODUCTS);
-    const [rawSettings, setRawSettings] = useState(SEED_SETTINGS);
-    const [loading, setLoading] = useState(true);
+    const [rawProducts, setRawProducts] = useState(BUILD_CONTENT.products);
+    const [rawSettings, setRawSettings] = useState(BUILD_CONTENT.settings);
 
-    useEffect(() => {
-        async function load() {
-            try {
-                // Dynamically import the data layer so the Supabase SDK stays out
-                // of the initial bundle / critical path. Seed data renders instantly;
-                // live content swaps in once Supabase resolves.
-                const { fetchProducts, fetchSettings } = await import('../supabase/data');
-                const [products, settings] = await Promise.all([
-                    fetchProducts(),
-                    fetchSettings(),
-                ]);
-                setRawProducts(products.length ? products : SEED_PRODUCTS);
-                setRawSettings(settings || SEED_SETTINGS);
-            } catch {
-                setRawProducts(SEED_PRODUCTS);
-                setRawSettings(SEED_SETTINGS);
-            } finally {
-                setLoading(false);
-            }
-        }
-        load();
-    }, []);
+    const lang = language || DEFAULT_LANGUAGE;
 
-    const lang = language || 'ru';
+    /**
+     * Pick the value for the active language.
+     * Falls back to the DEFAULT language, not to Russian. An English page can
+     * therefore never silently display Russian text — the old `|| _ru`
+     * fallback was the reason Russian leaked into English titles and
+     * meta descriptions.
+     */
+    const pick = useCallback(
+        (obj, base) => {
+            if (!obj) return '';
+            const current = obj[`${base}_${lang}`];
+            if (current != null && String(current).trim() !== '') return current;
+            const fallback = obj[`${base}_${DEFAULT_LANGUAGE}`];
+            if (fallback != null && String(fallback).trim() !== '') return fallback;
+            return '';
+        },
+        [lang]
+    );
 
-    // Products flagged `hidden` in the admin panel never reach the public site.
-    const products = rawProducts.filter(p => !p.hidden).map(p => ({
-        ...p,
-        title: p[`title_${lang}`] || p.title_ru || '',
-        description: p[`desc_${lang}`] || p.desc_ru || '',
-    }));
+    const products = useMemo(
+        () =>
+            rawProducts
+                .filter((p) => !p.hidden)
+                .map((p) => ({
+                    ...p,
+                    title: pick(p, 'title'),
+                    description: pick(p, 'description') || pick(p, 'desc'),
+                    // Specs are stored per language: specs: { en: {...}, ru: {...} }
+                    activeSpecs:
+                        p.specs?.[lang] ||
+                        p.specs?.[DEFAULT_LANGUAGE] ||
+                        null,
+                })),
+        [rawProducts, pick, lang]
+    );
 
-    const settings = rawSettings ? {
-        ...rawSettings,
-        hero_title: rawSettings[`hero_title_${lang}`] || rawSettings.hero_title_ru || '',
-        hero_subtitle: rawSettings[`hero_subtitle_${lang}`] || rawSettings.hero_subtitle_ru || '',
-        hero_cta: rawSettings[`hero_cta_${lang}`] || rawSettings.hero_cta_ru || '',
-        address: rawSettings[`address_${lang}`] || rawSettings.address_ru || '',
-    } : null;
+    const settings = useMemo(
+        () =>
+            rawSettings
+                ? {
+                      ...rawSettings,
+                      hero_title: pick(rawSettings, 'hero_title'),
+                      hero_subtitle: pick(rawSettings, 'hero_subtitle'),
+                      hero_cta: pick(rawSettings, 'hero_cta'),
+                      address: pick(rawSettings, 'address'),
+                  }
+                : null,
+        [rawSettings, pick]
+    );
 
-    const featuredProducts = products.filter(p => p.featured);
-    const gallery = rawSettings?.gallery || [];
+    const featuredProducts = useMemo(
+        () => products.filter((p) => p.featured),
+        [products]
+    );
 
-    const refreshProducts = async () => {
+    const gallery = useMemo(() => rawSettings?.gallery || [], [rawSettings]);
+
+    const refreshProducts = useCallback(async () => {
         try {
             const { fetchProducts } = await import('../supabase/data');
-            const products = await fetchProducts();
-            if (products.length) setRawProducts(products);
-        } catch { /* silent */ }
-    };
+            const next = await fetchProducts();
+            if (next?.length) setRawProducts(next);
+        } catch {
+            /* keep the build snapshot */
+        }
+    }, []);
 
-    const refreshSettings = async () => {
+    const refreshSettings = useCallback(async () => {
         try {
             const { fetchSettings } = await import('../supabase/data');
-            const settings = await fetchSettings();
-            if (settings) setRawSettings(settings);
-        } catch { /* silent */ }
-    };
+            const next = await fetchSettings();
+            if (next) setRawSettings(next);
+        } catch {
+            /* keep the build snapshot */
+        }
+    }, []);
 
-    return (
-        <ContentContext.Provider value={{
+    const value = useMemo(
+        () => ({
             products,
             featuredProducts,
             gallery,
             settings,
-            loading,
+            // Content is always present at first paint now, so nothing ever
+            // renders a skeleton on a public page.
+            loading: false,
             rawProducts,
             rawSettings,
             refreshProducts,
             refreshSettings,
-        }}>
+        }),
+        [
+            products,
+            featuredProducts,
+            gallery,
+            settings,
+            rawProducts,
+            rawSettings,
+            refreshProducts,
+            refreshSettings,
+        ]
+    );
+
+    return (
+        <ContentContext.Provider value={value}>
             {children}
         </ContentContext.Provider>
     );

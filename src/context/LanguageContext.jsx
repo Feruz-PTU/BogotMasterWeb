@@ -1,69 +1,80 @@
-import { createContext, useState, useContext, useEffect, useCallback } from 'react';
-import { SEED_TRANSLATIONS } from '../data/seed';
+import { createContext, useContext, useCallback, useMemo, useState } from 'react';
+import BUILD_CONTENT from '../data/build-content.json';
+import {
+    DEFAULT_LANGUAGE,
+    LIVE_LANGUAGES,
+    isLiveLanguage,
+} from '../i18n/languages';
 
 const LanguageContext = createContext();
 
 export const useLanguage = () => useContext(LanguageContext);
 
-const DEFAULT_LANGUAGES = SEED_TRANSLATIONS.languages;
-const DEFAULT_STRINGS = { ru: SEED_TRANSLATIONS.ru, en: SEED_TRANSLATIONS.en };
+/**
+ * The active language comes from the URL and NOTHING else.
+ *
+ * There is deliberately no localStorage read here. A stored preference used to
+ * override the URL, which meant one URL could render two different languages —
+ * search engines could only ever see the default, and a shared link did not
+ * reliably open in the language it was written in.
+ *
+ * `language` is passed down from the router (see App.jsx). To change language
+ * you follow a real link to the other language's URL.
+ */
+export const LanguageProvider = ({ language, children }) => {
+    const activeLanguage = isLiveLanguage(language) ? language : DEFAULT_LANGUAGE;
 
-export const LanguageProvider = ({ children }) => {
-    const [language, setLanguage] = useState(() => {
-        try {
-            const stored = localStorage.getItem('lang');
-            return stored || DEFAULT_LANGUAGES[0]?.code || 'ru';
-        } catch {
-            return 'ru';
-        }
-    });
-    const [languages, setLanguages] = useState(DEFAULT_LANGUAGES);
-    const [allTranslations, setAllTranslations] = useState(DEFAULT_STRINGS);
+    // Translations are baked into the build. Public pages therefore need zero
+    // network requests to render text, and the server HTML and the first
+    // browser render are byte-identical (no flash, no hydration mismatch).
+    const [allTranslations, setAllTranslations] = useState(
+        BUILD_CONTENT.translations
+    );
 
-    const loadTranslations = useCallback(async () => {
+    /** Admin-only: pull the newest strings after an edit. */
+    const refreshTranslations = useCallback(async () => {
         try {
             const { fetchTranslations } = await import('../supabase/data');
             const data = await fetchTranslations();
             if (!data) return;
-            
-            if (data.languages?.length) setLanguages(data.languages);
-            
             const merged = {};
-            const langs = data.languages?.length ? data.languages : DEFAULT_LANGUAGES;
-            
-            langs.forEach(lang => {
-                merged[lang.code] = {
-                    ...(SEED_TRANSLATIONS[lang.code] || SEED_TRANSLATIONS.en || {}),
-                    ...(data[lang.code] || {}),
+            for (const { code } of LIVE_LANGUAGES) {
+                merged[code] = {
+                    ...(BUILD_CONTENT.translations[code] || {}),
+                    ...(data[code] || {}),
                 };
-            });
+            }
             setAllTranslations(merged);
-        } catch (err) {
-            console.error('Error loading translations:', err);
+        } catch {
+            /* keep the baked-in strings */
         }
     }, []);
 
-    useEffect(() => {
-        loadTranslations();
-    }, [loadTranslations]);
+    const t = useCallback(
+        (key) => {
+            const current = allTranslations?.[activeLanguage]?.[key];
+            if (current != null && current !== '') return current;
+            // Fall back to the DEFAULT language, never to an arbitrary one.
+            // This is what stops Russian text appearing on English pages.
+            const fallback = allTranslations?.[DEFAULT_LANGUAGE]?.[key];
+            if (fallback != null && fallback !== '') return fallback;
+            return key;
+        },
+        [allTranslations, activeLanguage]
+    );
 
-    const t = useCallback((key) => {
-        if (!allTranslations) return key;
-        return allTranslations[language]?.[key] ??
-               allTranslations['en']?.[key] ??
-               allTranslations['ru']?.[key] ??
-               key;
-    }, [allTranslations, language]);
-
-    const switchLanguage = (code) => {
-        setLanguage(code);
-        try {
-            localStorage.setItem('lang', code);
-        } catch { /* ignore */ }
-    };
+    const value = useMemo(
+        () => ({
+            language: activeLanguage,
+            languages: LIVE_LANGUAGES,
+            t,
+            refreshTranslations,
+        }),
+        [activeLanguage, t, refreshTranslations]
+    );
 
     return (
-        <LanguageContext.Provider value={{ language, languages, switchLanguage, t, refreshTranslations: loadTranslations }}>
+        <LanguageContext.Provider value={value}>
             {children}
         </LanguageContext.Provider>
     );
