@@ -9,9 +9,14 @@ const CheckIcon = () => (
     </svg>
 );
 
-const About = () => {
+/**
+ * `headingLevel` lets the About page render this as its <h1> while the home
+ * page keeps it as an <h2>. The About page previously had no <h1> at all.
+ */
+const About = ({ headingLevel = 'h2' }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const { t } = useLanguage();
+    const Heading = headingLevel;
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
@@ -20,7 +25,7 @@ const About = () => {
         <section className="about-section reveal" id="about">
             <div className="about-container">
                 <div className="about-header reveal">
-                    <h2>{t('about_title')}</h2>
+                    <Heading>{t('about_title')}</Heading>
                 </div>
                 <div className="about-content">
                     <div className="about-images reveal reveal-delay-1">
@@ -59,6 +64,16 @@ const About = () => {
                                 {t('about_benefit_4')}
                             </li>
                         </ul>
+                        {/* `openModal` was defined but wired to nothing, so the
+                            About page mounted a quote dialog that could never
+                            be opened and had no working call to action. */}
+                        <button
+                            type="button"
+                            className="btn-primary about-cta"
+                            onClick={openModal}
+                        >
+                            {t('get_price')}
+                        </button>
                     </div>
                 </div>
             </div>

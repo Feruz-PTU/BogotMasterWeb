@@ -70,7 +70,7 @@
     padding: 0 4px;
 }
 
-.gallery-card-content h3 {
+.gallery-card-content .gallery-card-title {
     font-size: 16px;
     font-weight: 600;
     color: #1A1A1A;
@@ -177,7 +177,7 @@
         margin: 0 0 10px 0;
     }
 
-    .gallery-card-content h3 {
+    .gallery-card-content .gallery-card-title {
         font-size: 13px;
         margin: 0 0 4px 0;
         line-height: 1.3;

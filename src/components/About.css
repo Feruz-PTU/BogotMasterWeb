@@ -64,7 +64,7 @@
     border: 3px solid white;
 }
 
-/* Portrait image — anchor slightly above center so head is visible */
+/* Portrait image â€” anchor slightly above center so head is visible */
 .image-secondary img {
     object-position: left 5%;
 }
@@ -190,7 +190,7 @@
     }
 }
 
-/* ── About Page Extra Sections ───────────────────────────────────────────── */
+/* â”€â”€ About Page Extra Sections â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .about-extra-section {
     padding: 80px 5%;
     background-color: white;
@@ -284,4 +284,15 @@
     .about-extra-stats {
         gap: 16px;
     }
+}
+/* CTA on the About page (the modal existed but had no trigger). */
+.about-cta {
+    margin-top: 26px;
+    display: inline-block;
+    padding: 13px 30px;
+    background: var(--color-primary);
+    color: #fff;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
 }

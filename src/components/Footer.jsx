@@ -1,7 +1,9 @@
-import { Link } from 'react-router-dom';
 import './Footer.css';
 import { useContent } from '../context/ContentContext';
 import { useLanguage } from '../context/LanguageContext';
+import LocalLink from './LocalLink';
+import { track, EVENTS } from '../analytics';
+import { telHref, mailtoHref } from '../utils/links';
 
 const Footer = () => {
     const { t } = useLanguage();
@@ -9,29 +11,54 @@ const Footer = () => {
 
     const email = settings?.email || 'bogotmaster@gmail.com';
     const address = settings?.address || '';
+    const phones = settings?.phone || [];
 
     return (
         <footer className="footer reveal">
             <div className="footer-content">
                 <div className="footer-logo reveal reveal-delay-1">
-                    <Link to="/">
-                        <img src="/Logo/new-logo.png" alt="Bogot Master" />
-                    </Link>
+                    <LocalLink to="/">
+                        <img
+                            src="/Logo/new-logo.png"
+                            alt={t('nav_home_logo_alt')}
+                            width="904"
+                            height="904"
+                            loading="lazy"
+                            decoding="async"
+                        />
+                    </LocalLink>
                     <p>{t('footer_slogan')}</p>
                 </div>
                 <div className="footer-links reveal reveal-delay-2">
-                    <h4>{t('footer_quick_links')}</h4>
-                    <ul>
-                        <li><Link to="/">{t('home')}</Link></li>
-                        <li><Link to="/about">{t('about')}</Link></li>
-                        <li><Link to="/products">{t('products')}</Link></li>
-                        <li><Link to="/contact">{t('contact')}</Link></li>
+                    {/* h2, not h4: the outline jumped from h2 straight to h4. */}
+                    <h2>{t('footer_quick_links')}</h2>
+                    <ul role="list">
+                        <li><LocalLink to="/">{t('home')}</LocalLink></li>
+                        <li><LocalLink to="/about">{t('about')}</LocalLink></li>
+                        <li><LocalLink to="/products">{t('products')}</LocalLink></li>
+                        <li><LocalLink to="/contact">{t('contact')}</LocalLink></li>
+                        <li><LocalLink to="/privacy">{t('privacy_title')}</LocalLink></li>
                     </ul>
                 </div>
                 <div className="footer-contact reveal reveal-delay-3">
-                    <h4>{t('footer_contact_us')}</h4>
-                    <p>{address}</p>
-                    <p>{email}</p>
+                    <h2>{t('footer_contact_us')}</h2>
+                    <address className="footer-address">
+                        <p>{address}</p>
+                        {/* The footer carried no phone at all, and the email
+                            was plain text rather than a link. */}
+                        {phones.map((phone) => (
+                            <p key={phone}>
+                                <a href={telHref(phone)} onClick={() => track(EVENTS.CLICK_PHONE)}>
+                                    {phone}
+                                </a>
+                            </p>
+                        ))}
+                        <p>
+                            <a href={mailtoHref(email)} onClick={() => track(EVENTS.CLICK_EMAIL)}>
+                                {email}
+                            </a>
+                        </p>
+                    </address>
                 </div>
             </div>
             <div className="footer-bottom">
