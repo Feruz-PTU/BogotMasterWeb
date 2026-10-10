@@ -149,6 +149,36 @@ export async function trackPageView(path) {
     }
 }
 
+// ─── Events (cookieless analytics) ──────────────────────────────────────────
+
+/**
+ * Records one interaction. No visitor identifier is stored, so rows cannot be
+ * joined into a profile of an individual — see src/analytics.js.
+ * Allowed event names are enforced again by a CHECK constraint in the
+ * database (supabase/phase2-migration.sql).
+ */
+export async function recordEvent({ name, path, lang, referrer_host }) {
+    const { error } = await supabase.from('events').insert({
+        name: String(name).slice(0, 40),
+        path: path ? String(path).slice(0, 200) : null,
+        lang: lang ? String(lang).slice(0, 8) : null,
+        referrer_host: referrer_host ? String(referrer_host).slice(0, 120) : null,
+    });
+    if (error) throw error;
+}
+
+export async function fetchEventSummary(days = 30) {
+    const since = new Date(Date.now() - days * 86400000).toISOString();
+    const { data, error } = await supabase
+        .from('events')
+        .select('name, path, lang, referrer_host, created_at')
+        .gte('created_at', since)
+        .order('created_at', { ascending: false })
+        .limit(5000);
+    if (error) throw error;
+    return data || [];
+}
+
 export async function fetchStats() {
     try {
         const { data, error } = await supabase

@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import Layout from '../components/Layout';
+import LocalLink from '../components/LocalLink';
 import SEO from '../components/SEO';
 import Hero from '../components/Hero';
 import Stats from '../components/Stats';
@@ -10,7 +11,6 @@ import PriceModal from '../components/PriceModal';
 import Certificates from '../components/Certificates';
 import Partners from '../components/Partners';
 import FeaturedGallery from '../components/FeaturedGallery';
-import { ProductCardSkeleton } from '../components/Skeleton';
 import { useLanguage } from '../context/LanguageContext';
 import { useContent } from '../context/ContentContext';
 import { useReveal } from '../hooks/useReveal';
@@ -26,7 +26,7 @@ const CheckIcon = () => (
 const Home = ({ addToast }) => {
     useReveal();
     const { t } = useLanguage();
-    const { featuredProducts, loading } = useContent();
+    const { featuredProducts } = useContent();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -37,7 +37,20 @@ const Home = ({ addToast }) => {
 
     return (
         <Layout>
-            <SEO />
+            <SEO kind="home" routePath="/" />
+
+            {/* The hero image preload belongs to this page only. It used to sit
+                in index.html, so /about, /contact and /admin each downloaded
+                164 KB of hero image they never showed. */}
+            <Helmet>
+                <link
+                    rel="preload"
+                    as="image"
+                    href="/images/hero-bg-new.webp"
+                    fetchpriority="high"
+                    media="(min-width: 641px)"
+                />
+            </Helmet>
 
             <Hero addToast={addToast} />
             <Stats />
@@ -48,35 +61,49 @@ const Home = ({ addToast }) => {
                     <h2 className="section-title">{t('our_products')}</h2>
                 </div>
                 <div className="home-products-grid">
-                    {loading
-                        ? Array(4).fill(0).map((_, i) => (
-                            <ProductCardSkeleton key={i} />
-                        ))
-                        : (featuredProducts || []).slice(0, 4).map((product, index) => (
-                            <div key={product.slug} className={`reveal reveal-delay-${(index % 4) + 1}`}>
-                                <div className="home-product-card">
-                                    <Link to={`/products/${product.slug}`} className="home-product-image">
-                                        <img src={product.image} alt={product.title} loading="lazy" />
-                                    </Link>
-                                    <div className="home-product-content">
-                                        <h3>
-                                            <Link to={`/products/${product.slug}`}>{product.title}</Link>
-                                        </h3>
-                                        <p>{product.description}</p>
-                                        <button
-                                            className="btn-price"
-                                            onClick={() => openProductModal(product)}
-                                        >
-                                            {t('get_price')}
-                                        </button>
-                                    </div>
+                    {(featuredProducts || []).slice(0, 4).map((product, index) => (
+                        <div key={product.slug} className={`reveal reveal-delay-${(index % 4) + 1}`}>
+                            <div className="home-product-card">
+                                {/* alt="" and removed from the tab order: the
+                                    product name right below is already a link
+                                    to the same page, so this was a duplicate
+                                    link with duplicate text for a screen
+                                    reader. */}
+                                <LocalLink
+                                    to={`/products/${product.slug}`}
+                                    className="home-product-image"
+                                    tabIndex={-1}
+                                    aria-hidden="true"
+                                >
+                                    <img
+                                        src={product.image}
+                                        alt=""
+                                        width="1024"
+                                        height="1024"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                </LocalLink>
+                                <div className="home-product-content">
+                                    <h3>
+                                        <LocalLink to={`/products/${product.slug}`}>
+                                            {product.title}
+                                        </LocalLink>
+                                    </h3>
+                                    <p>{product.description}</p>
+                                    <button
+                                        className="btn-price"
+                                        onClick={() => openProductModal(product)}
+                                    >
+                                        {t('get_price')}
+                                    </button>
                                 </div>
                             </div>
-                        ))
-                    }
+                        </div>
+                    ))}
                 </div>
                 <div className="home-products-footer">
-                    <Link to="/products" className="btn-view-all-bottom">{t('view_all_products')}</Link>
+                    <LocalLink to="/products" className="btn-view-all-bottom">{t('view_all_products')}</LocalLink>
                 </div>
             </section>
 
@@ -87,13 +114,17 @@ const Home = ({ addToast }) => {
                     <h2 className="section-title" style={{ gridColumn: '1 / span 2', marginBottom: '40px' }}>{t('about_title')}</h2>
                     
                     <div className="home-about-images reveal reveal-delay-1">
-                        <img src="/images/image16.png" alt={t('about_img_1')} loading="lazy" />
-                        <img src="/images/image17.png" alt={t('about_img_2')} className="desktop-only-about-img" loading="lazy" />
+                        <img src="/images/image16.png" alt={t('about_img_1')} width="435" height="324" loading="lazy" decoding="async" />
+                        {/* image17 is rendered twice (desktop + mobile copies)
+                            and only one is ever visible, so the hidden one
+                            carries alt="" to avoid the same description being
+                            announced twice. */}
+                        <img src="/images/image17.png" alt={t('about_img_2')} className="desktop-only-about-img" width="227" height="265" loading="lazy" decoding="async" />
                     </div>
                     <div className="home-about-text reveal reveal-delay-2">
                         <div className="home-about-mobile-layout">
                             <div className="home-about-mobile-img">
-                                <img src="/images/image17.png" alt={t('about_img_2')} loading="lazy" />
+                                <img src="/images/image17.png" alt="" width="227" height="265" loading="lazy" decoding="async" />
                             </div>
                             <div className="home-about-paragraphs">
                                 <p>{t('about_p1')}</p>
@@ -110,7 +141,7 @@ const Home = ({ addToast }) => {
                             <li><CheckIcon />{t('about_benefit_3')}</li>
                             <li><CheckIcon />{t('about_benefit_4')}</li>
                         </ul>
-                        <Link to="/about" className="btn-details">{t('read_more')}</Link>
+                        <LocalLink to="/about" className="btn-details">{t('read_more')}</LocalLink>
                     </div>
                 </div>
             </section>

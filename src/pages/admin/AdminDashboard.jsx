@@ -1,6 +1,9 @@
 import { useState, useEffect, useLayoutEffect, useRef, useMemo, Fragment } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { uploadProductImage, uploadGalleryImage, signOut, onAuth } from '../../supabase/config';
+// Imported from services/adminData rather than supabase/data directly: the
+// write functions there also trigger a (debounced) site rebuild, because the
+// public pages are prerendered and a save is not live until the build runs.
 import {
     fetchProducts, fetchSettings,
     saveProduct, saveSettings, deleteProduct,
@@ -9,8 +12,10 @@ import {
     fetchStats,
     fetchTranslations, saveTranslations,
     SEED_TRANSLATIONS,
-} from '../../supabase/data';
+    onRebuildStatus,
+} from '../../services/adminData';
 import { useLanguage } from '../../context/LanguageContext';
+import SEO from '../../components/SEO';
 import './Admin.css';
 
 const TRANSLATION_GROUPS = [
@@ -432,6 +437,19 @@ const AdminDashboard = () => {
         setToast(msg);
         setTimeout(() => setToast(''), 3000);
     };
+
+    // Surface the background rebuild so the admin knows when an edit is
+    // actually live on the public site.
+    useEffect(() => {
+        onRebuildStatus((result) => {
+            setToast(
+                result.success
+                    ? result.message || 'Rebuilding the site…'
+                    : `Saved, but the rebuild did not start: ${result.message}`
+            );
+            setTimeout(() => setToast(''), 6000);
+        });
+    }, []);
 
     // ── Products ──────────────────────────────────────────────────────────────
 
@@ -1047,6 +1065,9 @@ const AdminDashboard = () => {
 
     return (
         <div className="admin-dashboard">
+            {/* Belt and braces with the X-Robots-Tag header in vercel.json:
+                these pages had no noindex of any kind and were crawlable. */}
+            <SEO routePath="/admin" title="Admin" noindex />
             {/* Add Language Modal */}
             {showAddLangModal && (
                 <div className="admin-modal-overlay" onClick={() => setShowAddLangModal(false)}>
