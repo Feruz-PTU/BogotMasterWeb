@@ -1,81 +1,114 @@
 import { Helmet } from 'react-helmet-async';
-import { useLocation } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
+import {
+    LIVE_LANGUAGES,
+    DEFAULT_LANGUAGE,
+    localizedPath,
+    getLanguage,
+} from '../i18n/languages';
+import { buildGraph, safeJsonLd, SITE_URL } from '../seo/schema';
 
-const SITE_URL = 'https://bogotmaster.org';
-
+/**
+ * Head tags for one page.
+ *
+ * `routePath` is the language-independent path ('/', '/products',
+ * '/products/granules'). Every language URL for the page is derived from it,
+ * which is what makes the canonical and the hreflang set agree by
+ * construction rather than by hand.
+ */
 const SEO = ({
+    routePath = '/',
+    kind = 'page',
     title,
     description,
-    keywords,
     image,
+    imageWidth,
+    imageHeight,
     noindex = false,
-    structuredData,
+    product,
+    products,
+    breadcrumb,
 }) => {
     const { t, language } = useLanguage();
-    const { pathname } = useLocation();
+    const langMeta = getLanguage(language);
 
     const pageTitle = title || t('meta_title');
     const pageDescription = description || t('meta_description');
-    const pageKeywords = keywords || t('meta_keywords');
-    const ogTitle = title || t('og_title');
-    const ogDescription = description || t('og_description');
-    const ogImage = image || `${SITE_URL}/Logo/new-logo.png`;
-    const canonical = `${SITE_URL}${pathname === '/' ? '' : pathname}`;
 
-    const orgSchema = {
-        '@context': 'https://schema.org',
-        '@type': 'Organization',
-        'name': 'Bogot Master Licorice Export',
-        'url': SITE_URL,
-        'logo': `${SITE_URL}/Logo/new-logo.png`,
-        'description': t('schema_description'),
-        'address': {
-            '@type': 'PostalAddress',
-            'streetAddress': 'Bogot district',
-            'addressLocality': 'Khorezm region',
-            'addressCountry': 'UZ',
-            'postalCode': '220204',
-        },
-        'contactPoint': {
-            '@type': 'ContactPoint',
-            'telephone': '+998995129826',
-            'contactType': 'sales',
-            'areaServed': ['US', 'EU', 'CN', 'KR', 'JP', 'IN'],
-            'availableLanguage': ['English', 'Russian'],
-        },
-        'sameAs': [],
-    };
+    // Self-canonical for this language. Always absolute, always lowercase,
+    // never with a trailing slash (except the root) and never with a query
+    // string, so /Products, /products/ and /products?utm= all point here.
+    const canonicalPath = localizedPath(language, routePath);
+    const canonical = `${SITE_URL}${canonicalPath === '/' ? '/' : canonicalPath}`;
+
+    const ogImage = image
+        ? image.startsWith('http')
+            ? image
+            : `${SITE_URL}${image}`
+        : `${SITE_URL}/images/og-default.jpg`;
+    const ogW = image ? imageWidth : 1200;
+    const ogH = image ? imageHeight : 630;
+
+    const graph = buildGraph({
+        kind,
+        canonical,
+        lang: langMeta.htmlLang,
+        title: pageTitle,
+        description: pageDescription,
+        t,
+        product,
+        products,
+        breadcrumb,
+    });
 
     return (
         <Helmet>
-            <html lang={language} />
+            <html lang={langMeta.htmlLang} />
             <title>{pageTitle}</title>
-            <meta name='description' content={pageDescription} />
-            <meta name='keywords' content={pageKeywords} />
-            <link rel='canonical' href={canonical} />
-            {noindex && <meta name='robots' content='noindex, follow' />}
+            <meta name="description" content={pageDescription} />
+            <link rel="canonical" href={canonical} />
+            {noindex && <meta name="robots" content="noindex, follow" />}
+
+            {/* One alternate per live language, plus x-default pointing at the
+                default language. Generated from languages.js, so adding a
+                language adds its hreflang automatically. */}
+            {LIVE_LANGUAGES.map((l) => (
+                <link
+                    key={l.code}
+                    rel="alternate"
+                    hrefLang={l.htmlLang}
+                    href={`${SITE_URL}${localizedPath(l.code, routePath)}`}
+                />
+            ))}
+            <link
+                rel="alternate"
+                hrefLang="x-default"
+                href={`${SITE_URL}${localizedPath(DEFAULT_LANGUAGE, routePath)}`}
+            />
 
             {/* Open Graph */}
-            <meta property='og:type' content='website' />
-            <meta property='og:title' content={ogTitle} />
-            <meta property='og:description' content={ogDescription} />
-            <meta property='og:url' content={canonical} />
-            <meta property='og:image' content={ogImage} />
+            <meta property="og:type" content={kind === 'product' ? 'product' : 'website'} />
+            <meta property="og:site_name" content="Bogot Master" />
+            <meta property="og:locale" content={langMeta.ogLocale} />
+            {LIVE_LANGUAGES.filter((l) => l.code !== language).map((l) => (
+                <meta key={l.code} property="og:locale:alternate" content={l.ogLocale} />
+            ))}
+            <meta property="og:title" content={pageTitle} />
+            <meta property="og:description" content={pageDescription} />
+            <meta property="og:url" content={canonical} />
+            <meta property="og:image" content={ogImage} />
+            {ogW && <meta property="og:image:width" content={String(ogW)} />}
+            {ogH && <meta property="og:image:height" content={String(ogH)} />}
+            <meta property="og:image:alt" content={pageTitle} />
 
-            {/* Twitter */}
-            <meta name='twitter:card' content='summary_large_image' />
-            <meta name='twitter:title' content={ogTitle} />
-            <meta name='twitter:description' content={ogDescription} />
-            <meta name='twitter:image' content={ogImage} />
+            {/* Twitter / X */}
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content={pageTitle} />
+            <meta name="twitter:description" content={pageDescription} />
+            <meta name="twitter:image" content={ogImage} />
 
-            {/* Organization structured data (every page) */}
-            <script type='application/ld+json'>{JSON.stringify(orgSchema)}</script>
-
-            {/* Optional page-specific structured data (e.g. Product) */}
-            {structuredData && (
-                <script type='application/ld+json'>{JSON.stringify(structuredData)}</script>
-            )}
+            {/* One linked graph instead of several disconnected blocks. */}
+            <script type="application/ld+json">{safeJsonLd(graph)}</script>
         </Helmet>
     );
 };
