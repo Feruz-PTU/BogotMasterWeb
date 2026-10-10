@@ -1,21 +1,27 @@
-import { useState, useEffect, useRef } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useState, useRef } from 'react';
+import { useParams } from 'react-router-dom';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import PriceModal from '../components/PriceModal';
 import QuoteButton from '../components/QuoteButton';
-import { ProductDetailSkeleton } from '../components/Skeleton';
+import LocalLink, { useLocalPath } from '../components/LocalLink';
+import NotFound from './NotFound';
 import { useLanguage } from '../context/LanguageContext';
 import { useContent } from '../context/ContentContext';
 import { useReveal } from '../hooks/useReveal';
+import {
+    productTitle,
+    productDescription,
+    productBreadcrumb,
+} from '../seo/productMeta';
 import './ProductDetail.css';
 
 const ProductDetail = ({ addToast }) => {
     useReveal();
     const { slug } = useParams();
-    const navigate = useNavigate();
-    const { t, language } = useLanguage();
-    const { products, loading } = useContent();
+    const { t } = useLanguage();
+    const { products } = useContent();
+    const localPath = useLocalPath();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [relatedProgress, setRelatedProgress] = useState(10);
     const relatedRef = useRef(null);
@@ -28,63 +34,51 @@ const ProductDetail = ({ addToast }) => {
         setRelatedProgress(10 + (el.scrollLeft / max) * 90);
     };
 
-    const product = products.find(p => p.slug === slug);
-    const related = products.filter(p => p.slug !== slug).slice(0, 3);
+    const product = products.find((p) => p.slug === slug);
 
-    useEffect(() => {
-        if (!loading && !product) {
-            navigate('/products', { replace: true });
-        }
-    }, [loading, product, navigate]);
+    // An unknown or hidden slug is a genuine 404. It used to silently
+    // client-redirect to /products with an HTTP 200, so a dead product URL
+    // looked alive to search engines and stayed in the index.
+    if (!product) return <NotFound />;
 
-    if (loading || !product) {
-        return (
-            <Layout>
-                <div className="pd-section">
-                    <ProductDetailSkeleton />
-                </div>
-            </Layout>
-        );
-    }
-
-    const siteUrl = 'https://bogotmaster.org';
-    const productImage = product.image?.startsWith('http')
-        ? product.image
-        : `${siteUrl}${product.image}`;
-    const productSchema = {
-        '@context': 'https://schema.org',
-        '@type': 'Product',
-        'name': product.title,
-        'description': product.description,
-        'image': productImage,
-        'category': 'Licorice Root',
-        'brand': { '@type': 'Brand', 'name': 'Bogot Master' },
-        'manufacturer': { '@type': 'Organization', 'name': 'Bogot Master' },
-    };
+    const related = products.filter((p) => p.slug !== slug).slice(0, 3);
+    const specs = product.activeSpecs || {};
 
     return (
         <Layout>
             <SEO
-                title={`${product.title} | Bogot Master`}
-                description={product.description}
-                image={productImage}
-                structuredData={productSchema}
+                kind="product"
+                routePath={`/products/${product.slug}`}
+                title={productTitle(product, t)}
+                description={productDescription(product, t)}
+                image={product.image}
+                product={product}
+                breadcrumb={productBreadcrumb(product, t, localPath)}
             />
             <div className="pd-section">
             <div className="product-detail-page">
                 {/* Breadcrumb */}
-                <nav className="pd-breadcrumb reveal">
-                    <Link to="/">{t('home')}</Link>
-                    <span>/</span>
-                    <Link to="/products">{t('products')}</Link>
-                    <span>/</span>
-                    <span>{product.title}</span>
+                <nav className="pd-breadcrumb reveal" aria-label={t('breadcrumb')}>
+                    <ol className="pd-breadcrumb-list">
+                        <li><LocalLink to="/">{t('home')}</LocalLink></li>
+                        <li><LocalLink to="/products">{t('products')}</LocalLink></li>
+                        <li><span aria-current="page">{product.title}</span></li>
+                    </ol>
                 </nav>
 
                 {/* Main content */}
                 <div className="pd-main">
                     <div className="pd-image-wrap reveal reveal-delay-1">
-                        <img src={product.image} alt={product.title} />
+                        {/* Above the fold and the LCP element on this page:
+                            eager, high priority, and sized to stop layout shift. */}
+                        <img
+                            src={product.image}
+                            alt={product.title}
+                            width="1024"
+                            height="1024"
+                            fetchPriority="high"
+                            decoding="async"
+                        />
                     </div>
 
                     <div className="pd-info reveal reveal-delay-2">
@@ -98,9 +92,9 @@ const ProductDetail = ({ addToast }) => {
                             >
                                 {t('get_price')}
                             </button>
-                            <Link to="/contact" className="pd-contact-link">
+                            <LocalLink to="/contact" className="pd-contact-link">
                                 {t('contactBtn')}
-                            </Link>
+                            </LocalLink>
                         </div>
 
                         <div className="pd-quote">
@@ -116,17 +110,9 @@ const ProductDetail = ({ addToast }) => {
                 </div>
 
                 {/* Technical Specifications */}
-                {product.specs && Object.values(product.specs).some(v => v) && (() => {
-                    const rawSpecs = product.specs;
-                    const isNested = rawSpecs?.en || rawSpecs?.ru;
-                    const langSpecs = isNested
-                        ? (rawSpecs[language] || rawSpecs.en || rawSpecs.ru || {})
-                        : rawSpecs;
-                    const docs = langSpecs.documents?.length > 0
-                        ? langSpecs.documents
-                        : (rawSpecs?.en?.documents || rawSpecs?.ru?.documents || []);
-                    const specs = { ...langSpecs, documents: docs };
-                    return (
+                {Object.entries(specs).some(
+                    ([k, v]) => k !== 'documents' && v != null && String(v).trim() !== ''
+                ) && (
                     <div className="pd-specs reveal">
                         <h2>{t('specifications')}</h2>
                         <div className="pd-specs-grid">
@@ -199,8 +185,7 @@ const ProductDetail = ({ addToast }) => {
                             )}
                         </div>
                     </div>
-                    );
-                })()}
+                )}
 
                 {/* Related products */}
                 {related.length > 0 && (
@@ -212,9 +197,9 @@ const ProductDetail = ({ addToast }) => {
                             onScroll={handleRelatedScroll}
                         >
                             {related.map((p, index) => (
-                                <Link key={p.slug} to={`/products/${p.slug}`} className={`pd-related-card reveal reveal-delay-${index + 1}`}>
+                                <LocalLink key={p.slug} to={`/products/${p.slug}`} className={`pd-related-card reveal reveal-delay-${index + 1}`}>
                                     <div className="pd-related-image">
-                                        <img src={p.image} alt={p.title} loading="lazy" />
+                                        <img src={p.image} alt="" width="1024" height="1024" loading="lazy" decoding="async" />
                                     </div>
                                     <div className="pd-related-info">
                                         <h3>{p.title}</h3>
@@ -223,7 +208,7 @@ const ProductDetail = ({ addToast }) => {
                                             {t('read_more')} →
                                         </span>
                                     </div>
-                                </Link>
+                                </LocalLink>
                             ))}
                         </div>
                         {/* Progress bar — visible on mobile only */}

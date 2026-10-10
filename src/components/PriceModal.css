@@ -60,7 +60,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #888;
+    color: #6B6B6B;
     transition: all 0.2s ease;
     border-radius: 50%;
 }
@@ -141,13 +141,13 @@
 
 .modal-input.error,
 .modal-textarea.error {
-    border-color: #EF4444;
+    border-color: #C62828;
     background-color: #FEF2F2;
 }
 
 .modal-input::placeholder,
 .modal-textarea::placeholder {
-    color: #9CA3AF;
+    color: #6E6E6E;
 }
 
 .modal-textarea {
@@ -157,7 +157,7 @@
 
 .error-message {
     font-size: 13px;
-    color: #EF4444;
+    color: #C62828;
     margin-top: 6px;
     display: block;
 }
@@ -231,14 +231,14 @@
 
 .modal-error-message {
     background-color: #FEE2E2;
-    border: 1px solid #EF4444;
+    border: 1px solid #C62828;
     color: #991B1B;
 }
 
 .modal-error-message svg {
     width: 24px;
     height: 24px;
-    color: #EF4444;
+    color: #C62828;
     flex-shrink: 0;
 }
 
@@ -336,7 +336,7 @@
 }
 
 .modal-content::-webkit-scrollbar-thumb {
-    background: #888;
+    background: #6B6B6B;
     border-radius: 10px;
 }
 

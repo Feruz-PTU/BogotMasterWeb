@@ -33,7 +33,7 @@
     gap: 8px;
     margin-bottom: 40px;
     font-size: 0.85rem;
-    color: #888;
+    color: #6B6B6B;
 }
 
 .pd-breadcrumb a {
@@ -192,7 +192,7 @@
 
 .pd-spec-list dt {
     font-size: 0.78rem;
-    color: #888;
+    color: #6B6B6B;
     font-weight: 500;
     padding: 8px 8px 8px 0;
     border-bottom: 1px solid #f0ede8;
@@ -242,7 +242,7 @@
 }
 
 .pd-doc-list li::before {
-    content: '✓';
+    content: 'âœ“';
     position: absolute;
     left: 0;
     color: #515E3B;
@@ -372,7 +372,7 @@
     transform: translateX(4px);
 }
 
-/* Progress bar — hidden on desktop */
+/* Progress bar â€” hidden on desktop */
 .pd-related-progress-container {
     display: none;
 }

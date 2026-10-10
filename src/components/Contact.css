@@ -111,7 +111,7 @@
 
 .contact-text h4 {
     font-size: 14px;
-    color: #888;
+    color: #6B6B6B;
     margin-bottom: 4px;
     font-weight: 400;
 }
@@ -149,10 +149,10 @@
     width: 100%;
     padding: 16px 20px;
     background-color: transparent;
-    border: 1px solid #D1D5DB;
+    border: 1px solid #8A8A8A;
     border-radius: 30px;
     font-size: 14px;
-    color: #6B7280;
+    color: #4B5160;
     outline: none;
     transition: border-color 0.3s ease;
     font-family: var(--font-family);
@@ -165,10 +165,10 @@
     /* Slightly lighter bg for textarea block visual */
     background-color: transparent;
     /* Or match design explicitly */
-    border: 1px solid #D1D5DB;
+    border: 1px solid #8A8A8A;
     border-radius: 20px;
     font-size: 14px;
-    color: #6B7280;
+    color: #4B5160;
     outline: none;
     resize: none;
     min-height: 150px;
@@ -182,13 +182,13 @@
 
 .form-input.error,
 .form-textarea.error {
-    border-color: #EF4444;
+    border-color: #C62828;
     background-color: #FEF2F2;
 }
 
 .error-message {
     font-size: 13px;
-    color: #EF4444;
+    color: #C62828;
     margin-top: 6px;
     display: block;
 }
@@ -206,7 +206,7 @@
 
 .error-message-box {
     background-color: #FEE2E2;
-    border: 1px solid #EF4444;
+    border: 1px solid #C62828;
     color: #991B1B;
     padding: 14px 18px;
     border-radius: 12px;

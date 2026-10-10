@@ -145,10 +145,23 @@ button,
     transition: var(--transition-smooth);
     cursor: pointer;
     border: none;
-    outline: none;
 }
 
-button:hover,
+/* A visible focus ring for keyboard users.
+   `outline: none` used to be set on every button on the site with nothing put
+   back, so anyone navigating by keyboard had no idea what was selected.
+   :focus-visible shows the ring for keyboard focus only, so mouse clicks look
+   exactly as before. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* The dark hover background is only correct for the three solid CTA buttons.
+   Applied to every `button` it also hit icon-only controls that set their own
+   dark text on a transparent background (quote-cart close, toast close,
+   "clear list"), turning them into dark-on-dark on hover. */
 .btn-primary:hover,
 .btn-contact:hover,
 .btn-details:hover {
@@ -163,13 +176,33 @@ button:active,
     transform: translateY(0);
 }
 
+/* Skip link — the first thing in the tab order, so a keyboard user can jump
+   straight past the header instead of tabbing the whole nav on every page. */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 2000;
+    padding: 12px 20px;
+    background: var(--color-primary);
+    color: #fff;
+    font-weight: 600;
+    border-radius: 0 0 6px 0;
+}
+
+.skip-link:focus {
+    left: 0;
+}
+
 /* Professional Reveal Animations */
 .reveal {
     opacity: 1;
     transform: none;
     transition: opacity 1s cubic-bezier(0.2, 1, 0.3, 1),
                 transform 1.2s cubic-bezier(0.2, 1, 0.3, 1);
-    will-change: opacity, transform;
+    /* `will-change` was promoting every .reveal element to its own compositor
+       layer permanently, for an animation whose start and end states are
+       identical — pure cost, no visible effect. */
 }
 
 @media (max-width: 640px) {
@@ -196,4 +229,34 @@ button:active,
         transform: none;
         transition: none;
     }
+}
+/* ─────────────────────────────────────────────────────────────────────────
+   Reduced motion.
+   Only four animations previously honoured this setting; modals, toasts,
+   the mobile nav slide, the dropdown and every hover transform ignored it.
+   This covers all of them in one place, for users who get motion sickness
+   or migraines from movement.
+   ───────────────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Screen-reader-only text: available to assistive tech, invisible on screen. */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }

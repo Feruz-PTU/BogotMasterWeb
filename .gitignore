@@ -16,7 +16,7 @@ src/data/build-content.json
 # Design mock-ups: kept on disk, not in the repo (24 MB of PNGs).
 resource/
 
-# Owner's manual setup notes â€” contains security steps, keep out of the repo.
+# Owner's manual setup notes - contains security steps, keep out of the repo.
 NeededManual changes.txt
 
 # Environment variables

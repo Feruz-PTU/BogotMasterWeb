@@ -38,7 +38,7 @@
     height: 22px;
     padding: 0 6px;
     border-radius: 11px;
-    background: #d9534f;
+    background: #C62828;
     color: #fff;
     font-size: 0.75rem;
     font-weight: 700;
@@ -228,9 +228,9 @@
     border-color: var(--color-primary, #515E3B);
 }
 
-.quote-cart-form input.error { border-color: #d9534f; }
+.quote-cart-form input.error { border-color: #C62828; }
 
-.qc-error { color: #d9534f; font-size: 0.75rem; }
+.qc-error { color: #C62828; font-size: 0.75rem; }
 
 .qc-success {
     background: #e6f4ea;
