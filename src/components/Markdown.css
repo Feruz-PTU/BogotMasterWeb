@@ -1,0 +1,132 @@
+/* Typography for the long-form text rendered by Markdown.jsx. Everything is
+   scoped to .markdown so none of it can leak into the marketing pages. */
+
+.markdown > :first-child {
+    margin-top: 0;
+}
+
+.markdown h2 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #1A1A1A;
+    margin: 36px 0 12px;
+}
+
+.markdown h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1A1A1A;
+    margin: 26px 0 10px;
+}
+
+.markdown p,
+.markdown li {
+    color: #4A4A4A;
+    line-height: 1.75;
+    font-size: 0.97rem;
+}
+
+.markdown p {
+    margin-bottom: 12px;
+}
+
+.markdown strong {
+    color: #1A1A1A;
+    font-weight: 600;
+}
+
+.markdown a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    overflow-wrap: anywhere;
+}
+
+/* The global reset removes list markers and indentation site-wide. */
+.markdown ul,
+.markdown ol {
+    margin: 0 0 14px;
+    padding-left: 22px;
+}
+
+.markdown ul {
+    list-style: disc;
+}
+
+.markdown li {
+    margin-bottom: 6px;
+}
+
+.markdown code {
+    font-size: 0.88em;
+    background: var(--color-secondary);
+    padding: 1px 5px;
+    border-radius: 4px;
+}
+
+.markdown-table {
+    margin: 8px 0 20px;
+    overflow-x: auto;
+}
+
+.markdown table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.markdown th,
+.markdown td {
+    text-align: left;
+    vertical-align: top;
+    padding: 10px 12px;
+    border: 1px solid #E4E2D9;
+    color: #4A4A4A;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.markdown th {
+    background: var(--color-secondary);
+    color: #1A1A1A;
+    font-weight: 600;
+}
+
+@media (max-width: 640px) {
+    /* A four-column table cannot be read on a phone. Each row becomes a card
+       and each cell is labelled with its column heading (data-label) instead.
+       The header row is hidden visually but stays available to screen readers. */
+    .markdown thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+    }
+
+    .markdown table,
+    .markdown tbody,
+    .markdown tr,
+    .markdown td {
+        display: block;
+    }
+
+    .markdown tr {
+        border: 1px solid #E4E2D9;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        padding: 4px 0;
+    }
+
+    .markdown td {
+        border: 0;
+        padding: 8px 14px;
+    }
+
+    .markdown td::before {
+        content: attr(data-label);
+        display: block;
+        color: #1A1A1A;
+        font-size: 0.82rem;
+        font-weight: 600;
+        margin-bottom: 2px;
+    }
+}

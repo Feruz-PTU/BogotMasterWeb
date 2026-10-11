@@ -1,33 +1,36 @@
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
+import Markdown from '../components/Markdown';
 import { useLanguage } from '../context/LanguageContext';
-import { CONTACT_INFO } from '../config';
+import { DEFAULT_LANGUAGE } from '../i18n/languages';
+import policyEn from '../content/privacy-policy.en.md?raw';
+import policyRu from '../content/privacy-policy.ru.md?raw';
 import './PrivacyPage.css';
 
 /**
  * Privacy policy.
  *
- * The wording lives in the translation table (Supabase → Translations), so it
- * can be corrected in the admin panel without a code change. It describes the
- * data flows this site actually has: the three forms, the Supabase database,
- * Resend for email, Vercel for hosting, Google Fonts, and the cookieless
- * page/event counter. No cookies are set for analytics, which is why there is
- * no cookie banner.
+ * The text lives in src/content/privacy-policy.<language>.md, one file per
+ * live language. It used to be seven one-paragraph strings in the translation
+ * table; the full policy has tables, lists and sub-sections, which that table
+ * cannot hold. The page title and the meta tags still come from translations.
  *
- * DRAFT: reviewed by nobody with legal training. See "NeededManual changes.txt".
+ * It describes the data flows this site actually has: the three forms, the
+ * Supabase database, Resend for email, Vercel for hosting, Zoho for the
+ * mailboxes, Google Fonts, and the cookieless page/event counter. No cookies
+ * are set, which is why there is no cookie banner. When any of those change,
+ * change the wording in BOTH language files.
+ *
+ * A language added in src/i18n/languages.js needs its own file here; until it
+ * has one, that language shows the default-language text.
  */
-const SECTIONS = [
-    'privacy_what',
-    'privacy_why',
-    'privacy_where',
-    'privacy_email',
-    'privacy_analytics',
-    'privacy_retention',
-    'privacy_rights',
-];
+const POLICY = {
+    en: policyEn,
+    ru: policyRu,
+};
 
 const PrivacyPage = () => {
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
 
     return (
         <Layout>
@@ -39,30 +42,7 @@ const PrivacyPage = () => {
             <div className="privacy-page">
                 <div className="privacy-inner">
                     <h1>{t('privacy_title')}</h1>
-
-                    <p className="privacy-draft" role="note">
-                        <strong>{t('privacy_draft_label')}</strong>{' '}
-                        {t('privacy_draft_text')}
-                    </p>
-
-                    <p className="privacy-updated">{t('privacy_intro')}</p>
-
-                    {SECTIONS.map((key) => (
-                        <section key={key}>
-                            <h2>{t(`${key}_title`)}</h2>
-                            <p>{t(`${key}_text`)}</p>
-                        </section>
-                    ))}
-
-                    <section>
-                        <h2>{t('privacy_contact_title')}</h2>
-                        <p>
-                            {t('privacy_contact_text')}{' '}
-                            <a href={`mailto:${CONTACT_INFO.email}`}>
-                                {CONTACT_INFO.email}
-                            </a>
-                        </p>
-                    </section>
+                    <Markdown source={POLICY[language] ?? POLICY[DEFAULT_LANGUAGE]} />
                 </div>
             </div>
         </Layout>
