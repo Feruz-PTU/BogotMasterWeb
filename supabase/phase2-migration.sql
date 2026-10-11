@@ -127,6 +127,12 @@ create policy stats_read on public.stats
 --     select policyname, cmd, roles
 --     from pg_policies where schemaname = 'storage' and tablename = 'objects';
 
+-- The two rules that exist today. "Admin write product images" lets ANY
+-- logged-in account upload, not just the admin; left in place it would keep
+-- working alongside the stricter rules below and defeat them.
+drop policy if exists "Admin write product images" on storage.objects;
+drop policy if exists "Public read product images" on storage.objects;
+
 drop policy if exists "bm_storage_public_read"   on storage.objects;
 drop policy if exists "bm_storage_admin_insert"  on storage.objects;
 drop policy if exists "bm_storage_admin_update"  on storage.objects;
@@ -564,6 +570,13 @@ drop policy if exists "bm_storage_public_read"  on storage.objects;
 drop policy if exists "bm_storage_admin_insert" on storage.objects;
 drop policy if exists "bm_storage_admin_update" on storage.objects;
 drop policy if exists "bm_storage_admin_delete" on storage.objects;
+
+-- Put back the two storage rules that existed before
+create policy "Public read product images" on storage.objects
+    for select to public using (bucket_id = 'products');
+create policy "Admin write product images" on storage.objects
+    for all to authenticated
+    using (bucket_id = 'products') with check (bucket_id = 'products');
 
 -- Remove the new analytics table and the admin helper
 drop view  if exists public.inquiries_readable;
