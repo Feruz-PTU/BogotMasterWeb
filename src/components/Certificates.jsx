@@ -4,8 +4,9 @@ import { useLanguage } from '../context/LanguageContext';
 const Certificates = () => {
     const { t } = useLanguage();
 
+    // The registry extract (cert_1) was removed on purpose: it exposed the
+    // director's personal ID number and the founders' ownership shares.
     const certificates = [
-        { id: 1, title: t('cert_1'), file: '/Certificate/Выписка%20из%20реестра.pdf' },
         { id: 2, title: t('cert_2'), file: '/Certificate/Свидетельство%20НДС.pdf' },
         { id: 3, title: t('cert_3'), file: '/Certificate/Свидетельство%20о%20регистрации.pdf' },
         { id: 4, title: t('cert_4'), file: '/Certificate/Удостоверение%20о%20регистрации.pdf' },
@@ -15,7 +16,7 @@ const Certificates = () => {
         <section className="certificates-section">
             <div className="section-header">
                 <span className="section-label">{t('documentation_label')}</span>
-                <h2 className="section-title">{t('certificates_title')}</h2>
+                <h2 className="section-title">{t('company_docs_title')}</h2>
             </div>
 
             <div className="certificates-wrapper">

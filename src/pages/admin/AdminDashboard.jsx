@@ -152,12 +152,11 @@ const TRANSLATION_GROUPS = [
     {
         id: 'certs', label: 'Certificates',
         keys: [
-            { key: 'certificates_title', label: 'Section title' },
+            { key: 'company_docs_title', label: 'Section title' },
             { key: 'documentation_label', label: 'Small label' },
-            { key: 'cert_1', label: 'Certificate 1' },
-            { key: 'cert_2', label: 'Certificate 2' },
-            { key: 'cert_3', label: 'Certificate 3' },
-            { key: 'cert_4', label: 'Certificate 4' },
+            { key: 'cert_2', label: 'Document 1 (VAT certificate)' },
+            { key: 'cert_3', label: 'Document 2 (registration certificate)' },
+            { key: 'cert_4', label: 'Document 3 (registration ID)' },
         ],
     },
     {

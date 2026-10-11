@@ -29,7 +29,7 @@
 
 .certificates-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 40px;
     text-align: center;
 }
@@ -85,14 +85,17 @@
 /* Response */
 @media (max-width: 1024px) {
     .certificates-grid {
-        grid-template-columns: repeat(2, 1fr);
         gap: 30px;
     }
 }
 
 @media (max-width: 600px) {
     .certificates-grid {
-        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .cert-title {
+        font-size: 0.8rem;
     }
 
     .certificates-container {

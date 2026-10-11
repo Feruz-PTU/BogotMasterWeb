@@ -18,6 +18,7 @@
 export const FALLBACK_STRINGS = {
     en: {
         skip_to_content: 'Skip to content',
+        company_docs_title: 'Company Registration Documents',
         nav_main: 'Main navigation',
         nav_home_logo_alt: 'Bogot Master — home',
         nav_select_language: 'Select language',
@@ -101,6 +102,7 @@ export const FALLBACK_STRINGS = {
 
     ru: {
         skip_to_content: 'Перейти к содержанию',
+        company_docs_title: 'Регистрационные документы компании',
         nav_main: 'Основная навигация',
         nav_home_logo_alt: 'Bogot Master — на главную',
         nav_select_language: 'Выбрать язык',
