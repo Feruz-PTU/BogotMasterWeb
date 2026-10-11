@@ -85,6 +85,42 @@ async function get(path) {
 /** Slugs must be lowercase: Vercel URLs are case-sensitive. */
 const normalizeSlug = (s) => String(s || '').trim().toLowerCase();
 
+/**
+ * Folders that were renamed in the repo but whose old paths may still be
+ * stored in the database.
+ *
+ * The gallery folder was "gallary photos" — misspelled, and with a space that
+ * had to be %20-encoded in every URL. Renaming it on disk is not enough: the
+ * image paths live in the `settings` row, so until the SQL migration is run
+ * the database still points at a folder that no longer exists, and every
+ * gallery photo 404s.
+ *
+ * Rewriting the paths here makes the build correct either way, instead of
+ * depending on a manual step having happened first.
+ */
+const LEGACY_PATHS = [
+    [/\/gallary(%20| )photos\//g, '/gallery/'],
+];
+
+const normalizePath = (value) => {
+    if (typeof value !== 'string') return value;
+    let out = value;
+    for (const [from, to] of LEGACY_PATHS) out = out.replace(from, to);
+    return out;
+};
+
+/** Walk any structure and rewrite every legacy asset path inside it. */
+function normalizeAssetPaths(node) {
+    if (typeof node === 'string') return normalizePath(node);
+    if (Array.isArray(node)) return node.map(normalizeAssetPaths);
+    if (node && typeof node === 'object') {
+        const out = {};
+        for (const [k, v] of Object.entries(node)) out[k] = normalizeAssetPaths(v);
+        return out;
+    }
+    return node;
+}
+
 console.log('→ Fetching live content from Supabase…');
 
 const [productRows, settingRows] = await Promise.all([
@@ -182,14 +218,44 @@ const mixedCase = productRows
     })
     .map((r) => r.data?.slug || r.slug);
 
-const snapshot = {
+const snapshot = normalizeAssetPaths({
     generatedAt: new Date().toISOString(),
     languages: LANGUAGE_CODES,
     defaultLanguage: DEFAULT_LANGUAGE,
     products,
     settings: rawSettings,
     translations,
-};
+});
+
+const rewritten =
+    JSON.stringify(snapshot).match(/\/gallery\//g)?.length ?? 0;
+
+/**
+ * Every local file the database points at must actually exist.
+ *
+ * This check exists because of a real failure: the gallery folder was renamed
+ * in the repo, the database still pointed at the old name, and the site
+ * deployed with fourteen broken images that nothing caught. Remote URLs
+ * (Supabase Storage) are skipped — only paths this repo is responsible for
+ * are checked.
+ */
+const referenced = new Set(
+    (JSON.stringify(snapshot).match(/"(\/[^"]+\.(?:jpg|jpeg|png|webp|svg|pdf))"/gi) || [])
+        .map((s) => s.slice(1, -1))
+);
+
+const missing = [...referenced].filter(
+    (p) => !existsSync(resolve(ROOT, 'public', decodeURIComponent(p).replace(/^\//, '')))
+);
+
+if (missing.length) {
+    fail(
+        `the database references ${missing.length} file(s) that do not exist in public/:\n` +
+            missing.map((m) => `    ${m}`).join('\n') +
+            `\n\n  Either restore the file, fix the path in the admin panel, or add a\n` +
+            `  rewrite rule to LEGACY_PATHS in this script.`
+    );
+}
 
 mkdirSync(dirname(OUT_FILE), { recursive: true });
 writeFileSync(OUT_FILE, JSON.stringify(snapshot, null, 2), 'utf8');
