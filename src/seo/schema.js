@@ -65,7 +65,7 @@ function organizationNode(t) {
             '@type': 'ContactPoint',
             contactType: 'sales',
             telephone: toE164(phone),
-            email: CONTACT_INFO.email,
+            email: CONTACT_INFO.sales_email,
             areaServed: 'Worldwide',
             availableLanguage: LIVE_LANGUAGES.map((l) => l.name),
         })),

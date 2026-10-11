@@ -7,7 +7,8 @@
  */
 
 export const CONTACT_INFO = {
-    email: 'bogotmaster@gmail.com',
+    email: 'info@bogotmaster.org',        // Legal, privacy and general questions
+    sales_email: 'feruz@bogotmaster.org', // B2B trade enquiries
     phone: [
         '+998 97 712 98 26',
         '+998 99 512 98 26'

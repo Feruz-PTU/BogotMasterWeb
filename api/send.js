@@ -3,7 +3,7 @@
 //
 // Required environment variables (set in Vercel → Project → Settings → Env Vars):
 //   RESEND_API_KEY     — from https://resend.com/api-keys
-//   CONTACT_TO_EMAIL   — inbox that receives leads (e.g. bogotmaster@gmail.com)
+//   CONTACT_TO_EMAIL   — inbox that receives leads (e.g. feruz@bogotmaster.org)
 //   CONTACT_FROM_EMAIL — verified sender on the Resend domain
 //                        (e.g. "Bogot Master <noreply@bogotmaster.org>")
 

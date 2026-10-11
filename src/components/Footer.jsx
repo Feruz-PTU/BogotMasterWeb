@@ -4,12 +4,13 @@ import { useLanguage } from '../context/LanguageContext';
 import LocalLink from './LocalLink';
 import { track, EVENTS } from '../analytics';
 import { telHref, mailtoHref } from '../utils/links';
+import { CONTACT_INFO } from '../config';
 
 const Footer = () => {
     const { t } = useLanguage();
     const { settings } = useContent();
 
-    const email = settings?.email || 'bogotmaster@gmail.com';
+    const email = settings?.email || CONTACT_INFO.sales_email;
     const address = settings?.address || '';
     const phones = settings?.phone || [];
 

@@ -222,7 +222,7 @@ writeFileSync(
         `- [Контакты](${SITE_URL}/ru/contact)\n\n` +
         `## Products\n\n${productLines}\n\n` +
         `## Contact\n\n` +
-        `- Email: ${content.settings?.email || 'bogotmaster@gmail.com'}\n` +
+        `- Email: ${content.settings?.email || 'feruz@bogotmaster.org'}\n` +
         `- Site: ${SITE_URL}\n`,
     'utf8'
 );

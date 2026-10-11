@@ -51,7 +51,7 @@ Follow the steps once. After that, every `git push` auto-deploys.
    | `VITE_SUPABASE_URL` | Project URL from step 1.5 |
    | `VITE_SUPABASE_ANON_KEY` | anon key from step 1.5 |
    | `RESEND_API_KEY` | from Resend (step 3) — **server-side, no VITE_ prefix** |
-   | `CONTACT_TO_EMAIL` | inbox that receives leads, e.g. `bogotmaster@gmail.com` |
+   | `CONTACT_TO_EMAIL` | inbox that receives leads, e.g. `feruz@bogotmaster.org` |
    | `CONTACT_FROM_EMAIL` | verified sender, e.g. `Bogot Master <noreply@bogotmaster.org>` |
 
 4. Click **Deploy**. Wait for the build to finish.

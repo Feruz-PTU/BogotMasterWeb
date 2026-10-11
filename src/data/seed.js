@@ -483,7 +483,7 @@ export const SEED_SETTINGS = {
     hero_subtitle_en: 'Supply volumes, markets, key advantages',
     hero_cta_ru: 'Запросить коммерческое предложение',
     hero_cta_en: 'Request Commercial Proposal',
-    email: 'bogotmaster@gmail.com',
+    email: 'feruz@bogotmaster.org',
     phone: ['+998 97 712 98 26', '+998 99 512 98 26'],
     address_ru: '220204, Боготский район, Хорезмская область, Республика Узбекистан.',
     address_en: '220204, Bogot district, Khorezm region, Republic of Uzbekistan.',
