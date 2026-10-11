@@ -23,11 +23,25 @@ import {
     localizedPath,
 } from '../src/i18n/languages.js';
 import { render } from '../dist-ssr/entry-server.js';
+import {
+    STATE_FILE,
+    toW3CDate,
+    pageFingerprint,
+    loadPreviousState,
+    resolveLastmod,
+    buildSitemapXml,
+} from './sitemap.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
 const DIST = join(ROOT, 'dist');
 const SITE_URL = 'https://bogotmaster.org';
+
+// Where the previous build left its sitemap state (see sitemap.mjs). The
+// override exists so the carry-forward can be exercised against a local
+// server instead of the live site.
+const STATE_URL =
+    process.env.SITEMAP_STATE_URL || `${SITE_URL}/${STATE_FILE}`;
 
 const content = JSON.parse(
     readFileSync(join(ROOT, 'src/data/build-content.json'), 'utf8')
@@ -57,9 +71,8 @@ function writeHtml(urlPath, html) {
     return rel;
 }
 
-function buildPage(urlPath) {
-    const { html, htmlAttributes, head } = render(urlPath);
-
+/** Wrap one rendered route (the result of render()) in the HTML template. */
+function buildPage({ html, htmlAttributes, head }) {
     return template
         .replace('<html lang="en">', `<html ${htmlAttributes}>`)
         // Drop the template's placeholder <title>, otherwise the page would
@@ -75,15 +88,16 @@ function buildPage(urlPath) {
 console.log('→ Prerendering…');
 
 let count = 0;
-const written = [];
+/** URL path -> content fingerprint, for the sitemap's lastmod. */
+const fingerprints = {};
 
 for (const lang of LIVE_LANGUAGES) {
     for (const routePath of ALL_ROUTES) {
         const urlPath = localizedPath(lang.code, routePath);
         try {
-            const page = buildPage(urlPath);
-            const rel = writeHtml(urlPath, page);
-            written.push(urlPath);
+            const rendered = render(urlPath);
+            const rel = writeHtml(urlPath, buildPage(rendered));
+            fingerprints[urlPath] = pageFingerprint(rendered);
             count++;
             if (process.env.VERBOSE) console.log(`   ${urlPath}  ->  ${rel}`);
         } catch (err) {
@@ -102,7 +116,7 @@ console.log(`✓ ${count} pages prerendered`);
 // page with its noindex tag already in the HTML.
 writeFileSync(
     join(DIST, '404.html'),
-    buildPage('/__not_found__'),
+    buildPage(render('/__not_found__')),
     'utf8'
 );
 console.log('✓ 404.html');
@@ -116,8 +130,11 @@ console.log('✓ admin.html (not prerendered, noindex via header)');
 
 // ── sitemap.xml ──────────────────────────────────────────────────────────────
 // Generated from the same route list and the same language list as the pages
-// themselves, so it can no longer drift out of sync by hand.
-const lastmod = new Date().toISOString().slice(0, 10);
+// themselves, so it can no longer drift out of sync by hand. What goes into
+// each entry, and why, is explained in sitemap.mjs.
+const now = toW3CDate(new Date());
+const previous = await loadPreviousState(STATE_URL);
+const sitemapState = resolveLastmod(fingerprints, previous.pages, now);
 
 const priorityFor = (routePath) => {
     if (routePath === '/') return '1.0';
@@ -127,39 +144,37 @@ const priorityFor = (routePath) => {
     return '0.7';
 };
 
+// Each page is followed by its other-language versions, which is easier to
+// read than all of English and then all of Russian. Search engines do not
+// care about the order.
 const urlEntries = [];
-for (const lang of LIVE_LANGUAGES) {
-    for (const routePath of ALL_ROUTES) {
-        const loc = `${SITE_URL}${localizedPath(lang.code, routePath)}`;
-        const alternates = [
-            ...LIVE_LANGUAGES.map(
-                (l) =>
-                    `      <xhtml:link rel="alternate" hreflang="${l.htmlLang}" href="${SITE_URL}${localizedPath(l.code, routePath)}"/>`
-            ),
-            `      <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_URL}${localizedPath(DEFAULT_LANGUAGE, routePath)}"/>`,
-        ].join('\n');
-
-        urlEntries.push(
-            `  <url>\n` +
-                `    <loc>${loc}</loc>\n` +
-                `${alternates}\n` +
-                `    <lastmod>${lastmod}</lastmod>\n` +
-                `    <priority>${priorityFor(routePath)}</priority>\n` +
-                `  </url>`
-        );
+for (const routePath of ALL_ROUTES) {
+    for (const lang of LIVE_LANGUAGES) {
+        const urlPath = localizedPath(lang.code, routePath);
+        urlEntries.push({
+            loc: `${SITE_URL}${urlPath}`,
+            lastmod: sitemapState[urlPath].lastmod,
+            priority: priorityFor(routePath),
+        });
     }
 }
 
+writeFileSync(join(DIST, 'sitemap.xml'), buildSitemapXml(urlEntries), 'utf8');
+
+// The next build fetches this from the live site to learn which pages have
+// changed since. It is noindexed by a header in vercel.json.
 writeFileSync(
-    join(DIST, 'sitemap.xml'),
-    `<?xml version="1.0" encoding="UTF-8"?>\n` +
-        `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n` +
-        `        xmlns:xhtml="http://www.w3.org/1999/xhtml">\n` +
-        urlEntries.join('\n') +
-        `\n</urlset>\n`,
+    join(DIST, STATE_FILE),
+    JSON.stringify({ generatedAt: now, pages: sitemapState }, null, 2) + '\n',
     'utf8'
 );
-console.log(`✓ sitemap.xml (${urlEntries.length} URLs)`);
+
+const changed = urlEntries.filter((e) => e.lastmod === now).length;
+console.log(
+    previous.reason
+        ? `✓ sitemap.xml (${urlEntries.length} URLs, all dated now: no previous state, ${previous.reason})`
+        : `✓ sitemap.xml (${urlEntries.length} URLs: ${changed} changed since the live build, ${urlEntries.length - changed} unchanged)`
+);
 
 // ── robots.txt ───────────────────────────────────────────────────────────────
 writeFileSync(
