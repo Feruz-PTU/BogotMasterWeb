@@ -127,27 +127,12 @@ const Home = ({ addToast }) => {
                 <div className="home-about-inner">
                     <h2 className="section-title" style={{ gridColumn: '1 / span 2', marginBottom: '40px' }}>{t('about_title')}</h2>
                     
-                    <div className="home-about-images reveal reveal-delay-1">
-                        <img src="/images/image16.webp" alt={t('about_img_1')} width="435" height="324" loading="lazy" decoding="async" />
-                        {/* image17 is rendered twice (desktop + mobile copies)
-                            and only one is ever visible, so the hidden one
-                            carries alt="" to avoid the same description being
-                            announced twice. */}
-                        <img src="/images/image17.webp" alt={t('about_img_2')} className="desktop-only-about-img" width="227" height="265" loading="lazy" decoding="async" />
+                    <div className="home-about-logo reveal reveal-delay-1">
+                        <img src="/Logo/new-logo.png" alt="Bogot Master" width="904" height="904" loading="lazy" decoding="async" />
                     </div>
                     <div className="home-about-text reveal reveal-delay-2">
-                        <div className="home-about-mobile-layout">
-                            <div className="home-about-mobile-img">
-                                <img src="/images/image17.webp" alt="" width="227" height="265" loading="lazy" decoding="async" />
-                            </div>
-                            <div className="home-about-paragraphs">
-                                <p>{t('about_p1')}</p>
-                                <p>{t('about_p2')}</p>
-                            </div>
-                        </div>
-
-                        <p className="desktop-about-p1">{t('about_p1')}</p>
-                        <p className="desktop-about-p2">{t('about_p2')}</p>
+                        <p>{t('about_p1')}</p>
+                        <p>{t('about_p2')}</p>
 
                         <ul className="home-benefits">
                             <li><CheckIcon />{t('about_benefit_1')}</li>

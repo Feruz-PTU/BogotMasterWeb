@@ -28,16 +28,8 @@ const About = ({ headingLevel = 'h2' }) => {
                     <Heading>{t('about_title')}</Heading>
                 </div>
                 <div className="about-content">
-                    <div className="about-images reveal reveal-delay-1">
-                        <div className="image-main">
-                            <img src="/images/image16.webp" alt={t('about_img_1')} loading="lazy" />
-                        </div>
-                        <div className="image-secondary">
-                            <img src="/images/image17.webp" alt={t('about_img_2')} loading="lazy" />
-                        </div>
-                        <div className="image-tertiary">
-                            <img src="/images/image18.webp" alt={t('about_img_3')} loading="lazy" />
-                        </div>
+                    <div className="about-logo reveal reveal-delay-1">
+                        <img src="/Logo/new-logo.png" alt="Bogot Master" width="904" height="904" />
                     </div>
                     <div className="about-text reveal reveal-delay-2">
                         <div className="about-description">
