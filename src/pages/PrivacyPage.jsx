@@ -15,11 +15,10 @@ import './PrivacyPage.css';
  * table; the full policy has tables, lists and sub-sections, which that table
  * cannot hold. The page title and the meta tags still come from translations.
  *
- * It describes the data flows this site actually has: the three forms, the
- * Supabase database, Resend for email, Vercel for hosting, Zoho for the
- * mailboxes, Google Fonts, and the cookieless page/event counter. No cookies
- * are set, which is why there is no cookie banner. When any of those change,
- * change the wording in BOTH language files.
+ * The wording is the version written by the company's lawyer (a Word document
+ * in English, effective 12 October 2026); the Russian file is a translation
+ * of it. It is legal text: do not reword it without the lawyer, and make
+ * every change in BOTH language files, including the two dates at the top.
  *
  * A language added in src/i18n/languages.js needs its own file here; until it
  * has one, that language shows the default-language text.

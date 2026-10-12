@@ -1,242 +1,151 @@
-## 1. Introduction and data controller
+**Bog'ot Master**
 
-**Bog'ot Master** is the data controller for personal data collected through **bogotmaster.org**. We decide why and how that data is used, and we are responsible for protecting it.
+**Effective date:** 12 October 2026
 
-We process licorice root and other agricultural products in the Khorezm Region of Uzbekistan and export them to trade partners and industrial buyers worldwide. Our website is a business-to-business channel, so the people we deal with act on behalf of companies.
+**Last updated:** 12 October 2026
 
-- **Data controller:** Bog'ot Master
-- **Address:** 220204, Bog'ot district, Khorezm Region, Republic of Uzbekistan
-- **Privacy, legal and general questions:** [info@bogotmaster.org](mailto:info@bogotmaster.org)
-- **Trade enquiries:** [feruz@bogotmaster.org](mailto:feruz@bogotmaster.org)
-- **Website:** [bogotmaster.org](https://bogotmaster.org)
+## 1. Data Controller
 
-All privacy questions go to info@bogotmaster.org (see Section 9).
+The controller responsible for processing personal data through bogotmaster.org is:
 
-**Scope.** This policy covers personal data we handle when you:
+- **Full registered legal name:** “BOG OT MASTER” Family Enterprise
+- **Registered address:** 220204, Bogot district, Khorezm region, Republic of Uzbekistan.
+- **Privacy contact:** [info@bogotmaster.org](mailto:info@bogotmaster.org)
+- **Website:** [https://bogotmaster.org](https://bogotmaster.org)
 
-- visit bogotmaster.org;
-- send us an enquiry, a price request or a quotation request through the website;
-- correspond with us about a possible order by email, phone, WhatsApp or Telegram.
+This Privacy Policy explains how we collect, use, disclose, store and protect personal data when you visit our website, submit a business enquiry, request a quotation or communicate with us concerning our products.
 
-It does not cover websites or services operated by others, even where we link to them.
+Our primary business involves agricultural products and international B2B trade. Personal data may concern representatives, employees, suppliers, customers and other individuals who communicate with us.
 
-**Laws we work under.** As a business established in Uzbekistan, we are subject to the Law of the Republic of Uzbekistan "On Personal Data" (No. ZRU-547 of 2 July 2019). Where the EU General Data Protection Regulation (GDPR), the UK GDPR or another data protection law applies to our dealings with you, this policy also sets out your rights under that law.
+This Policy must be read alongside any additional privacy notice that applies to a particular transaction or service.
 
-**Effective date.** This policy takes effect on **11 October 2026**. We may update it when our website, our service providers or the law changes. The current version and its date are always published at [bogotmaster.org/privacy](https://bogotmaster.org/privacy).
+## 2. Personal Data We Collect
 
-## 2. Categories of personal data we collect
+Depending on your interaction with us, we may process:
 
-We collect personal data directly from you: the details you type into our forms, plus a small amount of technical information recorded when you use the website.
+1. **Contact information:** name, business email address, telephone number and other contact details you provide.
+2. **Business information:** company name, professional role and relevant business contact information.
+3. **Enquiry and transaction information:** requested products, quantities, delivery destinations, proposed delivery terms, correspondence and information needed to prepare a quotation or fulfil an order.
+4. **Technical information:** IP address, browser and device information, requested pages, timestamps and server-log information, to the extent collected by our systems and service providers.
+5. **Website interaction information:** product selections, quotation-list information and usage statistics, where these are actually collected.
 
-### 2.1 Information you give us
+We do not intentionally request sensitive personal data for ordinary business enquiries. Please do not submit such information unless it is necessary and we have provided an appropriate method for doing so.
 
-The website has three forms: a general contact form, a price request form and a quotation request form. Depending on the form, you may provide:
+## 3. Purposes and Legal Bases
 
-- **Identity and contact details:** your name, email address and phone number.
-- **Company details:** the name of the company you represent.
-- **Enquiry details:** the products you are interested in, quantities, shipping destination, preferred delivery terms (Incoterms) and timing.
-- **Your message:** anything else you write in the free-text field.
+We process personal data only for specified and legitimate purposes, subject to applicable law.
 
-**Required and optional fields.** Your name and email address are required on every form. The price and quotation request forms also require a phone number, and the price request form requires a quantity. Everything else is optional. Without the required details we cannot reply to you or prepare a quotation.
-
-If you contact us by email, phone, WhatsApp or Telegram instead, we receive the contact details and content you share with us there. WhatsApp and Telegram handle that data under their own privacy policies.
-
-Please do not send sensitive personal information, such as health data or copies of identity documents, through the website forms. We do not need it to answer an enquiry.
-
-### 2.2 Information recorded automatically
-
-| Information | When it is recorded | What happens to it |
-| --- | --- | --- |
-| The page your form was sent from, the language of the site, the website that referred you (domain name only, never the full address), and the date and time | When you submit a form | Saved with your enquiry |
-| The type of action (a page view, a form sent, a click on a phone, email, WhatsApp, Telegram or certificate link, a product added to a quote list), the page, the language, the referring domain and the time | As you browse | Saved as statistics with no IP address, cookie or other identifier, so we cannot use them to identify you or follow your visit |
-| IP address, browser and device type, the address requested, and the date and time | On every request to the website | Processed by our hosting providers in their standard server logs; we do not copy it into our enquiry records |
-| IP address | When you submit a form | Held temporarily in server memory to limit repeated submissions; never saved by us |
-| A hidden anti-spam field and the time taken to complete the form | When you submit a form | Checked by our server and not stored |
-| Your quote list: the products and quantities you selected | When you build a quotation request | Kept in your browser's local storage until you send or clear it (see Section 5) |
-
-### 2.3 What we do not collect
-
-We set no cookies, create no visitor accounts and take no payment details through the website. We do not use advertising or cross-site tracking technologies. The website is intended for business users and is not directed at children.
-
-## 3. Purposes and legal basis for processing
-
-We use your personal data only to handle your enquiry and the business relationship that may follow from it. We do not sell personal data, and we do not send marketing newsletters unless you have asked for them.
-
-| Why we use your data | Data used | Legal basis (GDPR and UK GDPR) |
-| --- | --- | --- |
-| Reading and answering your enquiry | Form data and correspondence | Legitimate interests, Art. 6(1)(f); or steps taken at your request before a contract, Art. 6(1)(b) |
-| Preparing the quotations and freight estimates you ask for | Contact, company and enquiry details | Legitimate interests; or steps taken at your request before a contract |
-| Sending an automatic confirmation that your enquiry arrived | Name, email address, product enquired about | Legitimate interests |
-| Negotiating and carrying out an export contract, if you place an order | Contact, company and order details | Performance of a contract, Art. 6(1)(b); or legitimate interests |
-| Keeping business records and meeting accounting, tax, customs and export requirements | Contract records and correspondence | Legitimate interests in complying with the laws that bind us; legal obligation, Art. 6(1)(c), where EU or UK law applies |
-| Protecting the website and forms against spam, abuse and attacks | IP address, anti-spam checks, server logs | Legitimate interests |
-| Understanding which pages lead to enquiries | Statistics without identifiers | Legitimate interests |
-| Establishing, exercising or defending legal claims | Any of the above, as needed | Legitimate interests |
-
-**Which basis applies to you.** If you enquire on behalf of a company, any contract would be with that company, so we rely on legitimate interests. If you enquire in your own name, for example as a sole trader, we rely on pre-contractual steps and contract performance.
-
-**Our legitimate interests.** These are answering business enquiries addressed to us, running our export business, keeping our website secure and improving it. We consider that they are not overridden by your rights, because we use only the business details you chose to send, for the purpose you sent them. You can object at any time (see Section 7).
-
-**Other laws.** The Uzbek Law "On Personal Data" recognises comparable grounds (Article 18). Where a law that applies to you requires consent for this processing, including the international transfers described in Section 4, you give that consent by submitting a form. You may withdraw it at any time by contacting us.
-
-**Marketing.** We send no newsletters or promotional campaigns today. If that changes, we will ask for your consent first, and you will be able to withdraw it at any time.
-
-**No automated decisions.** People read and answer every enquiry. We do not profile you or make automated decisions that have legal or similarly significant effects on you.
-
-**New purposes.** If we need to use your data for a purpose not listed here, we will tell you first and, where the law requires it, ask for your consent.
-
-## 4. Data hosting, sub-processors and international transfers
-
-Your enquiry is stored in the European Union, passes through servers in the United States, and is read by our team in Uzbekistan.
-
-### 4.1 Service providers acting on our behalf
-
-Three trusted providers process personal data for Bog'ot Master, on our instructions and under a data processing agreement. They act as our data processors and may not use your data for their own purposes.
-
-| Provider | What it does for us | Personal data involved | Where it is processed |
-| --- | --- | --- | --- |
-| [Vercel](https://vercel.com/legal/privacy-policy) (Vercel Inc., USA) | Hosts the website and runs the server function that receives form submissions | IP address and browser details in server logs; form content while it is forwarded | Pages are delivered from Vercel's global network. Our form handler runs in the United States |
-| [Supabase](https://supabase.com/legal/dpa) (Singapore and USA) | Stores enquiries and website statistics; serves some product images | Everything you submit in a form; IP address in server logs | Our database is hosted in Ireland (EU). Supabase staff in Singapore and the United States may access data for support and security |
-| [Resend](https://resend.com/legal/dpa) (Plus Five Five, Inc., USA) | Sends your enquiry to our mailbox and the automatic confirmation to you | Name, email address, enquiry content, delivery records | Emails are sent from Ireland (EU). Resend keeps email logs and metadata in the United States |
-
-Each provider uses its own sub-processors, which it lists on its website.
-
-### 4.2 Other recipients
-
-- **Zoho.** Our email is hosted by Zoho Mail in its EU data centres in the Netherlands and Ireland ([Zoho data centres](https://www.zoho.com/know-your-datacenter.html)). Enquiries sent through the website, and any emails you send us, are stored there.
-- **Google.** The website loads its typeface from Google Fonts. To deliver the font files, Google receives your IP address and browser details; Google states that this service sets no cookies ([Google Fonts privacy FAQ](https://developers.google.com/fonts/faq/privacy)).
-- **WhatsApp and Telegram.** Only if you choose to contact us through them.
-- **Logistics and professional partners.** Freight forwarders, carriers, customs brokers, inspection bodies, banks, insurers and advisers, where needed to prepare a freight estimate you asked for or to carry out an order.
-- **Public authorities.** Customs, tax and other authorities or courts, where the law requires it.
-
-We do not sell personal data, and we do not share it for advertising.
-
-### 4.3 International transfers
-
-Handling an international enquiry means your data crosses borders. It is processed in:
-
-- **European Union:** our enquiry database and the servers that send our emails (Ireland), and our mailboxes (Zoho, in the Netherlands and Ireland).
-- **United States:** the server function that receives your form, Resend's email logs and Google Fonts.
-- **Singapore:** support and operations by Supabase.
-- **Uzbekistan:** where our team reads and answers enquiries.
-
-Uzbekistan, the United States and Singapore may not protect personal data to the same standard as your own country. The European Commission has not issued an adequacy decision for Uzbekistan or Singapore. Its decision for the United States covers only organisations certified under the EU-U.S. Data Privacy Framework.
-
-We protect transferred data with these safeguards:
-
-- **Contracts.** The data processing agreements of Vercel, Supabase and Resend include the European Commission's Standard Contractual Clauses (Decision (EU) 2021/914) and the UK Addendum, where these apply.
-- **Certification.** Vercel and Resend state that they are certified under the EU-U.S. Data Privacy Framework and its UK Extension.
-- **EU hosting.** We chose EU locations for the enquiry database, for email sending and for our mailboxes.
-- **Encryption.** Data is encrypted in transit with TLS and at rest on our providers' systems (see Section 8).
-- **Minimisation.** We collect only what an enquiry needs, and our statistics hold no identifiers.
-
-You can ask us for more information about these safeguards, or for a copy of the relevant clauses, using the contact details in Section 9.
-
-## 5. Cookies, local storage and analytics
-
-This website sets no cookies and runs no third-party analytics, advertising or social media trackers. That is why you see no cookie consent banner.
-
-**Cookies.** None. We set no cookies ourselves, and we embed no third-party service that sets them.
-
-**Local storage.** We store one item in your browser: your quote list (`bm_quote_items`). It holds the products and quantities you selected, so the list survives while you browse. It stays on your device, reaches us only when you submit a quotation request, and is emptied once you do. You can also empty it with the clear button in the list, or by deleting this site's data in your browser.
-
-**Language.** Your language choice is part of the page address (for example `/ru`), so nothing is stored to remember it.
-
-**Analytics.** We count page views and a few actions (listed in Section 2.2) with our own code and our own database. Each record holds the action, the page, the language, the referring domain and the time. It holds no IP address, cookie, device fingerprint or visitor ID, so we cannot recognise a returning visitor or connect one record to another. We do not share these statistics with any analytics or advertising company.
-
-**Third-party content.** Apart from our own service providers (Section 4.1), the only third-party resource our pages load is the typeface from Google Fonts (Section 4.2). Our WhatsApp and Telegram buttons are ordinary links: those services receive nothing until you click.
-
-**Why there is no consent banner.** EU and UK rules require consent before a website stores or reads information on your device, unless that is strictly necessary for a service you asked for (Article 5(3) of the ePrivacy Directive; UK PECR). The only item we store, the quote list, is strictly necessary for the quote feature you chose to use. If we ever add a technology that needs consent, we will ask before using it.
-
-## 6. Data retention period
-
-We keep personal data only while an enquiry is active and for as long as we must keep records of any contract that follows.
-
-| Data | How long we keep it |
+| Purpose | Potential legal basis, where applicable |
 | --- | --- |
-| Enquiries that do not lead to an order | While the enquiry is active, then up to 24 months after our last contact with you |
-| Enquiries and correspondence that lead to a contract | For the life of the business relationship, then for the period that Uzbek accounting, tax and customs law requires, and until the limitation period for legal claims has ended |
-| Enquiry emails in our mailboxes | The same periods as the enquiry they relate to |
-| Email delivery records held by Resend | The period set by Resend's service plan |
-| Server logs held by Vercel and Supabase | The periods set by each provider; we keep no copies |
-| IP address used to limit repeated submissions | Temporary server memory only; never saved |
-| Website statistics | Kept as statistics; they contain no personal identifiers |
-| Quote list in your browser | Until you send it, clear it or delete this site's data |
+| Responding to enquiries and quotation requests | Steps taken at the individual's request before entering into a contract, where applicable; otherwise, an appropriate lawful basis such as legitimate interests |
+| Managing a business relationship or fulfilling an order | Contractual necessity where the individual is a party to the contract; otherwise, the applicable legal basis must be assessed |
+| Maintaining legally required business records | Compliance with a legal obligation where one applies |
+| Protecting the website and preventing abuse | Legitimate interests or another applicable legal basis |
+| Measuring website performance | An appropriate lawful basis, taking account of identifiability, applicable device-access rules and any consent requirement |
+| Establishing, exercising or defending legal claims | Legitimate interests or another applicable legal basis |
 
-When a period ends, we delete the data or anonymise it so that it no longer identifies you.
+Where processing relies on legitimate interests under the GDPR, we assess the purpose, necessity of the processing and the interests and rights of affected individuals.
 
-You can ask us to delete your enquiry sooner (see Section 7). We will do so unless we need the data to meet a legal obligation or to deal with a legal claim.
+Where consent is required, we will request it through an appropriate affirmative mechanism. Submitting a business enquiry does not, by itself, constitute blanket consent to unrelated processing or every international data transfer.
 
-## 7. Your rights and data subject requests
+Where different laws apply, we will assess the relevant legal basis and requirements under each applicable regime.
 
-You can ask us at any time what we hold about you and have it corrected, deleted, restricted or handed over. Requests are free, and we normally answer within one month.
+We do not use personal data for unrelated purposes without an appropriate lawful basis and any additional notice or consent required by law.
 
-**Your rights**
+## 4. Disclosure to Service Providers and Other Recipients
 
-- **Access.** Ask whether we hold personal data about you and receive a copy of it.
-- **Rectification.** Have inaccurate or incomplete data corrected.
-- **Erasure (the "right to be forgotten").** Have your data deleted, for example when we no longer need it or when you object to our use of it.
-- **Restriction.** Ask us to keep your data but stop using it while a concern about its accuracy or lawful use is resolved.
-- **Data portability.** Receive the data you gave us in a structured, commonly used, machine-readable format, or ask us to send it to another organisation.
-- **Withdrawal of consent.** Where we rely on your consent, withdraw it at any time. This does not affect what we did before you withdrew it.
+We may disclose personal data to service providers that support our business, including website hosting, database, email, communications, security and IT providers.
 
-**Your right to object.** You may object at any time to processing that we base on our legitimate interests (see Section 3). We will then stop, unless we have compelling legitimate grounds that override your interests or we need the data for a legal claim. You may always object to direct marketing, and we will stop without exception.
+We may also disclose relevant information to logistics providers, freight forwarders, customs brokers, banks, insurers, professional advisers and public authorities where necessary for an order, a legitimate business purpose or compliance with applicable law.
 
-These rights come from Articles 15 to 22 of the GDPR and UK GDPR. The Uzbek Law "On Personal Data" and other national laws grant similar rights. We honour these requests wherever you are based. Some rights apply only in certain circumstances; if we cannot fulfil a request, we will explain why.
+Where a provider processes personal data on our behalf, we will implement the contractual and organisational safeguards required by applicable law. A provider's own independent processing will be assessed separately.
 
-**How we respond**
+We do not sell personal data.
 
-- **Timing.** We reply within one month. For complex or repeated requests the law allows up to two more months, and we will tell you within the first month if we need them. Where your local law sets a shorter deadline, we follow it.
-- **Identity.** We may ask you to confirm who you are, usually by replying from the email address you used for your enquiry.
-- **Cost.** We charge no fee, unless a request is manifestly unfounded or excessive.
-- **Deletion.** When we delete your data, we remove it from our enquiry database and our mailboxes. Copies in our providers' backups and logs expire on their normal schedule.
+## 5. International Data Transfers and Storage
 
-**Complaints to a supervisory authority.** We would welcome the chance to resolve your concern first, but you may complain to an authority at any time:
+Personal data may be stored, transmitted or accessed in countries other than the country in which it was collected.
 
-- **EU and EEA:** the data protection authority where you live or work, or where the issue arose. See the [list of national authorities](https://www.edpb.europa.eu/about-edpb/about-edpb/members_en).
-- **United Kingdom:** the [Information Commissioner's Office](https://ico.org.uk/make-a-complaint/).
-- **Uzbekistan:** the authorised state body for personal data protection, or the courts.
-- **Elsewhere:** your national data protection authority.
+We will identify relevant storage locations, processing locations, remote-access locations and recipients before determining the applicable transfer requirements.
 
-## 8. Security measures
+For processing subject to the GDPR, transfers to third countries will be conducted in accordance with Chapter V of the GDPR, where applicable. Depending on the circumstances, this may require an adequacy decision, appropriate safeguards or another permitted transfer mechanism.
 
-We protect your data with technical and organisational safeguards that fit the business contact details we handle.
+We will separately comply with the applicable requirements of the Law of the Republic of Uzbekistan No. LRU-547 of 2 July 2019, including the current rules governing storage in Uzbekistan and registration of relevant personal-data databases.
 
-**Technical safeguards**
+The use of a foreign hosting provider does not, by itself, establish compliance with these requirements.
 
-- **Encryption in transit.** The website is served only over HTTPS (TLS), enforced with HSTS. Data moving between us and our providers is encrypted in the same way.
-- **Encryption at rest.** Our enquiry database and its backups are encrypted with AES-256 by Supabase. Vercel and Resend also encrypt stored data.
-- **Restricted database access.** Database rules let the public website submit an enquiry but not read, change or delete one. Only our signed-in administrator can view or delete enquiries.
-- **Protected credentials.** Secret keys, such as the one used to send email, are kept on the server and never sent to your browser.
-- **Input checks.** Our server validates and limits the length of every form field, rejects submissions that do not come from our own website, and filters automated submissions.
-- **Browser protections.** Security headers stop our pages being framed by other sites, limit the referrer information your browser sends onward, and switch off access to your camera, microphone and location.
-- **Data minimisation.** Our statistics hold no identifiers, and we record only the domain name of a referring website, never the full address.
+## 6. Cookies, Local Storage and Website Analytics
 
-**Organisational safeguards**
+Our website may use local storage, server logs and other technical mechanisms necessary to operate its functions and protect against abuse.
 
-- **Limited access.** Only the people at Bog'ot Master who answer enquiries can see them. The administration area requires a personal sign-in and is closed to public registration.
-- **Vetted providers.** We use established providers whose security commitments are set out in their data processing agreements.
-- **Incident response.** If a personal data breach is likely to put your rights at risk, we will notify the competent authority and you, as the law requires.
+Where a technology stores information on or accesses information from a user's device, we will assess whether consent or another permitted exception is required under applicable law.
 
-No website or email system is completely secure. Email in particular is not encrypted end to end, so please do not send us confidential personal information.
+Where consent is required, the relevant technology will not be activated before valid consent is obtained. Users will be provided with an appropriate way to manage or withdraw consent.
 
-## 9. Contact and privacy requests
+## 7. Data Retention
 
-Send any privacy question or request to **[info@bogotmaster.org](mailto:info@bogotmaster.org)** with the subject line "Privacy request".
+We retain personal data only for as long as necessary for the purpose for which it was collected, subject to applicable legal obligations and the establishment, exercise or defence of legal claims.
 
-To help us act quickly, please include:
+We will maintain documented retention periods or objective retention criteria for:
 
-1. your name and the email address you used when you contacted us;
-2. the company you represent, if any;
-3. what you are asking for, for example a copy of your data, a correction or deletion;
-4. the approximate date of your enquiry, if you remember it.
+- Business enquiries that do not lead to an order;
+- Contractual, accounting, tax and customs records;
+- Business correspondence;
+- Security and server logs;
+- Email-delivery records;
+- Website analytics and backups.
 
-You may write to us in English or Russian. We answer within the time limits in Section 7.
+When data are no longer required, we will delete or anonymise them where appropriate and technically feasible, subject to applicable legal requirements and documented backup-retention arrangements.
 
-If you write on behalf of someone else, we may ask for proof that you are authorised to act for them.
+## 8. Your Rights
 
-You can also reach us by post:
+Depending on the law applicable to the processing, you may have the right to:
 
-**Bog'ot Master**, 220204, Bog'ot district, Khorezm Region, Republic of Uzbekistan
+- Request access to personal data concerning you;
+- Request correction of inaccurate data;
+- Request deletion where the relevant legal conditions are met;
+- Request restriction of processing where applicable;
+- Object to certain processing;
+- Request data portability where the statutory requirements are satisfied;
+- Withdraw consent where processing is based on consent;
+- Lodge a complaint with a competent supervisory authority.
 
-**Other questions.** For legal notices and general questions, use [info@bogotmaster.org](mailto:info@bogotmaster.org) as well. For quotations and other trade enquiries, write to our sales representative at [feruz@bogotmaster.org](mailto:feruz@bogotmaster.org).
+These rights are not absolute and may be subject to statutory conditions or exceptions. The rights available under Uzbek law may differ from those under the GDPR or UK GDPR.
+
+To submit a request, contact [info@bogotmaster.org](mailto:info@bogotmaster.org) with the subject line "Privacy request". We may request proportionate information to verify your identity and will respond within the time limit prescribed by the applicable law.
+
+Where a request cannot be fulfilled, we will explain the reason to the extent required by law.
+
+## 9. Data Security
+
+We implement appropriate technical and organizational measures to protect personal data against unauthorized access, disclosure, alteration, loss or destruction.
+
+Such measures may include access controls, secure transmission, credential management, backup procedures, provider oversight and incident-response procedures, as applicable to the systems actually in use.
+
+No method of transmission or electronic storage guarantees absolute security.
+
+Where a personal-data breach occurs, we will assess it promptly and make any notifications required by applicable law, including notifications to competent authorities and affected individuals where the relevant statutory conditions are met.
+
+## 10. Third-Party Services
+
+Our website may link to third-party websites or provide links to communication services such as email, WhatsApp or Telegram.
+
+When you choose to use an external service, its own privacy terms may apply to the processing it conducts. We do not claim responsibility for processing independently carried out by third parties outside our control.
+
+We will disclose relevant third-party integrations and the data they receive where required by applicable law.
+
+## 11. Changes to This Policy
+
+We may revise this Policy when our processing activities, service providers or legal obligations change.
+
+The current version will be published on our website with its effective date. Where required by law, we will provide additional notice or obtain consent before introducing new processing activities.
+
+## 12. Contact
+
+For privacy questions or requests, contact:
+
+- **Email:** [info@bogotmaster.org](mailto:info@bogotmaster.org)
+- **Subject:** Privacy request
+- **Postal address:** 220204, Bogot district, Khorezm region, Republic of Uzbekistan.
+
+This Policy must be interpreted and applied consistently with the applicable laws of Uzbekistan and any additional data-protection laws that govern the relevant processing.
