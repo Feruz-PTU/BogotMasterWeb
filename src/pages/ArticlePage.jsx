@@ -147,7 +147,11 @@ const ArticlePage = () => {
                         </aside>
                     )}
 
-                    <ArticleBody slug={slug} language={language} />
+                    {/* Keyed so that switching language (or article) gives a
+                        fresh ArticleBody. Both language URLs render this same
+                        component, so React would otherwise keep the old
+                        instance, whose state still holds the previous text. */}
+                    <ArticleBody key={`${slug}.${language}`} slug={slug} language={language} />
 
                     <footer className="article-footer">
                         <LocalLink to="/articles" className="btn-article-back">
