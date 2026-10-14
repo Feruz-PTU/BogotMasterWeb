@@ -22,6 +22,7 @@ import {
     DEFAULT_LANGUAGE,
     localizedPath,
 } from '../src/i18n/languages.js';
+import { ARTICLES, articleLanguages } from '../src/content/articles/index.js';
 import { render } from '../dist-ssr/entry-server.js';
 import {
     STATE_FILE,
@@ -55,10 +56,22 @@ if (!template.includes('<div id="root"></div>')) {
 }
 
 /** Language-independent route paths that exist for every language. */
-const STATIC_ROUTES = ['/', '/products', '/about', '/contact', '/privacy'];
+const STATIC_ROUTES = ['/', '/products', '/about', '/contact', '/privacy', '/articles'];
 
 const productRoutes = content.products.map((p) => `/products/${p.slug}`);
-const ALL_ROUTES = [...STATIC_ROUTES, ...productRoutes];
+const articleRoutes = ARTICLES.map((a) => `/articles/${a.slug}`);
+const ALL_ROUTES = [...STATIC_ROUTES, ...productRoutes, ...articleRoutes];
+
+/**
+ * Whether `routePath` has a page in language `code`. Everything does except
+ * an article, which exists only in the languages it was written in; building
+ * the others would put English text at a Russian URL.
+ */
+const ARTICLE_LANGUAGES = new Map(
+    ARTICLES.map((a) => [`/articles/${a.slug}`, articleLanguages(a)])
+);
+const existsIn = (routePath, code) =>
+    ARTICLE_LANGUAGES.get(routePath)?.includes(code) ?? true;
 
 function writeHtml(urlPath, html) {
     // '/'            -> dist/index.html
@@ -93,6 +106,7 @@ const fingerprints = {};
 
 for (const lang of LIVE_LANGUAGES) {
     for (const routePath of ALL_ROUTES) {
+        if (!existsIn(routePath, lang.code)) continue;
         const urlPath = localizedPath(lang.code, routePath);
         try {
             const rendered = render(urlPath);
@@ -141,6 +155,7 @@ const priorityFor = (routePath) => {
     if (routePath === '/products') return '0.9';
     if (routePath.startsWith('/products/')) return '0.8';
     if (routePath === '/privacy') return '0.2';
+    if (routePath === '/articles' || routePath.startsWith('/articles/')) return '0.6';
     return '0.7';
 };
 
@@ -150,6 +165,7 @@ const priorityFor = (routePath) => {
 const urlEntries = [];
 for (const routePath of ALL_ROUTES) {
     for (const lang of LIVE_LANGUAGES) {
+        if (!existsIn(routePath, lang.code)) continue;
         const urlPath = localizedPath(lang.code, routePath);
         urlEntries.push({
             loc: `${SITE_URL}${urlPath}`,
@@ -201,6 +217,10 @@ const productLines = content.products
             `- [${p[`title_${DEFAULT_LANGUAGE}`] || p.slug}](${SITE_URL}/products/${p.slug})`
     )
     .join('\n');
+const articleLines = ARTICLES.map((a) => {
+    const code = a.languages[DEFAULT_LANGUAGE] ? DEFAULT_LANGUAGE : articleLanguages(a)[0];
+    return `- [${a.languages[code].title}](${SITE_URL}${localizedPath(code, `/articles/${a.slug}`)})`;
+}).join('\n');
 
 writeFileSync(
     join(DIST, 'llms.txt'),
@@ -213,14 +233,17 @@ writeFileSync(
         `- [Home](${SITE_URL}/)\n` +
         `- [Products](${SITE_URL}/products)\n` +
         `- [About](${SITE_URL}/about)\n` +
+        `- [Articles](${SITE_URL}/articles)\n` +
         `- [Contact](${SITE_URL}/contact)\n` +
         `- [Privacy](${SITE_URL}/privacy)\n\n` +
         `## Main pages (Russian)\n\n` +
         `- [Главная](${SITE_URL}/ru)\n` +
         `- [Продукция](${SITE_URL}/ru/products)\n` +
         `- [О компании](${SITE_URL}/ru/about)\n` +
+        `- [Статьи](${SITE_URL}/ru/articles)\n` +
         `- [Контакты](${SITE_URL}/ru/contact)\n\n` +
         `## Products\n\n${productLines}\n\n` +
+        `## Articles\n\n${articleLines}\n\n` +
         `## Contact\n\n` +
         `- Email: ${content.settings?.email || 'feruz@bogotmaster.org'}\n` +
         `- Site: ${SITE_URL}\n`,

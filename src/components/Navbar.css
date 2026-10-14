@@ -229,10 +229,17 @@
     background-color: var(--color-text-dark);
 }
 
+/* ── Narrow desktop — five links plus the CTA need less space between them ── */
+@media (min-width: 901px) and (max-width: 1100px) {
+    .navbar-links {
+        gap: 26px;
+    }
+}
+
 /* ── Tablet — shrink gap but keep desktop layout ── */
 @media (min-width: 769px) and (max-width: 900px) {
     .navbar-links {
-        gap: 24px;
+        gap: 16px;
     }
 
     .navbar-links a {

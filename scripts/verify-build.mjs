@@ -114,16 +114,22 @@ for (const p of pages) {
 }
 if (!canonBad) ok('every page self-canonicalises to its own URL');
 
-// ── 5. hreflang: en + ru + x-default, reciprocal ─────────────────────────────
+// ── 5. hreflang: every language version + x-default, reciprocal ──────────────
 console.log('\n5. hreflang');
 let hrefBad = 0;
 for (const p of pages) {
     const html = htmlFor(p);
     const langs = hreflangsOf(html);
     const lower = langs.map((l) => l.toLowerCase());
-    for (const need of ['en', 'ru', 'x-default']) {
-        if (!lower.includes(need)) { fail(`${p} missing hreflang="${need}"`); hrefBad++; }
+    // A page must name each language version that was generated. Most pages
+    // exist in both languages; an article may exist in only one, and then must
+    // not name the other.
+    const base = p === '/ru' ? '/' : p.startsWith('/ru/') ? p.slice(3) : p;
+    const versions = { en: base, ru: base === '/' ? '/ru' : `/ru${base}` };
+    for (const [code, path] of Object.entries(versions)) {
+        if (pages.includes(path) && !lower.includes(code)) { fail(`${p} missing hreflang="${code}"`); hrefBad++; }
     }
+    if (!lower.includes('x-default')) { fail(`${p} missing hreflang="x-default"`); hrefBad++; }
 
     // These tags are the ONLY place the language versions are declared (the
     // sitemap deliberately carries none), and search engines ignore them
@@ -136,7 +142,7 @@ for (const p of pages) {
         else if (alternatesOf(htmlFor(target)).join() !== own.join()) { fail(`${p} and ${target} do not declare the same alternates`); hrefBad++; }
     }
 }
-if (!hrefBad) ok('every page declares en, ru and x-default, and the versions point back at each other');
+if (!hrefBad) ok('every page declares each of its language versions and x-default, and the versions point back at each other');
 
 // ── 6. html lang matches the URL's language ──────────────────────────────────
 console.log('\n6. <html lang>');

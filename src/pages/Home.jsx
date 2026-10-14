@@ -11,6 +11,7 @@ import PriceModal from '../components/PriceModal';
 import Certificates from '../components/Certificates';
 import Partners from '../components/Partners';
 import FeaturedGallery from '../components/FeaturedGallery';
+import LicoriceIntro from '../components/LicoriceIntro';
 import { useLanguage } from '../context/LanguageContext';
 import { useContent } from '../context/ContentContext';
 import { useReveal } from '../hooks/useReveal';
@@ -151,6 +152,8 @@ const Home = ({ addToast }) => {
                     </div>
                 </div>
             </section>
+
+            <LicoriceIntro />
 
             <div className="reveal"><Certificates /></div>
             <div className="reveal"><Partners /></div>

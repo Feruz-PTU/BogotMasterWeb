@@ -1,0 +1,132 @@
+.articles-page {
+    padding: 140px 5% 96px;
+    background: var(--color-bg-warm);
+}
+
+/* ── General information about licorice root ── */
+.articles-intro {
+    max-width: 760px;
+    margin: 0 auto 64px;
+}
+
+.articles-intro h1 {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 800;
+    color: var(--color-text-dark);
+    line-height: 1.15;
+    margin-bottom: 24px;
+}
+
+.articles-intro p {
+    color: #4A4A4A;
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 14px;
+}
+
+/* ── One section per article ── */
+.articles-list-section {
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.articles-list-section h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-text-dark);
+    margin-bottom: 20px;
+}
+
+.articles-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.article-card {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    padding: 28px 32px;
+}
+
+.article-card h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 8px;
+}
+
+.article-card h3 a {
+    color: var(--color-text-dark);
+}
+
+@media (hover: hover) {
+    .article-card h3 a:hover {
+        color: var(--color-primary);
+    }
+}
+
+.article-card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-bottom: 12px;
+}
+
+.article-card-lang {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    background: rgba(81, 94, 59, 0.08);
+    padding: 2px 10px;
+    border-radius: 4px;
+}
+
+.article-card-summary {
+    color: #4A4A4A;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.btn-article-read {
+    display: inline-block;
+    background-color: var(--color-primary);
+    color: #fff;
+    padding: 12px 36px;
+    border-radius: 30px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+@media (hover: hover) {
+    .btn-article-read:hover {
+        background-color: #333;
+        transform: translateY(-2px);
+    }
+}
+
+@media (max-width: 640px) {
+    .articles-page {
+        padding: 110px 5% 64px;
+    }
+
+    .articles-intro {
+        margin-bottom: 44px;
+    }
+
+    .article-card {
+        padding: 22px 20px;
+    }
+
+    /* A full-width button is easier to hit with a thumb. */
+    .btn-article-read {
+        display: block;
+        text-align: center;
+    }
+}

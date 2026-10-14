@@ -3,15 +3,16 @@ import './Markdown.css';
 
 /**
  * A deliberately small Markdown renderer for this site's own long-form text
- * (the privacy policy in src/content/).
+ * (the privacy policy and the articles in src/content/).
  *
  * Why not a library: the public pages are imported eagerly so that they can be
  * prerendered (see App.jsx), which means anything pulled in here is downloaded
  * on every page. A full parser would weigh more than the text it renders, and
- * the policy needs only a handful of constructs. This supports exactly:
+ * the texts need only a handful of constructs. This supports exactly:
  *
  *   ## and ### headings     paragraphs        - bullet lists
- *   1. numbered lists       | pipe | tables   **bold**  `code`  [text](url)
+ *   1. numbered lists       | pipe | tables   **bold**  *italic*  `code`
+ *   [text](url)             \[ and other backslash escapes
  *
  * Anything else comes out as plain text. The source is always a file from
  * this repository, never visitor input, and it is rendered as React elements
@@ -21,7 +22,10 @@ import './Markdown.css';
 const HEADING = /^(#{2,3})\s+(.+)$/;
 const BULLET = /^-\s+(.+)$/;
 const NUMBERED = /^\d+\.\s+(.+)$/;
-const INLINE = /\*\*(.+?)\*\*|\[([^\]]+)\]\(([^)\s]+)\)|`([^`]+)`/g;
+// Bold is tried before italic, so ***x*.** reads as bold around an italic x
+// (the articles write "***G. glabra*.**" for a bold species name).
+const INLINE =
+    /\*\*(.+?)\*\*|\*([^*\s](?:[^*]*?[^*\s])?)\*|\[([^\]]+)\]\(([^)\s]+)\)|`([^`]+)`|\\([\\`*_{}[\]()#+\-.!|>~])/g;
 
 const isTableRow = (line) => line.startsWith('|');
 
@@ -96,28 +100,35 @@ function renderInline(text, keyPrefix) {
     let count = 0;
 
     for (const match of text.matchAll(INLINE)) {
-        const [whole, bold, linkText, href, code] = match;
+        const [whole, bold, italic, linkText, href, code, escaped] = match;
         const key = `${keyPrefix}.${count++}`;
 
         if (match.index > cursor) nodes.push(text.slice(cursor, match.index));
 
         if (bold !== undefined) {
-            // Bold may wrap a link, so its contents are parsed again.
+            // Bold may wrap a link or an italic name, so its contents are
+            // parsed again.
             nodes.push(<strong key={key}>{renderInline(bold, key)}</strong>);
+        } else if (italic !== undefined) {
+            nodes.push(<em key={key}>{renderInline(italic, key)}</em>);
         } else if (href !== undefined) {
+            // Link text can hold an italic species name or an escape.
+            const label = renderInline(linkText, key);
             nodes.push(
                 isExternal(href) ? (
                     <a key={key} href={href} target="_blank" rel="noopener noreferrer">
-                        {linkText}
+                        {label}
                     </a>
                 ) : (
                     <a key={key} href={href}>
-                        {linkText}
+                        {label}
                     </a>
                 )
             );
-        } else {
+        } else if (code !== undefined) {
             nodes.push(<code key={key}>{code}</code>);
+        } else {
+            nodes.push(escaped);
         }
 
         cursor = match.index + whole.length;
@@ -126,6 +137,12 @@ function renderInline(text, keyPrefix) {
     if (cursor < text.length) nodes.push(text.slice(cursor));
     return nodes;
 }
+
+/** Inline Markdown reduced to its text, for attributes such as data-label. */
+const plainText = (text) =>
+    text.replace(INLINE, (whole, bold, italic, linkText, href, code, escaped) =>
+        plainText(bold ?? italic ?? linkText ?? code ?? escaped ?? '')
+    );
 
 function renderBlock(block, index) {
     const key = `b${index}`;
@@ -165,7 +182,7 @@ function renderBlock(block, index) {
                                     {/* data-label lets the phone layout show the
                                         column heading beside each cell. */}
                                     {row.map((cell, c) => (
-                                        <td key={c} data-label={block.head[c]}>
+                                        <td key={c} data-label={plainText(block.head[c])}>
                                             {renderInline(cell, `${key}.${r}.${c}`)}
                                         </td>
                                     ))}
@@ -183,5 +200,8 @@ function renderBlock(block, index) {
 const Markdown = ({ source }) => (
     <div className="markdown">{parseBlocks(source).map(renderBlock)}</div>
 );
+
+/** One line of inline Markdown (italic, bold, links) with no block wrapper. */
+export const InlineMarkdown = ({ text }) => <>{renderInline(text, 'i')}</>;
 
 export default Markdown;

@@ -171,8 +171,28 @@ function itemListNode({ canonical, products, lang }) {
 }
 
 /**
+ * An article page. The company is both author and publisher: the articles
+ * are written for this site and carry no personal byline.
+ */
+function articleNode({ article, canonical, lang, description }) {
+    return {
+        '@type': 'Article',
+        '@id': `${canonical}#article`,
+        headline: article.headline,
+        alternativeHeadline: article.alternativeHeadline,
+        description,
+        datePublished: article.datePublished,
+        inLanguage: lang,
+        mainEntityOfPage: { '@id': `${canonical}#webpage` },
+        author: { '@id': ID.org },
+        publisher: { '@id': ID.org },
+    };
+}
+
+/**
  * Assemble the page graph.
- * `kind` is one of: home | products | product | about | contact | privacy
+ * `kind` is one of: home | products | product | about | contact | privacy |
+ * articles | article
  */
 export function buildGraph({
     kind,
@@ -183,12 +203,13 @@ export function buildGraph({
     t,
     product,
     products,
+    article,
     breadcrumb,
 }) {
     const graph = [organizationNode(t), websiteNode()];
 
     const pageType =
-        kind === 'products'
+        kind === 'products' || kind === 'articles'
             ? 'CollectionPage'
             : kind === 'product'
               ? 'ItemPage'
@@ -210,6 +231,9 @@ export function buildGraph({
     }
     if (kind === 'products' && products?.length) {
         graph.push(itemListNode({ canonical, products, lang }));
+    }
+    if (kind === 'article' && article) {
+        graph.push(articleNode({ article, canonical, lang, description }));
     }
 
     return { '@context': 'https://schema.org', '@graph': graph };

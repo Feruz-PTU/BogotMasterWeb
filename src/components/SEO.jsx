@@ -15,6 +15,10 @@ import { buildGraph, safeJsonLd, SITE_URL } from '../seo/schema';
  * '/products/granules'). Every language URL for the page is derived from it,
  * which is what makes the canonical and the hreflang set agree by
  * construction rather than by hand.
+ *
+ * `languages` lists the language codes the page exists in. It defaults to
+ * every live language; an article written only in English passes ['en'], so
+ * no alternate points at a page that was never built.
  */
 const SEO = ({
     routePath = '/',
@@ -27,10 +31,18 @@ const SEO = ({
     noindex = false,
     product,
     products,
+    article,
     breadcrumb,
+    languages,
 }) => {
     const { t, language } = useLanguage();
     const langMeta = getLanguage(language);
+    const versions = languages
+        ? LIVE_LANGUAGES.filter((l) => languages.includes(l.code))
+        : LIVE_LANGUAGES;
+    const xDefault = versions.some((l) => l.code === DEFAULT_LANGUAGE)
+        ? DEFAULT_LANGUAGE
+        : versions[0].code;
 
     const pageTitle = title || t('meta_title');
     const pageDescription = description || t('meta_description');
@@ -58,6 +70,7 @@ const SEO = ({
         t,
         product,
         products,
+        article,
         breadcrumb,
     });
 
@@ -69,10 +82,10 @@ const SEO = ({
             <link rel="canonical" href={canonical} />
             {noindex && <meta name="robots" content="noindex, follow" />}
 
-            {/* One alternate per live language, plus x-default pointing at the
-                default language. Generated from languages.js, so adding a
-                language adds its hreflang automatically. */}
-            {LIVE_LANGUAGES.map((l) => (
+            {/* One alternate per language the page exists in, plus x-default
+                pointing at the default language. Generated from languages.js,
+                so adding a language adds its hreflang automatically. */}
+            {versions.map((l) => (
                 <link
                     key={l.code}
                     rel="alternate"
@@ -83,14 +96,17 @@ const SEO = ({
             <link
                 rel="alternate"
                 hrefLang="x-default"
-                href={`${SITE_URL}${localizedPath(DEFAULT_LANGUAGE, routePath)}`}
+                href={`${SITE_URL}${localizedPath(xDefault, routePath)}`}
             />
 
             {/* Open Graph */}
-            <meta property="og:type" content={kind === 'product' ? 'product' : 'website'} />
+            <meta
+                property="og:type"
+                content={kind === 'product' ? 'product' : kind === 'article' ? 'article' : 'website'}
+            />
             <meta property="og:site_name" content="Bogot Master" />
             <meta property="og:locale" content={langMeta.ogLocale} />
-            {LIVE_LANGUAGES.filter((l) => l.code !== language).map((l) => (
+            {versions.filter((l) => l.code !== language).map((l) => (
                 <meta key={l.code} property="og:locale:alternate" content={l.ogLocale} />
             ))}
             <meta property="og:title" content={pageTitle} />

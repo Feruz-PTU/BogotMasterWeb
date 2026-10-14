@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import LocalLink, { LocalNavLink } from './LocalLink';
 import { LIVE_LANGUAGES, localizedPath, parsePathname } from '../i18n/languages';
+import { routeInLanguage } from '../content/articles';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -90,6 +91,7 @@ const Navbar = () => {
                     <LocalNavLink to="/" onClick={close}>{t('home')}</LocalNavLink>
                     <LocalNavLink to="/products" onClick={close}>{t('products')}</LocalNavLink>
                     <LocalNavLink to="/about" onClick={close}>{t('about')}</LocalNavLink>
+                    <LocalNavLink to="/articles" onClick={close}>{t('articles')}</LocalNavLink>
                     <LocalNavLink to="/contact" onClick={close}>{t('contact')}</LocalNavLink>
                 </div>
 
@@ -127,7 +129,7 @@ const Navbar = () => {
                                 {LIVE_LANGUAGES.map((lang) => (
                                     <Link
                                         key={lang.code}
-                                        to={localizedPath(lang.code, currentRoutePath)}
+                                        to={localizedPath(lang.code, routeInLanguage(currentRoutePath, lang.code))}
                                         hrefLang={lang.htmlLang}
                                         lang={lang.htmlLang}
                                         className={`lang-dropdown-item ${language === lang.code ? 'selected' : ''}`}

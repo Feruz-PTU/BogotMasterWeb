@@ -2,6 +2,22 @@ import { renderToString } from 'react-dom/server';
 import { MemoryRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import App from './App.jsx';
+import { provideBodies } from './content/articles/bodies.js';
+
+// Article texts are separate chunks in the browser (see bodies.js), but a
+// synchronous render needs them now. The keys match bodies.js's own glob,
+// which is why the pattern is written relative to that folder's files.
+provideBodies(
+    Object.fromEntries(
+        Object.entries(
+            import.meta.glob('./content/articles/*.md', {
+                query: '?raw',
+                import: 'default',
+                eager: true,
+            })
+        ).map(([path, text]) => [path.replace('./content/articles/', './'), text])
+    )
+);
 
 /**
  * Render one URL to an HTML string at build time.

@@ -1,0 +1,54 @@
+.licorice-intro {
+    padding: 88px 7%;
+    background-color: #fff;
+}
+
+.licorice-intro-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.licorice-intro .section-title {
+    margin-bottom: 20px;
+}
+
+.licorice-intro p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 32px;
+}
+
+.btn-licorice-more {
+    display: inline-block;
+    background-color: var(--color-primary);
+    color: #fff;
+    padding: 14px 40px;
+    border-radius: 30px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+@media (hover: hover) {
+    .btn-licorice-more:hover {
+        background-color: #333;
+        transform: translateY(-2px);
+    }
+}
+
+@media (max-width: 600px) {
+    .licorice-intro {
+        padding: 56px 5%;
+    }
+
+    .licorice-intro-inner {
+        text-align: left;
+    }
+
+    .licorice-intro p {
+        font-size: 0.95rem;
+        margin-bottom: 24px;
+    }
+}

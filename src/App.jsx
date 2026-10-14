@@ -23,12 +23,18 @@ import ProductDetail from './pages/ProductDetail';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import PrivacyPage from './pages/PrivacyPage';
+import ArticlesPage from './pages/ArticlesPage';
+import ArticlePage from './pages/ArticlePage';
 import NotFound from './pages/NotFound';
 
 const AdminLogin = lazy(() => import('./pages/admin/AdminLogin'));
 const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
 
-/** The five public routes, defined once and mounted under every language. */
+/**
+ * The public routes, defined once and mounted under every language. An
+ * article that does not exist in a language renders NotFound there (see
+ * ArticlePage).
+ */
 function publicRoutes(addToast) {
     return [
         { path: '', element: <Home addToast={addToast} /> },
@@ -37,6 +43,8 @@ function publicRoutes(addToast) {
         { path: 'about', element: <AboutPage addToast={addToast} /> },
         { path: 'contact', element: <ContactPage addToast={addToast} /> },
         { path: 'privacy', element: <PrivacyPage /> },
+        { path: 'articles', element: <ArticlesPage /> },
+        { path: 'articles/:slug', element: <ArticlePage /> },
     ];
 }
 

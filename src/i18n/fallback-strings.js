@@ -98,6 +98,33 @@ export const FALLBACK_STRINGS = {
             'You can ask us what we hold about you, ask us to correct it, or ask us to delete it. Write to the address below and we will respond.',
         privacy_contact_title: 'Contact',
         privacy_contact_text: 'For anything on this page, write to',
+
+        // Articles. Strings shown in running text may use *italic* for
+        // species names; the pages render them as inline Markdown.
+        articles: 'Articles',
+        articles_meta_title: 'Licorice Root: Facts and Articles | Bogot Master',
+        articles_meta_desc:
+            'What licorice root is, where it grows and how it is used, with in-depth articles on the plant and on licorice from Khorezm, Uzbekistan.',
+        articles_title: 'About licorice root',
+        articles_intro_1:
+            'Licorice root is the dried root and underground stems of *Glycyrrhiza*, a perennial plant of the legume family. Three closely related species supply the trade: *G. glabra*, native from the Mediterranean to Central Asia, and *G. uralensis* and *G. inflata*, which grow further east, chiefly in northern China and Mongolia.',
+        articles_intro_2:
+            'The root tastes sweet because it contains glycyrrhizin, a compound about 50 times sweeter than sugar. The European Pharmacopoeia requires licorice root sold as a herbal drug to contain at least 4% of it. The root and its extract are used in confectionery, drinks, tobacco and herbal medicine.',
+        articles_intro_3:
+            'In Uzbekistan licorice grows wild along the Amu Darya and Syr Darya rivers, including in Khorezm, and it is also grown on plantations. The articles below look at the plant in more depth.',
+        articles_list_title: 'All articles',
+        article_read: 'Read',
+        article_english_only: 'In English',
+        article_back: 'All articles',
+        article_loading: 'Loading the article…',
+        // Shown at the top of a translated article, before a link to the
+        // original. One string per language a translation can come from.
+        article_translated_from_ru: 'This article is a translation from Russian. The original:',
+
+        home_licorice_label: 'Licorice root',
+        home_licorice_title: 'What is licorice root?',
+        home_licorice_text:
+            'Licorice root is the dried root of *Glycyrrhiza*, a perennial plant of the legume family. The species we supply, *G. glabra*, grows wild along the rivers of Central Asia, including the Amu Darya in Khorezm. Its sweetness comes from glycyrrhizin, about 50 times sweeter than sugar, and it is used in confectionery, drinks, tobacco and herbal medicine.',
     },
 
     ru: {
@@ -182,5 +209,28 @@ export const FALLBACK_STRINGS = {
             'Вы можете запросить, какие данные о вас у нас есть, попросить их исправить или удалить. Напишите на адрес ниже, и мы ответим.',
         privacy_contact_title: 'Контакты',
         privacy_contact_text: 'По любым вопросам с этой страницы пишите на',
+
+        articles: 'Статьи',
+        articles_meta_title: 'Корень солодки: факты и статьи | Bogot Master',
+        articles_meta_desc:
+            'Что такое корень солодки, где он растёт и как используется, а также подробные статьи о растении и о солодке из Хорезма, Узбекистан.',
+        articles_title: 'О корне солодки',
+        articles_intro_1:
+            'Корень солодки — это высушенные корни и подземные побеги *Glycyrrhiza*, многолетнего растения семейства бобовых. В торговлю поступают три близких вида: *G. glabra* (солодка голая), естественный ареал которой простирается от Средиземноморья до Средней Азии, а также *G. uralensis* (солодка уральская) и *G. inflata* (солодка вздутая), которые растут восточнее, главным образом на севере Китая и в Монголии.',
+        articles_intro_2:
+            'Корень сладкий на вкус благодаря глицирризину — веществу, которое примерно в 50 раз слаще сахара. Европейская фармакопея требует, чтобы корень солодки как лекарственное растительное сырьё содержал его не менее 4%. Корень и его экстракт используют в кондитерском производстве, напитках, табачной промышленности и фитотерапии.',
+        articles_intro_3:
+            'В Узбекистане солодка растёт в дикой природе по берегам Амударьи и Сырдарьи, в том числе в Хорезме, а также выращивается на плантациях. В статьях ниже растение рассмотрено подробнее.',
+        articles_list_title: 'Все статьи',
+        article_read: 'Читать',
+        article_english_only: 'На английском',
+        article_back: 'Все статьи',
+        article_loading: 'Загрузка статьи…',
+        article_translated_from_en: 'Эта статья — перевод с английского языка. Оригинал:',
+
+        home_licorice_label: 'Корень солодки',
+        home_licorice_title: 'Что такое корень солодки?',
+        home_licorice_text:
+            'Корень солодки — это высушенный корень *Glycyrrhiza*, многолетнего растения семейства бобовых. Вид, который мы поставляем, — *G. glabra* (солодка голая); он растёт в дикой природе по берегам рек Средней Азии, в том числе Амударьи в Хорезме. Сладость корню придаёт глицирризин, который примерно в 50 раз слаще сахара. Корень используют в кондитерском производстве, напитках, табачной промышленности и фитотерапии.',
     },
 };
