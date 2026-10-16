@@ -34,7 +34,7 @@ const AboutPage = () => {
                             </div>
                             <div className="about-extra-stats">
                                 <div className="extra-stat-card">
-                                    <h3>1500+</h3>
+                                    <h3>500+</h3>
                                     <p>{t('about_extra_stat_tons')}</p>
                                 </div>
                                 <div className="extra-stat-card">
