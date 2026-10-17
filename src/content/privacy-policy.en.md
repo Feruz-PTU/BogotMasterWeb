@@ -84,7 +84,7 @@ Where consent is required, the relevant technology will not be activated before 
 
 ## 7. Data Retention
 
-We retain personal data only for as long as necessary for the purpose for which it was collected, subject to applicable legal obligations and the establishment, exercise or defence of legal claims.
+We retain personal data only for as long as necessary for the purpose for which it was collected, subject to applicable legal obligations and the establishment, exercise or defense of legal claims.
 
 We will maintain documented retention periods or objective retention criteria for:
 
