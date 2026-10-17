@@ -6,7 +6,7 @@ import { uploadProductImage, uploadGalleryImage, signOut, onAuth } from '../../s
 // public pages are prerendered and a save is not live until the build runs.
 import {
     fetchProducts, fetchSettings,
-    saveProduct, saveSettings, deleteProduct,
+    saveProduct, saveProducts, saveSettings, deleteProduct,
     seedDatabase, isDatabaseSeeded,
     fetchInquiries, markInquiryRead, deleteInquiry,
     fetchStats,
@@ -17,6 +17,7 @@ import {
 import { useLanguage } from '../../context/LanguageContext';
 import SEO from '../../components/SEO';
 import RelatedProductsPicker from './RelatedProductsPicker';
+import { resolveFamilies, familyChanges } from '../../utils/productFamily';
 import './Admin.css';
 
 const TRANSLATION_GROUPS = [
@@ -377,7 +378,7 @@ const AdminDashboard = () => {
                 const defaults = { botanical_name: 'Glycyrrhiza glabra', origin: 'Uzbekistan', part_used: 'Root', cultivation: 'Wild + artificial', form_cut_type: '', cut_size: '', diameter_grade: '', processing: '', packaging: 'PP bags 25 kg', moq: '', moisture: '≤ 8%', ash: '≤ 9%', glycyrrhizin: '', foreign_matter: '≤ 1%', heavy_metals: 'Within WHO/EU limits', pesticide_residues: 'Within WHO/EU limits', tpc: '≤ 100,000 CFU/g', yeast_mould: '≤ 1,000 CFU/g', e_coli: 'Absent', salmonella: 'Absent', shelf_life: '24 months', storage: '≤ 25°C, cool dry, no sunlight', documents: [] };
                 const s = {}; langs.forEach(l => { s[l.code] = { ...defaults }; });
                 const langFields = {}; langs.forEach(l => { langFields[`title_${l.code}`] = ''; langFields[`desc_${l.code}`] = ''; });
-                setProductForm({ slug: '', ...langFields, featured: false, hidden: false, order: products.length > 0 ? Math.max(...products.map(p => p.order || 0)) + 1 : 1, image: '', specs: s });
+                setProductForm({ slug: '', ...langFields, featured: false, hidden: false, order: products.length > 0 ? Math.max(...products.map(p => p.order || 0)) + 1 : 1, image: '', specs: s, family: [] });
                 setImageFile(null); setImagePreview('');
             }
             return;
@@ -391,7 +392,7 @@ const AdminDashboard = () => {
                 if (isFlat) { const { documents, ...flat } = specs; const n = {}; langs.forEach(l => { n[l.code] = { ...flat, documents: documents || [] }; }); specs = n; }
                 setEditingProduct(product.slug);
                 setIsAdding(false);
-                setProductForm({ ...product, specs });
+                setProductForm({ ...product, specs, family: familyDraftFor(product.slug) });
                 setProdLangTab(firstLangCode());
                 setNewDocInput('');
                 setImageFile(null);
@@ -456,6 +457,12 @@ const AdminDashboard = () => {
 
     const firstLangCode = () => adminTranslations.languages?.[0]?.code || 'ru';
 
+    // Related-products families, from every product including hidden ones.
+    const families = useMemo(() => resolveFamilies(products), [products]);
+
+    // A product's family as the picker edits it: `null` marks the product itself.
+    const familyDraftFor = (slug) => (families.get(slug) || []).map(s => (s === slug ? null : s));
+
     const startEdit = (product) => {
         savedScrollY.current = window.scrollY;
         navigate('/admin/products/' + product.slug);
@@ -470,7 +477,7 @@ const AdminDashboard = () => {
         }
         setEditingProduct(product.slug);
         setIsAdding(false);
-        setProductForm({ ...product, specs });
+        setProductForm({ ...product, specs, family: familyDraftFor(product.slug) });
         setProdLangTab(firstLangCode());
         setNewDocInput('');
         setImageFile(null);
@@ -526,6 +533,7 @@ const AdminDashboard = () => {
                 langs.forEach(l => { s[l.code] = { ...defaults }; });
                 return s;
             })(),
+            family: [],
         });
         setImageFile(null);
         setImagePreview('');
@@ -655,21 +663,38 @@ const AdminDashboard = () => {
                 imageUrl = '/images/placeholder.png';
             }
 
-            // Keep only products that still exist, never the product itself, each once.
-            const related = [...new Set(productForm.related || [])].filter(
-                s => s !== productForm.slug && products.some(p => p.slug === s)
-            );
-            const updated = { ...productForm, image: imageUrl, related };
-            await saveProduct(updated);
+            // The family as edited, with this product's slug in its place and
+            // only products that still exist. Fewer than two members is no family.
+            const slug = productForm.slug;
+            const draft = [...new Set((productForm.family || []).map(s => s ?? slug))]
+                .filter(s => s === slug || products.some(p => p.slug === s));
+            const withSelf = draft.includes(slug) ? draft : [slug, ...draft];
+            const family = withSelf.length > 1 ? withSelf : [];
 
-            if (isAdding) {
-                setProducts(prev => [...prev, updated].sort((a, b) => (a.order || 0) - (b.order || 0)));
-            } else {
-                setProducts(prev => prev.map(p => p.slug === updated.slug ? updated : p));
-            }
+            // Every member stores the family, so the other members whose stored
+            // family changes are saved in the same request. `related` is the
+            // one-way list used before families; it is replaced, not kept.
+            const updated = { ...productForm, image: imageUrl, family, related: undefined };
+            const others = [...familyChanges(products, slug, family)].map(([s, fam]) => ({
+                ...products.find(p => p.slug === s),
+                family: fam,
+                related: undefined,
+            }));
+            await saveProducts([updated, ...others]);
+
+            const written = new Map([updated, ...others].map(p => [p.slug, p]));
+            setProducts(prev => {
+                const next = prev.map(p => written.get(p.slug) || p);
+                return isAdding
+                    ? [...next, updated].sort((a, b) => (a.order || 0) - (b.order || 0))
+                    : next;
+            });
 
             cancelEdit(!isAdding);
-            showToast(isAdding ? 'Product added.' : 'Product saved.');
+            const familyNote = others.length > 0
+                ? ` Family updated on ${others.length} other product${others.length === 1 ? '' : 's'}.`
+                : '';
+            showToast((isAdding ? 'Product added.' : 'Product saved.') + familyNote);
         } catch (err) {
             console.error('[saveProduct]', err);
             showToast(`Error saving product: ${err?.message || err}`);
@@ -1971,12 +1996,15 @@ const AdminDashboard = () => {
                                                 );
                                             })()}
 
-                                            <p className="admin-form-section-label">Related Products</p>
+                                            <p className="admin-form-section-label">Related Products — Family</p>
                                             <RelatedProductsPicker
-                                                value={productForm.related || []}
-                                                onChange={related => setProductForm(p => ({ ...p, related }))}
+                                                value={productForm.family || []}
+                                                onChange={family => setProductForm(p => ({ ...p, family }))}
                                                 products={products}
+                                                families={families}
                                                 currentSlug={isAdding ? productForm.slug : editingProduct}
+                                                selfName={productForm.title_en || productForm.title_ru || productForm.slug || 'New product'}
+                                                selfImage={imagePreview}
                                             />
                                         </div>
                                     </div>

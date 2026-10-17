@@ -23,14 +23,14 @@ const visibleArea = (el) => {
 };
 
 /**
- * Chooses the products listed under "Related products" on a product page.
+ * Edits the family of the product being edited (see utils/productFamily.js).
  *
- * `value` is an ordered list of slugs, and the page shows them in that order.
- * An empty list means the page falls back to picking three products itself.
- * Slugs of products that no longer exist are skipped here; the dashboard
- * removes them from the data when the product is saved.
+ * `value` is the family in display order, with `null` standing for this
+ * product (its slug may not exist yet while a new product is being added),
+ * or [] when the product is in no family. `families` maps each slug to its
+ * saved family, to flag products that would move here from another family.
  */
-const RelatedProductsPicker = ({ value = [], onChange, products, currentSlug }) => {
+const RelatedProductsPicker = ({ value = [], onChange, products, families, currentSlug, selfName, selfImage }) => {
     const [query, setQuery] = useState('');
     const [open, setOpen] = useState(false);
     const [dropUp, setDropUp] = useState(false);
@@ -41,10 +41,17 @@ const RelatedProductsPicker = ({ value = [], onChange, products, currentSlug }) 
 
     const bySlug = useMemo(() => new Map(products.map((p) => [p.slug, p])), [products]);
 
-    const selected = value
-        .filter((s) => s !== currentSlug)
-        .map((s) => bySlug.get(s))
-        .filter(Boolean);
+    // Drop products deleted since the family was loaded; this product alone is no family.
+    const kept = value.filter((s) => s === null || (s !== currentSlug && bySlug.has(s)));
+    const rows = kept.some((s) => s !== null) ? kept : [];
+
+    // The saved family a product belongs to, unless it is this product's own.
+    const otherFamily = (slug) => {
+        const family = families.get(slug);
+        return family && !(currentSlug && family.includes(currentSlug)) ? family : null;
+    };
+    const familyNames = (family, slug) =>
+        family.filter((s) => s !== slug).map((s) => (bySlug.get(s) ? nameOf(bySlug.get(s)) : s)).join(', ');
 
     const options = useMemo(() => {
         const q = query.trim().toLowerCase();
@@ -75,19 +82,24 @@ const RelatedProductsPicker = ({ value = [], onChange, products, currentSlug }) 
         setOpen(true);
     };
 
+    // The first product added starts a family, with this product first.
     const add = (slug) => {
-        onChange([...value.filter((s) => s !== slug), slug]);
+        onChange([...(rows.length > 0 ? rows : [null]), slug]);
         setQuery('');
     };
 
-    const remove = (slug) => onChange(value.filter((s) => s !== slug));
+    // A family needs two products: removing the last other one ends it.
+    const remove = (slug) => {
+        const next = rows.filter((s) => s !== slug);
+        onChange(next.some((s) => s !== null) ? next : []);
+    };
 
     const move = (index, dir) => {
-        const slugs = selected.map((p) => p.slug);
+        const next = [...rows];
         const target = index + dir;
-        if (target < 0 || target >= slugs.length) return;
-        [slugs[index], slugs[target]] = [slugs[target], slugs[index]];
-        onChange(slugs);
+        if (target < 0 || target >= next.length) return;
+        [next[index], next[target]] = [next[target], next[index]];
+        onChange(next);
     };
 
     const handleKeyDown = (e) => {
@@ -108,12 +120,23 @@ const RelatedProductsPicker = ({ value = [], onChange, products, currentSlug }) 
         }
     };
 
+    const moveButtons = (i, label) => (
+        <>
+            <button type="button" className="admin-reorder-btn" onClick={() => move(i, -1)} disabled={i === 0} title="Move up" aria-label={`Move ${label} up`}>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="18 15 12 9 6 15" /></svg>
+            </button>
+            <button type="button" className="admin-reorder-btn" onClick={() => move(i, 1)} disabled={i === rows.length - 1} title="Move down" aria-label={`Move ${label} down`}>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9" /></svg>
+            </button>
+        </>
+    );
+
     return (
         <div className="rpp">
             <p className="rpp-hint">
-                Shown at the bottom of this product&apos;s page, in this order, in every language.
-                Three fill one row on desktop. Leave empty to show the first 3 products of the
-                catalogue automatically.
+                Products in one family show each other here, in this order. Changes apply to every
+                product in the family, and a product is in one family at a time. Each page shows the
+                other members, so a family of 4 fills one row on desktop.
             </p>
 
             <div className="rpp-combobox">
@@ -124,12 +147,12 @@ const RelatedProductsPicker = ({ value = [], onChange, products, currentSlug }) 
                     ref={inputRef}
                     type="text"
                     role="combobox"
-                    aria-label="Add a related product"
+                    aria-label="Add a product to this family"
                     aria-expanded={open}
                     aria-controls={listId}
                     aria-autocomplete="list"
                     aria-activedescendant={activeOption ? optionId(activeOption.slug) : undefined}
-                    placeholder="Search products to add…"
+                    placeholder="Search products to add to the family…"
                     value={query}
                     onChange={(e) => { setQuery(e.target.value); setActive(0); openList(); }}
                     onFocus={openList}
@@ -141,63 +164,95 @@ const RelatedProductsPicker = ({ value = [], onChange, products, currentSlug }) 
                     <ul className={`rpp-options ${dropUp ? 'is-up' : ''}`} id={listId} role="listbox" ref={listRef}>
                         {options.length === 0 ? (
                             <li className="rpp-empty" role="presentation">
-                                {query.trim() ? 'No matching products.' : 'Every product is already added.'}
+                                {query.trim() ? 'No matching products.' : 'Every product is already in this family.'}
                             </li>
                         ) : (
-                            options.map((p, i) => (
-                                <li
-                                    key={p.slug}
-                                    id={optionId(p.slug)}
-                                    role="option"
-                                    aria-selected={i === activeIndex}
-                                    className={`rpp-option ${i === activeIndex ? 'is-active' : ''}`}
-                                    // Keep focus in the input so the list stays open for the next pick.
-                                    onMouseDown={(e) => e.preventDefault()}
-                                    onMouseEnter={() => setActive(i)}
-                                    onClick={() => add(p.slug)}
-                                >
-                                    <img src={p.image} alt="" loading="lazy" />
-                                    <span className="rpp-name">
-                                        <strong>{nameOf(p)}</strong>
-                                        <small>{p.slug}</small>
-                                    </span>
-                                    {p.hidden && <span className="rpp-badge">Hidden</span>}
-                                </li>
-                            ))
+                            options.map((p, i) => {
+                                const other = otherFamily(p.slug);
+                                return (
+                                    <li
+                                        key={p.slug}
+                                        id={optionId(p.slug)}
+                                        role="option"
+                                        aria-selected={i === activeIndex}
+                                        className={`rpp-option ${i === activeIndex ? 'is-active' : ''}`}
+                                        // Keep focus in the input so the list stays open for the next pick.
+                                        onMouseDown={(e) => e.preventDefault()}
+                                        onMouseEnter={() => setActive(i)}
+                                        onClick={() => add(p.slug)}
+                                    >
+                                        <img src={p.image} alt="" loading="lazy" />
+                                        <span className="rpp-name">
+                                            <strong>{nameOf(p)}</strong>
+                                            <small>{p.slug}</small>
+                                        </span>
+                                        {other && (
+                                            <span className="rpp-badge rpp-badge-family" title={`In a family with ${familyNames(other, p.slug)}. Adding it moves it here.`}>
+                                                In another family
+                                            </span>
+                                        )}
+                                        {p.hidden && <span className="rpp-badge">Hidden</span>}
+                                    </li>
+                                );
+                            })
                         )}
                     </ul>
                 )}
             </div>
 
-            {selected.length > 0 ? (
+            {rows.length > 0 ? (
                 <ol className="rpp-list">
-                    {selected.map((p, i) => (
-                        <li key={p.slug} className={`rpp-item ${p.hidden ? 'is-hidden' : ''}`}>
-                            <span className="rpp-pos">{i + 1}</span>
-                            <img src={p.image} alt="" loading="lazy" />
-                            <span className="rpp-name">
-                                <strong>{nameOf(p)}</strong>
-                                <small>{p.slug}</small>
-                            </span>
-                            {p.hidden && (
-                                <span className="rpp-badge" title="This product is hidden, so it will not appear on the page until you show it again.">
-                                    Hidden — not shown
+                    {rows.map((s, i) => {
+                        if (s === null) {
+                            return (
+                                <li key="self" className="rpp-item is-self">
+                                    <span className="rpp-pos">{i + 1}</span>
+                                    {selfImage ? <img src={selfImage} alt="" /> : <span className="rpp-thumb-empty" />}
+                                    <span className="rpp-name">
+                                        <strong>{selfName}</strong>
+                                        <small>not shown on its own page</small>
+                                    </span>
+                                    <span className="rpp-badge rpp-badge-self">This product</span>
+                                    <span className="rpp-actions">
+                                        {moveButtons(i, 'this product')}
+                                        <span className="rpp-remove-spacer" aria-hidden="true" />
+                                    </span>
+                                </li>
+                            );
+                        }
+                        const p = bySlug.get(s);
+                        const other = otherFamily(s);
+                        return (
+                            <li key={s} className={`rpp-item ${p.hidden ? 'is-hidden' : ''}`}>
+                                <span className="rpp-pos">{i + 1}</span>
+                                <img src={p.image} alt="" loading="lazy" />
+                                <span className="rpp-name">
+                                    <strong>{nameOf(p)}</strong>
+                                    <small>{p.slug}</small>
                                 </span>
-                            )}
-                            <span className="rpp-actions">
-                                <button type="button" className="admin-reorder-btn" onClick={() => move(i, -1)} disabled={i === 0} title="Move up" aria-label={`Move ${nameOf(p)} up`}>
-                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="18 15 12 9 6 15" /></svg>
-                                </button>
-                                <button type="button" className="admin-reorder-btn" onClick={() => move(i, 1)} disabled={i === selected.length - 1} title="Move down" aria-label={`Move ${nameOf(p)} down`}>
-                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9" /></svg>
-                                </button>
-                                <button type="button" className="rpp-remove" onClick={() => remove(p.slug)} title="Remove" aria-label={`Remove ${nameOf(p)}`}>×</button>
-                            </span>
-                        </li>
-                    ))}
+                                {other && (
+                                    <span className="rpp-badge rpp-badge-family" title={`Saving moves it out of its family with ${familyNames(other, s)}.`}>
+                                        Moves from another family
+                                    </span>
+                                )}
+                                {p.hidden && (
+                                    <span className="rpp-badge" title="This product is hidden, so it will not appear on any page until you show it again.">
+                                        Hidden — not shown
+                                    </span>
+                                )}
+                                <span className="rpp-actions">
+                                    {moveButtons(i, nameOf(p))}
+                                    <button type="button" className="rpp-remove" onClick={() => remove(s)} title="Remove from family" aria-label={`Remove ${nameOf(p)} from the family`}>×</button>
+                                </span>
+                            </li>
+                        );
+                    })}
                 </ol>
             ) : (
-                <p className="rpp-auto">No products picked — the page shows the first 3 automatically.</p>
+                <p className="rpp-auto">
+                    Not in a family — the page shows the first 3 products automatically. Add a product
+                    to start a family.
+                </p>
             )}
         </div>
     );

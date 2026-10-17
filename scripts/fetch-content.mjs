@@ -17,6 +17,7 @@ import { writeFileSync, mkdirSync, readFileSync, existsSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { LANGUAGE_CODES, DEFAULT_LANGUAGE } from '../src/i18n/languages.js';
+import { resolveFamilies } from '../src/utils/productFamily.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
@@ -166,15 +167,28 @@ const warnings = [];
 const skipped = [];
 const seenSlugs = new Map();
 
-const products = productRows
+// Related-products families are stored by slug, so their slugs get the same
+// lowercasing or they would stop matching.
+const normalizeSlugs = (list) => (Array.isArray(list) ? list.map(normalizeSlug).filter(Boolean) : undefined);
+const allProducts = productRows
     .map((row) => ({
         ...(row.data || {}),
         slug: normalizeSlug(row.data?.slug || row.slug),
-        // Related products picked in the admin are stored by slug, so they get
-        // the same lowercasing or they would stop matching the slugs above.
-        ...(Array.isArray(row.data?.related) && {
-            related: [...new Set(row.data.related.map(normalizeSlug).filter(Boolean))],
-        }),
+        family: normalizeSlugs(row.data?.family),
+        related: normalizeSlugs(row.data?.related),
+    }))
+    .sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
+
+// Worked out before hidden products are dropped, so a hidden member does not
+// split its family. Each page gets the other members as `related`, in family
+// order; the page leaves out any that are hidden.
+const families = resolveFamilies(allProducts);
+
+const products = allProducts
+    .map((p) => ({
+        ...p,
+        family: undefined,
+        related: (families.get(p.slug) || []).filter((s) => s !== p.slug),
     }))
     .filter((p) => {
         if (p.hidden === true) return false; // hidden in admin → no page, no sitemap entry

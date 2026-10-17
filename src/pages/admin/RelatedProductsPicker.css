@@ -161,6 +161,34 @@
     opacity: 0.55;
 }
 
+.rpp-item.is-self {
+    background: #f0f2ea;
+    border-color: #c9d0b8;
+}
+
+.rpp-thumb-empty {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    background: #e4e8da;
+    flex-shrink: 0;
+}
+
+.rpp-badge-self {
+    color: #fff;
+    background: #515E3B;
+}
+
+.rpp-badge-family {
+    color: #3d5a80;
+    background: #e8eef6;
+}
+
+/* Keeps the arrows of the self row in line with the rows that have a × */
+.rpp-remove-spacer {
+    width: 22px;
+}
+
 .rpp-pos {
     width: 18px;
     flex-shrink: 0;

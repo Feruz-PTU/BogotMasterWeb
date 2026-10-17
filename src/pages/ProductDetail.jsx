@@ -41,9 +41,10 @@ const ProductDetail = ({ addToast }) => {
     // looked alive to search engines and stayed in the index.
     if (!product) return <NotFound />;
 
-    // Products picked in the admin, in the order picked. `products` holds only
-    // visible products, so hidden or deleted picks drop out here. With no
-    // usable picks, fall back to the first three products of the catalogue.
+    // The other members of this product's family, in family order: the build
+    // fills `related` from the families set in the admin. `products` holds only
+    // visible products, so hidden members drop out here. With none left, fall
+    // back to the first three products of the catalogue.
     const picked = [...new Set(product.related || [])]
         .map((s) => products.find((p) => p.slug === s))
         .filter((p) => p && p.slug !== slug);

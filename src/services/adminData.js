@@ -14,6 +14,7 @@
 
 import {
     saveProduct as _saveProduct,
+    saveProducts as _saveProducts,
     saveSettings as _saveSettings,
     saveTranslations as _saveTranslations,
     deleteProduct as _deleteProduct,
@@ -48,6 +49,7 @@ const withRebuild =
     };
 
 export const saveProduct = withRebuild(_saveProduct);
+export const saveProducts = withRebuild(_saveProducts);
 export const saveSettings = withRebuild(_saveSettings);
 export const saveTranslations = withRebuild(_saveTranslations);
 export const deleteProduct = withRebuild(_deleteProduct);

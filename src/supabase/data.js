@@ -36,6 +36,15 @@ export async function saveProduct(product) {
     if (error) throw error;
 }
 
+// Several products in one request, so they are saved together or not at all
+// (a product family is stored on each of its members).
+export async function saveProducts(products) {
+    const { error } = await supabase
+        .from('products')
+        .upsert(products.map((p) => ({ slug: p.slug, order: p.order ?? 0, data: p })));
+    if (error) throw error;
+}
+
 export async function deleteProduct(slug) {
     const { error } = await supabase.from('products').delete().eq('slug', slug);
     if (error) throw error;
