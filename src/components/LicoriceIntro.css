@@ -9,6 +9,27 @@
     text-align: center;
 }
 
+.licorice-intro-photo {
+    max-width: 340px;
+    margin: 48px auto 0;
+}
+
+/* Wide screens: text on the left, the photo beside it. */
+@media (min-width: 900px) {
+    .licorice-intro-inner {
+        max-width: 1060px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 340px;
+        gap: 72px;
+        align-items: center;
+        text-align: left;
+    }
+
+    .licorice-intro-photo {
+        margin: 0;
+    }
+}
+
 .licorice-intro .section-title {
     margin-bottom: 20px;
 }
@@ -50,5 +71,9 @@
     .licorice-intro p {
         font-size: 0.95rem;
         margin-bottom: 24px;
+    }
+
+    .licorice-intro-photo {
+        margin-top: 40px;
     }
 }

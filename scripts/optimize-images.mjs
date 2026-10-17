@@ -26,6 +26,7 @@ const TARGETS = [
     ['public/images/image16.png', 82, 870],
     ['public/images/image17.png', 82, 560],
     ['public/images/image18.png', 82, 830],
+    ['public/images/Glycyrrhiza_glabra_Y03.jpg', 75, 640],
 ];
 
 const kb = (n) => Math.round(n / 1024);

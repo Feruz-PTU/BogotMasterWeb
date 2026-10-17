@@ -125,6 +125,13 @@ export const FALLBACK_STRINGS = {
         home_licorice_title: 'What is licorice root?',
         home_licorice_text:
             'Licorice root is the dried root of *Glycyrrhiza*, a perennial plant of the legume family. The species we supply, *G. glabra*, grows wild along the rivers of Central Asia, including the Amu Darya in Khorezm. Its sweetness comes from glycyrrhizin, about 50 times sweeter than sugar, and it is used in confectionery, drinks, tobacco and herbal medicine.',
+
+        // Photo of the plant (components/PlantPhoto.jsx). A third-party photo
+        // taken in Russia: do not caption it as our field or region.
+        plant_photo_alt:
+            'Tall stems with pinnate leaves and clusters of small pale violet flowers',
+        plant_photo_caption: '*Glycyrrhiza glabra* in flower',
+        plant_photo_credit: 'Photo: Yuriy Danilevsky',
     },
 
     ru: {
@@ -232,5 +239,10 @@ export const FALLBACK_STRINGS = {
         home_licorice_title: 'Что такое корень солодки?',
         home_licorice_text:
             'Корень солодки — это высушенный корень *Glycyrrhiza*, многолетнего растения семейства бобовых. Вид, который мы поставляем, — *G. glabra* (солодка голая); он растёт в дикой природе по берегам рек Средней Азии, в том числе Амударьи в Хорезме. Сладость корню придаёт глицирризин, который примерно в 50 раз слаще сахара. Корень используют в кондитерском производстве, напитках, табачной промышленности и фитотерапии.',
+
+        plant_photo_alt:
+            'Высокие стебли с перистыми листьями и кистями мелких бледно-фиолетовых цветков',
+        plant_photo_caption: 'Солодка голая (*Glycyrrhiza glabra*) в цвету',
+        plant_photo_credit: 'Фото: Юрий Данилевский',
     },
 };

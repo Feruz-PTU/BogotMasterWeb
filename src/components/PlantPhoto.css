@@ -1,0 +1,34 @@
+.plant-photo {
+    margin: 0;
+}
+
+.plant-photo img {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    background-color: #ede9e2;
+}
+
+.plant-photo figcaption {
+    margin-top: 10px;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--color-text-muted);
+    text-align: left;
+}
+
+.plant-photo-credit {
+    display: block;
+    font-size: 0.75rem;
+}
+
+.plant-photo-credit a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+@media (hover: hover) {
+    .plant-photo-credit a:hover {
+        color: var(--color-primary);
+    }
+}

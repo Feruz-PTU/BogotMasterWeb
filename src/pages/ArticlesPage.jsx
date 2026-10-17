@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import { InlineMarkdown } from '../components/Markdown';
+import PlantPhoto from '../components/PlantPhoto';
 import { useLanguage } from '../context/LanguageContext';
 import { ARTICLES } from '../content/articles';
 import { DEFAULT_LANGUAGE, getLanguage, localizedPath } from '../i18n/languages';
@@ -71,6 +72,7 @@ const ArticlesPage = () => {
                 <header className="articles-intro">
                     <span className="section-label">{t('articles')}</span>
                     <h1>{t('articles_title')}</h1>
+                    <PlantPhoto className="articles-intro-photo" loading="eager" />
                     <p><InlineMarkdown text={t('articles_intro_1')} /></p>
                     <p><InlineMarkdown text={t('articles_intro_2')} /></p>
                     <p><InlineMarkdown text={t('articles_intro_3')} /></p>
