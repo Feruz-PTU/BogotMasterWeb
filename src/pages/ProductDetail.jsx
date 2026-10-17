@@ -41,7 +41,15 @@ const ProductDetail = ({ addToast }) => {
     // looked alive to search engines and stayed in the index.
     if (!product) return <NotFound />;
 
-    const related = products.filter((p) => p.slug !== slug).slice(0, 3);
+    // Products picked in the admin, in the order picked. `products` holds only
+    // visible products, so hidden or deleted picks drop out here. With no
+    // usable picks, fall back to the first three products of the catalogue.
+    const picked = [...new Set(product.related || [])]
+        .map((s) => products.find((p) => p.slug === s))
+        .filter((p) => p && p.slug !== slug);
+    const related = picked.length > 0
+        ? picked
+        : products.filter((p) => p.slug !== slug).slice(0, 3);
     const specs = product.activeSpecs || {};
 
     return (
@@ -197,7 +205,7 @@ const ProductDetail = ({ addToast }) => {
                             onScroll={handleRelatedScroll}
                         >
                             {related.map((p, index) => (
-                                <LocalLink key={p.slug} to={`/products/${p.slug}`} className={`pd-related-card reveal reveal-delay-${index + 1}`}>
+                                <LocalLink key={p.slug} to={`/products/${p.slug}`} className={`pd-related-card reveal reveal-delay-${Math.min(index + 1, 4)}`}>
                                     <div className="pd-related-image">
                                         <img src={p.image} alt="" width="1024" height="1024" loading="lazy" decoding="async" />
                                     </div>

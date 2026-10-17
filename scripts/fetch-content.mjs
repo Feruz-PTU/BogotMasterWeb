@@ -167,7 +167,15 @@ const skipped = [];
 const seenSlugs = new Map();
 
 const products = productRows
-    .map((row) => ({ ...(row.data || {}), slug: normalizeSlug(row.data?.slug || row.slug) }))
+    .map((row) => ({
+        ...(row.data || {}),
+        slug: normalizeSlug(row.data?.slug || row.slug),
+        // Related products picked in the admin are stored by slug, so they get
+        // the same lowercasing or they would stop matching the slugs above.
+        ...(Array.isArray(row.data?.related) && {
+            related: [...new Set(row.data.related.map(normalizeSlug).filter(Boolean))],
+        }),
+    }))
     .filter((p) => {
         if (p.hidden === true) return false; // hidden in admin → no page, no sitemap entry
         if (!p.slug) {

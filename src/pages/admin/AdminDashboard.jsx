@@ -16,6 +16,7 @@ import {
 } from '../../services/adminData';
 import { useLanguage } from '../../context/LanguageContext';
 import SEO from '../../components/SEO';
+import RelatedProductsPicker from './RelatedProductsPicker';
 import './Admin.css';
 
 const TRANSLATION_GROUPS = [
@@ -654,7 +655,11 @@ const AdminDashboard = () => {
                 imageUrl = '/images/placeholder.png';
             }
 
-            const updated = { ...productForm, image: imageUrl };
+            // Keep only products that still exist, never the product itself, each once.
+            const related = [...new Set(productForm.related || [])].filter(
+                s => s !== productForm.slug && products.some(p => p.slug === s)
+            );
+            const updated = { ...productForm, image: imageUrl, related };
             await saveProduct(updated);
 
             if (isAdding) {
@@ -1965,6 +1970,14 @@ const AdminDashboard = () => {
                                                 </div>
                                                 );
                                             })()}
+
+                                            <p className="admin-form-section-label">Related Products</p>
+                                            <RelatedProductsPicker
+                                                value={productForm.related || []}
+                                                onChange={related => setProductForm(p => ({ ...p, related }))}
+                                                products={products}
+                                                currentSlug={isAdding ? productForm.slug : editingProduct}
+                                            />
                                         </div>
                                     </div>
 
