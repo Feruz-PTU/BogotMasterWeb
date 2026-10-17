@@ -7,14 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bogot Master</title>
 
-    <!-- Fonts. Playfair Display was requested here but used by no stylesheet,
-         so two of the seven font files were downloaded for nothing. Poppins
-         800 IS used (section titles, hero h1) and was previously missing,
-         so the browser was faking it. -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" />
+    <!-- Fonts: Poppins is self-hosted in public/fonts (rules in src/index.css).
+         Loading it from Google Fonts held back the first paint by about 650 ms
+         on mobile, waiting on two extra servers. These two preloads are the
+         weights almost every page shows; the others load only when used. -->
+    <link rel="preload" href="/fonts/poppins-v24-latin-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/poppins-v24-latin-600.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- The hero image preload lives on the home page only (injected per route),
          not here. In the old setup every route — /about, /contact, /admin —

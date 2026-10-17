@@ -41,6 +41,7 @@ const TYPES = {
     '.svg': 'image/svg+xml',
     '.pdf': 'application/pdf',
     '.ico': 'image/x-icon',
+    '.woff2': 'font/woff2',
 };
 
 const isFile = (p) => existsSync(p) && statSync(p).isFile();
@@ -71,7 +72,7 @@ createServer((req, res) => {
     const send = (status, file, ext) => {
         let body = readFileSync(file);
         headers['Content-Type'] = TYPES[ext] || 'application/octet-stream';
-        headers['Cache-Control'] = url.startsWith('/assets/')
+        headers['Cache-Control'] = url.startsWith('/assets/') || url.startsWith('/fonts/')
             ? 'public, max-age=31536000, immutable'
             : ext === '.html'
               ? 'public, max-age=0, must-revalidate'

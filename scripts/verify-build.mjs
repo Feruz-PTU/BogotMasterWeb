@@ -184,7 +184,7 @@ const broken = new Set();
 for (const p of pages) {
     for (const href of all(htmlFor(p), /href="(\/[^"#?]*)"/g)) {
         if (href.startsWith('/assets/')) continue;
-        if (/\.(png|jpg|jpeg|webp|svg|pdf|xml|txt|ico)$/i.test(href)) {
+        if (/\.(png|jpg|jpeg|webp|svg|pdf|xml|txt|ico|woff2)$/i.test(href)) {
             if (!existsSync(join(DIST, decodeURIComponent(href).slice(1)))) broken.add(`${href} (asset, linked from ${p})`);
             continue;
         }
