@@ -19,6 +19,10 @@ resource/
 # Owner's manual setup notes - contains security steps, keep out of the repo.
 NeededManual changes.txt
 
+# Development files that are not part of the site: drafts, notes, original
+# photos, research. Kept on disk only, sorted into subfolders by type.
+_dev/
+
 # Environment variables
 .env
 .env.local
