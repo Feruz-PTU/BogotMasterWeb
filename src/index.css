@@ -264,6 +264,43 @@ button:active,
     }
 }
 
+/* Shared by the contact form, the price form and the quote cart. */
+.form-optional {
+    font-weight: 400;
+    color: #5A5A5A;
+}
+
+.form-hint {
+    margin-top: 4px;
+    font-size: 0.78rem;
+    line-height: 1.45;
+    color: #5A5A5A;
+}
+
+.form-reply-note {
+    margin-top: 12px;
+    font-size: 0.85rem;
+    color: #5A5A5A;
+    text-align: center;
+}
+
+.form-privacy-note {
+    margin-top: 6px;
+    font-size: 0.78rem;
+    color: #5A5A5A;
+    text-align: center;
+}
+
+.form-privacy-note a {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+/* The two notes under the submit button of the price form and the quote cart. */
+.form-notes .form-reply-note {
+    margin-top: 0;
+}
+
 /* Screen-reader-only text: available to assistive tech, invisible on screen. */
 .sr-only {
     position: absolute;

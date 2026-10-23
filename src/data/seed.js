@@ -215,7 +215,7 @@ export const SEED_TRANSLATIONS = {
         // Contact
         contact_title: 'Контакты',
         contact_cta_title: 'Вам нужна дополнительная информация?',
-        contact_cta_text: 'Напишите нам и наш специалист перезвонит вам.',
+        contact_cta_text: 'Напишите нам, и наш специалист свяжется с вами.',
         contact_cta_btn: 'Написать',
         contact_address: 'Адрес',
         address_line_1: '220204, Боготский район,',
@@ -295,7 +295,7 @@ export const SEED_TRANSLATIONS = {
         // Modals
         modal_price_title: 'Запрос цены',
         modal_info_title: 'Запрос дополнительной информации',
-        modal_phone: 'Телефон',
+        modal_phone: 'Телефон или WhatsApp',
         modal_phone_error: 'Введите номер телефона',
         modal_phone_invalid: 'Неверный формат телефона',
         modal_quantity: 'Количество',
@@ -383,7 +383,7 @@ export const SEED_TRANSLATIONS = {
         // Contact
         contact_title: 'Contacts',
         contact_cta_title: 'Need more information?',
-        contact_cta_text: 'Write to us and our specialist will call you back.',
+        contact_cta_text: 'Write to us and our specialist will get back to you.',
         contact_cta_btn: 'Write to us',
         contact_address: 'Address',
         address_line_1: '220204, Bogot district,',
@@ -463,7 +463,7 @@ export const SEED_TRANSLATIONS = {
         // Modals
         modal_price_title: 'Price Request',
         modal_info_title: 'Request Additional Info',
-        modal_phone: 'Phone',
+        modal_phone: 'Phone or WhatsApp',
         modal_phone_error: 'Enter phone number',
         modal_phone_invalid: 'Invalid phone format',
         modal_quantity: 'Quantity',

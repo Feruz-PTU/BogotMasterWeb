@@ -62,6 +62,13 @@ function shell(inner, { footerNote = '' } = {}) {
 </body></html>`;
 }
 
+// "22 t", "500 kg", "2 × 40 ft container", "1 × truck".
+function totalQuantity(quantity, unit) {
+    if (!quantity) return '';
+    if (!unit) return quantity;
+    return unit === 't' || unit === 'kg' ? `${quantity} ${unit}` : `${quantity} × ${unit}`;
+}
+
 export function businessHtml(d) {
     const row = (label, value) =>
         value ? `<tr>
@@ -88,7 +95,7 @@ export function businessHtml(d) {
         ${row('Destination country', d.destination_country)}
         ${row('Port / city', d.destination_port)}
         ${row('Incoterms', d.incoterms)}
-        ${row('Total quantity', [d.total_quantity, d.quantity_unit].filter(Boolean).join(' '))}
+        ${row('Total quantity', totalQuantity(d.total_quantity, d.quantity_unit))}
         ${row('Needed by', d.timeline)}
       </table>
       ${itemsRows}

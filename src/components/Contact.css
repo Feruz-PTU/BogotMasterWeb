@@ -343,25 +343,6 @@
     border-bottom-color: currentColor;
 }
 
-.form-reply-note {
-    margin-top: 12px;
-    font-size: 0.85rem;
-    color: #5A5A5A;
-    text-align: center;
-}
-
-.form-privacy-note {
-    margin-top: 6px;
-    font-size: 0.78rem;
-    color: #5A5A5A;
-    text-align: center;
-}
-
-.form-privacy-note a {
-    color: var(--color-primary);
-    text-decoration: underline;
-}
-
 .error-message-box p {
     margin: 0 0 4px;
 }

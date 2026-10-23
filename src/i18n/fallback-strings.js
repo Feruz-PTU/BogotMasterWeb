@@ -42,6 +42,12 @@ export const FALLBACK_STRINGS = {
         form_reply_time: 'We reply to every enquiry within 24 hours.',
         form_privacy_note:
             'We use your details only to answer your enquiry. See our',
+        // Price form and quote cart: phone is optional, and the minimum order
+        // is the owner's terms of 23 Oct 2026.
+        form_optional: 'optional',
+        form_phone_hint: 'Include the country code',
+        form_moq_hint:
+            'Minimum order: 1 t under FCA; under other terms, a full load (11 t in a 20 ft container, 22 t in a 40 ft container or truck).',
 
         seo_suffix_licorice: 'Bulk Licorice Root Supplier | Bogot Master',
         seo_suffix_generic: 'Bulk Supply from Uzbekistan | Bogot Master',
@@ -65,6 +71,14 @@ export const FALLBACK_STRINGS = {
         quote_total_quantity: 'Total quantity',
         quote_unit: 'Unit',
         quote_timeline: 'Needed by',
+        quote_timeline_placeholder: 'e.g. by the end of March',
+        quote_incoterms_any: 'Any transport',
+        quote_incoterms_sea: 'Sea (named seaport)',
+        quote_unit_t: 't',
+        quote_unit_kg: 'kg',
+        quote_unit_20ft: '20 ft containers',
+        quote_unit_40ft: '40 ft containers',
+        quote_unit_truck: 'trucks',
 
         privacy_title: 'Privacy Policy',
         privacy_meta_title: 'Privacy Policy | Bogot Master',
@@ -160,6 +174,10 @@ export const FALLBACK_STRINGS = {
         form_reply_time: 'Мы отвечаем на каждый запрос в течение 24 часов.',
         form_privacy_note:
             'Мы используем ваши данные только для ответа на запрос. См.',
+        form_optional: 'необязательно',
+        form_phone_hint: 'С кодом страны',
+        form_moq_hint:
+            'Минимальный заказ: 1 т на условиях FCA; на других условиях — полная загрузка (11 т — 20-футовый контейнер, 22 т — 40-футовый контейнер или фура).',
 
         seo_suffix_licorice: 'Оптовый поставщик корня солодки | Bogot Master',
         seo_suffix_generic: 'Оптовые поставки из Узбекистана | Bogot Master',
@@ -183,6 +201,14 @@ export const FALLBACK_STRINGS = {
         quote_total_quantity: 'Общий объём',
         quote_unit: 'Единица',
         quote_timeline: 'Срок поставки',
+        quote_timeline_placeholder: 'например, до конца марта',
+        quote_incoterms_any: 'Любой вид транспорта',
+        quote_incoterms_sea: 'Море (порт назначения)',
+        quote_unit_t: 'т',
+        quote_unit_kg: 'кг',
+        quote_unit_20ft: 'контейнеры 20 фут',
+        quote_unit_40ft: 'контейнеры 40 фут',
+        quote_unit_truck: 'фуры',
 
         privacy_title: 'Политика конфиденциальности',
         privacy_meta_title: 'Политика конфиденциальности | Bogot Master',

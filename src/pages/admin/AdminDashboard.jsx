@@ -138,6 +138,7 @@ const TRANSLATION_GROUPS = [
             { key: 'contact_website', label: 'Website label' },
             { key: 'form_name', label: 'Name field label' },
             { key: 'form_name_placeholder', label: 'Name placeholder' },
+            { key: 'form_name_error', label: 'Name required error' },
             { key: 'form_email', label: 'Email field label' },
             { key: 'form_email_placeholder', label: 'Email placeholder' },
             { key: 'form_email_error', label: 'Email required error' },
@@ -147,6 +148,10 @@ const TRANSLATION_GROUPS = [
             { key: 'form_sending', label: 'Sending state' },
             { key: 'form_success', label: 'Success message' },
             { key: 'form_error', label: 'Error message' },
+            { key: 'form_reply_time', label: 'Reply-time note (all forms)' },
+            { key: 'form_privacy_note', label: 'Privacy note (all forms)' },
+            { key: 'form_optional', label: 'Word "optional" (price form, quote cart)' },
+            { key: 'form_phone_hint', label: 'Phone hint (price form, quote cart)' },
             { key: 'social_msg_product', label: 'Social message (product)' },
             { key: 'social_msg_general', label: 'Social message (general)' },
         ],
@@ -191,6 +196,23 @@ const TRANSLATION_GROUPS = [
             { key: 'quote_remove', label: 'Remove button' },
             { key: 'quote_clear', label: 'Clear list button' },
             { key: 'quote_company', label: 'Company field label' },
+            { key: 'quote_optional_title', label: 'Shipping details: title' },
+            { key: 'quote_optional_hint', label: 'Shipping details: hint', multiline: true },
+            { key: 'quote_destination_country', label: 'Destination country label' },
+            { key: 'quote_destination_port', label: 'Port or city label' },
+            { key: 'quote_incoterms', label: 'Incoterms label' },
+            { key: 'quote_incoterms_choose', label: 'Incoterms: no choice yet' },
+            { key: 'quote_incoterms_any', label: 'Incoterms group: any transport' },
+            { key: 'quote_incoterms_sea', label: 'Incoterms group: sea' },
+            { key: 'quote_total_quantity', label: 'Total quantity label' },
+            { key: 'quote_unit', label: 'Unit label' },
+            { key: 'quote_unit_t', label: 'Unit: tonnes' },
+            { key: 'quote_unit_kg', label: 'Unit: kilograms' },
+            { key: 'quote_unit_20ft', label: 'Unit: 20 ft containers' },
+            { key: 'quote_unit_40ft', label: 'Unit: 40 ft containers' },
+            { key: 'quote_unit_truck', label: 'Unit: trucks' },
+            { key: 'quote_timeline', label: 'Needed-by label' },
+            { key: 'quote_timeline_placeholder', label: 'Needed-by placeholder' },
             { key: 'quote_submit', label: 'Submit button' },
             { key: 'quote_success', label: 'Success message' },
         ],
@@ -200,12 +222,12 @@ const TRANSLATION_GROUPS = [
         keys: [
             { key: 'modal_price_title', label: 'Price request title' },
             { key: 'modal_info_title', label: 'Info request title' },
-            { key: 'modal_phone', label: 'Phone label' },
-            { key: 'modal_phone_error', label: 'Phone required error' },
+            { key: 'modal_phone', label: 'Phone label (price form, quote cart)' },
             { key: 'modal_phone_invalid', label: 'Phone invalid error' },
             { key: 'modal_quantity', label: 'Quantity label' },
             { key: 'modal_quantity_error', label: 'Quantity error' },
             { key: 'modal_quantity_placeholder', label: 'Quantity placeholder' },
+            { key: 'form_moq_hint', label: 'Minimum order hint under quantity', multiline: true },
             { key: 'modal_comment_placeholder', label: 'Comment placeholder' },
             { key: 'modal_submit', label: 'Submit button' },
             { key: 'modal_success_title', label: 'Success title' },
@@ -2402,6 +2424,11 @@ const AdminDashboard = () => {
                                                                             {inq.company && <p><strong>Company:</strong> {inq.company}</p>}
                                                                             {inq.quantity && <p><strong>Quantity:</strong> {inq.quantity}</p>}
                                                                             {inq.subject && <p><strong>Subject:</strong> {inq.subject}</p>}
+                                                                            {inq.destination_country && <p><strong>Destination country:</strong> {inq.destination_country}</p>}
+                                                                            {inq.destination_port && <p><strong>Port / city:</strong> {inq.destination_port}</p>}
+                                                                            {inq.incoterms && <p><strong>Incoterms:</strong> {inq.incoterms}</p>}
+                                                                            {inq.total_quantity && <p><strong>Total quantity:</strong> {inq.total_quantity} {inq.quantity_unit}</p>}
+                                                                            {inq.timeline && <p><strong>Needed by:</strong> {inq.timeline}</p>}
                                                                             {Array.isArray(inq.items) && inq.items.length > 0 && (
                                                                                 <div className="admin-inquiry-msg">
                                                                                     <strong>Requested products:</strong>

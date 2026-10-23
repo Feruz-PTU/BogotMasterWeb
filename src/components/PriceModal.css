@@ -402,7 +402,8 @@
         margin-top: 8px;
     }
 
-    .modal-error-message {
+    .modal-error-message,
+    .modal-form .form-notes {
         grid-column: 1 / span 2;
     }
 

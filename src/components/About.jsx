@@ -74,6 +74,7 @@ const About = ({ headingLevel = 'h2' }) => {
                 isOpen={isModalOpen}
                 onClose={closeModal}
                 productTitle={t('consultation_title')}
+                requireQuantity={false}
             />
         </section>
     );

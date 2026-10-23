@@ -99,13 +99,16 @@ export const sendPriceInquiryEmail = async (formData, language = 'en') => {
 export const sendQuoteEmail = async (formData, items, language = 'en') => {
     // The optional B2B fields. Every one of these was previously missing, so
     // each enquiry began with a round-trip asking the basics.
+    const text = (v) => String(v || '').trim();
+    const totalQuantity = text(formData.total_quantity);
     const trade = {
-        destination_country: formData.destination_country || '',
-        destination_port: formData.destination_port || '',
-        incoterms: formData.incoterms || '',
-        total_quantity: formData.total_quantity || '',
-        quantity_unit: formData.quantity_unit || '',
-        timeline: formData.timeline || '',
+        destination_country: text(formData.destination_country),
+        destination_port: text(formData.destination_port),
+        incoterms: text(formData.incoterms),
+        total_quantity: totalQuantity,
+        // The unit select always has a value; on its own it says nothing.
+        quantity_unit: totalQuantity ? text(formData.quantity_unit) : '',
+        timeline: text(formData.timeline),
     };
 
     record({

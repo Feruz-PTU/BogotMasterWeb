@@ -26,11 +26,13 @@ const ContactPage = ({ addToast }) => {
                 <Contact addToast={addToast} openPopup={() => setIsPopupOpen(true)} />
             </div>
 
-            {/* Rendered outside the .reveal transform context so position:fixed works correctly */}
+            {/* Rendered outside the .reveal transform context so position:fixed works correctly.
+                A general question, so no quantity is required. */}
             <PriceModal
                 isOpen={isPopupOpen}
                 onClose={() => setIsPopupOpen(false)}
                 productTitle={t('modal_info_title')}
+                requireQuantity={false}
                 addToast={addToast}
             />
         </Layout>

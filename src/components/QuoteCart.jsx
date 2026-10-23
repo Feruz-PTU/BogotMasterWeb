@@ -1,15 +1,33 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useId } from 'react';
 import './QuoteCart.css';
 import { useQuote } from '../context/QuoteContext';
 import { useLanguage } from '../context/LanguageContext';
 import { sendQuoteEmail } from '../services/emailService';
+import { isValidEmail, isValidPhone } from '../utils/formValidation';
+import { INCOTERMS_ANY, INCOTERMS_SEA, QUANTITY_UNITS, incotermLabel } from '../i18n/incoterms';
 import SuccessModal from './SuccessModal';
+import LocalLink from './LocalLink';
 
-const emptyForm = { name: '', company: '', email: '', phone: '', message: '' };
+const emptyForm = {
+    name: '',
+    company: '',
+    email: '',
+    phone: '',
+    message: '',
+    // Shipping details, all optional. They were sent and emailed but never shown.
+    destination_country: '',
+    destination_port: '',
+    incoterms: '',
+    total_quantity: '',
+    quantity_unit: 't',
+    timeline: '',
+};
 
 const QuoteCart = () => {
     const { items, count, isOpen, openCart, closeCart, removeItem, updateQuantity, clear } = useQuote();
     const { t, language } = useLanguage();
+    const uid = useId();
+    const fieldId = (name) => `${uid}-${name}`;
 
     useEffect(() => {
         if (isOpen) {
@@ -36,12 +54,18 @@ const QuoteCart = () => {
 
     const validate = () => {
         const e = {};
-        if (!form.name.trim()) e.name = t('form_email_error');
+        // Was `form_email_error`, so an empty name read "Enter email".
+        if (!form.name.trim()) e.name = t('form_name_error');
         if (!form.email.trim()) e.email = t('form_email_error');
-        else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = t('form_email_invalid');
-        if (!form.phone.trim()) e.phone = t('modal_phone_error');
+        else if (!isValidEmail(form.email)) e.email = t('form_email_invalid');
+        // Phone is optional; checked only when filled.
+        if (form.phone.trim() && !isValidPhone(form.phone)) e.phone = t('modal_phone_invalid');
         setErrors(e);
-        return Object.keys(e).length === 0;
+        // The submit button is at the bottom of a long drawer: take the
+        // visitor to the first field that needs fixing.
+        const first = ['name', 'email', 'phone'].find((k) => e[k]);
+        if (first) document.getElementById(fieldId(first))?.focus();
+        return !first;
     };
 
     const handleSubmit = async (ev) => {
@@ -65,6 +89,24 @@ const QuoteCart = () => {
             setSubmitting(false);
         }
     };
+
+    const describedBy = (name, hasHint = false) =>
+        [hasHint && fieldId(`${name}-hint`), errors[name] && fieldId(`${name}-error`)]
+            .filter(Boolean)
+            .join(' ') || undefined;
+
+    const errorText = (name) =>
+        errors[name] && (
+            <span className="qc-error" id={fieldId(`${name}-error`)} role="alert">{errors[name]}</span>
+        );
+
+    // A plain optional text field of the shipping group.
+    const tradeField = (name, label, props = {}) => (
+        <div className="qc-field">
+            <label htmlFor={fieldId(name)}>{label}</label>
+            <input id={fieldId(name)} name={name} value={form[name]} onChange={handleChange} maxLength={80} {...props} />
+        </div>
+    );
 
     return (
         <>
@@ -92,7 +134,7 @@ const QuoteCart = () => {
             <aside className={`quote-cart ${isOpen ? 'open' : ''}`} aria-hidden={!isOpen}>
                 <div className="quote-cart-head">
                     <h3>{t('quote_cart_title')}</h3>
-                    <button className="quote-cart-close" onClick={closeCart} aria-label="Close">
+                    <button className="quote-cart-close" onClick={closeCart} aria-label={t('a11y_close')}>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M6 18L18 6M6 6l12 12" />
                         </svg>
@@ -114,6 +156,7 @@ const QuoteCart = () => {
                                             value={item.quantity}
                                             onChange={(e) => updateQuantity(item.slug, e.target.value)}
                                             placeholder={t('quote_qty_placeholder')}
+                                            aria-label={`${t('modal_quantity')}: ${item.title}`}
                                             className="quote-cart-qty"
                                         />
                                     </div>
@@ -132,36 +175,105 @@ const QuoteCart = () => {
 
                         <button className="quote-cart-clear" onClick={clear}>{t('quote_clear')}</button>
 
-                        <form className="quote-cart-form" onSubmit={handleSubmit}>
+                        <form className="quote-cart-form" onSubmit={handleSubmit} noValidate>
                             <div className="qc-field">
-                                <input name="name" value={form.name} onChange={handleChange}
-                                    placeholder={`${t('form_name')} *`} className={errors.name ? 'error' : ''} />
-                                {errors.name && <span className="qc-error">{errors.name}</span>}
+                                <label htmlFor={fieldId('name')}>
+                                    {t('form_name')} <span aria-hidden="true">*</span>
+                                </label>
+                                <input id={fieldId('name')} name="name" autoComplete="name"
+                                    value={form.name} onChange={handleChange}
+                                    aria-required="true" aria-invalid={errors.name ? 'true' : undefined}
+                                    aria-describedby={describedBy('name')} className={errors.name ? 'error' : ''} />
+                                {errorText('name')}
                             </div>
                             <div className="qc-field">
-                                <input name="company" value={form.company} onChange={handleChange}
-                                    placeholder={t('quote_company')} />
+                                <label htmlFor={fieldId('company')}>{t('quote_company')}</label>
+                                <input id={fieldId('company')} name="company" autoComplete="organization"
+                                    value={form.company} onChange={handleChange} maxLength={200} />
                             </div>
                             <div className="qc-field">
-                                <input name="email" type="email" value={form.email} onChange={handleChange}
-                                    placeholder={`${t('form_email')} *`} className={errors.email ? 'error' : ''} />
-                                {errors.email && <span className="qc-error">{errors.email}</span>}
+                                <label htmlFor={fieldId('email')}>
+                                    {t('form_email')} <span aria-hidden="true">*</span>
+                                </label>
+                                <input id={fieldId('email')} name="email" type="email" inputMode="email" autoComplete="email"
+                                    value={form.email} onChange={handleChange}
+                                    aria-required="true" aria-invalid={errors.email ? 'true' : undefined}
+                                    aria-describedby={describedBy('email')} className={errors.email ? 'error' : ''} />
+                                {errorText('email')}
                             </div>
                             <div className="qc-field">
-                                <input name="phone" type="tel" value={form.phone} onChange={handleChange}
-                                    placeholder={`${t('modal_phone')} *`} className={errors.phone ? 'error' : ''} />
-                                {errors.phone && <span className="qc-error">{errors.phone}</span>}
-                            </div>
-                            <div className="qc-field">
-                                <textarea name="message" value={form.message} onChange={handleChange}
-                                    placeholder={t('form_comment')} rows="2" />
+                                <label htmlFor={fieldId('phone')}>
+                                    {t('modal_phone')} <span className="form-optional">({t('form_optional')})</span>
+                                </label>
+                                <input id={fieldId('phone')} name="phone" type="tel" autoComplete="tel"
+                                    value={form.phone} onChange={handleChange}
+                                    aria-invalid={errors.phone ? 'true' : undefined}
+                                    aria-describedby={describedBy('phone', true)} className={errors.phone ? 'error' : ''} />
+                                <span className="form-hint" id={fieldId('phone-hint')}>{t('form_phone_hint')}</span>
+                                {errorText('phone')}
                             </div>
 
-                            {status === 'error' && <div className="qc-error-box">{t('modal_error')}</div>}
+                            <fieldset className="qc-trade" aria-describedby={fieldId('trade-hint')}>
+                                <legend>{t('quote_optional_title')}</legend>
+                                <p className="form-hint" id={fieldId('trade-hint')}>{t('quote_optional_hint')}</p>
+
+                                {tradeField('destination_country', t('quote_destination_country'), { autoComplete: 'country-name' })}
+                                {tradeField('destination_port', t('quote_destination_port'))}
+
+                                <div className="qc-field">
+                                    <label htmlFor={fieldId('incoterms')}>{t('quote_incoterms')}</label>
+                                    <select id={fieldId('incoterms')} name="incoterms" value={form.incoterms} onChange={handleChange}>
+                                        <option value="">{t('quote_incoterms_choose')}</option>
+                                        <optgroup label={t('quote_incoterms_any')}>
+                                            {INCOTERMS_ANY.map((code) => (
+                                                <option key={code} value={code}>{incotermLabel(code, language)}</option>
+                                            ))}
+                                        </optgroup>
+                                        <optgroup label={t('quote_incoterms_sea')}>
+                                            {INCOTERMS_SEA.map((code) => (
+                                                <option key={code} value={code}>{incotermLabel(code, language)}</option>
+                                            ))}
+                                        </optgroup>
+                                    </select>
+                                </div>
+
+                                <div className="qc-row">
+                                    <div className="qc-field">
+                                        <label htmlFor={fieldId('total_quantity')}>{t('quote_total_quantity')}</label>
+                                        <input id={fieldId('total_quantity')} name="total_quantity" inputMode="decimal"
+                                            value={form.total_quantity} onChange={handleChange} maxLength={32} />
+                                    </div>
+                                    <div className="qc-field">
+                                        <label htmlFor={fieldId('quantity_unit')}>{t('quote_unit')}</label>
+                                        <select id={fieldId('quantity_unit')} name="quantity_unit" value={form.quantity_unit} onChange={handleChange}>
+                                            {QUANTITY_UNITS.map((u) => (
+                                                <option key={u.value} value={u.value}>{t(u.label)}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                {tradeField('timeline', t('quote_timeline'), { placeholder: t('quote_timeline_placeholder') })}
+                            </fieldset>
+
+                            <div className="qc-field">
+                                <label htmlFor={fieldId('message')}>{t('form_comment')}</label>
+                                <textarea id={fieldId('message')} name="message" value={form.message} onChange={handleChange} rows="2" />
+                            </div>
+
+                            {status === 'error' && <div className="qc-error-box" role="alert">{t('modal_error')}</div>}
 
                             <button type="submit" className="quote-cart-submit" disabled={submitting || status === 'success'}>
                                 {submitting ? t('form_sending') : t('quote_submit')}
                             </button>
+
+                            <div className="form-notes">
+                                <p className="form-reply-note">{t('form_reply_time')}</p>
+                                <p className="form-privacy-note">
+                                    {t('form_privacy_note')}{' '}
+                                    <LocalLink to="/privacy" onClick={closeCart}>{t('privacy_title')}</LocalLink>
+                                </p>
+                            </div>
                         </form>
                     </>
                 )}
