@@ -20,6 +20,16 @@
       "source": "/ru/products/Slice-B",
       "destination": "/ru/products/slice-b",
       "permanent": true
+    },
+    {
+      "source": "/products/fingers-a",
+      "destination": "/products/fingers",
+      "permanent": true
+    },
+    {
+      "source": "/ru/products/fingers-a",
+      "destination": "/ru/products/fingers",
+      "permanent": true
     }
   ],
   "rewrites": [

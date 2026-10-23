@@ -508,12 +508,12 @@ const AdminDashboard = () => {
                     botanical_name: 'Glycyrrhiza glabra',
                     origin: 'Uzbekistan',
                     part_used: 'Root',
-                    cultivation: 'Wild + artificial',
+                    cultivation: 'Wild',
                     form_cut_type: '',
                     cut_size: '',
                     diameter_grade: '',
                     processing: '',
-                    packaging: 'PP bags 25 kg',
+                    packaging: 'PP bags 20/21/25/30 kg',
                     moq: '',
                     moisture: '≤ 8%',
                     glycyrrhizin: '',
@@ -522,17 +522,32 @@ const AdminDashboard = () => {
                     yeast_mould: '≤ 1,000 CFU/g',
                     e_coli: 'Absent',
                     salmonella: 'Absent',
-                    shelf_life: '24 months',
-                    storage: '≤ 25°C, cool dry, no sunlight',
+                    shelf_life: '36 months',
+                    storage: '≤ 25°C, cool and dry, away from sunlight',
                     documents: [],
                 };
                 // Ash, heavy metals and pesticides have never been measured,
                 // so a new product says "on request" instead of quoting a limit.
                 const onRequest = { ru: 'По запросу' };
+                // The Russian block gets Russian words, not the English defaults.
+                const translated = {
+                    ru: {
+                        origin: 'Узбекистан',
+                        part_used: 'Корень',
+                        cultivation: 'Дикорастущий',
+                        packaging: 'ПП мешки 20/21/25/30 кг',
+                        tpc: '≤ 100 000 КОЕ/г',
+                        yeast_mould: '≤ 1 000 КОЕ/г',
+                        e_coli: 'Отсутствует',
+                        salmonella: 'Отсутствует',
+                        shelf_life: '36 месяцев',
+                        storage: 'До +25 °C, в сухом, прохладном месте, защищённом от солнца.',
+                    },
+                };
                 const s = {};
                 langs.forEach(l => {
                     const v = onRequest[l.code] || 'Available on request';
-                    s[l.code] = { ...defaults, ash: v, heavy_metals: v, pesticide_residues: v };
+                    s[l.code] = { ...defaults, ...translated[l.code], ash: v, heavy_metals: v, pesticide_residues: v };
                 });
                 return s;
             })(),
@@ -1849,7 +1864,7 @@ const AdminDashboard = () => {
                                                 </div>
                                                 <div className="admin-fields-row">
                                                     <div className="admin-field"><label>Part used</label><input value={productForm.specs?.[prodLangTab]?.part_used || ''} onChange={e => handleSpecChange('part_used', e.target.value)} placeholder="Root" /></div>
-                                                    <div className="admin-field"><label>Cultivation</label><input value={productForm.specs?.[prodLangTab]?.cultivation || ''} onChange={e => handleSpecChange('cultivation', e.target.value)} placeholder="Wild + artificial" /></div>
+                                                    <div className="admin-field"><label>Cultivation</label><input value={productForm.specs?.[prodLangTab]?.cultivation || ''} onChange={e => handleSpecChange('cultivation', e.target.value)} placeholder="Wild" /></div>
                                                 </div>
                                             </>)}
 

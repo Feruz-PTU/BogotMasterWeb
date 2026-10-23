@@ -10,7 +10,7 @@ const Stats = () => {
         // This was hardcoded "10+", which had quietly become wrong — the
         // company has been trading for longer than the site claimed.
         { value: `${yearsInBusiness()}+`, key: 'stat_years' },
-        { value: '500', key: 'stat_tons' },
+        { value: '500+', key: 'stat_tons' },
         { value: '20+', key: 'stat_experts' },
         { value: '10+', key: 'stat_clients' },
     ];
