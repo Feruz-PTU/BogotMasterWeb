@@ -9,7 +9,7 @@ import {
     saveProduct, saveProducts, saveSettings, deleteProduct,
     seedDatabase, isDatabaseSeeded,
     fetchInquiries, markInquiryRead, deleteInquiry,
-    fetchStats,
+    fetchStats, fetchEventSummary,
     fetchTranslations, saveTranslations,
     SEED_TRANSLATIONS,
     onRebuildStatus,
@@ -19,6 +19,28 @@ import SEO from '../../components/SEO';
 import RelatedProductsPicker from './RelatedProductsPicker';
 import { resolveFamilies, familyChanges } from '../../utils/productFamily';
 import './Admin.css';
+
+// Visitor actions recorded in the `events` table (src/analytics.js), in the
+// order the Stats tab lists them. Page views are counted separately.
+const EVENT_LABELS = [
+    ['form_submit_price', 'Price request sent'],
+    ['form_submit_quote', 'Quote request sent'],
+    ['form_submit_contact', 'Contact form sent'],
+    ['click_whatsapp', 'WhatsApp clicked'],
+    ['click_telegram', 'Telegram clicked'],
+    ['click_phone', 'Phone number clicked'],
+    ['click_email', 'Email address clicked'],
+    ['quote_modal_open', 'Price form opened'],
+    ['quote_add', 'Added to quote list'],
+    ['click_certificate', 'Company document opened'],
+];
+
+// The actions that mean a visitor got in touch: the pages and the sites they
+// came from are what the owner wants to compare.
+const CONTACT_EVENTS = new Set([
+    'form_submit_price', 'form_submit_quote', 'form_submit_contact',
+    'click_whatsapp', 'click_telegram', 'click_phone', 'click_email',
+]);
 
 const TRANSLATION_GROUPS = [
     {
@@ -307,6 +329,7 @@ const AdminDashboard = () => {
 
     // Stats state
     const [stats, setStats] = useState({ total: 0, paths: {} });
+    const [events, setEvents] = useState([]);
     const [statsLoading, setStatsLoading] = useState(false);
 
     // Gallery state
@@ -433,8 +456,9 @@ const AdminDashboard = () => {
     const loadData = async () => {
         setDataLoading(true);
         try {
-            const [prodsR, setsR, inqsR, statsR, transR] = await Promise.allSettled([
+            const [prodsR, setsR, inqsR, statsR, transR, eventsR] = await Promise.allSettled([
                 fetchProducts(), fetchSettings(), fetchInquiries(), fetchStats(), fetchTranslations(),
+                fetchEventSummary(30),
             ]);
             const prods = prodsR.status === 'fulfilled' ? (prodsR.value || []) : [];
             const sets  = setsR.status  === 'fulfilled' ? (setsR.value  || {}) : {};
@@ -445,11 +469,12 @@ const AdminDashboard = () => {
             setSettings(sets);
             setInquiries(inqs);
             setStats(sts);
+            setEvents(eventsR.status === 'fulfilled' ? (eventsR.value || []) : []);
             setGallery(sets.gallery || []);
             setAdminTranslations(trans);
             setTranslationsDirty(false);
             setTransLangTab(trans.languages?.[0]?.code || 'ru');
-            const failures = [prodsR, setsR, inqsR, statsR, transR].filter(r => r.status === 'rejected');
+            const failures = [prodsR, setsR, inqsR, statsR, transR, eventsR].filter(r => r.status === 'rejected');
             if (failures.length) showToast(`Warning: ${failures.length} data source(s) failed to load. Check console.`);
             failures.forEach(r => console.error('[loadData]', r.reason));
         } finally {
@@ -1116,6 +1141,26 @@ const AdminDashboard = () => {
             .sort((a, b) => b.count - a.count);
         return { all, productViews };
     }, [stats, products]);
+
+    // Visitor actions of the last 30 days. No visitor id is stored, so these
+    // count actions, not people.
+    const eventStats = useMemo(() => {
+        const counts = {};
+        const pages = {};
+        const sources = {};
+        let contacts = 0;
+        for (const e of events) {
+            counts[e.name] = (counts[e.name] || 0) + 1;
+            if (!CONTACT_EVENTS.has(e.name)) continue;
+            contacts++;
+            const page = e.path || '—';
+            pages[page] = (pages[page] || 0) + 1;
+            const source = e.referrer_host || 'Direct, or not known';
+            sources[source] = (sources[source] || 0) + 1;
+        }
+        const top = (o) => Object.entries(o).sort((a, b) => b[1] - a[1]).slice(0, 10);
+        return { counts, contacts, pages: top(pages), sources: top(sources) };
+    }, [events]);
 
     const totalViews = useMemo(() => {
         const sum = Object.values(stats.paths || {}).reduce((s, v) => s + v, 0);
@@ -2483,8 +2528,9 @@ const AdminDashboard = () => {
                                     onClick={async () => {
                                         setStatsLoading(true);
                                         try {
-                                            const sts = await fetchStats();
+                                            const [sts, evs] = await Promise.all([fetchStats(), fetchEventSummary(30)]);
                                             setStats(sts || { total: 0, paths: {} });
+                                            setEvents(evs || []);
                                         } finally {
                                             setStatsLoading(false);
                                         }
@@ -2508,6 +2554,66 @@ const AdminDashboard = () => {
                                     <span className="admin-stat-label">Product Page Views</span>
                                     <span className="admin-stat-value">{pageStats.productViews.reduce((s, p) => s + p.count, 0).toLocaleString()}</span>
                                 </div>
+                            </div>
+
+                            {/* Visitor actions (the events table, last 30 days) */}
+                            <div className="admin-dash-grid admin-card-full">
+                                <div className="admin-card admin-card-wide">
+                                    <div className="admin-card-head">
+                                        <h3>Visitor Actions</h3>
+                                        <span className="admin-card-meta">last 30 days · counts actions, not people</span>
+                                    </div>
+                                    <table className="admin-pv-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Action</th>
+                                                <th>Count</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {EVENT_LABELS.map(([name, label]) => (
+                                                <tr key={name}>
+                                                    <td className="admin-pv-title">{label}</td>
+                                                    <td className="admin-pv-views">{(eventStats.counts[name] || 0).toLocaleString()}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                    <p className="admin-card-meta" style={{ marginTop: 12 }}>
+                                        &ldquo;Got in touch&rdquo; below counts the first seven: a form sent, or a WhatsApp, Telegram, phone or email link clicked.
+                                    </p>
+                                </div>
+                                {[
+                                    ['Pages Where Visitors Got in Touch', 'Page', eventStats.pages, true],
+                                    ['Where Those Visitors Came From', 'Referring site', eventStats.sources, false],
+                                ].map(([title, column, rows, mono]) => (
+                                    <div className="admin-card" key={title}>
+                                        <div className="admin-card-head">
+                                            <h3>{title}</h3>
+                                            <span className="admin-card-meta">last 30 days</span>
+                                        </div>
+                                        {rows.length === 0 ? (
+                                            <p className="admin-card-empty">Nothing recorded yet.</p>
+                                        ) : (
+                                            <table className="admin-pv-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>{column}</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {rows.map(([key, n]) => (
+                                                        <tr key={key}>
+                                                            <td className={`admin-pv-title${mono ? ' admin-mono' : ''}`}>{key}</td>
+                                                            <td className="admin-pv-views">{n.toLocaleString()}</td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                        )}
+                                    </div>
+                                ))}
                             </div>
 
                             {/* Product page views — full-width table */}

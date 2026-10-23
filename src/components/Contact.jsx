@@ -264,13 +264,13 @@ const Contact = ({ openPopup }) => {
                             <div className="error-message-box" role="alert">
                                 <p>{t('form_error')}</p>
                                 <p>
-                                    <a href={mailtoHref(contactInfo.email)}>
+                                    <a href={mailtoHref(contactInfo.email)} onClick={() => track(EVENTS.CLICK_EMAIL)}>
                                         {contactInfo.email}
                                     </a>
                                     {contactInfo.phone[0] && (
                                         <>
                                             {' · '}
-                                            <a href={telHref(contactInfo.phone[0])}>
+                                            <a href={telHref(contactInfo.phone[0])} onClick={() => track(EVENTS.CLICK_PHONE)}>
                                                 {contactInfo.phone[0]}
                                             </a>
                                         </>

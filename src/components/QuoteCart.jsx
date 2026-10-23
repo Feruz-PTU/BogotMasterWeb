@@ -1,7 +1,9 @@
-import { useState, useEffect, useId } from 'react';
+import { useState, useEffect, useId, useRef } from 'react';
 import './QuoteCart.css';
 import { useQuote } from '../context/QuoteContext';
 import { useLanguage } from '../context/LanguageContext';
+import { useSpamGuard } from '../hooks/useSpamGuard';
+import { track, EVENTS, leadContext } from '../analytics';
 import { sendQuoteEmail } from '../services/emailService';
 import { isValidEmail, isValidPhone } from '../utils/formValidation';
 import { INCOTERMS_ANY, INCOTERMS_SEA, QUANTITY_UNITS, incotermLabel } from '../i18n/incoterms';
@@ -45,9 +47,20 @@ const QuoteCart = () => {
     const [submitting, setSubmitting] = useState(false);
     const [status, setStatus] = useState(null);
     const [showSuccess, setShowSuccess] = useState(false);
+    const { honeypotProps, isLikelyBot, guardPayload, reset, restartClock } = useSpamGuard();
+    // Whether anything has been typed since the last send.
+    const typed = useRef(false);
+
+    // The cart is mounted with every page, so the bot check counts time from
+    // when it opens. Not when something is already typed: closing and opening
+    // the cart again must not make a visitor look like a bot.
+    useEffect(() => {
+        if (isOpen && !typed.current) restartClock();
+    }, [isOpen, restartClock]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+        typed.current = true;
         setForm(prev => ({ ...prev, [name]: value }));
         if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }));
     };
@@ -68,21 +81,38 @@ const QuoteCart = () => {
         return !first;
     };
 
+    // Thank the visitor, then empty and close the cart.
+    const finish = () => {
+        setStatus('success');
+        setShowSuccess(true);
+        setForm(emptyForm);
+        typed.current = false;
+        setTimeout(() => {
+            clear();
+            setStatus(null);
+            closeCart();
+        }, 600);
+    };
+
     const handleSubmit = async (ev) => {
         ev.preventDefault();
         if (items.length === 0 || !validate()) return;
+        // Silently accept and discard: telling a bot why it failed helps it.
+        if (isLikelyBot()) {
+            finish();
+            return;
+        }
         setSubmitting(true);
         try {
-            const res = await sendQuoteEmail(form, items, language);
+            const res = await sendQuoteEmail(
+                { ...form, ...guardPayload(), ...leadContext(language) },
+                items,
+                language
+            );
             if (!res.success) throw new Error(res.message);
-            setStatus('success');
-            setShowSuccess(true);
-            setForm(emptyForm);
-            setTimeout(() => {
-                clear();
-                setStatus(null);
-                closeCart();
-            }, 600);
+            track(EVENTS.FORM_SUBMIT_QUOTE);
+            reset();
+            finish();
         } catch {
             setStatus('error');
         } finally {
@@ -176,6 +206,8 @@ const QuoteCart = () => {
                         <button className="quote-cart-clear" onClick={clear}>{t('quote_clear')}</button>
 
                         <form className="quote-cart-form" onSubmit={handleSubmit} noValidate>
+                            <input {...honeypotProps} />
+
                             <div className="qc-field">
                                 <label htmlFor={fieldId('name')}>
                                     {t('form_name')} <span aria-hidden="true">*</span>

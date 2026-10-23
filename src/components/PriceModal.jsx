@@ -1,10 +1,12 @@
-import { useState, useEffect, useId } from 'react';
+import { useState, useEffect, useId, useRef } from 'react';
 import './PriceModal.css';
 import SocialButtons from './SocialButtons';
 import SuccessModal from './SuccessModal';
 import LocalLink from './LocalLink';
 import { sendPriceInquiryEmail } from '../services/emailService';
 import { useLanguage } from '../context/LanguageContext';
+import { useSpamGuard } from '../hooks/useSpamGuard';
+import { track, EVENTS, leadContext } from '../analytics';
 import { isValidEmail, isValidPhone } from '../utils/formValidation';
 
 const emptyForm = { name: '', phone: '', email: '', quantity: '', message: '' };
@@ -34,7 +36,20 @@ const PriceModal = ({ isOpen, onClose, productTitle, requireQuantity = true }) =
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState(null);
+    const { honeypotProps, isLikelyBot, guardPayload, reset, restartClock } = useSpamGuard();
+    // Whether anything has been typed since the last send.
+    const typed = useRef(false);
 
+    useEffect(() => {
+        if (!isOpen) return;
+        track(EVENTS.QUOTE_MODAL_OPEN);
+        // The bot check counts time from here, not from page load. Not when
+        // something is already typed, though: a visitor who closes the form
+        // and opens it again must not look like a bot.
+        if (!typed.current) restartClock();
+    }, [isOpen, restartClock]);
+
+    // Hooks above this line: they must run on every render.
     if (!isOpen) return null;
 
     const validateForm = () => {
@@ -70,6 +85,7 @@ const PriceModal = ({ isOpen, onClose, productTitle, requireQuantity = true }) =
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+        typed.current = true;
         setFormData(prev => ({
             ...prev,
             [name]: value
@@ -90,19 +106,32 @@ const PriceModal = ({ isOpen, onClose, productTitle, requireQuantity = true }) =
             return;
         }
 
+        // Silently accept and discard: telling a bot why it failed helps it.
+        if (isLikelyBot()) {
+            setFormData(emptyForm);
+            typed.current = false;
+            setSubmitStatus('success');
+            return;
+        }
+
         setIsSubmitting(true);
 
         try {
             const result = await sendPriceInquiryEmail({
                 ...formData,
-                product: productTitle
+                product: productTitle,
+                ...guardPayload(),
+                ...leadContext(language),
             }, language);
 
             if (!result.success) {
                 throw new Error(result.message);
             }
 
+            track(EVENTS.FORM_SUBMIT_PRICE);
             setFormData(emptyForm);
+            typed.current = false;
+            reset();
             setSubmitStatus('success');
 
         } catch (error) {
@@ -147,6 +176,8 @@ const PriceModal = ({ isOpen, onClose, productTitle, requireQuantity = true }) =
                     </div>
 
                     <form className="modal-form" onSubmit={handleSubmit} noValidate>
+                        <input {...honeypotProps} />
+
                         <div className="modal-form-group modal-group-name">
                             <label htmlFor={fieldId('name')}>
                                 {t('form_name')} <span aria-hidden="true">*</span>

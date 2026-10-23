@@ -16,6 +16,8 @@
  * again in the database by a CHECK constraint (supabase/phase2-migration.sql).
  */
 
+import { parsePathname } from './i18n/languages';
+
 export const EVENTS = {
     PAGE_VIEW: 'page_view',
     QUOTE_MODAL_OPEN: 'quote_modal_open',
@@ -42,6 +44,15 @@ function referrerHost() {
     } catch {
         return null;
     }
+}
+
+/**
+ * The page's language, from the URL: the URL decides the language (see
+ * LanguageContext). <html lang> is updated a moment after each page change,
+ * so an event fired right after a navigation could carry the old language.
+ */
+function pageLanguage() {
+    return parsePathname(window.location.pathname)?.lang || document.documentElement.lang || null;
 }
 
 /** Runs when the browser is idle, so tracking never competes with rendering. */
@@ -76,7 +87,7 @@ export function track(name, extra = {}) {
             await recordEvent({
                 name,
                 path: window.location.pathname.slice(0, 200),
-                lang: document.documentElement.lang || null,
+                lang: pageLanguage(),
                 referrer_host: referrerHost(),
                 ...extra,
             });
@@ -93,7 +104,7 @@ export function leadContext(language) {
     if (typeof window === 'undefined') return {};
     return {
         page_url: window.location.pathname.slice(0, 200),
-        language: language || document.documentElement.lang || null,
+        language: language || pageLanguage(),
         referrer_host: referrerHost(),
     };
 }

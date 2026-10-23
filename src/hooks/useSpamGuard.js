@@ -65,5 +65,14 @@ export function useSpamGuard() {
         setHoneypot('');
     };
 
-    return { honeypotProps, isLikelyBot, guardPayload, reset };
+    /**
+     * Starts the clock again without touching the honeypot. The price form and
+     * the quote cart are mounted with the page but filled in later, so they
+     * call this when they open: the time that counts is time spent on the form.
+     */
+    const restartClock = useCallback(() => {
+        mountedAt.current = Date.now();
+    }, []);
+
+    return { honeypotProps, isLikelyBot, guardPayload, reset, restartClock };
 }

@@ -1,5 +1,6 @@
 import './Certificates.css';
 import { useLanguage } from '../context/LanguageContext';
+import { track, EVENTS } from '../analytics';
 
 const Certificates = () => {
     const { t } = useLanguage();
@@ -29,6 +30,7 @@ const Certificates = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="certificate-item"
+                                onClick={() => track(EVENTS.CLICK_CERTIFICATE)}
                             >
                                 <div className="cert-icon-box">
                                     {/* Download Icon SVG */}
