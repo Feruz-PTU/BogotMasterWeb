@@ -128,6 +128,49 @@
     margin-bottom: 36px;
 }
 
+/* Free samples: licorice root pages only. */
+.pd-sample {
+    margin-bottom: 28px;
+    padding: 20px 22px;
+    border-radius: 16px;
+    background: rgba(81, 94, 59, 0.06);
+    border: 1px solid rgba(81, 94, 59, 0.18);
+}
+
+.pd-sample-title {
+    font-family: var(--font-family-body);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-text-dark);
+    margin: 0 0 8px;
+}
+
+.pd-sample-text {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: #474747;
+    margin: 0 0 16px;
+}
+
+.pd-sample-btn {
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    background: #fff;
+    border: 2px solid var(--color-primary);
+    padding: 10px 24px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.pd-sample-btn:hover,
+.pd-sample-btn:focus-visible {
+    background-color: var(--color-primary);
+    color: #fff;
+}
+
 .pd-badges {
     display: flex;
     flex-wrap: wrap;
@@ -300,9 +343,37 @@
     color: #3a3a3a;
 }
 
+/* Trade terms: the values are sentences, so the card takes two columns of the
+   grid and gives the value the wider column. */
+.pd-terms-card {
+    grid-column: span 2;
+}
+
+.pd-terms-list {
+    grid-template-columns: minmax(130px, 1fr) 3fr;
+}
+
 @media (max-width: 1100px) {
     .pd-specs-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* One column of the grid: the label goes above its value. */
+    .pd-terms-card {
+        grid-column: auto;
+    }
+
+    .pd-terms-list {
+        grid-template-columns: 1fr;
+    }
+
+    .pd-terms-list dt {
+        padding: 10px 0 2px;
+        border-bottom: none;
+    }
+
+    .pd-terms-list dd {
+        padding: 0 0 10px;
     }
 }
 

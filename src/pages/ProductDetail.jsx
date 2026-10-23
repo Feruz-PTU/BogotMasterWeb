@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, Fragment } from 'react';
 import { useParams } from 'react-router-dom';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
@@ -14,7 +14,12 @@ import {
     productDescription,
     productBreadcrumb,
 } from '../seo/productMeta';
+import { isLicoriceRoot } from '../utils/productKind';
 import './ProductDetail.css';
+
+// The trade-terms card, in order: each key has a `terms_<key>_label` and a
+// `terms_<key>` string.
+const TRADE_TERMS = ['moq', 'loads', 'incoterms', 'payment', 'lead_time', 'hs'];
 
 const ProductDetail = ({ addToast }) => {
     useReveal();
@@ -22,7 +27,10 @@ const ProductDetail = ({ addToast }) => {
     const { t } = useLanguage();
     const { products } = useContent();
     const localPath = useLocalPath();
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    // One request form, as a price request or a free-sample request. The kind
+    // stays set while the form is closed, so reopening keeps what was typed.
+    const [modal, setModal] = useState({ open: false, kind: 'price' });
+    const openModal = (kind) => setModal({ open: true, kind });
     const [relatedProgress, setRelatedProgress] = useState(10);
     const relatedRef = useRef(null);
 
@@ -52,6 +60,9 @@ const ProductDetail = ({ addToast }) => {
         ? picked
         : products.filter((p) => p.slug !== slug).slice(0, 3);
     const specs = product.activeSpecs || {};
+    // Free samples and trade terms: licorice root only, not the partner's
+    // extract and not the dried fruit.
+    const licorice = isLicoriceRoot(product);
     // Processing is stored as steps separated by ";" and shown as a numbered list.
     const processingSteps = String(specs.processing || '')
         .split(';')
@@ -102,7 +113,7 @@ const ProductDetail = ({ addToast }) => {
                         <div className="pd-actions">
                             <button
                                 className="btn-primary pd-cta"
-                                onClick={() => setIsModalOpen(true)}
+                                onClick={() => openModal('price')}
                             >
                                 {t('get_price')}
                             </button>
@@ -115,9 +126,25 @@ const ProductDetail = ({ addToast }) => {
                             <QuoteButton product={product} />
                         </div>
 
+                        {licorice && (
+                            <div className="pd-sample">
+                                <h2 className="pd-sample-title">{t('sample_title')}</h2>
+                                <p className="pd-sample-text">{t('sample_text')}</p>
+                                <button
+                                    type="button"
+                                    className="pd-sample-btn"
+                                    onClick={() => openModal('sample')}
+                                >
+                                    {t('sample_btn')}
+                                </button>
+                            </div>
+                        )}
+
                         <div className="pd-badges">
                             <span>{t('about_benefit_1')}</span>
-                            <span>{t('about_benefit_3')}</span>
+                            {/* No "Free samples and factory visits" badge: on licorice root
+                                pages the block above says it in full, and the owner's sample
+                                terms do not cover the partner's extract or the dried fruit. */}
                             <span>{t('about_benefit_4')}</span>
                         </div>
                     </div>
@@ -149,7 +176,10 @@ const ProductDetail = ({ addToast }) => {
                                         {specs.cut_size && <><dt>{t('spec_cut_size')}</dt><dd>{specs.cut_size}</dd></>}
                                         {specs.diameter_grade && <><dt>{t('spec_diameter_grade')}</dt><dd>{specs.diameter_grade}</dd></>}
                                         {specs.packaging && <><dt>{t('spec_packaging')}</dt><dd>{specs.packaging}</dd></>}
-                                        {specs.moq && <><dt>{t('spec_moq')}</dt><dd>{specs.moq}</dd></>}
+                                        {/* On licorice root pages the trade-terms card gives the
+                                            full rule (1 t under FCA, a full load otherwise);
+                                            a bare "MOQ: 1 MT" beside it would read as a second rule. */}
+                                        {specs.moq && !licorice && <><dt>{t('spec_moq')}</dt><dd>{specs.moq}</dd></>}
                                     </dl>
                                 </div>
                             )}
@@ -210,6 +240,20 @@ const ProductDetail = ({ addToast }) => {
                                     </ul>
                                 </div>
                             )}
+                            {licorice && (
+                                <div className="pd-spec-card pd-terms-card">
+                                    <h3 className="pd-spec-card-title">{t('terms_title')}</h3>
+                                    <dl className="pd-spec-list pd-terms-list">
+                                        {TRADE_TERMS.map((key) => (
+                                            <Fragment key={key}>
+                                                <dt>{t(`terms_${key}_label`)}</dt>
+                                                <dd>{t(`terms_${key}`)}</dd>
+                                            </Fragment>
+                                        ))}
+                                    </dl>
+                                    {/* Folder 08: a "Shipping and Incoterms →" link to /logistics goes here. */}
+                                </div>
+                            )}
                         </div>
                     </div>
                 )}
@@ -251,10 +295,17 @@ const ProductDetail = ({ addToast }) => {
             </div>
 
             <PriceModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
+                key={modal.kind}
+                isOpen={modal.open}
+                onClose={() => setModal((m) => ({ ...m, open: false }))}
                 productTitle={product.title}
                 addToast={addToast}
+                {...(modal.kind === 'sample' && {
+                    title: t('sample_modal_title'),
+                    requireQuantity: false,
+                    initialMessage: t('sample_message'),
+                    productNote: 'free sample',
+                })}
             />
         </Layout>
     );

@@ -14,9 +14,25 @@ const emptyForm = { name: '', phone: '', email: '', quantity: '', message: '' };
 /**
  * `requireQuantity` is false where the form asks a general question rather
  * than for a price (the contact page's "Write to us" banner, the About page's
- * consultation button).
+ * consultation button, the free-sample request).
+ *
+ * For the free-sample request the product page also passes:
+ * - `title`: the heading, in place of "Price Request";
+ * - `initialMessage`: the comment the form starts with;
+ * - `productNote`: added to the product name in the lead, e.g.
+ *   "Slice A (free sample)", so the owner sees what the request is even if
+ *   the comment was cleared.
+ * Give the modal a `key` per kind of request, so its state starts afresh.
  */
-const PriceModal = ({ isOpen, onClose, productTitle, requireQuantity = true }) => {
+const PriceModal = ({
+    isOpen,
+    onClose,
+    productTitle,
+    requireQuantity = true,
+    title,
+    initialMessage = '',
+    productNote,
+}) => {
     const { t, language } = useLanguage();
     const uid = useId();
     const fieldId = (name) => `${uid}-${name}`;
@@ -32,7 +48,8 @@ const PriceModal = ({ isOpen, onClose, productTitle, requireQuantity = true }) =
         };
     }, [isOpen]);
 
-    const [formData, setFormData] = useState(emptyForm);
+    const startForm = { ...emptyForm, message: initialMessage };
+    const [formData, setFormData] = useState(startForm);
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState(null);
@@ -108,7 +125,7 @@ const PriceModal = ({ isOpen, onClose, productTitle, requireQuantity = true }) =
 
         // Silently accept and discard: telling a bot why it failed helps it.
         if (isLikelyBot()) {
-            setFormData(emptyForm);
+            setFormData(startForm);
             typed.current = false;
             setSubmitStatus('success');
             return;
@@ -119,7 +136,7 @@ const PriceModal = ({ isOpen, onClose, productTitle, requireQuantity = true }) =
         try {
             const result = await sendPriceInquiryEmail({
                 ...formData,
-                product: productTitle,
+                product: productNote ? `${productTitle} (${productNote})` : productTitle,
                 ...guardPayload(),
                 ...leadContext(language),
             }, language);
@@ -129,7 +146,7 @@ const PriceModal = ({ isOpen, onClose, productTitle, requireQuantity = true }) =
             }
 
             track(EVENTS.FORM_SUBMIT_PRICE);
-            setFormData(emptyForm);
+            setFormData(startForm);
             typed.current = false;
             reset();
             setSubmitStatus('success');
@@ -171,7 +188,7 @@ const PriceModal = ({ isOpen, onClose, productTitle, requireQuantity = true }) =
                     </button>
 
                     <div className="modal-header">
-                        <h2>{t('modal_price_title')}</h2>
+                        <h2>{title || t('modal_price_title')}</h2>
                         <p className="modal-product">{productTitle}</p>
                     </div>
 

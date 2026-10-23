@@ -123,6 +123,22 @@
     line-height: 1.4;
 }
 
+/* Secondary lines: the sales contact's languages and hours, the legal name. */
+.contact-text p.contact-sub {
+    margin-top: 2px;
+    font-size: 14px;
+    color: #4A4A4A;
+    font-weight: 400;
+}
+
+.contact-text p.contact-legal {
+    margin-top: 8px;
+    font-size: 13px;
+    color: #5A5A5A;
+    font-weight: 400;
+    line-height: 1.55;
+}
+
 .text-sm {
     font-size: 14px !important;
 }

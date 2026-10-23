@@ -60,11 +60,21 @@ const Footer = () => {
                                 {email}
                             </a>
                         </p>
+                        <p className="footer-contact-person">
+                            {t('sales_contact_name')}
+                            <br />
+                            <span>{t('sales_contact_languages')}</span>
+                            <br />
+                            <span>{t('sales_contact_hours')}</span>
+                        </p>
                     </address>
                 </div>
             </div>
             <div className="footer-bottom">
                 <p>&copy; {new Date().getFullYear()} Bogot Master. {t('footer_rights')}</p>
+                <p className="footer-legal">
+                    {t('legal_name_label')}: {CONTACT_INFO.legal_name} ({t('legal_form_note')}) · {t('inn_label')}: {CONTACT_INFO.inn_display}
+                </p>
             </div>
         </footer>
     );

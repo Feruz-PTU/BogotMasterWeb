@@ -49,6 +49,38 @@ export const FALLBACK_STRINGS = {
         form_moq_hint:
             'Minimum order: 1 t under FCA; under other terms, a full load (11 t in a 20 ft container, 22 t in a 40 ft container or truck).',
 
+        // Licorice root product pages: free samples and trade terms (owner's
+        // terms, 22–23 Oct 2026). The same for every product, so they live here
+        // and not in each product's data.
+        sample_title: 'Free samples',
+        sample_text:
+            '100–200 g of each grade, free of charge, for companies. Shipping is by FedEx at your cost, or on your own FedEx account; we send the sample after 3 business days. You are welcome to visit our facility before ordering: we help with the visa and hotel and meet you at the airport.',
+        sample_btn: 'Request a free sample',
+        sample_modal_title: 'Free sample request',
+        sample_message: 'Free sample, 100–200 g',
+        terms_title: 'Trade terms',
+        terms_moq_label: 'Minimum order',
+        terms_moq: '1 t under FCA; a full load under other terms',
+        terms_loads_label: 'Loads',
+        terms_loads: '11 t per 20 ft container; 22 t per 40 ft container or tent truck',
+        terms_incoterms_label: 'Incoterms® 2020',
+        terms_incoterms: 'EXW, FCA, CPT, CIP, DAP; FOB, CFR, CIF at a named seaport',
+        terms_payment_label: 'Payment',
+        terms_payment: 'T/T, L/C or D/P, in USD, EUR, UZS, CNY, GBP, CHF or RUB',
+        terms_lead_time_label: 'Lead time',
+        terms_lead_time: 'About 30 days for a 22 t load',
+        terms_hs_label: 'HS code',
+        terms_hs: '1211.90',
+
+        // The named sales contact and the legal details (owner, 22–23 Oct 2026).
+        sales_contact_title: 'Your contact',
+        sales_contact_name: 'Feruz, Sales Representative',
+        sales_contact_languages: 'English, Russian, Uzbek',
+        sales_contact_hours: 'Replies 07:00–24:00 (UTC+5), every day',
+        legal_name_label: 'Legal name',
+        legal_form_note: 'family enterprise',
+        inn_label: 'INN (tax ID)',
+
         seo_suffix_licorice: 'Bulk Licorice Root Supplier | Bogot Master',
         seo_suffix_generic: 'Bulk Supply from Uzbekistan | Bogot Master',
 
@@ -178,6 +210,34 @@ export const FALLBACK_STRINGS = {
         form_phone_hint: 'С кодом страны',
         form_moq_hint:
             'Минимальный заказ: 1 т на условиях FCA; на других условиях — полная загрузка (11 т — 20-футовый контейнер, 22 т — 40-футовый контейнер или фура).',
+
+        sample_title: 'Бесплатные образцы',
+        sample_text:
+            '100–200 г каждой позиции бесплатно, для компаний. Доставка FedEx за ваш счёт или через ваш аккаунт FedEx; отправляем образец через 3 рабочих дня. Приглашаем посетить производство до заказа: поможем с визой и гостиницей, встретим в аэропорту.',
+        sample_btn: 'Запросить образец',
+        sample_modal_title: 'Запрос образца',
+        sample_message: 'Бесплатный образец, 100–200 г',
+        terms_title: 'Условия поставки',
+        terms_moq_label: 'Минимальный заказ',
+        terms_moq: '1 т на условиях FCA; на других условиях — полная загрузка',
+        terms_loads_label: 'Загрузка',
+        terms_loads: '11 т — 20-футовый контейнер; 22 т — 40-футовый контейнер или тентованная фура',
+        terms_incoterms_label: 'Incoterms® 2020',
+        terms_incoterms: 'EXW, FCA, CPT, CIP, DAP; FOB, CFR, CIF — до указанного морского порта',
+        terms_payment_label: 'Оплата',
+        terms_payment: 'T/T, аккредитив (L/C) или D/P; USD, EUR, UZS, CNY, GBP, CHF, RUB',
+        terms_lead_time_label: 'Срок выполнения заказа',
+        terms_lead_time: 'Около 30 дней для партии 22 т',
+        terms_hs_label: 'Код ТН ВЭД',
+        terms_hs: '1211 90 860 1 (ТН ВЭД ЕАЭС); 1211.90 (HS)',
+
+        sales_contact_title: 'Ваш контакт',
+        sales_contact_name: 'Феруз, менеджер по продажам',
+        sales_contact_languages: 'Английский, русский, узбекский',
+        sales_contact_hours: 'Отвечает с 07:00 до 24:00 (UTC+5), ежедневно',
+        legal_name_label: 'Юридическое название',
+        legal_form_note: 'семейное предприятие',
+        inn_label: 'ИНН',
 
         seo_suffix_licorice: 'Оптовый поставщик корня солодки | Bogot Master',
         seo_suffix_generic: 'Оптовые поставки из Узбекистана | Bogot Master',

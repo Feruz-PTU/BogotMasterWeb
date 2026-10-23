@@ -33,6 +33,9 @@ const abs = (path) =>
 
 const toE164 = (phone) => '+' + String(phone).replace(/[^\d]/g, '');
 
+const EVERY_DAY = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    .map((day) => `https://schema.org/${day}`);
+
 /** Organization — the root entity every other node points at. */
 function organizationNode(t) {
     return {
@@ -47,6 +50,9 @@ function organizationNode(t) {
             height: 904,
         },
         description: t('schema_description'),
+        // As on the tax registration certificate (see config.js).
+        legalName: CONTACT_INFO.legal_name,
+        taxID: CONTACT_INFO.inn,
         foundingDate: String(FOUNDING_YEAR),
         email: CONTACT_INFO.email,
         address: {
@@ -61,13 +67,21 @@ function organizationNode(t) {
         // The only market claim the project actually makes is "worldwide".
         areaServed: 'Worldwide',
         knowsLanguage: LIVE_LANGUAGES.map((l) => l.htmlLang),
+        // The sales rep answers both numbers and the sales email, in English,
+        // Russian and Uzbek, 07:00 to midnight every day, Uzbekistan time.
         contactPoint: CONTACT_INFO.phone.map((phone) => ({
             '@type': 'ContactPoint',
             contactType: 'sales',
             telephone: toE164(phone),
             email: CONTACT_INFO.sales_email,
             areaServed: 'Worldwide',
-            availableLanguage: LIVE_LANGUAGES.map((l) => l.name),
+            availableLanguage: CONTACT_INFO.sales_contact.languages,
+            hoursAvailable: {
+                '@type': 'OpeningHoursSpecification',
+                dayOfWeek: EVERY_DAY,
+                opens: CONTACT_INFO.sales_contact.hours.opens,
+                closes: CONTACT_INFO.sales_contact.hours.closes,
+            },
         })),
         // `sameAs` is omitted entirely rather than shipped as an empty array.
         // Add it once real company profile pages exist (LinkedIn, etc.).
@@ -120,7 +134,7 @@ function breadcrumbNode(canonical, trail) {
  * offers" in Search Console — that is expected and correct, not a bug. A fake
  * price would be worse than no rich result.
  */
-function productNode({ product, canonical, lang }) {
+function productNode({ product, canonical }) {
     const specs = product.activeSpecs || {};
     const additionalProperty = Object.entries(specs)
         .filter(
@@ -147,7 +161,8 @@ function productNode({ product, canonical, lang }) {
         category: 'Licorice root',
         brand: { '@type': 'Brand', '@id': ID.brand, name: COMPANY_INFO.name },
         manufacturer: { '@id': ID.org },
-        inLanguage: lang,
+        // No inLanguage: Product does not have it (the validator warns); the
+        // page's WebPage node carries the language.
     };
     if (additionalProperty.length) node.additionalProperty = additionalProperty;
     if (specs.botanical_name) node.alternateName = specs.botanical_name;
@@ -227,7 +242,7 @@ export function buildGraph({
     if (crumbs) graph.push(crumbs);
 
     if (kind === 'product' && product) {
-        graph.push(productNode({ product, canonical, lang }));
+        graph.push(productNode({ product, canonical }));
     }
     if (kind === 'products' && products?.length) {
         graph.push(itemListNode({ canonical, products, lang }));

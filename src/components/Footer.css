@@ -47,8 +47,10 @@
 }
 
 @media (max-width: 768px) {
+    /* The bottom padding lifts the last line (legal name, INN) clear of the
+       round contact button fixed in the corner. */
     .footer {
-        padding: 48px 20px 20px;
+        padding: 48px 20px 88px;
     }
 
     .footer-content {
@@ -58,7 +60,7 @@
 
 @media (max-width: 480px) {
     .footer {
-        padding: 40px 16px 16px;
+        padding: 40px 16px 88px;
     }
 
     .footer-content {
@@ -103,4 +105,21 @@
 
 .footer-address p {
     margin-bottom: 2px;
+}
+
+/* The named sales contact under the email. */
+.footer-address p.footer-contact-person {
+    margin-top: 10px;
+    line-height: 1.5;
+}
+
+.footer-contact-person span {
+    font-size: 0.85em;
+    opacity: 0.85;
+}
+
+/* Legal name and INN under the copyright line. */
+.footer-legal {
+    margin-top: 6px;
+    font-size: 0.8rem;
 }

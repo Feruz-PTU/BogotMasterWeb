@@ -9,6 +9,7 @@ import { useSpamGuard } from '../hooks/useSpamGuard';
 import { track, EVENTS, leadContext } from '../analytics';
 import { telHref, mailtoHref } from '../utils/links';
 import LocalLink from './LocalLink';
+import { CONTACT_INFO } from '../config';
 
 const Contact = ({ openPopup }) => {
     useReveal();
@@ -118,6 +119,27 @@ const Contact = ({ openPopup }) => {
                             <div className="contact-text">
                                 <h3>{t('contact_address')}</h3>
                                 <p>{t('address_line_1')}<br />{t('address_line_2')}</p>
+                                <p className="contact-legal">
+                                    {t('legal_name_label')}: {CONTACT_INFO.legal_name} ({t('legal_form_note')})
+                                    <br />
+                                    {t('inn_label')}: {CONTACT_INFO.inn_display}
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* The person who answers: a name, languages and hours
+                            tell a buyer abroad who will reply, and when. */}
+                        <div className="contact-item">
+                            <div className="icon-wrapper" aria-hidden="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" focusable="false">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                                </svg>
+                            </div>
+                            <div className="contact-text">
+                                <h3>{t('sales_contact_title')}</h3>
+                                <p>{t('sales_contact_name')}</p>
+                                <p className="contact-sub">{t('sales_contact_languages')}</p>
+                                <p className="contact-sub">{t('sales_contact_hours')}</p>
                             </div>
                         </div>
 
