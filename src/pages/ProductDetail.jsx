@@ -52,6 +52,11 @@ const ProductDetail = ({ addToast }) => {
         ? picked
         : products.filter((p) => p.slug !== slug).slice(0, 3);
     const specs = product.activeSpecs || {};
+    // Processing is stored as steps separated by ";" and shown as a numbered list.
+    const processingSteps = String(specs.processing || '')
+        .split(';')
+        .map((s) => s.trim())
+        .filter(Boolean);
 
     return (
         <Layout>
@@ -136,17 +141,30 @@ const ProductDetail = ({ addToast }) => {
                                     </dl>
                                 </div>
                             )}
-                            {(specs.form_cut_type || specs.cut_size || specs.diameter_grade || specs.processing || specs.packaging || specs.moq) && (
+                            {(specs.form_cut_type || specs.cut_size || specs.diameter_grade || specs.packaging || specs.moq) && (
                                 <div className="pd-spec-card">
                                     <h3 className="pd-spec-card-title">{t('spec_physical')}</h3>
                                     <dl className="pd-spec-list">
                                         {specs.form_cut_type && <><dt>{t('spec_form_cut_type')}</dt><dd>{specs.form_cut_type}</dd></>}
                                         {specs.cut_size && <><dt>{t('spec_cut_size')}</dt><dd>{specs.cut_size}</dd></>}
                                         {specs.diameter_grade && <><dt>{t('spec_diameter_grade')}</dt><dd>{specs.diameter_grade}</dd></>}
-                                        {specs.processing && <><dt>{t('spec_processing')}</dt><dd>{specs.processing}</dd></>}
                                         {specs.packaging && <><dt>{t('spec_packaging')}</dt><dd>{specs.packaging}</dd></>}
                                         {specs.moq && <><dt>{t('spec_moq')}</dt><dd>{specs.moq}</dd></>}
                                     </dl>
+                                </div>
+                            )}
+                            {processingSteps.length > 0 && (
+                                <div className="pd-spec-card">
+                                    <h3 className="pd-spec-card-title">{t('spec_processing')}</h3>
+                                    {processingSteps.length === 1 ? (
+                                        <p className="pd-process-single">{processingSteps[0]}</p>
+                                    ) : (
+                                        <ol className="pd-process-steps">
+                                            {processingSteps.map((step) => (
+                                                <li key={step}>{step}</li>
+                                            ))}
+                                        </ol>
+                                    )}
                                 </div>
                             )}
                             {(specs.moisture || specs.ash || specs.glycyrrhizin || specs.foreign_matter || specs.heavy_metals || specs.pesticide_residues) && (

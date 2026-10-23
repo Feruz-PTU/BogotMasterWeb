@@ -1880,7 +1880,7 @@ const AdminDashboard = () => {
                                                 </div>
                                                 <div className="admin-fields-row">
                                                     <div className="admin-field"><label>Diameter grade</label><input value={productForm.specs?.[prodLangTab]?.diameter_grade || ''} onChange={e => handleSpecChange('diameter_grade', e.target.value)} placeholder="e.g. A / B / C" /></div>
-                                                    <div className="admin-field"><label>Processing</label><input value={productForm.specs?.[prodLangTab]?.processing || ''} onChange={e => handleSpecChange('processing', e.target.value)} placeholder="Standard or Peeled" /></div>
+                                                    <div className="admin-field"><label>Processing</label><input value={productForm.specs?.[prodLangTab]?.processing || ''} onChange={e => handleSpecChange('processing', e.target.value)} placeholder="Steps, separated by ; e.g. Machine-washed; Steamed to soften the root; Machine-cut at 90°" /></div>
                                                 </div>
                                                 <div className="admin-fields-row">
                                                     <div className="admin-field"><label>Packaging</label><input value={productForm.specs?.[prodLangTab]?.packaging || ''} onChange={e => handleSpecChange('packaging', e.target.value)} placeholder="PP bags 25 kg" /></div>

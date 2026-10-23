@@ -16,7 +16,8 @@ export const SEED_PRODUCTS = [
             form_cut_type: 'Fingers (cut root)',
             cut_size: '5–8 cm',
             diameter_grade: 'Mix',
-            processing: 'Standard',
+            // Steps separated by ";": the product page shows them as a numbered list.
+            processing: 'Washed only on request (before cutting); Hand-cut into 5–8 cm lengths; Dried in the open air (in a dryer in cold or wet weather); Cleaned in a rotating drum sieve: the pieces rub each other free of dust and dirt',
             packaging: 'PP bags 25 kg',
             moq: '',
             moisture: '≤ 8%',
