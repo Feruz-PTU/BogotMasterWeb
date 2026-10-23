@@ -57,6 +57,11 @@
     font-weight: 500;
 }
 
+/* The tick keeps its size when the text runs to two lines. */
+.about-benefits li svg {
+    flex-shrink: 0;
+}
+
 .btn-details {
     background-color: var(--color-primary);
     color: white;

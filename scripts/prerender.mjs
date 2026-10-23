@@ -225,7 +225,7 @@ const articleLines = ARTICLES.map((a) => {
 writeFileSync(
     join(DIST, 'llms.txt'),
     `# Bogot Master\n\n` +
-        `> ${t.meta_description || 'Licorice root (Glycyrrhiza glabra) grower, processor and exporter based in Khorezm region, Uzbekistan. Bulk B2B supply.'}\n\n` +
+        `> ${t.meta_description || 'Wild licorice root (Glycyrrhiza glabra) harvester, processor and exporter based in Khorezm region, Uzbekistan. Bulk B2B supply.'}\n\n` +
         `Bogot Master is a family-owned company established in ${content.settings?.founded || 2014}, ` +
         `producing and exporting licorice root from Khorezm region, Uzbekistan. ` +
         `Pricing is by quotation only; there are no public prices on this site.\n\n` +

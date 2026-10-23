@@ -220,6 +220,11 @@
     font-weight: 500;
 }
 
+/* The tick keeps its size when the text runs to two lines. */
+.home-benefits li svg {
+    flex-shrink: 0;
+}
+
 .home-about-snippet .btn-details {
     display: inline-block;
     background-color: var(--color-primary);

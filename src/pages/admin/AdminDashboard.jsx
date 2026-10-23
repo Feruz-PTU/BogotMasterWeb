@@ -516,11 +516,8 @@ const AdminDashboard = () => {
                     packaging: 'PP bags 25 kg',
                     moq: '',
                     moisture: '≤ 8%',
-                    ash: '≤ 9%',
                     glycyrrhizin: '',
                     foreign_matter: '≤ 1%',
-                    heavy_metals: 'Within WHO/EU limits',
-                    pesticide_residues: 'Within WHO/EU limits',
                     tpc: '≤ 100,000 CFU/g',
                     yeast_mould: '≤ 1,000 CFU/g',
                     e_coli: 'Absent',
@@ -529,8 +526,14 @@ const AdminDashboard = () => {
                     storage: '≤ 25°C, cool dry, no sunlight',
                     documents: [],
                 };
+                // Ash, heavy metals and pesticides have never been measured,
+                // so a new product says "on request" instead of quoting a limit.
+                const onRequest = { ru: 'По запросу' };
                 const s = {};
-                langs.forEach(l => { s[l.code] = { ...defaults }; });
+                langs.forEach(l => {
+                    const v = onRequest[l.code] || 'Available on request';
+                    s[l.code] = { ...defaults, ash: v, heavy_metals: v, pesticide_residues: v };
+                });
                 return s;
             })(),
             family: [],
@@ -1878,15 +1881,15 @@ const AdminDashboard = () => {
                                             {openSpecSections.quality && (<>
                                                 <div className="admin-fields-row">
                                                     <div className="admin-field"><label>Moisture</label><input value={productForm.specs?.[prodLangTab]?.moisture || ''} onChange={e => handleSpecChange('moisture', e.target.value)} placeholder="≤ 8%" /></div>
-                                                    <div className="admin-field"><label>Ash</label><input value={productForm.specs?.[prodLangTab]?.ash || ''} onChange={e => handleSpecChange('ash', e.target.value)} placeholder="≤ 9%" /></div>
+                                                    <div className="admin-field"><label>Ash</label><input value={productForm.specs?.[prodLangTab]?.ash || ''} onChange={e => handleSpecChange('ash', e.target.value)} placeholder="Available on request" /></div>
                                                 </div>
                                                 <div className="admin-fields-row">
                                                     <div className="admin-field"><label>Glycyrrhizin</label><input value={productForm.specs?.[prodLangTab]?.glycyrrhizin || ''} onChange={e => handleSpecChange('glycyrrhizin', e.target.value)} placeholder="≥ 4% (root) / 8–12% (extract)" /></div>
                                                     <div className="admin-field"><label>Foreign matter</label><input value={productForm.specs?.[prodLangTab]?.foreign_matter || ''} onChange={e => handleSpecChange('foreign_matter', e.target.value)} placeholder="≤ 1%" /></div>
                                                 </div>
                                                 <div className="admin-fields-row">
-                                                    <div className="admin-field"><label>Heavy metals</label><input value={productForm.specs?.[prodLangTab]?.heavy_metals || ''} onChange={e => handleSpecChange('heavy_metals', e.target.value)} placeholder="Within WHO/EU limits" /></div>
-                                                    <div className="admin-field"><label>Pesticide residues</label><input value={productForm.specs?.[prodLangTab]?.pesticide_residues || ''} onChange={e => handleSpecChange('pesticide_residues', e.target.value)} placeholder="Within WHO/EU limits" /></div>
+                                                    <div className="admin-field"><label>Heavy metals</label><input value={productForm.specs?.[prodLangTab]?.heavy_metals || ''} onChange={e => handleSpecChange('heavy_metals', e.target.value)} placeholder="Available on request" /></div>
+                                                    <div className="admin-field"><label>Pesticide residues</label><input value={productForm.specs?.[prodLangTab]?.pesticide_residues || ''} onChange={e => handleSpecChange('pesticide_residues', e.target.value)} placeholder="Available on request" /></div>
                                                 </div>
                                             </>)}
 
