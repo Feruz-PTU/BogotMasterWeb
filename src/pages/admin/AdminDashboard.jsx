@@ -211,6 +211,7 @@ const TRANSLATION_GROUPS = [
             { key: 'terms_hs_link', label: 'Link after the HS code (to the codes chapter)' },
             { key: 'app_pharma_link', label: 'Link under the description (to the pharmaceutical page)' },
             { key: 'app_food_link', label: 'Link under the description (to the food page)' },
+            { key: 'app_extraction_link', label: 'Link under the description (to the extraction page)' },
         ],
     },
     {

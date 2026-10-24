@@ -133,12 +133,37 @@ export const PAGES = [
         priority: 0.5,
     },
     {
+        // The hub: a forms-by-use table, then its sector pages, in the order
+        // below (pharmaceutical, food, extraction). Product pages link to the
+        // sector pages from utils/productApplications.js.
+        id: 'applications',
+        path: '/applications',
+        parent: null,
+        section: 'applications',
+        schemaType: 'CollectionPage',
+        languages: ['en', 'ru'],
+        title: {
+            en: 'Licorice Root Applications by Industry | Bogot Master',
+            ru: 'Применение корня солодки по отраслям | Bogot Master',
+        },
+        h1: {
+            en: 'Where licorice root is used',
+            ru: 'Где применяется корень солодки',
+        },
+        navTitle: { en: 'Applications', ru: 'Применение' },
+        meta: {
+            en: 'Which licorice root forms suit pharmaceutical, food and extraction use, and the rules each sector works under.',
+            ru: 'Какие формы корня солодки подходят для фармацевтики, пищевой отрасли и экстракции и по каким правилам работает каждая отрасль.',
+        },
+        updated: '2026-10-24',
+        priority: 0.6,
+    },
+    {
         // Pharmacopoeia figures are cited on the page. No health claims, no
-        // "pharmaceutical grade" or GMP. The parent becomes the applications
-        // hub once folder 14 adds it.
+        // "pharmaceutical grade" or GMP.
         id: 'applications-pharmaceutical',
         path: '/applications/pharmaceutical',
-        parent: null,
+        parent: 'applications',
         section: 'applications',
         schemaType: 'WebPage',
         languages: ['en', 'ru'],
@@ -161,10 +186,10 @@ export const PAGES = [
     {
         // Root first, then the partner's extract (never shown as ours). The
         // EU and US figures were read on EUR-Lex and GovInfo on 24 Oct 2026.
-        // No health or nutrition claims. Parent: the hub, from folder 14.
+        // No health or nutrition claims.
         id: 'applications-food',
         path: '/applications/food-and-confectionery',
-        parent: null,
+        parent: 'applications',
         section: 'applications',
         schemaType: 'WebPage',
         languages: ['en', 'ru'],
@@ -180,6 +205,32 @@ export const PAGES = [
         meta: {
             en: 'Licorice root and extract for sweets, drinks and tea: the forms, EU labelling and ochratoxin A limits, US limits and the documents food buyers ask for.',
             ru: 'Корень и экстракт солодки для кондитерских изделий, напитков и чая: формы поставки, маркировка и охратоксин A в ЕС, нормы США, документы.',
+        },
+        updated: '2026-10-24',
+        priority: 0.6,
+    },
+    {
+        // Feedstock for extract makers. The partner, "Licorice Extract" LLC,
+        // agreed in writing to be named (24 Oct 2026); its certificates are
+        // never cited. No prices and no yields of our own.
+        id: 'applications-extraction',
+        path: '/applications/extraction',
+        parent: 'applications',
+        section: 'applications',
+        schemaType: 'WebPage',
+        languages: ['en', 'ru'],
+        title: {
+            en: 'Licorice Root for Extraction & Processing | Bogot Master',
+            ru: 'Корень солодки для экстракции и переработки | Bogot Master',
+        },
+        h1: {
+            en: 'Licorice root for extraction',
+            ru: 'Корень солодки для экстракции',
+        },
+        navTitle: { en: 'Extraction', ru: 'Для экстракции' },
+        meta: {
+            en: "Licorice root as feedstock for extract makers: industrial and extraction grades, cut root, what to specify, yearly supply and our partner's extract.",
+            ru: 'Корень солодки как сырьё для производителей экстрактов: промышленный и экстракционный сорта, резаный корень, спецификация, годовые поставки.',
         },
         updated: '2026-10-24',
         priority: 0.6,

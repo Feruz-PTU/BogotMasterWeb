@@ -78,6 +78,7 @@ export const FALLBACK_STRINGS = {
         // Under the description of some product pages (utils/productApplications.js).
         app_pharma_link: 'For pharmaceutical use',
         app_food_link: 'For food use',
+        app_extraction_link: 'For extraction',
 
         // Content pages (src/content/pages): the date line, a hub's list of
         // its pages, and the question box at the end of every page.
@@ -250,6 +251,7 @@ export const FALLBACK_STRINGS = {
         terms_hs_link: 'коды и правила импорта',
         app_pharma_link: 'Для фармацевтического производства',
         app_food_link: 'Для пищевой промышленности',
+        app_extraction_link: 'Для экстракции',
 
         content_updated: 'Обновлено',
         content_children_title: 'В этом разделе',

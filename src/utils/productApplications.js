@@ -1,8 +1,9 @@
 /**
  * The application pages a product page links to, as one line under its
  * description ("For pharmaceutical use →"). One entry per application page;
- * a product may be listed under several. Later application pages (extraction,
- * tobacco, cosmetics) are added here when they are written.
+ * a product may be listed under several. Later application pages (tobacco,
+ * cosmetics) are added here when they are written, and the table on the
+ * applications hub (content/pages/applications.*.md) follows these lists.
  */
 export const APPLICATION_LINKS = [
     {
@@ -44,6 +45,21 @@ export const APPLICATION_LINKS = [
             'peeled-granules',
             'powder',
             'extract',
+        ],
+    },
+    {
+        path: '/applications/extraction',
+        labelKey: 'app_extraction_link',
+        // The feedstock grades and the cut root extractors take: the grades
+        // table and "Cut root for extraction" on that page. The extract is
+        // linked there too, but it is the product of extraction, not feedstock.
+        slugs: [
+            'industrial-grade',
+            'extraction-grade',
+            'tablet-a',
+            'tablet-1.2',
+            'tablet-mix',
+            'crushed',
         ],
     },
 ];

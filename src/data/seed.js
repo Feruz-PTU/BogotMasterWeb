@@ -129,8 +129,8 @@ export const SEED_PRODUCTS = [
         id: 16, slug: 'extract', order: 15, featured: true,
         image: '/images-new/product-16.png',
         title_ru: 'Экстракт корня солодки', title_en: 'Licorice Root Extract',
-        desc_ru: 'Экстракт корня солодки в виде порошка или жидкости поставляется через нашего партнёра по экстракции. Спецификацию пришлём по запросу.',
-        desc_en: 'Licorice root extract, as powder or liquid, supplied through our extraction partner. Ask us for its specification.',
+        desc_ru: 'Экстракт корня солодки в виде порошка или жидкости производит наш партнёр по экстракции, ООО «Licorice Extract», а поставляется он через нас. Спецификацию пришлём по запросу.',
+        desc_en: 'Licorice root extract, as powder or liquid, made by our extraction partner, "Licorice Extract" LLC, and supplied through us. Ask us for its specification.',
     },
 ];
 
