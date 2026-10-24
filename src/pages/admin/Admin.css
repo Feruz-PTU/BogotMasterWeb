@@ -1636,6 +1636,34 @@
 .admin-gallery-view:hover  { background: #fff; transform: scale(1.1); }
 .admin-gallery-remove:hover { background: #dc2626; transform: scale(1.1); }
 
+/* A photo and its two caption fields. */
+.admin-gallery-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.admin-gallery-captions {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.admin-gallery-captions input {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #e8e4dd;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-family: inherit;
+    background: #fff;
+}
+
+.admin-gallery-captions input:focus {
+    outline: none;
+    border-color: #515E3B;
+}
+
 .admin-gallery-num {
     position: absolute;
     bottom: 7px;

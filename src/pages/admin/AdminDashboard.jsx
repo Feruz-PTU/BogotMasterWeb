@@ -1024,6 +1024,22 @@ const AdminDashboard = () => {
         else showToast(`${fileArr.length} image(s) added to gallery.`);
     };
 
+    // A photo's caption, EN or RU: shown under the photo on the home page and
+    // used as its alt text. Saved when the field loses focus.
+    const saveGalleryCaption = async (src, lang, value) => {
+        const all = settings.gallery_captions || {};
+        const text = value.trim();
+        if ((all[src]?.[lang] || '') === text) return;
+        const updated = { ...settings, gallery_captions: { ...all, [src]: { ...all[src], [lang]: text } } };
+        setSettings(updated);
+        try {
+            await saveSettings(updated);
+            showToast('Caption saved.');
+        } catch {
+            showToast('Error saving the caption.');
+        }
+    };
+
     const removeGalleryImage = (index) => {
         setConfirmModal({
             isOpen: true,
@@ -1033,8 +1049,12 @@ const AdminDashboard = () => {
             onConfirm: async () => {
                 const updated = gallery.filter((_, i) => i !== index);
                 setGallery(updated);
+                // Its caption goes too.
+                const captions = { ...(settings.gallery_captions || {}) };
+                delete captions[gallery[index]];
+                setSettings((s) => ({ ...s, gallery_captions: captions }));
                 try {
-                    await saveSettings({ ...settings, gallery: updated });
+                    await saveSettings({ ...settings, gallery: updated, gallery_captions: captions });
                     showToast('Image removed.');
                 } catch {
                     showToast('Error removing image.');
@@ -2848,10 +2868,11 @@ const AdminDashboard = () => {
                             ) : (
                                 <div className="admin-gallery-grid">
                                     {gallery.map((src, i) => (
-                                        <div key={src + i} className="admin-gallery-item">
+                                        <div key={src + i} className="admin-gallery-cell">
+                                        <div className="admin-gallery-item">
                                             <img
                                                 src={src}
-                                                alt={`Gallery ${i + 1}`}
+                                                alt={settings.gallery_captions?.[src]?.en || `Gallery ${i + 1}`}
                                                 onClick={() => setGalleryLightbox(i)}
                                             />
                                             <div className="admin-gallery-overlay">
@@ -2871,6 +2892,23 @@ const AdminDashboard = () => {
                                                 </button>
                                             </div>
                                             <span className="admin-gallery-num">{i + 1}</span>
+                                        </div>
+                                        <div className="admin-gallery-captions">
+                                            <input
+                                                key={`${src}-en`}
+                                                defaultValue={settings.gallery_captions?.[src]?.en || ''}
+                                                placeholder="Caption (EN)"
+                                                aria-label={`Photo ${i + 1}: caption in English`}
+                                                onBlur={(e) => saveGalleryCaption(src, 'en', e.target.value)}
+                                            />
+                                            <input
+                                                key={`${src}-ru`}
+                                                defaultValue={settings.gallery_captions?.[src]?.ru || ''}
+                                                placeholder="Подпись (RU)"
+                                                aria-label={`Photo ${i + 1}: caption in Russian`}
+                                                onBlur={(e) => saveGalleryCaption(src, 'ru', e.target.value)}
+                                            />
+                                        </div>
                                         </div>
                                     ))}
                                 </div>

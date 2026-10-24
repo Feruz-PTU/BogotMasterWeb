@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import './FeaturedGallery.css';
 import Skeleton from './Skeleton';
@@ -6,37 +6,38 @@ import { useLanguage } from '../context/LanguageContext';
 import { useContent } from '../context/ContentContext';
 
 const FeaturedGallery = () => {
-    const { t } = useLanguage();
-    const { gallery, loading } = useContent();
+    const { t, language } = useLanguage();
+    const { gallery, rawSettings, loading } = useContent();
     const containerRef = useRef(null);
     const [progress, setProgress] = useState(10); // Start with at least 10% progress
 
     const [activeImage, setActiveImage] = useState(null);
 
-    const shuffled = useMemo(() => {
-        if (!gallery) return [];
-        const arr = [...gallery];
-        for (let i = arr.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [arr[i], arr[j]] = [arr[j], arr[i]];
-        }
-        return arr;
-    }, [gallery]);
+    // The photos in the order set in the admin. They used to be shuffled
+    // with Math.random(), once at build time and again in the browser; the
+    // two orders differed, so clicking a photo could open another one.
+    const photos = gallery || [];
+
+    // Each photo's caption (settings.gallery_captions, edited in the admin):
+    // shown under the photo and used as its alt text.
+    const captions = rawSettings?.gallery_captions || {};
+    const captionOf = (src) => captions[src]?.[language] || '';
+    const altOf = (src, index) => captionOf(src) || `${t('gallery_item_alt')} ${index + 1}`;
 
     // Handle Lightbox Navigation
     const handleNextImage = (e) => {
         if (e) e.stopPropagation();
-        const idx = shuffled.indexOf(activeImage);
+        const idx = photos.indexOf(activeImage);
         if (idx !== -1) {
-            setActiveImage(shuffled[(idx + 1) % shuffled.length]);
+            setActiveImage(photos[(idx + 1) % photos.length]);
         }
     };
 
     const handlePrevImage = (e) => {
         if (e) e.stopPropagation();
-        const idx = shuffled.indexOf(activeImage);
+        const idx = photos.indexOf(activeImage);
         if (idx !== -1) {
-            setActiveImage(shuffled[(idx - 1 + shuffled.length) % shuffled.length]);
+            setActiveImage(photos[(idx - 1 + photos.length) % photos.length]);
         }
     };
 
@@ -57,8 +58,8 @@ const FeaturedGallery = () => {
                 window.removeEventListener('keydown', handleKeyDown);
             };
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps -- handleNextImage/handlePrevImage are recreated every render; re-binding the listener on each one would thrash. They only read activeImage and shuffled, which are listed.
-    }, [activeImage, shuffled]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- handleNextImage/handlePrevImage are recreated every render; re-binding the listener on each one would thrash. They only read activeImage and photos, which are listed.
+    }, [activeImage, photos]);
 
     // Track scroll position to update the progress bar
 
@@ -79,7 +80,7 @@ const FeaturedGallery = () => {
     // Auto-sliding interval
     useEffect(() => {
         const container = containerRef.current;
-        if (!container || shuffled.length === 0) return;
+        if (!container || photos.length === 0) return;
 
         let intervalId;
         let timeoutId;
@@ -129,7 +130,7 @@ const FeaturedGallery = () => {
                 container.removeEventListener('mousedown', handleInteraction);
             }
         };
-    }, [shuffled.length]);
+    }, [photos.length]);
 
     if (loading) {
         return (
@@ -148,7 +149,7 @@ const FeaturedGallery = () => {
         );
     }
 
-    if (!shuffled.length) return null;
+    if (!photos.length) return null;
 
     return (
         <section id="gallery" className="featured-gallery-section">
@@ -162,17 +163,20 @@ const FeaturedGallery = () => {
                     ref={containerRef}
                     onScroll={handleScroll}
                 >
-                    {shuffled.map((src, index) => (
-                        <div 
-                            key={index} 
+                    {photos.map((src, index) => (
+                        <figure
+                            key={src}
                             className="featured-gallery-card"
                             onClick={() => setActiveImage(src)}
                             style={{ cursor: 'pointer' }}
                         >
                             <div className="card-image">
-                                <img src={src} alt={`${t('gallery_item_alt')} ${index + 1}`} loading="lazy" />
+                                <img src={src} alt={altOf(src, index)} loading="lazy" />
                             </div>
-                        </div>
+                            {captionOf(src) && (
+                                <figcaption className="card-caption">{captionOf(src)}</figcaption>
+                            )}
+                        </figure>
                     ))}
                 </div>
             </div>
@@ -195,7 +199,10 @@ const FeaturedGallery = () => {
                     </button>
                     
                     <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
-                        <img src={activeImage} alt="Gallery Zoomed View" />
+                        <img src={activeImage} alt={altOf(activeImage, photos.indexOf(activeImage))} />
+                        {captionOf(activeImage) && (
+                            <p className="lightbox-caption">{captionOf(activeImage)}</p>
+                        )}
                     </div>
                     
                     <button className="lightbox-arrow next" onClick={handleNextImage} aria-label="Next image">
