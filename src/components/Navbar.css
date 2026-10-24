@@ -86,6 +86,104 @@
     width: 100%;
 }
 
+/* ── Menu groups: Applications, Resources… (content/navigation.js) ── */
+.nav-group {
+    position: relative;
+}
+
+.nav-group-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: 0;
+    padding: 0 0 5px;
+    margin: 0;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    color: var(--color-text-dark);
+    cursor: pointer;
+    position: relative;
+}
+
+/* The same underline as the links when its page is open. */
+.nav-group-btn::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--color-primary);
+    transition: width 0.3s ease;
+}
+
+.nav-group-btn:hover,
+.nav-group-btn.active,
+.nav-group.open .nav-group-btn {
+    color: var(--color-primary);
+}
+
+.nav-group-btn.active::after {
+    width: 100%;
+}
+
+.nav-group-btn:focus-visible,
+.navbar-links a:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 4px;
+    border-radius: 2px;
+}
+
+.nav-group-menu {
+    position: absolute;
+    top: calc(100% + 14px);
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 230px;
+    margin: 0;
+    padding: 8px;
+    list-style: none;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    z-index: 1300;
+    animation: dropdownSlide 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-group-menu[hidden] {
+    display: none;
+}
+
+.navbar-links .nav-group-menu a {
+    display: block;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    white-space: nowrap;
+}
+
+.navbar-links .nav-group-menu a::after {
+    display: none;
+}
+
+.navbar-links .nav-group-menu a:hover,
+.navbar-links .nav-group-menu a:focus-visible {
+    background: var(--color-secondary);
+}
+
+.navbar-links .nav-group-menu a.active {
+    background: rgba(81, 94, 59, 0.08);
+}
+
+/* On phones the menu shows Contact; on wider screens the button does. */
+.navbar-links a.nav-mobile-only {
+    display: none;
+}
+
 .btn-contact {
     background-color: var(--color-primary);
     color: white;
@@ -242,7 +340,8 @@
         gap: 16px;
     }
 
-    .navbar-links a {
+    .navbar-links a,
+    .nav-group-btn {
         font-size: 0.9rem;
     }
 
@@ -343,6 +442,81 @@
 
     .navbar-links a:hover:not(.active) {
         color: rgba(255, 255, 255, 0.92);
+    }
+
+    .navbar-links a.nav-mobile-only {
+        display: flex;
+    }
+
+    /* ── Menu groups as an accordion ── */
+    .nav-group {
+        position: static;
+    }
+
+    .nav-group-btn {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.7);
+        padding: 20px 8%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        border-left: 3px solid transparent;
+        letter-spacing: -0.01em;
+        text-align: left;
+    }
+
+    .nav-group-btn::after {
+        display: none;
+    }
+
+    .nav-group-btn:hover,
+    .nav-group-btn.active,
+    .nav-group.open .nav-group-btn {
+        color: #fff;
+    }
+
+    .nav-group-btn .chevron-icon {
+        width: 18px;
+        height: 18px;
+        opacity: 0.8;
+    }
+
+    .nav-group-menu {
+        position: static;
+        transform: none;
+        min-width: 0;
+        padding: 4px 0 12px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        animation: none;
+    }
+
+    .navbar-links .nav-group-menu a {
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.78);
+        padding: 12px 8% 12px calc(8% + 20px);
+        border: 0;
+        border-radius: 0;
+        white-space: normal;
+    }
+
+    .navbar-links .nav-group-menu a:hover,
+    .navbar-links .nav-group-menu a:focus-visible,
+    .navbar-links .nav-group-menu a.active {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-group-btn:focus-visible,
+    .navbar-links a:focus-visible {
+        outline-color: #fff;
+        outline-offset: -4px;
     }
 
     /* ── Language switcher — mobile ── */
@@ -484,9 +658,15 @@
         padding: 88px 0 32px;
     }
 
-    .navbar-links a {
+    .navbar-links a,
+    .nav-group-btn {
         font-size: 1.4rem;
         padding: 20px 7%;
+    }
+
+    .navbar-links .nav-group-menu a {
+        font-size: 1.05rem;
+        padding: 12px 7% 12px calc(7% + 18px);
     }
 
     .lang-switcher-mobile {
@@ -507,8 +687,14 @@
         padding: 76px 0 24px;
     }
 
-    .navbar-links a {
+    .navbar-links a,
+    .nav-group-btn {
         font-size: 1.25rem;
         padding: 18px 6%;
+    }
+
+    .navbar-links .nav-group-menu a {
+        font-size: 1rem;
+        padding: 11px 6% 11px calc(6% + 16px);
     }
 }

@@ -26,6 +26,20 @@ export const FALLBACK_STRINGS = {
         nav_close_menu: 'Close menu',
         breadcrumb: 'Breadcrumb',
 
+        // The menu and footer groups (content/navigation.js; folder 21).
+        nav_applications: 'Applications',
+        nav_applications_all: 'All applications',
+        nav_quality: 'Quality',
+        nav_logistics: 'Logistics',
+        nav_resources: 'Resources',
+        nav_company: 'Company',
+        footer_nav_label: 'Site pages',
+        footer_all_products: 'All products',
+        footer_custom_order: 'Custom order',
+        footer_request: 'Request a quote or sample',
+        footer_quality_shipping: 'Quality and shipping',
+        footer_company: 'Company',
+
         products_intro:
             'Licorice root (Glycyrrhiza glabra) from Khorezm, Uzbekistan, in the cuts and grades below. Every grade is available in bulk; tell us the form and volume you need and we will quote it.',
         products_cta_title: 'Need a grade that is not listed?',
@@ -346,6 +360,19 @@ export const FALLBACK_STRINGS = {
         nav_open_menu: 'Открыть меню',
         nav_close_menu: 'Закрыть меню',
         breadcrumb: 'Навигационная цепочка',
+
+        nav_applications: 'Применение',
+        nav_applications_all: 'Все направления',
+        nav_quality: 'Качество',
+        nav_logistics: 'Доставка',
+        nav_resources: 'Материалы',
+        nav_company: 'О компании',
+        footer_nav_label: 'Страницы сайта',
+        footer_all_products: 'Весь каталог',
+        footer_custom_order: 'Индивидуальный заказ',
+        footer_request: 'Запросить цену или образец',
+        footer_quality_shipping: 'Качество и доставка',
+        footer_company: 'Компания',
 
         products_intro:
             'Корень солодки (Glycyrrhiza glabra) из Хорезма, Узбекистан, в указанных ниже формах и фракциях. Все позиции доступны оптом — сообщите нужную форму и объём, и мы подготовим предложение.',

@@ -4,14 +4,56 @@
     padding: 60px 20px 20px;
 }
 
+/* The brand column (logo, slogan, contact) beside the link columns, which
+   come from the pages registry (content/navigation.js). */
 .footer-content {
     max-width: 100%;
     padding: 0 5%;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 40px;
+    grid-template-columns: minmax(220px, 260px) 1fr;
+    gap: 48px;
     margin-bottom: 40px;
+}
+
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.footer-nav {
+    display: grid;
+    /* 130px: the five columns fit one row beside the brand column at 1280px. */
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 32px 24px;
+    align-content: start;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links a {
+    color: inherit;
+    opacity: 0.92;
+    display: inline-block;
+    min-height: 24px;
+    line-height: 1.4;
+}
+
+.footer-links a:hover,
+.footer-links a:focus-visible {
+    opacity: 1;
+}
+
+@media (max-width: 960px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 36px;
+    }
 }
 
 .footer-logo img {
@@ -67,6 +109,12 @@
         grid-template-columns: 1fr;
         gap: 24px;
         margin-bottom: 28px;
+    }
+
+    /* Two link columns side by side on a phone. */
+    .footer-nav {
+        grid-template-columns: 1fr 1fr;
+        gap: 24px 16px;
     }
 
     .footer-links h2,

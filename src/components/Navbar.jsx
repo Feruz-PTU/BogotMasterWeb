@@ -4,17 +4,28 @@ import { useLanguage } from '../context/LanguageContext';
 import LocalLink, { LocalNavLink } from './LocalLink';
 import { LIVE_LANGUAGES, localizedPath, parsePathname } from '../i18n/languages';
 import { routeInLanguage } from '../content/routeInLanguage';
+import { menuGroups, groupIsActive } from '../content/navigation';
 import './Navbar.css';
+
+const Chevron = ({ open }) => (
+    <svg className={`chevron-icon ${open ? 'rotate' : ''}`} width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+        <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+);
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [langDropdownOpen, setLangDropdownOpen] = useState(false);
+    // The open menu group (Applications, Resources…), or null.
+    const [openGroup, setOpenGroup] = useState(null);
     const { language, t } = useLanguage();
     const { pathname } = useLocation();
     const langDropdownRef = useRef(null);
     const langButtonRef = useRef(null);
     const toggleRef = useRef(null);
+    const linksRef = useRef(null);
+    const groupButtons = useRef({});
 
     useEffect(() => {
         // passive: the handler only reads scrollY, so the browser never has to
@@ -32,12 +43,20 @@ const Navbar = () => {
             ) {
                 setLangDropdownOpen(false);
             }
+            // A desktop dropdown closes on a click anywhere outside it.
+            if (openGroup && !event.target.closest?.(`[data-nav-group="${openGroup}"]`)) {
+                setOpenGroup(null);
+            }
         };
         const handleKey = (event) => {
             if (event.key !== 'Escape') return;
             if (langDropdownOpen) {
                 setLangDropdownOpen(false);
                 langButtonRef.current?.focus();
+            } else if (openGroup) {
+                const button = groupButtons.current[openGroup];
+                setOpenGroup(null);
+                button?.focus();
             } else if (isOpen) {
                 setIsOpen(false);
                 toggleRef.current?.focus();
@@ -49,7 +68,7 @@ const Navbar = () => {
             document.removeEventListener('mousedown', handleClickOutside);
             document.removeEventListener('keydown', handleKey);
         };
-    }, [langDropdownOpen, isOpen]);
+    }, [langDropdownOpen, isOpen, openGroup]);
 
     useEffect(() => {
         document.body.style.overflow = isOpen ? 'hidden' : '';
@@ -61,6 +80,41 @@ const Navbar = () => {
     const close = () => {
         setIsOpen(false);
         setLangDropdownOpen(false);
+        setOpenGroup(null);
+    };
+
+    // The links of one open group, for the arrow keys.
+    const groupLinks = (id) => [...(linksRef.current?.querySelectorAll(`#nav-group-${id} a`) || [])];
+
+    const openAndFocus = (id, which) => {
+        setOpenGroup(id);
+        // The list renders on this update; focus it on the next tick.
+        setTimeout(() => {
+            const links = groupLinks(id);
+            (which === 'last' ? links[links.length - 1] : links[0])?.focus();
+        }, 0);
+    };
+
+    // Arrow keys on a group's button open it; inside the list they move
+    // between its links. Escape is handled above.
+    const onGroupKeyDown = (event, id) => {
+        const links = groupLinks(id);
+        const index = links.indexOf(document.activeElement);
+        if (event.target === groupButtons.current[id]) {
+            if (event.key === 'ArrowDown') { event.preventDefault(); openAndFocus(id, 'first'); }
+            if (event.key === 'ArrowUp') { event.preventDefault(); openAndFocus(id, 'last'); }
+            return;
+        }
+        if (index === -1) return;
+        const move = { ArrowDown: index + 1, ArrowUp: index - 1, Home: 0, End: links.length - 1 }[event.key];
+        if (move === undefined) return;
+        event.preventDefault();
+        links[(move + links.length) % links.length].focus();
+    };
+
+    // Leaving a group with Tab closes it.
+    const onGroupBlur = (event, id) => {
+        if (openGroup === id && !event.currentTarget.contains(event.relatedTarget)) setOpenGroup(null);
     };
 
     const currentLang =
@@ -71,6 +125,7 @@ const Navbar = () => {
     // on the home page.
     const parsed = parsePathname(pathname);
     const currentRoutePath = parsed?.routePath || '/';
+    const groups = menuGroups(language, t);
 
     return (
         <nav className={`navbar ${scrolled ? 'scrolled' : ''} ${isOpen ? 'menu-open' : ''}`}
@@ -87,12 +142,51 @@ const Navbar = () => {
                     </LocalLink>
                 </div>
 
-                <div id="primary-navigation" className={`navbar-links ${isOpen ? 'active' : ''}`}>
-                    <LocalNavLink to="/" onClick={close}>{t('home')}</LocalNavLink>
-                    <LocalNavLink to="/products" onClick={close}>{t('products')}</LocalNavLink>
-                    <LocalNavLink to="/about" onClick={close}>{t('about')}</LocalNavLink>
-                    <LocalNavLink to="/articles" onClick={close}>{t('articles')}</LocalNavLink>
-                    <LocalNavLink to="/contact" onClick={close}>{t('contact')}</LocalNavLink>
+                {/* Built from the pages registry (content/navigation.js): a
+                    group with one page is a link, with more a dropdown that
+                    opens on click or with the keyboard; on phones the same
+                    groups open as an accordion. */}
+                <div id="primary-navigation" ref={linksRef} className={`navbar-links ${isOpen ? 'active' : ''}`}>
+                    {groups.map((g) => {
+                        if (g.items.length === 1) {
+                            return (
+                                <LocalNavLink key={g.id} to={g.items[0].to} onClick={close}>
+                                    {g.label}
+                                </LocalNavLink>
+                            );
+                        }
+                        const open = openGroup === g.id;
+                        return (
+                            <div
+                                key={g.id}
+                                className={`nav-group ${open ? 'open' : ''}`}
+                                data-nav-group={g.id}
+                                onKeyDown={(e) => onGroupKeyDown(e, g.id)}
+                                onBlur={(e) => onGroupBlur(e, g.id)}
+                            >
+                                <button
+                                    type="button"
+                                    ref={(el) => { groupButtons.current[g.id] = el; }}
+                                    className={`nav-group-btn ${groupIsActive(g, currentRoutePath) ? 'active' : ''}`}
+                                    aria-expanded={open}
+                                    aria-controls={`nav-group-${g.id}`}
+                                    onClick={() => setOpenGroup(open ? null : g.id)}
+                                >
+                                    {g.label}
+                                    <Chevron open={open} />
+                                </button>
+                                <ul id={`nav-group-${g.id}`} className="nav-group-menu" hidden={!open}>
+                                    {g.items.map((i) => (
+                                        <li key={i.to}>
+                                            <LocalNavLink to={i.to} onClick={close}>{i.label}</LocalNavLink>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        );
+                    })}
+                    {/* The Contact button is hidden on phones; the menu has it there. */}
+                    <LocalNavLink to="/contact" onClick={close} className="nav-mobile-only">{t('contact')}</LocalNavLink>
                 </div>
 
                 <div className="navbar-cta-container">
@@ -115,9 +209,7 @@ const Navbar = () => {
                             <span className="lang-code-current">
                                 {currentLang.label}
                             </span>
-                            <svg className={`chevron-icon ${langDropdownOpen ? 'rotate' : ''}`} width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
+                            <Chevron open={langDropdownOpen} />
                         </button>
 
                         {langDropdownOpen && (
