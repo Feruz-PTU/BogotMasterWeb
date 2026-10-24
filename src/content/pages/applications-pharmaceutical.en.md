@@ -32,7 +32,7 @@ Glycyrrhizic acid content tends to follow root diameter and harvest season. If y
 
 If you buy to the United States Pharmacopeia, send its monograph with your enquiry; we do not quote it here.
 
-Pharmacopoeial root is also tested for contaminants: heavy metals, pesticide residues, radionuclides and microbial contamination. The Russian monograph sets these by its general monographs (ОФС), not in its own text. Our product pages give the microbiology limits. We have no published results for heavy metals or pesticide residues yet; buyers test each load against their own specification.
+Pharmacopoeial root is also tested for contaminants: heavy metals, pesticide residues, radionuclides and microbial contamination. The Russian monograph sets these by its general monographs (ОФС), not in its own text. Our product pages give the microbiology limits. The results for heavy metals and pesticide residues are on each load's certificate of analysis from the laboratory, not on the site; name the tests your specification requires in your enquiry.
 
 ## Regulatory status in the EU {#eu-status}
 
@@ -68,15 +68,13 @@ Each product page lists its own steps. In outline:
 **Available today:**
 
 - **Specification:** for each grade, on its product page: identity, physical data, processing steps, quality and microbiology limits, storage and shelf life.
-- **Certificate of analysis:** issued for every export load.
+- **Certificate of analysis:** for every export load, from a professional laboratory in Uzbekistan; you can choose the laboratory.
 - **Free samples:** 100–200 g of each grade, for companies; you pay the FedEx shipping, or use your own FedEx account.
 - **Origin and species:** wild *G. glabra*, harvested across Khorezm, Uzbekistan, all year round except a few days of extreme cold, under the national harvest permit.
 - **Processing:** the steps [above](#handling), and in full on each product page.
 - **Retained samples:** we keep a sample of every shipment for one year.
 - **Shipping documents:** the phytosanitary certificate, the certificate of origin and the rest; see [shipping and documents](/logistics#documents).
 - **Audits and visits:** your quality team is welcome to audit our site and records. We help with the visa and hotel and meet you at the airport.
-
-**Not available yet:** a certificate of analysis from an independent accredited laboratory.
 
 The EMA's guideline on Good Agricultural and Collection Practice (GACP) says that compliance should be verified through regular audits of the collection sites and processing facilities by the buyer's experts. We welcome them.
 

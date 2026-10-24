@@ -47,9 +47,9 @@ Every load is fumigated with phosphine (aluminium phosphide) before it leaves, a
 
 ## Certificate of analysis {#certificate-of-analysis}
 
-A certificate of analysis (COA) is issued for every export load. Today it is issued by us, not by an outside laboratory, and our buyers test each load themselves. We keep a sample of each shipment for one year. For what each line of a specification or a COA means, see the [glossary](/buyers-guide/glossary#coa).
+Every export load has a certificate of analysis (COA) from a professional laboratory in Uzbekistan, and you can choose the laboratory. Name it, and the tests your specification requires, in your enquiry. We keep a sample of each shipment for one year. For what each line of a COA means, see [Reading a specification](/buyers-guide/reading-a-specification#coa).
 
-**Check:** the lot number and the product are the ones on the invoice and the packing list.
+**Check:** the lot number and the product are the ones on the invoice and the packing list, and the laboratory and the tests are the ones agreed.
 
 ## Sales contract {#sales-contract}
 

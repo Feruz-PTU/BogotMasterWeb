@@ -257,7 +257,7 @@ export const SEED_TRANSLATIONS = {
         process_2_title: 'Переработка',
         process_2_desc: 'Слайсы, таблетка и другие машинные резки: машинная мойка, пропаривание для ровной нарезки и сохранения цвета, резка, сушка (слайсы — в тени) и просеивание; слайсы A–C1 сортируются вручную. Палочки и бочонок режутся вручную, сушатся и очищаются во вращающемся барабане; мойка — по запросу. В холод и дождь сушка идёт в сушилках.',
         process_3_title: 'Образцы и документы',
-        process_3_desc: 'На каждую экспортную партию оформляется сертификат анализа. Бесплатные образцы (100–200 г каждой позиции) позволяют проверить сырьё в вашей лаборатории до заказа. Образец каждой отгрузки хранится один год.',
+        process_3_desc: 'На каждую экспортную партию оформляется сертификат анализа в профессиональной лаборатории в Узбекистане, которую вы можете выбрать. Бесплатные образцы (100–200 г каждой позиции) позволяют проверить сырьё в вашей лаборатории до заказа. Образец каждой отгрузки хранится один год.',
         process_4_title: 'Упаковка и отгрузка',
         process_4_desc: 'Упаковка в мешки ПП по 20–30 кг или в мешки с вашим логотипом; перед отправкой — фумигация фосфином; 11 т в 20-футовый контейнер, 22 т в 40-футовый контейнер или фуру, с полным пакетом экспортных документов.',
         // About Extra
@@ -425,7 +425,7 @@ export const SEED_TRANSLATIONS = {
         process_2_title: 'Processing',
         process_2_desc: 'Slices, tablets and other machine cuts are machine-washed, steamed so the root cuts cleanly and keeps its colour, then cut, dried (slices in the shade) and sieved; slices A to C1 are sorted by hand. Sticks and fingers are cut by hand, dried and cleaned in a rotating drum; they are washed on request. In cold or wet weather, drying moves into dryers.',
         process_3_title: 'Samples and documents',
-        process_3_desc: 'A certificate of analysis is issued for every export load. Free samples of 100–200 g per grade let you test the root in your own lab before you order. A sample of every shipment is kept for one year.',
+        process_3_desc: 'Every export load has a certificate of analysis from a professional laboratory in Uzbekistan, which you can choose. Free samples of 100–200 g per grade let you test the root in your own lab before you order. A sample of every shipment is kept for one year.',
         process_4_title: 'Packing and shipping',
         process_4_desc: 'Packed in PP bags of 20–30 kg, or in bags printed with your logo; fumigated with phosphine before shipping; 11 t per 20 ft container, 22 t per 40 ft container or truck, with the full set of export documents.',
         // About Extra

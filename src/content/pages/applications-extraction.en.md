@@ -34,14 +34,14 @@ When a specification calls for washed root with at least 4 % glycyrrhizic acid, 
 Extract makers usually set these points; send yours with your enquiry, and we quote against it:
 
 - **Glycyrrhizic acid** per lot, with the method and the basis (dried or absolutely dry material): standards differ on both; see the [comparison](/applications/pharmaceutical#pharmacopoeias).
-- **Water-soluble extractives**: how much of the root dissolves in water. We have no published figure yet; test it on a sample.
+- **Water-soluble extractives**: how much of the root dissolves in water. We do not publish a figure; name it among the tests for the load's certificate of analysis, or test it on a sample.
 - **Moisture** at loading.
 - **Packing**: bags, or pressed bales and cubes.
 - **Supply programme**: the tonnage over the year and how it is split into loads.
 
 Free samples of 100–200 g per grade go to companies; you pay the FedEx shipping, or use your own FedEx account.
 
-If your extract goes into food in the EU, it must meet the ochratoxin A limit of 80 µg/kg on the pure, undiluted extract. The regulation notes that 1 kg of extract is obtained from 3 to 4 kg of root; dried root itself has a limit of 20 µg/kg (Regulation (EU) 2023/915, Annex I, entry 1.2.19). We have no published ochratoxin A results yet, so test the sample and each load.
+If your extract goes into food in the EU, it must meet the ochratoxin A limit of 80 µg/kg on the pure, undiluted extract. The regulation notes that 1 kg of extract is obtained from 3 to 4 kg of root; dried root itself has a limit of 20 µg/kg (Regulation (EU) 2023/915, Annex I, entry 1.2.19). The ochratoxin A result for a load is on its certificate of analysis from the laboratory; we do not publish results on the site, so name the test in your enquiry.
 
 ## Volume and supply {#supply}
 

@@ -33,7 +33,7 @@ Moisture matters twice: you pay for the water in the load, and the drier the roo
 | Russian State Pharmacopoeia, ФС.2.5.0040.15 | Not more than 8 % | Not more than 2.5 %; whole peeled root, not more than 1 % |
 | US 21 CFR 184.1408 (food use) | Not more than 9.5 %, anhydrous | Not more than 2.5 %, anhydrous |
 
-For the European Pharmacopoeia's limits, see monograph 0277 itself. Washing removes soil from the surface, and peeling removes it with the bark, so both lower acid-insoluble ash. Our specifications give ash as "available on request": we have no measured figure to publish yet, so name the limit your specification sets and test the load against it.
+For the European Pharmacopoeia's limits, see monograph 0277 itself. Washing removes soil from the surface, and peeling removes it with the bark, so both lower acid-insoluble ash. Our specifications give ash as "available on request": the result for a load is on its certificate of analysis from the laboratory. Name the limit your specification sets in your enquiry.
 
 ## Foreign matter {#foreign-matter}
 
@@ -56,7 +56,7 @@ These are the lines buyers most often add to a specification. The figures below 
 - **[Ochratoxin A](/buyers-guide/glossary#ochratoxin-a):** a toxin made by some moulds. Regulation (EU) 2023/915 sets 20 µg/kg for dried liquorice root, including in herbal infusions, and 80 µg/kg for liquorice extract for use in food (Annex I, entry 1.2.19). More on the [food page](/applications/food-and-confectionery#eu-ochratoxin).
 - **[Aflatoxins](/buyers-guide/glossary#aflatoxins):** specifications for plant materials often set limits for aflatoxin B1 and for the total of B1, B2, G1 and G2.
 
-We have no published results for these yet: our buyers test each load against their own specification.
+The results for a load are on its certificate of analysis from the laboratory; we do not publish them on the site. Name the tests your specification requires in your enquiry.
 
 ## Storage and shelf life {#shelf-life}
 
@@ -74,7 +74,7 @@ The World Health Organization publishes a model COA for quality control laborato
 
 When one arrives, check that its lot number is the one on the invoice, the packing list and the bags (see the [checklist before payment](/buyers-guide/shipping-documents#checklist)); that its limits are your specification's; that it gives numbers, not only "complies"; and who did the testing.
 
-Our COA today is issued by us for every export load, not by an outside laboratory, and our buyers test each load themselves. We keep a sample of each shipment for one year. An annotated example will be added to this chapter once an independent laboratory has tested our root.
+Each of our export loads has a certificate of analysis from a professional laboratory in Uzbekistan, and you can choose the laboratory. Name it, and the tests your specification requires, in your enquiry. We keep a sample of each shipment for one year.
 
 ## Sources {#sources}
 
