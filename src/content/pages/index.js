@@ -107,6 +107,31 @@ export const PAGES = [
         updated: '2026-10-24',
         priority: 0.6,
     },
+    {
+        // 60 terms, each a ### heading with its own anchor (the same in EN
+        // and RU); their DefinedTerm data is read from the Markdown.
+        id: 'buyers-guide-glossary',
+        path: '/buyers-guide/glossary',
+        parent: 'buyers-guide',
+        section: 'guide',
+        schemaType: 'DefinedTermSet',
+        languages: ['en', 'ru'],
+        title: {
+            en: 'Licorice Root Trade Glossary | Bogot Master',
+            ru: 'Глоссарий торговли корнем солодки | Bogot Master',
+        },
+        h1: {
+            en: 'Glossary of licorice root trade terms',
+            ru: 'Глоссарий терминов торговли корнем солодки',
+        },
+        navTitle: { en: 'Glossary', ru: 'Глоссарий' },
+        meta: {
+            en: 'Short definitions of 60 terms in licorice root trade: the plant and its chemistry, quality tests, Incoterms, payment, documents and product forms.',
+            ru: 'Краткие определения 60 терминов торговли корнем солодки: растение и химия, анализы качества, Incoterms, оплата, документы и формы продукции.',
+        },
+        updated: '2026-10-24',
+        priority: 0.5,
+    },
 ];
 
 export const SCHEMA_TYPES = ['WebPage', 'CollectionPage', 'TechArticle', 'DefinedTermSet'];

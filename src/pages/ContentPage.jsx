@@ -8,8 +8,24 @@ import NotFound from './NotFound';
 import { useLanguage } from '../context/LanguageContext';
 import { pageAncestors, childPages, pageName } from '../content/pages';
 import * as pageBodies from '../content/pages/bodies';
+import { localizedPath } from '../i18n/languages';
+import { SITE_URL, definedTermsGraph, safeJsonLd } from '../seo/schema';
+import { termsFromMarkdown } from '../utils/glossaryTerms';
 import { formatDate } from '../utils/dates';
 import './ContentPage.css';
+
+/**
+ * A glossary's DefinedTerm list, as JSON-LD text. Only the prerender has the
+ * page text at hand, so in the browser this is empty, and the element keeps
+ * the server's JSON: React leaves the content of an element with
+ * dangerouslySetInnerHTML alone while hydrating (as MarkdownBody does).
+ */
+function glossaryJson(page, language) {
+    const source = pageBodies.bodyNow(page.id, language);
+    if (!source) return '';
+    const canonical = `${SITE_URL}${localizedPath(language, page.path)}`;
+    return safeJsonLd(definedTermsGraph({ canonical, terms: termsFromMarkdown(source) }));
+}
 
 /**
  * One page from the registry in content/pages/index.js: breadcrumb, H1, the
@@ -32,6 +48,7 @@ const ContentPage = ({ page }) => {
     ];
     const children = childPages(page).filter((c) => c.languages.includes(language));
     const h1 = page.h1[language];
+    const isGlossary = page.schemaType === 'DefinedTermSet';
 
     return (
         <Layout>
@@ -81,7 +98,17 @@ const ContentPage = ({ page }) => {
                         language={language}
                         className="content-body"
                         loadingText={t('article_loading')}
+                        headingLinks={isGlossary}
+                        anchorLabel={t('glossary_term_link')}
                     />
+
+                    {isGlossary && (
+                        <script
+                            type="application/ld+json"
+                            suppressHydrationWarning
+                            dangerouslySetInnerHTML={{ __html: glossaryJson(page, language) }}
+                        />
+                    )}
 
                     {children.length > 0 && (
                         <nav className="content-children" aria-labelledby="content-children-title">

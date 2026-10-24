@@ -162,11 +162,14 @@ for (const p of pages) {
     const html = htmlFor(p);
     const blocks = all(html, /<script[^>]*\stype="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g);
     if (blocks.length === 0) { fail(`${p} has no JSON-LD`); ldBad++; continue; }
+    // The main graph carries the Organization; a glossary adds a second
+    // block with its DefinedTerms, linked to the main graph by @id.
+    let hasOrg = false;
     for (const b of blocks) {
         try {
             const parsed = JSON.parse(b);
             const graph = parsed['@graph'] || [];
-            if (!graph.some((n) => n['@type'] === 'Organization')) { fail(`${p} graph has no Organization`); ldBad++; }
+            if (graph.some((n) => n['@type'] === 'Organization')) hasOrg = true;
             const s = JSON.stringify(parsed);
             if (/US.*EU.*CN/.test(s)) { fail(`${p} still contains the fabricated country list`); ldBad++; }
             if (s.includes('streetAddress')) { fail(`${p} still contains streetAddress`); ldBad++; }
@@ -175,6 +178,7 @@ for (const p of pages) {
             ldBad++;
         }
     }
+    if (!hasOrg) { fail(`${p} graph has no Organization`); ldBad++; }
 }
 if (!ldBad) ok('all JSON-LD parses, is one linked @graph, and contains no invented facts');
 

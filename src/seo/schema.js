@@ -319,6 +319,33 @@ export function buildGraph({
 }
 
 /**
+ * The terms of a glossary page as DefinedTerm nodes, attached by @id to the
+ * DefinedTermSet node of the page's main graph (see contentPageNode). It is a
+ * second JSON-LD block because only the prerender has the page text at hand;
+ * ContentPage writes it into the page body.
+ */
+export function definedTermsGraph({ canonical, terms }) {
+    const setId = `${canonical}#terms`;
+    return {
+        '@context': 'https://schema.org',
+        '@graph': [
+            {
+                '@type': 'DefinedTermSet',
+                '@id': setId,
+                hasDefinedTerm: terms.map((term) => ({
+                    '@type': 'DefinedTerm',
+                    '@id': `${canonical}#${term.id}`,
+                    name: term.name,
+                    description: term.description,
+                    url: `${canonical}#${term.id}`,
+                    inDefinedTermSet: { '@id': setId },
+                })),
+            },
+        ],
+    };
+}
+
+/**
  * JSON-LD is injected as raw text, so `<` must be escaped or a product title
  * containing "</script>" would break out of the tag. Product text is editable
  * in the admin panel, so this is a real path once the page is prerendered.

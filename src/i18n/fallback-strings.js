@@ -83,6 +83,7 @@ export const FALLBACK_STRINGS = {
         content_cta_title: 'Questions about this?',
         content_cta_text: 'Write to us and our sales representative will answer within 24 hours.',
         content_cta_btn: 'Ask a question',
+        glossary_term_link: 'Link to this term',
 
         // The named sales contact and the legal details (owner, 22–23 Oct 2026).
         sales_contact_title: 'Your contact',
@@ -250,6 +251,7 @@ export const FALLBACK_STRINGS = {
         content_cta_title: 'Остались вопросы?',
         content_cta_text: 'Напишите нам, и наш менеджер по продажам ответит в течение 24 часов.',
         content_cta_btn: 'Задать вопрос',
+        glossary_term_link: 'Ссылка на этот термин',
 
         sales_contact_title: 'Ваш контакт',
         sales_contact_name: 'Феруз, менеджер по продажам',

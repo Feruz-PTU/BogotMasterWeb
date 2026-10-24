@@ -19,6 +19,25 @@
     margin: 26px 0 10px;
 }
 
+/* The "#" link beside a heading (the glossary's terms). */
+.markdown .heading-anchor {
+    margin-left: 8px;
+    font-weight: 400;
+    color: var(--color-primary);
+    opacity: 0.5;
+    text-decoration: none;
+}
+
+.markdown h3:hover .heading-anchor,
+.markdown .heading-anchor:focus-visible {
+    opacity: 1;
+}
+
+/* A term reached by its address is marked, so the eye finds it. */
+.markdown h3:target {
+    color: var(--color-primary-dark, #3D472C);
+}
+
 /* A heading reached by its anchor (/logistics#fca) stops below the fixed
    navigation bar instead of under it. */
 .markdown h2,

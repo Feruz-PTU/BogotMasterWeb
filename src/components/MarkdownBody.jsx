@@ -25,7 +25,7 @@ const fetched = new Map();
  * Give it a `key` that changes with the text, so a new text never shows inside
  * the old component's state.
  */
-const MarkdownBody = ({ bodies, kind, name, language, className, loadingText }) => {
+const MarkdownBody = ({ bodies, kind, name, language, className, loadingText, headingLinks, anchorLabel }) => {
     const bodyKey = `${kind}:${name}.${language}`;
     const [source, setSource] = useState(
         () => bodies.bodyNow(name, language) ?? fetched.get(bodyKey) ?? null
@@ -68,7 +68,7 @@ const MarkdownBody = ({ bodies, kind, name, language, className, loadingText }) 
     }
     return (
         <div className={className} data-md-body={bodyKey}>
-            <Markdown source={source} />
+            <Markdown source={source} headingLinks={headingLinks} anchorLabel={anchorLabel} />
         </div>
     );
 };

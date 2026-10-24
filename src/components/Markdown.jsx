@@ -172,14 +172,25 @@ const plainText = (text) =>
         plainText(bold ?? italic ?? linkText ?? code ?? escaped ?? '')
     );
 
-function renderBlock(block, index) {
+function renderBlock(block, index, options = {}) {
     const key = `b${index}`;
 
     switch (block.type) {
         case 'h2':
             return <h2 key={key} id={block.id}>{renderInline(block.text, key)}</h2>;
         case 'h3':
-            return <h3 key={key} id={block.id}>{renderInline(block.text, key)}</h3>;
+            return (
+                <h3 key={key} id={block.id}>
+                    {renderInline(block.text, key)}
+                    {/* A "#" link to the heading itself, so its address can
+                        be copied (the glossary's terms). */}
+                    {options.headingLinks && (
+                        <a className="heading-anchor" href={`#${block.id}`} aria-label={options.anchorLabel}>
+                            #
+                        </a>
+                    )}
+                </h3>
+            );
         case 'ul':
         case 'ol': {
             const List = block.type;
@@ -225,8 +236,14 @@ function renderBlock(block, index) {
     }
 }
 
-const Markdown = ({ source }) => (
-    <div className="markdown">{parseBlocks(source).map(renderBlock)}</div>
+/**
+ * `headingLinks`: give every ### heading a "#" link to itself, labelled
+ * `anchorLabel` for screen readers.
+ */
+const Markdown = ({ source, headingLinks = false, anchorLabel }) => (
+    <div className="markdown">
+        {parseBlocks(source).map((block, i) => renderBlock(block, i, { headingLinks, anchorLabel }))}
+    </div>
 );
 
 /** One line of inline Markdown (italic, bold, links) with no block wrapper. */

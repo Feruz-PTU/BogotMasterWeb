@@ -220,6 +220,7 @@ const TRANSLATION_GROUPS = [
             { key: 'content_cta_title', label: 'Question box: title' },
             { key: 'content_cta_text', label: 'Question box: text', multiline: true },
             { key: 'content_cta_btn', label: 'Question box: button' },
+            { key: 'glossary_term_link', label: 'Glossary: "#" link label (screen readers)' },
         ],
     },
     {
