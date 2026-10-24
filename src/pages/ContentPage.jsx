@@ -131,14 +131,24 @@ const ContentPage = ({ page }) => {
                         </nav>
                     )}
 
-                    <aside className="content-cta">
-                        <h2>{t(isFaq ? 'faq_cta_title' : 'content_cta_title')}</h2>
-                        <p>{t('content_cta_text')}</p>
-                        {/* A general question; the lead's page_url says which page it came from. */}
-                        <button type="button" className="content-cta-btn" onClick={() => openRequest({ type: 'other' })}>
-                            {t('content_cta_btn')}
-                        </button>
-                    </aside>
+                    {page.requestType === 'quote' ? (
+                        <aside className="content-cta">
+                            <h2>{t('content_cta_quote_title')}</h2>
+                            <p>{t('content_cta_quote_text')}</p>
+                            <button type="button" className="content-cta-btn" onClick={() => openRequest({ type: 'quote' })}>
+                                {t('content_cta_quote_btn')}
+                            </button>
+                        </aside>
+                    ) : (
+                        <aside className="content-cta">
+                            <h2>{t(isFaq ? 'faq_cta_title' : 'content_cta_title')}</h2>
+                            <p>{t('content_cta_text')}</p>
+                            {/* A general question; the lead's page_url says which page it came from. */}
+                            <button type="button" className="content-cta-btn" onClick={() => openRequest({ type: 'other' })}>
+                                {t('content_cta_btn')}
+                            </button>
+                        </aside>
+                    )}
                 </article>
             </div>
         </Layout>

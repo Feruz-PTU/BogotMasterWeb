@@ -35,6 +35,8 @@
  *   navTitle    { en, ru }, optional: a shorter name for breadcrumbs and lists
  *   updated     'YYYY-MM-DD': shown on the page and used in the structured data
  *   priority    the sitemap priority, 0.1 to 1.0
+ *   requestType optional: the request type the box at the end of the page
+ *               opens, 'quote' for a price quote; default 'other' (a question)
  */
 export const PAGES = [
     {
@@ -81,6 +83,59 @@ export const PAGES = [
         meta: {
             en: 'Practical answers for importers of licorice root: customs codes and import rules, with chapters on grades, documents and ordering as they are written.',
             ru: 'Практические ответы для импортёров корня солодки: коды ТН ВЭД и правила импорта, а по мере написания — главы о фракциях, документах и заказе.',
+        },
+        updated: '2026-10-24',
+        priority: 0.6,
+    },
+    {
+        // Chapter 3 (Appendix B §B3; folder 19). Issuers from the owner,
+        // 22–23 Oct 2026; one lot number on every document (24 Oct 2026).
+        id: 'buyers-guide-shipping-documents',
+        path: '/buyers-guide/shipping-documents',
+        parent: 'buyers-guide',
+        section: 'guide',
+        schemaType: 'TechArticle',
+        languages: ['en', 'ru'],
+        title: {
+            en: 'Licorice Root Shipping Documents Explained | Bogot Master',
+            ru: 'Документы на отгрузку корня солодки | Bogot Master',
+        },
+        h1: {
+            en: 'Documents for each shipment',
+            ru: 'Документы на каждую партию',
+        },
+        navTitle: { en: 'Shipping documents', ru: 'Отгрузочные документы' },
+        meta: {
+            en: 'The documents with each load of licorice root from Uzbekistan: invoice, packing list, phytosanitary, origin and fumigation certificates, and what to check.',
+            ru: 'Документы к каждой партии корня солодки из Узбекистана: инвойс, упаковочный лист, фитосанитарный сертификат, сертификат происхождения и что проверить.',
+        },
+        updated: '2026-10-24',
+        priority: 0.6,
+    },
+    {
+        // Chapter 4 (Appendix B §B3, Appendix A §A3; folder 19). Quotes are
+        // valid 7 days (sales rep, 24 Oct 2026). No claims section: the owner
+        // has no claims procedure yet.
+        id: 'buyers-guide-samples-and-ordering',
+        path: '/buyers-guide/samples-and-ordering',
+        parent: 'buyers-guide',
+        section: 'guide',
+        schemaType: 'TechArticle',
+        languages: ['en', 'ru'],
+        // The box at the end asks for a price quote, not a general question.
+        requestType: 'quote',
+        title: {
+            en: 'Licorice Root Samples, Quotes and Orders | Bogot Master',
+            ru: 'Образцы, предложения и заказ корня солодки | Bogot Master',
+        },
+        h1: {
+            en: 'Samples, quotations and orders',
+            ru: 'Образцы, коммерческие предложения и заказ',
+        },
+        navTitle: { en: 'Samples and ordering', ru: 'Образцы и заказ' },
+        meta: {
+            en: 'How to buy licorice root from us: free samples, what to put in an enquiry, what a quotation contains, payment terms and the steps from order to dispatch.',
+            ru: 'Как купить у нас корень солодки: бесплатные образцы, что указать в запросе, что в коммерческом предложении, оплата и путь от заказа до отгрузки.',
         },
         updated: '2026-10-24',
         priority: 0.6,
@@ -320,6 +375,7 @@ export function pageProblems({ reservedPaths = [], liveLanguages = [], bodyExist
         }
         if (page.parent != null && !findPage(page.parent)) problems.push(`${where}: parent "${page.parent}" is not in the registry`);
         if (!SCHEMA_TYPES.includes(page.schemaType)) problems.push(`${where}: schemaType must be one of ${SCHEMA_TYPES.join(', ')}`);
+        if (page.requestType != null && !['quote', 'other'].includes(page.requestType)) problems.push(`${where}: requestType must be 'quote' or 'other'`);
         if (!/^\d{4}-\d{2}-\d{2}$/.test(page.updated || '')) problems.push(`${where}: updated must be YYYY-MM-DD`);
         if (!(page.priority >= 0.1 && page.priority <= 1)) problems.push(`${where}: priority must be between 0.1 and 1.0`);
         if (!page.languages?.length) problems.push(`${where}: no languages`);

@@ -37,6 +37,22 @@ const MarkdownBody = ({ bodies, kind, name, language, className, loadingText, he
             document.querySelector(`[data-md-body="${bodyKey}"]`) !== null
     );
 
+    // Arriving from another page of the site with an anchor (a link to
+    // /buyers-guide/samples-and-ordering#samples): the router has scrolled to
+    // the top, so go to the heading once the text is on screen. Opening the
+    // URL directly needs nothing: the browser finds the anchor in the HTML.
+    useEffect(() => {
+        if (source === null) return;
+        let id = '';
+        try {
+            id = decodeURIComponent(window.location.hash.slice(1));
+        } catch {
+            return;
+        }
+        const el = id && document.getElementById(id);
+        if (el) requestAnimationFrame(() => el.scrollIntoView({ block: 'start' }));
+    }, [source]);
+
     useEffect(() => {
         if (source !== null || keepServerHtml) return undefined;
         let current = true;

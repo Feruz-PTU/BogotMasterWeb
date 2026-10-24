@@ -70,7 +70,7 @@ Every load travels with:
 - the certificate of analysis issued for each export load;
 - a copy of the sales contract, on request.
 
-The certificates take a few days to issue and are ready before the load is. For the customs codes and the import rules in the EU, the US, the UK and the EAEU, see [Import rules and HS codes](/buyers-guide/import-and-hs-codes).
+The certificates take a few days to issue and are ready before the load is. What each document is, and what to check on it before you pay, is in [Documents for each shipment](/buyers-guide/shipping-documents). For the customs codes and the import rules in the EU, the US, the UK and the EAEU, see [Import rules and HS codes](/buyers-guide/import-and-hs-codes).
 
 ## Insurance {#insurance}
 
