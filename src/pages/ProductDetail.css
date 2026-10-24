@@ -353,6 +353,12 @@
     grid-template-columns: minmax(130px, 1fr) 3fr;
 }
 
+.pd-terms-inline-link {
+    font-weight: 600;
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
 .pd-terms-link {
     display: inline-block;
     margin-top: 14px;

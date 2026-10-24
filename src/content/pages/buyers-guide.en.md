@@ -1,0 +1,3 @@
+This guide is for the people who buy licorice root for a company: procurement and quality staff at extraction, food, herbal tea and tobacco companies. Each chapter answers one part of the job: choosing a form and grade, reading a specification and a certificate of analysis, the shipping documents, placing an order, the customs codes and import rules, and the trade terms explained in a glossary. Chapters appear below as they are published.
+
+Our sales team checks the commercial facts in this guide, such as terms, loads and lead times, every quarter, and the quality facts every six months. For shipping terms and documents, see [Shipping, Incoterms and documents](/logistics).

@@ -59,6 +59,54 @@ export const PAGES = [
         updated: '2026-10-24',
         priority: 0.7,
     },
+    {
+        // The guide's hub: it lists its chapters as they are published.
+        id: 'buyers-guide',
+        path: '/buyers-guide',
+        parent: null,
+        section: 'guide',
+        schemaType: 'CollectionPage',
+        languages: ['en', 'ru'],
+        title: {
+            en: "Licorice Root Buyer's Guide | Bogot Master",
+            ru: 'Руководство покупателя корня солодки | Bogot Master',
+        },
+        h1: {
+            en: "Licorice root buyer's guide",
+            ru: 'Руководство покупателя корня солодки',
+        },
+        navTitle: { en: "Buyer's guide", ru: 'Руководство покупателя' },
+        meta: {
+            en: 'Practical answers for importers of licorice root: customs codes and import rules, with chapters on grades, documents and ordering as they are written.',
+            ru: 'Практические ответы для импортёров корня солодки: коды ТН ВЭД и правила импорта, а по мере написания — главы о фракциях, документах и заказе.',
+        },
+        updated: '2026-10-24',
+        priority: 0.6,
+    },
+    {
+        // Chapter 5 (Appendix B §B3). Sources are listed on the page.
+        id: 'buyers-guide-hs-codes',
+        path: '/buyers-guide/import-and-hs-codes',
+        parent: 'buyers-guide',
+        section: 'guide',
+        schemaType: 'TechArticle',
+        languages: ['en', 'ru'],
+        title: {
+            en: 'Licorice Root HS Codes and Import Rules | Bogot Master',
+            ru: 'Коды ТН ВЭД и правила импорта корня солодки | Bogot Master',
+        },
+        h1: {
+            en: 'Import rules and HS codes for licorice root',
+            ru: 'Коды ТН ВЭД и правила импорта корня солодки',
+        },
+        navTitle: { en: 'Import rules and HS codes', ru: 'Коды ТН ВЭД и импорт' },
+        meta: {
+            en: 'HS codes for licorice root and extract (1211.90, 1302.12), the EAEU and Uzbek national lines, and the EU, US and UK import rules buyers ask about.',
+            ru: 'Коды ТН ВЭД и ГС для корня и экстракта солодки (1211 90 860 1, 1211.90, 1302.12) и правила импорта в ЕС, США и Великобританию.',
+        },
+        updated: '2026-10-24',
+        priority: 0.6,
+    },
 ];
 
 export const SCHEMA_TYPES = ['WebPage', 'CollectionPage', 'TechArticle', 'DefinedTermSet'];

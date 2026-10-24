@@ -247,7 +247,18 @@ const ProductDetail = ({ addToast }) => {
                                         {TRADE_TERMS.map((key) => (
                                             <Fragment key={key}>
                                                 <dt>{t(`terms_${key}_label`)}</dt>
-                                                <dd>{t(`terms_${key}`)}</dd>
+                                                <dd>
+                                                    {t(`terms_${key}`)}
+                                                    {/* The HS line leads to the guide's codes chapter. */}
+                                                    {key === 'hs' && (
+                                                        <>
+                                                            {' · '}
+                                                            <LocalLink to="/buyers-guide/import-and-hs-codes" className="pd-terms-inline-link">
+                                                                {t('terms_hs_link')}
+                                                            </LocalLink>
+                                                        </>
+                                                    )}
+                                                </dd>
                                             </Fragment>
                                         ))}
                                     </dl>
