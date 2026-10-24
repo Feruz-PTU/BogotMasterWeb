@@ -84,7 +84,7 @@ Food buyers often ask for a food-safety certificate, such as HACCP, ISO 22000 or
 - **Specification:** on each product page.
 - **Shipping documents:** the phytosanitary certificate, the certificate of origin, the fumigation certificate and the rest; see [shipping and documents](/logistics#documents).
 
-The results for ochratoxin A and pesticide residues are on each load's certificate of analysis, from a professional laboratory in Uzbekistan that you can choose; we do not publish them on the site. Send your specification with your enquiry, with the tests it requires. Every load is fumigated with phosphine (aluminium phosphide) before shipping; the root is never irradiated.
+Each load has a certificate of analysis from a professional laboratory in Uzbekistan that you can choose. It always covers glycyrrhizic acid, ash and moisture; ochratoxin A, pesticide residues and other tests are added when you ask for them, so send your specification, with the tests it requires, with your enquiry. Every load is fumigated with phosphine (aluminium phosphide) before shipping; the root is never irradiated.
 
 For a quote or a sample, use the button below.
 

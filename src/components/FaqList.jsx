@@ -71,7 +71,8 @@ const FaqList = ({ items }) => {
                 setFlash(id);
                 later('flash', () => setFlash(null), 2500);
             }
-            requestAnimationFrame(() => el.scrollIntoView({ block: 'start' }));
+            // Directly (see MarkdownBody): the answers are already in the page.
+            el.scrollIntoView({ block: 'start' });
         };
         openFromHash();
         window.addEventListener('hashchange', openFromHash);

@@ -16,13 +16,13 @@ Compare limits with limits and results with results. A supplier's minimum of 4 %
 - **The method.** Methods differ in what they measure. Liquid chromatography ([HPLC](/buyers-guide/glossary#hplc)) separates glycyrrhizic acid from the root's other compounds before measuring it; a spectrophotometric (UV) method measures how much light a prepared solution absorbs. The Russian State Pharmacopoeia, for example, measures glycyrrhizic acid by UV absorbance at 258 nm. Results obtained by different methods are not directly comparable.
 - **The basis.** A figure can be stated on the dried root or on the root as it is. The European Pharmacopoeia's minimum is 4.0 % of 18β-glycyrrhizic acid "calculated with reference to the dried drug"; the Russian monograph's minimum is 6 % on absolutely dry material. A root at 4.0 % on the dried basis, with 10 % moisture, holds 3.6 % as it is (4.0 × 0.90).
 
-So compare figures obtained by the same method on the same basis, and ask for both with any figure you are offered, ours included. Our root grades are specified at no less than 4 % and the extraction grade at no less than 3.5 %. Glycyrrhizic acid tends to follow root diameter and harvest season; if your specification sets a higher minimum, say so in your enquiry, and lots richer in it can be selected. The full comparison of the pharmacopoeias is on our [pharmaceutical page](/applications/pharmaceutical#pharmacopoeias).
+So compare figures obtained by the same method on the same basis, and ask for both with any figure you are offered, ours included. Our root grades are specified at no less than 4 % and the extraction grade at no less than 3.5 %, and every load's laboratory certificate of analysis gives its glycyrrhizic acid. Glycyrrhizic acid tends to follow root diameter and harvest season; if your specification sets a higher minimum, say so in your enquiry, and lots richer in it can be selected. The full comparison of the pharmacopoeias is on our [pharmaceutical page](/applications/pharmaceutical#pharmacopoeias).
 
 ## Moisture and loss on drying {#moisture}
 
 [Loss on drying](/buyers-guide/glossary#loss-on-drying) is the weight a sample loses when dried under set conditions: water plus anything else that evaporates. Moisture, or water content, counts water only. A specification should say which of the two it means, and by which method.
 
-Moisture matters twice: you pay for the water in the load, and the drier the root, the less room mould has to grow in storage. Our specifications set moisture at not more than 12 %. The Russian monograph allows up to 14 %.
+Moisture matters twice: you pay for the water in the load, and the drier the root, the less room mould has to grow in storage. Our specifications set moisture at not more than 12 %, and every load's certificate of analysis gives it. The Russian monograph allows up to 14 %.
 
 ## Total ash and acid-insoluble ash {#ash}
 
@@ -33,7 +33,7 @@ Moisture matters twice: you pay for the water in the load, and the drier the roo
 | Russian State Pharmacopoeia, ФС.2.5.0040.15 | Not more than 8 % | Not more than 2.5 %; whole peeled root, not more than 1 % |
 | US 21 CFR 184.1408 (food use) | Not more than 9.5 %, anhydrous | Not more than 2.5 %, anhydrous |
 
-For the European Pharmacopoeia's limits, see monograph 0277 itself. Washing removes soil from the surface, and peeling removes it with the bark, so both lower acid-insoluble ash. Our specifications give ash as "available on request": the result for a load is on its certificate of analysis from the laboratory. Name the limit your specification sets in your enquiry.
+For the European Pharmacopoeia's limits, see monograph 0277 itself. Washing removes soil from the surface, and peeling removes it with the bark, so both lower acid-insoluble ash. Our specifications give ash as "available on request": the result for each load is on its certificate of analysis from the laboratory, which always includes ash. Name the limit your specification sets in your enquiry.
 
 ## Foreign matter {#foreign-matter}
 
@@ -56,7 +56,7 @@ These are the lines buyers most often add to a specification. The figures below 
 - **[Ochratoxin A](/buyers-guide/glossary#ochratoxin-a):** a toxin made by some moulds. Regulation (EU) 2023/915 sets 20 µg/kg for dried liquorice root, including in herbal infusions, and 80 µg/kg for liquorice extract for use in food (Annex I, entry 1.2.19). More on the [food page](/applications/food-and-confectionery#eu-ochratoxin).
 - **[Aflatoxins](/buyers-guide/glossary#aflatoxins):** specifications for plant materials often set limits for aflatoxin B1 and for the total of B1, B2, G1 and G2.
 
-The results for a load are on its certificate of analysis from the laboratory; we do not publish them on the site. Name the tests your specification requires in your enquiry.
+These are not part of our standard certificate of analysis. Name the ones your specification requires in your enquiry, and the laboratory tests the load for them.
 
 ## Storage and shelf life {#shelf-life}
 
@@ -74,7 +74,7 @@ The World Health Organization publishes a model COA for quality control laborato
 
 When one arrives, check that its lot number is the one on the invoice, the packing list and the bags (see the [checklist before payment](/buyers-guide/shipping-documents#checklist)); that its limits are your specification's; that it gives numbers, not only "complies"; and who did the testing.
 
-Each of our export loads has a certificate of analysis from a professional laboratory in Uzbekistan, and you can choose the laboratory. Name it, and the tests your specification requires, in your enquiry. We keep a sample of each shipment for one year.
+Each of our export loads has a certificate of analysis from a professional laboratory in Uzbekistan, and you can choose the laboratory. It always covers glycyrrhizic acid, ash and moisture; name any other tests your specification requires, such as microbiology, heavy metals or pesticide residues, in your enquiry. We keep a sample of each shipment for one year.
 
 ## Sources {#sources}
 

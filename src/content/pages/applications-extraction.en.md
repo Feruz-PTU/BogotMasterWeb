@@ -41,7 +41,7 @@ Extract makers usually set these points; send yours with your enquiry, and we qu
 
 Free samples of 100–200 g per grade go to companies; you pay the FedEx shipping, or use your own FedEx account.
 
-If your extract goes into food in the EU, it must meet the ochratoxin A limit of 80 µg/kg on the pure, undiluted extract. The regulation notes that 1 kg of extract is obtained from 3 to 4 kg of root; dried root itself has a limit of 20 µg/kg (Regulation (EU) 2023/915, Annex I, entry 1.2.19). The ochratoxin A result for a load is on its certificate of analysis from the laboratory; we do not publish results on the site, so name the test in your enquiry.
+If your extract goes into food in the EU, it must meet the ochratoxin A limit of 80 µg/kg on the pure, undiluted extract. The regulation notes that 1 kg of extract is obtained from 3 to 4 kg of root; dried root itself has a limit of 20 µg/kg (Regulation (EU) 2023/915, Annex I, entry 1.2.19). Ochratoxin A is not part of the standard certificate of analysis, which covers glycyrrhizic acid, ash and moisture: name the test in your enquiry, and the laboratory adds it.
 
 ## Volume and supply {#supply}
 

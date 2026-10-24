@@ -47,7 +47,7 @@ Every load is fumigated with phosphine (aluminium phosphide) before it leaves, a
 
 ## Certificate of analysis {#certificate-of-analysis}
 
-Every export load has a certificate of analysis (COA) from a professional laboratory in Uzbekistan, and you can choose the laboratory. Name it, and the tests your specification requires, in your enquiry. We keep a sample of each shipment for one year. For what each line of a COA means, see [Reading a specification](/buyers-guide/reading-a-specification#coa).
+Every export load has a certificate of analysis (COA) from a professional laboratory in Uzbekistan, and you can choose the laboratory. It always covers glycyrrhizic acid, ash and moisture; name the laboratory, and any other tests your specification requires, in your enquiry. We keep a sample of each shipment for one year. For what each line of a COA means, see [Reading a specification](/buyers-guide/reading-a-specification#coa).
 
 **Check:** the lot number and the product are the ones on the invoice and the packing list, and the laboratory and the tests are the ones agreed.
 

@@ -40,7 +40,7 @@ One of the major flavonoids of licorice root: a glycoside of liquiritigenin. Iso
 The agreed list of a product's properties and limits, with the test method for each: what the buyer tests the delivered lot against.
 
 ### Certificate of analysis (COA) {#coa}
-A document giving the test results of one lot against its specification, with the methods and the laboratory. The WHO publishes a model certificate of analysis. Each of our export loads has a COA from a professional laboratory in Uzbekistan, which you can choose.
+A document giving the test results of one lot against its specification, with the methods and the laboratory. The WHO publishes a model certificate of analysis. Each of our export loads has a COA from a professional laboratory in Uzbekistan, which you can choose; it always covers glycyrrhizic acid, ash and moisture.
 
 ### Lot number {#lot-number}
 The code that identifies one batch, so that its documents, samples and test results can be traced.

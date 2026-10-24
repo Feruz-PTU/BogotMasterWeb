@@ -49,8 +49,10 @@ const MarkdownBody = ({ bodies, kind, name, language, className, loadingText, he
         } catch {
             return;
         }
+        // Directly, not in requestAnimationFrame: the text is already in the
+        // page, and a browser that draws no frames (headless) would never run it.
         const el = id && document.getElementById(id);
-        if (el) requestAnimationFrame(() => el.scrollIntoView({ block: 'start' }));
+        if (el) el.scrollIntoView({ block: 'start' });
     }, [source]);
 
     useEffect(() => {

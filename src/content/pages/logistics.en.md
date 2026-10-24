@@ -67,7 +67,7 @@ Every load travels with:
 - the phytosanitary certificate, issued by the Agency for Plant Protection and Quarantine under the Ministry of Agriculture of the Republic of Uzbekistan;
 - the certificate of origin, issued by SCC LLC "Khorezmexpertiza" of JSC "Uzbekexpertiza";
 - the fumigation certificate: every load is fumigated with phosphine (aluminium phosphide) before it leaves;
-- the certificate of analysis for the load, from a professional laboratory in Uzbekistan, which you can choose;
+- the certificate of analysis for the load, from a professional laboratory in Uzbekistan that you can choose: glycyrrhizic acid, ash and moisture, and any other tests you ask for;
 - a copy of the sales contract, on request.
 
 The certificates take a few days to issue and are ready before the load is. What each document is, and what to check on it before you pay, is in [Documents for each shipment](/buyers-guide/shipping-documents). For the customs codes and the import rules in the EU, the US, the UK and the EAEU, see [Import rules and HS codes](/buyers-guide/import-and-hs-codes).
