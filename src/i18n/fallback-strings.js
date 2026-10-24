@@ -226,6 +226,8 @@ export const FALLBACK_STRINGS = {
         // Under the free-sample box: "More about samples: FAQ · How ordering works".
         sample_more: 'More about samples:',
         sample_guide_link: 'How ordering works',
+        // Beside the specification heading on licorice root product pages.
+        spec_guide_link: 'How to read this specification →',
 
         // The named sales contact and the legal details (owner, 22–23 Oct 2026).
         sales_contact_title: 'Your contact',
@@ -529,6 +531,7 @@ export const FALLBACK_STRINGS = {
         contact_faq_link: 'Частые вопросы →',
         sample_more: 'Подробнее об образцах:',
         sample_guide_link: 'Как устроен заказ',
+        spec_guide_link: 'Как читать эту спецификацию →',
 
         sales_contact_title: 'Ваш контакт',
         sales_contact_name: 'Феруз, менеджер по продажам',

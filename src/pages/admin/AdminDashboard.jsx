@@ -356,6 +356,7 @@ const TRANSLATION_GROUPS = [
             { key: 'contact_faq_link', label: 'Link on the contact banner' },
             { key: 'sample_more', label: 'Under the free-sample box: "More about samples:"' },
             { key: 'sample_guide_link', label: 'Under the free-sample box: link to the ordering chapter' },
+            { key: 'spec_guide_link', label: 'Beside the specification heading: link to the reading-a-specification chapter' },
             { key: 'faq_search_label', label: 'Search: label' },
             { key: 'faq_search_placeholder', label: 'Search: example text' },
             { key: 'faq_groups_label', label: 'Group buttons (for screen readers)' },

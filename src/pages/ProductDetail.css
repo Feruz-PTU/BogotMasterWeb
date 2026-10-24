@@ -230,7 +230,30 @@
     font-size: 1.8rem;
     font-weight: 700;
     color: var(--color-text-dark);
+    margin-bottom: 0;
+}
+
+/* The heading, with "How to read this specification →" beside it. */
+.pd-specs-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px 24px;
     margin-bottom: 32px;
+}
+
+.pd-specs-guide {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.pd-specs-guide:hover,
+.pd-specs-guide:focus-visible {
+    text-decoration-thickness: 2px;
 }
 
 .pd-specs-grid {
@@ -435,6 +458,9 @@
 
     .pd-specs h2 {
         font-size: 1.5rem;
+    }
+
+    .pd-specs-head {
         margin-bottom: 20px;
     }
 

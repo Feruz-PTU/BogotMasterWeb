@@ -173,7 +173,15 @@ const ProductDetail = () => {
                     ([k, v]) => k !== 'documents' && v != null && String(v).trim() !== ''
                 ) && (
                     <div className="pd-specs reveal">
-                        <h2>{t('specifications')}</h2>
+                        <div className="pd-specs-head">
+                            <h2>{t('specifications')}</h2>
+                            {/* Licorice root only: the chapter explains root specifications. */}
+                            {licorice && (
+                                <LocalLink to="/buyers-guide/reading-a-specification" className="pd-specs-guide">
+                                    {t('spec_guide_link')}
+                                </LocalLink>
+                            )}
+                        </div>
                         <div className="pd-specs-grid">
                             {(specs.botanical_name || specs.origin || specs.part_used || specs.cultivation) && (
                                 <div className="pd-spec-card">

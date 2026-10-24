@@ -88,6 +88,33 @@ export const PAGES = [
         priority: 0.6,
     },
     {
+        // Chapter 2 (Appendix B §B3; folder 20). Limits only from texts read:
+        // Ph. Eur. 0277 via the EMA report (the 4.0 % minimum only), ГФ
+        // ФС.2.5.0040.15, 21 CFR 184.1408, EU 2023/915; COA fields from WHO
+        // TRS 1010 Annex 4. The annotated sample COA waits for a lab result.
+        id: 'buyers-guide-reading-a-specification',
+        path: '/buyers-guide/reading-a-specification',
+        parent: 'buyers-guide',
+        section: 'guide',
+        schemaType: 'TechArticle',
+        languages: ['en', 'ru'],
+        title: {
+            en: 'How to Read a Licorice Root Specification | Bogot Master',
+            ru: 'Как читать спецификацию на корень солодки | Bogot Master',
+        },
+        h1: {
+            en: 'Reading a specification and a certificate of analysis',
+            ru: 'Как читать спецификацию и сертификат анализа',
+        },
+        navTitle: { en: 'Reading a specification', ru: 'Как читать спецификацию' },
+        meta: {
+            en: 'What each line of a licorice root specification means: glycyrrhizic acid, moisture, ash, foreign matter, microbiology, contaminants and the COA.',
+            ru: 'Что означает каждая строка спецификации на корень солодки: глицирризиновая кислота, влажность, зола, примеси, микробиология, загрязнители и COA.',
+        },
+        updated: '2026-10-24',
+        priority: 0.6,
+    },
+    {
         // Chapter 3 (Appendix B §B3; folder 19). Issuers from the owner,
         // 22–23 Oct 2026; one lot number on every document (24 Oct 2026).
         id: 'buyers-guide-shipping-documents',
