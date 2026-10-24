@@ -1,0 +1,66 @@
+/* /request: the request form on a page of its own. */
+.request-page {
+    padding: 130px 5% 96px;
+    background: var(--color-bg-warm);
+}
+
+.request-inner {
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+.request-breadcrumb ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 28px;
+    padding: 0;
+    font-size: 0.85rem;
+    color: #6B6B6B;
+}
+
+.request-breadcrumb li:not(:last-child)::after {
+    content: '/';
+    margin-left: 8px;
+    color: #B5B5B5;
+}
+
+.request-breadcrumb a {
+    color: var(--color-primary);
+    font-weight: 500;
+}
+
+.request-page h1 {
+    font-size: clamp(1.7rem, 3.6vw, 2.4rem);
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--color-text-dark);
+    margin-bottom: 12px;
+}
+
+.request-intro {
+    margin-bottom: 28px;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #4A4A4A;
+}
+
+.request-card {
+    padding: 32px;
+    border: 1px solid #E4E2D9;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 640px) {
+    .request-page {
+        padding: 105px 16px 64px;
+    }
+
+    .request-card {
+        padding: 20px 16px;
+        border-radius: 16px;
+    }
+}

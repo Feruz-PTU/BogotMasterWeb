@@ -26,6 +26,7 @@ import PrivacyPage from './pages/PrivacyPage';
 import ArticlesPage from './pages/ArticlesPage';
 import ArticlePage from './pages/ArticlePage';
 import ContentPage from './pages/ContentPage';
+import RequestPage from './pages/RequestPage';
 import NotFound from './pages/NotFound';
 import { PAGES } from './content/pages';
 
@@ -45,6 +46,7 @@ function publicRoutes(addToast) {
         { path: 'about', element: <AboutPage addToast={addToast} /> },
         { path: 'contact', element: <ContactPage addToast={addToast} /> },
         { path: 'privacy', element: <PrivacyPage /> },
+        { path: 'request', element: <RequestPage /> },
         { path: 'articles', element: <ArticlesPage /> },
         { path: 'articles/:slug', element: <ArticlePage /> },
         // Content pages from the registry (content/pages/index.js). A page

@@ -73,7 +73,7 @@ export function businessHtml(d) {
     const row = (label, value) =>
         value ? `<tr>
             <td style="padding:10px 0;color:${MUTED};font-size:13px;white-space:nowrap;vertical-align:top;border-bottom:1px solid ${LINE};width:120px;">${esc(label)}</td>
-            <td style="padding:10px 0 10px 16px;color:${INK};font-size:14px;border-bottom:1px solid ${LINE};">${esc(value)}</td>
+            <td style="padding:10px 0 10px 16px;color:${INK};font-size:14px;border-bottom:1px solid ${LINE};white-space:pre-line;">${esc(value)}</td>
         </tr>` : '';
 
     const itemsRows = Array.isArray(d.items) && d.items.length
@@ -83,20 +83,26 @@ export function businessHtml(d) {
            </ul>` : '';
 
     const inner = `
-      <div style="display:inline-block;background:${BEIGE};color:${OLIVE};font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:6px 12px;border-radius:999px;">${esc(d.type || 'inquiry')}</div>
+      <div style="display:inline-block;background:${BEIGE};color:${OLIVE};font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:6px 12px;border-radius:999px;">${esc(TYPE_LABELS[d.type] || d.type || 'inquiry')}</div>
       <h1 style="font-size:20px;color:${INK};margin:16px 0 24px;font-weight:600;">New inquiry from ${esc(d.name)}</h1>
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
         ${row('Name', d.name)}
         ${row('Email', d.email)}
         ${row('Phone', d.phone)}
+        ${row('Reply by', d.preferred_channel)}
         ${row('Company', d.company)}
         ${row('Product', d.product)}
         ${row('Quantity', d.quantity)}
+        ${row('Annual volume', d.annual_volume)}
+        ${row('Used for', d.application)}
+        ${row('Standard', d.standard)}
         ${row('Destination country', d.destination_country)}
         ${row('Port / city', d.destination_port)}
         ${row('Incoterms', d.incoterms)}
         ${row('Total quantity', totalQuantity(d.total_quantity, d.quantity_unit))}
         ${row('Needed by', d.timeline)}
+        ${row('Sample address', d.sample_address)}
+        ${row('FedEx account', d.fedex_account)}
       </table>
       ${itemsRows}
       ${d.message ? `
@@ -122,7 +128,16 @@ export function autoReplyHtml(message) {
 }
 
 const EMAIL_RE = /^[^\s@,<>]+@[^\s@,<>]+\.[^\s@,<>]+$/;
-const TYPES = new Set(['contact', 'price', 'quote']);
+// 'sample' and 'docs' come from the request form (src/components/RequestForm.jsx).
+const TYPES = new Set(['contact', 'price', 'quote', 'sample', 'docs']);
+// The badge at the top of the owner's email.
+const TYPE_LABELS = {
+    contact: 'Question',
+    price: 'Price request',
+    quote: 'Quote request',
+    sample: 'Free sample',
+    docs: 'Spec sheet and documents',
+};
 /* eslint-disable no-control-regex --
    Matching control characters is the entire point of these two helpers: it is
    what stops a newline in a name or email field from injecting an extra mail
@@ -266,6 +281,13 @@ export default async function handler(req, res) {
         total_quantity: clamp(body.total_quantity, 32),
         quantity_unit: clamp(body.quantity_unit, 16),
         timeline: clamp(body.timeline, 80),
+        // The request form's fields.
+        annual_volume: clamp(body.annual_volume, 32),
+        application: clamp(body.application, 80),
+        standard: clamp(body.standard, 80),
+        preferred_channel: clamp(body.preferred_channel, 16),
+        sample_address: clampText(body.sample_address, 300),
+        fedex_account: clamp(body.fedex_account, 40),
         items: Array.isArray(body.items)
             ? body.items.slice(0, 20).map(i => ({
                 title: clamp(i?.title, 200),

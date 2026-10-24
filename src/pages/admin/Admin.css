@@ -1122,6 +1122,8 @@
 .admin-inq-type.contact { background: #e5e5e5; color: #555; }
 .admin-inq-type.price { background: #d6e0c6; color: #4e5e34; }
 .admin-inq-type.quote { background: #515E3B; color: #fff; }
+.admin-inq-type.sample { background: #F3E7B8; color: #6B5B1E; }
+.admin-inq-type.docs { background: #DCE6F0; color: #3D5A78; }
 
 .admin-inquiry-info {
     flex: 1;

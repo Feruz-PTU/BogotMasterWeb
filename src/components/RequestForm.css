@@ -1,0 +1,362 @@
+/* The request form: one column, labels above the fields. */
+.rf {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    font-family: var(--font-family);
+}
+
+.rf fieldset {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+}
+
+.rf legend,
+.rf-field > label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text-dark);
+}
+
+.rf-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.rf input:not([type='radio']),
+.rf select,
+.rf textarea {
+    width: 100%;
+    padding: 12px 14px;
+    background: #F9FAFB;
+    border: 1.5px solid #E5E7EB;
+    border-radius: 10px;
+    font: inherit;
+    font-size: 0.95rem;
+    color: var(--color-text-dark);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.rf textarea {
+    resize: vertical;
+}
+
+.rf input:not([type='radio']):focus,
+.rf select:focus,
+.rf textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(81, 94, 59, 0.12);
+}
+
+.rf .error {
+    border-color: #B42318;
+    background: #FFF8F7;
+}
+
+.rf-required {
+    color: #B42318;
+}
+
+.rf-required-note {
+    margin: -6px 0 0;
+    font-size: 0.78rem;
+    color: #5A5A5A;
+}
+
+/* Request type and reply channel: radio buttons drawn as pills. */
+.rf-type-options,
+.rf-channel-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.rf-type,
+.rf-channel {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: 9px 16px;
+    border: 1.5px solid #D9DCD2;
+    border-radius: 999px;
+    background: #fff;
+    font-size: 0.88rem;
+    color: var(--color-text-dark);
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.rf-type input,
+.rf-channel input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+}
+
+.rf-type.active,
+.rf-channel.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #fff;
+}
+
+.rf-type:hover,
+.rf-channel:hover {
+    border-color: var(--color-primary);
+}
+
+.rf-type:focus-within,
+.rf-channel:focus-within {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* Products and their quantities. */
+.rf-lines {
+    list-style: none;
+    margin: 4px 0 10px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.rf-line {
+    padding: 10px 12px;
+    border: 1px solid #E5E7EB;
+    border-radius: 10px;
+    background: var(--color-bg-warm);
+}
+
+/* Phone: the name and the remove button on one row, the quantity below.
+   Wider: name, quantity and remove button on one row. */
+.rf-line-main {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 8px 10px;
+}
+
+.rf-line-title {
+    grid-column: 1;
+    grid-row: 1;
+    font-size: 0.92rem;
+    font-weight: 500;
+}
+
+.rf-line-remove {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.rf-line-qty {
+    grid-column: 1 / -1;
+    grid-row: 2;
+}
+
+@media (min-width: 640px) {
+    .rf-line-main {
+        grid-template-columns: 1fr minmax(0, 270px) auto;
+    }
+
+    .rf-line-qty {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    .rf-line-remove {
+        grid-column: 3;
+    }
+}
+
+.rf-line-qty,
+.rf-amount {
+    display: flex;
+    gap: 8px;
+}
+
+.rf-line-qty input,
+.rf-amount input {
+    flex: 1 1 90px;
+    min-width: 0;
+}
+
+.rf-line-qty select,
+.rf-amount select {
+    flex: 1 1 130px;
+    min-width: 0;
+}
+
+.rf-line-remove {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: #6B6B6B;
+    cursor: pointer;
+}
+
+.rf-line-remove:hover,
+.rf-line-remove:focus-visible {
+    background: #ECEAE3;
+    color: var(--color-text-dark);
+}
+
+.rf-line-remove svg {
+    width: 18px;
+    height: 18px;
+}
+
+.rf-products .form-hint:first-of-type {
+    margin: -2px 0 6px;
+}
+
+/* Errors: text and an icon, never colour alone. Soft notes never block. */
+.rf-error,
+.rf-soft {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    margin-top: 6px;
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+
+.rf-error {
+    color: #B42318;
+}
+
+.rf-error svg {
+    flex: none;
+    width: 16px;
+    height: 16px;
+    margin-top: 1px;
+}
+
+.rf-soft {
+    color: #6B5B1E;
+}
+
+.rf-group {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding-top: 6px;
+    border-top: 1px solid #ECEAE3;
+}
+
+.rf-send-error {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: #FEF3F2;
+    color: #B42318;
+    font-size: 0.9rem;
+}
+
+.rf-send-error svg {
+    flex: none;
+    width: 20px;
+    height: 20px;
+}
+
+.rf-submit {
+    padding: 15px 24px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--color-primary);
+    color: #fff;
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.rf-submit:hover:not(:disabled) {
+    background: var(--color-primary-dark);
+}
+
+.rf-submit:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+.rf-promise {
+    margin: -4px 0 0;
+    font-size: 0.8rem;
+    line-height: 1.55;
+    color: #5A5A5A;
+    text-align: center;
+}
+
+.rf-promise a {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+.rf-alt {
+    padding-top: 14px;
+    border-top: 1px solid #ECEAE3;
+    text-align: center;
+}
+
+.rf-alt p {
+    margin: 0 0 10px;
+    font-size: 0.85rem;
+    color: #5A5A5A;
+}
+
+/* After a request is sent. */
+.rf-success {
+    padding: 32px 24px;
+    text-align: center;
+    outline: none;
+}
+
+.rf-success svg {
+    width: 48px;
+    height: 48px;
+    color: var(--color-primary);
+}
+
+.rf-success h3 {
+    margin: 12px 0 8px;
+    font-size: 1.3rem;
+    color: var(--color-text-dark);
+}
+
+.rf-success p {
+    margin: 0 0 20px;
+    color: #5A5A5A;
+    line-height: 1.6;
+}
+
+.rf-again {
+    padding: 11px 22px;
+    border: 1.5px solid var(--color-primary);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--color-primary);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.rf-again:hover {
+    background: var(--color-secondary);
+}

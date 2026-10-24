@@ -58,7 +58,7 @@ if (!template.includes('<div id="root"></div>')) {
 }
 
 /** Language-independent route paths that exist for every language. */
-const STATIC_ROUTES = ['/', '/products', '/about', '/contact', '/privacy', '/articles'];
+const STATIC_ROUTES = ['/', '/products', '/about', '/contact', '/privacy', '/request', '/articles'];
 
 // ── Checks before anything is written ────────────────────────────────────────
 // No "[owner: …]" or "[verify]" may go live, and every content page in the
@@ -177,6 +177,7 @@ const priorityFor = (routePath) => {
     if (routePath === '/products') return '0.9';
     if (routePath.startsWith('/products/')) return '0.8';
     if (routePath === '/privacy') return '0.2';
+    if (routePath === '/request') return '0.5';
     if (routePath === '/articles' || routePath.startsWith('/articles/')) return '0.6';
     return '0.7';
 };
@@ -262,6 +263,7 @@ writeFileSync(
         `- [About](${SITE_URL}/about)\n` +
         `- [Articles](${SITE_URL}/articles)\n` +
         `- [Contact](${SITE_URL}/contact)\n` +
+        `- [Request a quote, sample or documents](${SITE_URL}/request)\n` +
         `- [Privacy](${SITE_URL}/privacy)\n` +
         pageLines('en') +
         `\n## Main pages (Russian)\n\n` +
@@ -270,6 +272,7 @@ writeFileSync(
         `- [О компании](${SITE_URL}/ru/about)\n` +
         `- [Статьи](${SITE_URL}/ru/articles)\n` +
         `- [Контакты](${SITE_URL}/ru/contact)\n` +
+        `- [Запрос цены, образца или документов](${SITE_URL}/ru/request)\n` +
         `- [Политика конфиденциальности](${SITE_URL}/ru/privacy)\n` +
         pageLines('ru') +
         `\n` +

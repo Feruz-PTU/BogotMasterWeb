@@ -123,6 +123,7 @@ export const KNOWN_TOP_LEVEL_ROUTES = [
     'about',
     'contact',
     'privacy',
+    'request',
     'articles',
     'admin',
     ...pageTopSegments(),

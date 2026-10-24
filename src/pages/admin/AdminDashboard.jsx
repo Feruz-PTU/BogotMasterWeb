@@ -15,6 +15,7 @@ import {
     onRebuildStatus,
 } from '../../services/adminData';
 import { useLanguage } from '../../context/LanguageContext';
+import { FALLBACK_STRINGS } from '../../i18n/fallback-strings';
 import SEO from '../../components/SEO';
 import RelatedProductsPicker from './RelatedProductsPicker';
 import { resolveFamilies, familyChanges } from '../../utils/productFamily';
@@ -41,6 +42,31 @@ const CONTACT_EVENTS = new Set([
     'form_submit_price', 'form_submit_quote', 'form_submit_contact',
     'click_whatsapp', 'click_telegram', 'click_phone', 'click_email',
 ]);
+
+// Lead types: [short label for lists, long label for the detail view].
+// 'sample' and 'docs' come from the request form (RequestForm.jsx).
+const INQUIRY_TYPES = {
+    contact: ['Contact', 'Contact'],
+    price: ['Price', 'Price Request'],
+    quote: ['Quote', 'Quote Request'],
+    sample: ['Sample', 'Free Sample Request'],
+    docs: ['Docs', 'Documents Request'],
+};
+const inquiryTypeLabel = (type, long = false) => (INQUIRY_TYPES[type] || INQUIRY_TYPES.contact)[long ? 1 : 0];
+
+// The trade and request details a lead may carry, as [label, field].
+const INQUIRY_DETAILS = [
+    ['Reply by', 'preferred_channel'],
+    ['Destination country', 'destination_country'],
+    ['Port / city', 'destination_port'],
+    ['Incoterms', 'incoterms'],
+    ['Needed by', 'timeline'],
+    ['Annual volume', 'annual_volume'],
+    ['Used for', 'application'],
+    ['Standard', 'standard'],
+    ['Sample address', 'sample_address'],
+    ['FedEx account', 'fedex_account'],
+];
 
 const TRANSLATION_GROUPS = [
     {
@@ -324,6 +350,18 @@ const TRANSLATION_GROUPS = [
             { key: 'notfound_text', label: '404 text' },
             { key: 'notfound_home', label: '404 home link' },
         ],
+    },
+    {
+        // The request form (components/RequestForm.jsx) and the /request page:
+        // every one of its strings, labelled by its key.
+        id: 'request_form', label: 'Request Form',
+        keys: Object.keys(FALLBACK_STRINGS.en)
+            .filter((key) => /^(rf_|form_err_|request_)/.test(key))
+            .map((key) => ({
+                key,
+                label: key.replace(/_/g, ' '),
+                multiline: /(_hint|_promise|_intro|_desc|_text)/.test(key),
+            })),
     },
 ];
 
@@ -1159,7 +1197,7 @@ const AdminDashboard = () => {
     }, [inquiries]);
 
     const typeBreakdown = useMemo(() => {
-        const t = { contact: 0, price: 0, quote: 0 };
+        const t = { contact: 0, price: 0, quote: 0, sample: 0, docs: 0 };
         inquiries.forEach(i => { const ty = i.type || 'contact'; t[ty] = (t[ty] || 0) + 1; });
         return t;
     }, [inquiries]);
@@ -1235,12 +1273,24 @@ const AdminDashboard = () => {
         return sum || stats.total || 0;
     }, [stats]);
 
-    const inqTotal = typeBreakdown.contact + typeBreakdown.price + typeBreakdown.quote;
-    const pct = (n) => (inqTotal ? Math.round((n / inqTotal) * 100) : 0);
+    // The donut's slices, in order: [type, label, colour].
+    const DONUT = [
+        ['contact', 'Contact', '#a3a3a3'],
+        ['price', 'Price', '#8B9A65'],
+        ['quote', 'Quote', '#515E3B'],
+        ['sample', 'Sample', '#C9A227'],
+        ['docs', 'Docs', '#6B8CAE'],
+    ];
+    const inqTotal = DONUT.reduce((sum, [type]) => sum + (typeBreakdown[type] || 0), 0);
+    let donutAt = 0;
     const donutStyle = inqTotal === 0
         ? { background: '#ececec' }
         : {
-            background: `conic-gradient(#a3a3a3 0 ${pct(typeBreakdown.contact)}%, #8B9A65 0 ${pct(typeBreakdown.contact) + pct(typeBreakdown.price)}%, #515E3B 0 100%)`,
+            background: `conic-gradient(${DONUT.map(([type, , colour]) => {
+                const from = donutAt;
+                donutAt += ((typeBreakdown[type] || 0) / inqTotal) * 100;
+                return `${colour} ${from}% ${donutAt}%`;
+            }).join(', ')})`,
         };
 
     if (!authChecked) return null;
@@ -1764,9 +1814,9 @@ const AdminDashboard = () => {
                                             </div>
                                         </div>
                                         <div className="admin-donut-legend">
-                                            <div><i style={{ background: '#a3a3a3' }} />Contact <strong>{typeBreakdown.contact}</strong></div>
-                                            <div><i style={{ background: '#8B9A65' }} />Price <strong>{typeBreakdown.price}</strong></div>
-                                            <div><i style={{ background: '#515E3B' }} />Quote <strong>{typeBreakdown.quote}</strong></div>
+                                            {DONUT.map(([type, label, colour]) => (
+                                                <div key={type}><i style={{ background: colour }} />{label} <strong>{typeBreakdown[type] || 0}</strong></div>
+                                            ))}
                                         </div>
                                     </div>
                                 </div>
@@ -1828,7 +1878,7 @@ const AdminDashboard = () => {
                                         <div className="admin-recent-list">
                                             {recentInquiries.map(inq => (
                                                 <div className="admin-recent-row" key={inq.id} onClick={() => { setTabPersist('inquiries'); setExpandedInquiry(inq.id); }}>
-                                                    <span className={`admin-inq-type ${inq.type || 'contact'}`}>{inq.type === 'price' ? 'Price' : inq.type === 'quote' ? 'Quote' : 'Contact'}</span>
+                                                    <span className={`admin-inq-type ${inq.type || 'contact'}`}>{inquiryTypeLabel(inq.type)}</span>
                                                     <div className="admin-recent-info">
                                                         <strong>{inq.name}</strong>
                                                         <span>{inq.email}</span>
@@ -2319,7 +2369,7 @@ const AdminDashboard = () => {
                                                 Back to Inquiries
                                             </button>
                                             <span className={`admin-inq-type ${selectedInquiry.type || 'contact'}`}>
-                                                {selectedInquiry.type === 'price' ? 'Price Request' : selectedInquiry.type === 'quote' ? 'Quote Request' : 'Contact'}
+                                                {inquiryTypeLabel(selectedInquiry.type, true)}
                                             </span>
                                         </div>
                                         <div className="admin-inq-detail-actions">
@@ -2392,6 +2442,21 @@ const AdminDashboard = () => {
                                                 </div>
                                             )}
 
+                                            {/* Trade and request details */}
+                                            {(selectedInquiry.total_quantity || INQUIRY_DETAILS.some(([, key]) => selectedInquiry[key])) && (
+                                                <div className="admin-inq-detail-card">
+                                                    <p className="admin-inq-detail-card-label">Request Details</p>
+                                                    {selectedInquiry.total_quantity && (
+                                                        <p className="admin-inq-detail-quantity">Total quantity: <strong>{selectedInquiry.total_quantity} {selectedInquiry.quantity_unit}</strong></p>
+                                                    )}
+                                                    {INQUIRY_DETAILS.filter(([, key]) => selectedInquiry[key]).map(([label, key]) => (
+                                                        <p key={key} className="admin-inq-detail-quantity" style={{ whiteSpace: 'pre-line' }}>
+                                                            {label}: <strong>{selectedInquiry[key]}</strong>
+                                                        </p>
+                                                    ))}
+                                                </div>
+                                            )}
+
                                             {/* Subject */}
                                             {selectedInquiry.subject && (
                                                 <div className="admin-inq-detail-card">
@@ -2448,6 +2513,8 @@ const AdminDashboard = () => {
                                                 ['contact', `Contact (${typeBreakdown.contact})`],
                                                 ['price', `Price (${typeBreakdown.price})`],
                                                 ['quote', `Quote (${typeBreakdown.quote})`],
+                                                ['sample', `Sample (${typeBreakdown.sample})`],
+                                                ['docs', `Docs (${typeBreakdown.docs})`],
                                             ].map(([key, label]) => (
                                                 <button
                                                     key={key}
@@ -2505,7 +2572,7 @@ const AdminDashboard = () => {
                                                             >
                                                                 <td>
                                                                     <span className={`admin-inq-type ${inq.type || 'contact'}`}>
-                                                                        {inq.type === 'price' ? 'Price' : inq.type === 'quote' ? 'Quote' : 'Contact'}
+                                                                        {inquiryTypeLabel(inq.type)}
                                                                     </span>
                                                                 </td>
                                                                 <td>
@@ -2537,11 +2604,10 @@ const AdminDashboard = () => {
                                                                             {inq.company && <p><strong>Company:</strong> {inq.company}</p>}
                                                                             {inq.quantity && <p><strong>Quantity:</strong> {inq.quantity}</p>}
                                                                             {inq.subject && <p><strong>Subject:</strong> {inq.subject}</p>}
-                                                                            {inq.destination_country && <p><strong>Destination country:</strong> {inq.destination_country}</p>}
-                                                                            {inq.destination_port && <p><strong>Port / city:</strong> {inq.destination_port}</p>}
-                                                                            {inq.incoterms && <p><strong>Incoterms:</strong> {inq.incoterms}</p>}
                                                                             {inq.total_quantity && <p><strong>Total quantity:</strong> {inq.total_quantity} {inq.quantity_unit}</p>}
-                                                                            {inq.timeline && <p><strong>Needed by:</strong> {inq.timeline}</p>}
+                                                                            {INQUIRY_DETAILS.filter(([, key]) => inq[key]).map(([label, key]) => (
+                                                                                <p key={key} style={{ whiteSpace: 'pre-line' }}><strong>{label}:</strong> {inq[key]}</p>
+                                                                            ))}
                                                                             {Array.isArray(inq.items) && inq.items.length > 0 && (
                                                                                 <div className="admin-inquiry-msg">
                                                                                     <strong>Requested products:</strong>
