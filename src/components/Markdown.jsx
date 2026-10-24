@@ -18,9 +18,10 @@ import './Markdown.css';
  * `## Heading {#fca}` sets it; otherwise it is made from the heading text.
  * Set it by hand where the English and Russian pages must share an anchor.
  *
- * Anything else comes out as plain text. The source is always a file from
- * this repository, never visitor input, and it is rendered as React elements
- * rather than injected as HTML.
+ * Anything else comes out as plain text. The source is a file from this
+ * repository or an FAQ answer written in the admin, never visitor input, and
+ * it is rendered as React elements rather than injected as HTML. Links go
+ * only to site paths, anchors, http(s) and mailto.
  */
 
 const HEADING = /^(#{2,3})\s+(.+)$/;
@@ -142,8 +143,13 @@ function renderInline(text, keyPrefix) {
         } else if (href !== undefined) {
             // Link text can hold an italic species name or an escape.
             const label = renderInline(linkText, key);
+            // FAQ answers come from the database: a link may only go to a
+            // site path, an anchor, http(s) or mailto, never "javascript:".
+            const safe = /^(\/(?!\/)|#|https?:\/\/|mailto:)/i.test(href);
             nodes.push(
-                isExternal(href) ? (
+                !safe ? (
+                    <span key={key}>{label}</span>
+                ) : isExternal(href) ? (
                     <a key={key} href={href} target="_blank" rel="noopener noreferrer">
                         {label}
                     </a>

@@ -11,10 +11,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { fetchFaq, saveFaq, saveFaqs, deleteFaq } from '../../services/adminData';
 import { LIVE_LANGUAGES } from '../../i18n/languages';
+import { FAQ_GROUPS, faqLanguages, sortFaq } from '../../utils/faq';
 import {
-    FAQ_GROUPS, FAQ_STATUSES, FAQ_SOURCES, FAQ_WORDS, FAQ_SLUG_MAX,
-    faqProblems, faqLanguages, faqPlaceholders, faqWordCount, sortFaq,
-} from '../../utils/faq';
+    FAQ_STATUSES, FAQ_SOURCES, FAQ_WORDS, FAQ_SLUG_MAX,
+    faqProblems, faqPlaceholders, faqWordCount,
+} from '../../utils/faqChecks';
 import './FaqAdmin.css';
 
 const CODES = LIVE_LANGUAGES.map((l) => l.code);

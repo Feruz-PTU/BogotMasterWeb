@@ -1,0 +1,1 @@
+Short answers to the questions buyers ask us most. Each answer links to the page with the full detail and has a link of its own that you can share. If your question is not here, ask us: our sales representative replies within 24 hours.

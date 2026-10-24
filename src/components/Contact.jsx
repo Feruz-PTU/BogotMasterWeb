@@ -95,6 +95,9 @@ const Contact = ({ openPopup }) => {
                     <div className="contact-cta-content">
                         <p className="contact-cta-title">{t('contact_cta_title')}</p>
                         <p>{t('contact_cta_text')}</p>
+                        <p className="contact-cta-faq">
+                            <LocalLink to="/faq">{t('contact_faq_link')}</LocalLink>
+                        </p>
                     </div>
                     <button type="button" className="btn-cta" onClick={openPopup}>
                         {t('contact_cta_btn')}

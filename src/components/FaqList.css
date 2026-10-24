@@ -1,0 +1,275 @@
+/* The FAQ page's answers (FaqList.jsx), inside the content-page layout. */
+
+.faq {
+    margin-top: 32px;
+}
+
+/* ── Search and group chips ── */
+.faq-tools {
+    margin-bottom: 8px;
+}
+
+.faq-search-label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text-dark);
+    margin-bottom: 8px;
+}
+
+.faq-search {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: inherit;
+    /* 16px, not 1rem: the site's rem is smaller on phones, and iOS zooms
+       into a field under 16px. */
+    font-size: 16px;
+    padding: 12px 16px;
+    border: 1.5px solid #D6D3C8;
+    border-radius: 10px;
+    background: #fff;
+    color: var(--color-text-dark);
+}
+
+.faq-search:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(81, 94, 59, 0.15);
+}
+
+.faq-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.faq-chip {
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-primary-dark);
+    background: #fff;
+    border: 1.5px solid #D6D3C8;
+    border-radius: 999px;
+    padding: 7px 16px;
+    min-height: 40px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.faq-chip:hover {
+    border-color: var(--color-primary);
+}
+
+.faq-chip[aria-pressed='true'] {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #fff;
+}
+
+.faq-chip:focus-visible,
+.faq-copy:focus-visible,
+.faq-ask:focus-visible,
+.faq-item summary:focus-visible {
+    outline: 3px solid rgba(81, 94, 59, 0.45);
+    outline-offset: 2px;
+}
+
+.faq-count {
+    min-height: 1.4em;
+    margin-top: 12px;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+}
+
+/* ── Groups and answers ── */
+.faq-group {
+    margin-top: 28px;
+}
+
+.faq-group h2 {
+    font-size: 1.3rem;
+    color: var(--color-primary-dark);
+    margin-bottom: 12px;
+    /* Room for the fixed navigation bar when opened by #group-… */
+    scroll-margin-top: 110px;
+}
+
+.faq-item {
+    background: #fff;
+    border: 1px solid #E4E2D9;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    scroll-margin-top: 110px;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.faq-item[open] {
+    border-color: #CFD6C0;
+}
+
+/* Opened by its link: marked for a moment so the eye finds it. */
+.faq-item.is-flash {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 4px rgba(81, 94, 59, 0.18);
+}
+
+.faq-item summary {
+    list-style: none;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 20px;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+/* A chevron that turns when the answer opens. */
+.faq-item summary::after {
+    content: '';
+    flex-shrink: 0;
+    width: 10px;
+    height: 10px;
+    margin-top: 6px;
+    border-right: 2px solid var(--color-primary);
+    border-bottom: 2px solid var(--color-primary);
+    transform: rotate(45deg);
+    transition: transform 0.2s ease;
+}
+
+.faq-item[open] summary::after {
+    transform: rotate(-135deg);
+    margin-top: 10px;
+}
+
+.faq-q {
+    font-size: 1.02rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--color-text-dark);
+}
+
+.faq-a {
+    padding: 0 20px 16px;
+}
+
+.faq-a .markdown p,
+.faq-a .markdown li {
+    font-size: 0.98rem;
+    line-height: 1.75;
+    color: #333;
+}
+
+.faq-a .markdown p {
+    margin-bottom: 12px;
+}
+
+.faq-a .markdown ul,
+.faq-a .markdown ol {
+    margin: 0 0 12px 20px;
+}
+
+.faq-a .markdown a,
+.faq-more a {
+    color: var(--color-primary);
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.faq-foot {
+    border-top: 1px solid #EFEDE6;
+    padding-top: 12px;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+}
+
+.faq-more {
+    margin-bottom: 6px;
+    color: #474747;
+}
+
+.faq-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 16px;
+}
+
+.faq-copy {
+    font-weight: 600;
+    color: var(--color-primary);
+    text-decoration: none;
+    padding: 6px 0;
+}
+
+.faq-copy:hover {
+    text-decoration: underline;
+}
+
+/* ── No answer / loading ── */
+.faq-empty {
+    margin-top: 24px;
+    padding: 20px 24px;
+    background: #fff;
+    border: 1px dashed #CFCBBE;
+    border-radius: 12px;
+}
+
+.faq-empty p {
+    margin-bottom: 14px;
+    line-height: 1.6;
+    color: #333;
+    overflow-wrap: anywhere;
+}
+
+.faq-ask {
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+    background: var(--color-primary);
+    border: none;
+    padding: 11px 24px;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.faq-ask:hover {
+    background: var(--color-primary-dark);
+}
+
+.faq-loading,
+.faq-none {
+    color: var(--color-text-muted);
+    padding: 24px 0;
+}
+
+@media (max-width: 640px) {
+    .faq-item summary {
+        padding: 14px 16px;
+    }
+
+    .faq-a {
+        padding: 0 16px 14px;
+    }
+
+    .faq-group h2 {
+        font-size: 1.15rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .faq-item,
+    .faq-item summary::after,
+    .faq-chip {
+        transition: none;
+    }
+}

@@ -35,6 +35,24 @@
     font-weight: 300;
 }
 
+/* "Common questions →": a link to the FAQ under the banner's text. */
+.contact-cta-content .contact-cta-faq {
+    margin-top: 12px;
+    opacity: 1;
+}
+
+.contact-cta-faq a {
+    color: #fff;
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.contact-cta-faq a:hover,
+.contact-cta-faq a:focus-visible {
+    text-decoration-thickness: 2px;
+}
+
 .btn-cta {
     background-color: white;
     color: var(--color-primary);

@@ -149,6 +149,9 @@ const ProductDetail = () => {
                                 >
                                     {t('sample_btn')}
                                 </button>
+                                <p className="pd-sample-faq">
+                                    <LocalLink to="/faq#samples">{t('sample_faq_link')}</LocalLink>
+                                </p>
                             </div>
                         )}
 

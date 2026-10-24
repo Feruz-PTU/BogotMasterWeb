@@ -190,6 +190,18 @@
     color: #fff;
 }
 
+.pd-sample-faq {
+    margin: 14px 0 0;
+    font-size: 0.875rem;
+}
+
+.pd-sample-faq a {
+    color: var(--color-primary);
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
 .pd-badges {
     display: flex;
     flex-wrap: wrap;

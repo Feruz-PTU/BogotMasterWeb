@@ -24,6 +24,7 @@ import {
 } from '../src/i18n/languages.js';
 import { ARTICLES, articleLanguages } from '../src/content/articles/index.js';
 import { PAGES, pageProblems } from '../src/content/pages/index.js';
+import { faqLanguages, sortFaq } from '../src/utils/faq.js';
 import { render } from '../dist-ssr/entry-server.js';
 import { checkSources, report } from './content-guard.mjs';
 import {
@@ -249,6 +250,15 @@ const pageLines = (code) =>
     PAGES.filter((p) => p.languages.includes(code))
         .map((p) => `- [${p.h1[code]}](${SITE_URL}${localizedPath(code, p.path)})\n`)
         .join('');
+// The published FAQ questions, each with its anchor on the FAQ page.
+const faqFile = join(ROOT, 'src/data/build-faq.json');
+const faqItems = existsSync(faqFile) ? sortFaq(JSON.parse(readFileSync(faqFile, 'utf8')).items || []) : [];
+const faqSection = (code, name) => {
+    const lines = faqItems
+        .filter((i) => faqLanguages(i, [code]).length)
+        .map((i) => `- [${i[`q_${code}`].trim().replace(/[[\]]/g, '')}](${SITE_URL}${localizedPath(code, '/faq')}#${i.slug})`);
+    return lines.length ? `## FAQ (${name})\n\n${lines.join('\n')}\n\n` : '';
+};
 
 writeFileSync(
     join(DIST, 'llms.txt'),
@@ -278,6 +288,8 @@ writeFileSync(
         `\n` +
         `## Products\n\n${productLines}\n\n` +
         `## Articles\n\n${articleLines}\n\n` +
+        faqSection('en', 'English') +
+        faqSection('ru', 'Russian') +
         `## Contact\n\n` +
         `- Email: ${content.settings?.email || 'feruz@bogotmaster.org'}\n` +
         `- Site: ${SITE_URL}\n`,

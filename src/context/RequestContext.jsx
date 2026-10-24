@@ -6,11 +6,11 @@ const RequestContext = createContext({ openRequest: () => {} });
 
 export const useRequest = () => useContext(RequestContext);
 
-/** A request's identity: its type and its products with their quantities. */
-const signatureOf = (type, products) =>
+/** A request's identity: its type, its products with their quantities, its message. */
+const signatureOf = (type, products, message) =>
     `${type}:${products
         .map((p) => (typeof p === 'string' ? p : `${p.slug}=${p.quantity || ''} ${p.unit || ''}`))
-        .join(',')}`;
+        .join(',')}|${message}`;
 
 /**
  * One request form for the whole site, in a pop-up. Any button opens it:
@@ -20,6 +20,7 @@ const signatureOf = (type, products) =>
  *
  * - `type`: 'quote' (default) | 'sample' | 'docs' | 'other'.
  * - `products`: slugs, or { slug, quantity, unit } lines.
+ * - `message`: text to start the message field with (the FAQ's unanswered search).
  * - `onSent`: called after a successful send (the quote cart empties itself).
  *
  * Reopening the same request keeps what was typed; a different request, or
@@ -32,7 +33,8 @@ export const RequestProvider = ({ children }) => {
     const openRequest = useCallback((options = {}) => {
         const type = options.type || 'quote';
         const products = options.products || [];
-        const signature = signatureOf(type, products);
+        const message = options.message || '';
+        const signature = signatureOf(type, products, message);
         track(EVENTS.QUOTE_MODAL_OPEN);
         setState((prev) => {
             const keep = prev.request && prev.request.signature === signature && !prev.request.done;
@@ -40,7 +42,7 @@ export const RequestProvider = ({ children }) => {
                 open: true,
                 request: keep
                     ? { ...prev.request, onSent: options.onSent }
-                    : { id: nextId.current++, signature, type, products, onSent: options.onSent, done: false },
+                    : { id: nextId.current++, signature, type, products, message, onSent: options.onSent, done: false },
             };
         });
     }, []);

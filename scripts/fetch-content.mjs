@@ -18,7 +18,8 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { LANGUAGE_CODES, DEFAULT_LANGUAGE } from '../src/i18n/languages.js';
 import { resolveFamilies } from '../src/utils/productFamily.js';
-import { faqProblems, sortFaq } from '../src/utils/faq.js';
+import { sortFaq } from '../src/utils/faq.js';
+import { faqProblems } from '../src/utils/faqChecks.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');

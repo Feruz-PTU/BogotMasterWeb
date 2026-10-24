@@ -120,7 +120,8 @@ function webPageNode({ canonical, title, description, lang, type = 'WebPage', da
  * The extra node of a content page (content/pages/index.js), by its
  * schemaType: a hub lists its pages, a guide chapter is a TechArticle, the
  * glossary is a DefinedTermSet (folder 11 adds the terms). A plain WebPage
- * needs nothing more. No HowTo, Offer or FAQPage here.
+ * needs nothing more. The FAQ page's node is the WebPage itself, typed
+ * FAQPage; its questions are added by faqPageGraph. No HowTo or Offer.
  */
 function contentPageNode({ contentPage, canonical, lang, description }) {
     const { schemaType, name, updated, children = [] } = contentPage;
@@ -285,7 +286,9 @@ export function buildGraph({
                   ? 'ContactPage'
                   : kind === 'content' && contentPage?.schemaType === 'CollectionPage'
                     ? 'CollectionPage'
-                    : 'WebPage';
+                    : kind === 'content' && contentPage?.schemaType === 'FAQPage'
+                      ? 'FAQPage'
+                      : 'WebPage';
 
     graph.push(
         webPageNode({
@@ -339,6 +342,39 @@ export function definedTermsGraph({ canonical, terms }) {
                     description: term.description,
                     url: `${canonical}#${term.id}`,
                     inDefinedTermSet: { '@id': setId },
+                })),
+            },
+        ],
+    };
+}
+
+/**
+ * The FAQ page's questions, attached by @id to its FAQPage node (the page's
+ * WebPage node, typed FAQPage by buildGraph). A second block for the same
+ * reason as definedTermsGraph: the answers are not in the main bundle, so
+ * FaqList writes it next to the list. Built from the visible text, so it
+ * cannot drift from it. `items`: { slug, q, a } with a as Markdown.
+ */
+export function faqPageGraph({ canonical, items }) {
+    const plain = (md) =>
+        md
+            .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+            .replace(/\*\*|\*|`/g, '')
+            .replace(/^\s*(?:-|\d+\.)\s+/gm, '')
+            .replace(/\s+/g, ' ')
+            .trim();
+    return {
+        '@context': 'https://schema.org',
+        '@graph': [
+            {
+                '@type': 'FAQPage',
+                '@id': `${canonical}#webpage`,
+                mainEntity: items.map((item) => ({
+                    '@type': 'Question',
+                    '@id': `${canonical}#${item.slug}`,
+                    name: plain(item.q),
+                    url: `${canonical}#${item.slug}`,
+                    acceptedAnswer: { '@type': 'Answer', text: plain(item.a) },
                 })),
             },
         ],

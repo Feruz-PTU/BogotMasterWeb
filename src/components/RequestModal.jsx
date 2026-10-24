@@ -52,6 +52,7 @@ const RequestModal = ({ request, open, onClose, onSent }) => {
                     key={request.id}
                     initialType={request.type}
                     initialProducts={request.products}
+                    initialMessage={request.message}
                     onLinkClick={onClose}
                     onSent={onSent}
                 />

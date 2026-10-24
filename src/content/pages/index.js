@@ -25,7 +25,9 @@
  *               a parent lists its children under its own text
  *   section     the menu group (folder 21 builds the menu from it)
  *   schemaType  'WebPage' | 'CollectionPage' (a hub: lists its children) |
- *               'TechArticle' (a guide chapter) | 'DefinedTermSet' (the glossary)
+ *               'TechArticle' (a guide chapter) | 'DefinedTermSet' (the glossary) |
+ *               'FAQPage' (the FAQ: its Markdown is the intro, the answers
+ *               come from the database)
  *   languages   e.g. ['en', 'ru']
  *   title       { en, ru }: the <title>, 60 characters or fewer
  *   h1          { en, ru }
@@ -235,9 +237,35 @@ export const PAGES = [
         updated: '2026-10-24',
         priority: 0.6,
     },
+    {
+        // The FAQ (folders 17–18). The Markdown is only the intro; the answers
+        // come from the `faq` table through src/data/build-faq.json and are
+        // shown by components/FaqList.jsx. Each answer's own date is on it.
+        id: 'faq',
+        path: '/faq',
+        parent: null,
+        section: 'guide',
+        schemaType: 'FAQPage',
+        languages: ['en', 'ru'],
+        title: {
+            en: 'Licorice Root FAQ: Grades, Samples, Shipping | Bogot Master',
+            ru: 'Вопросы и ответы о корне солодки | Bogot Master',
+        },
+        h1: {
+            en: 'Questions buyers ask',
+            ru: 'Вопросы покупателей',
+        },
+        navTitle: { en: 'FAQ', ru: 'Вопросы и ответы' },
+        meta: {
+            en: 'Answers to buyers’ questions about our licorice root: forms and grades, samples, prices, payment, Incoterms, documents, HS codes and lead times.',
+            ru: 'Ответы на вопросы покупателей о корне солодки: формы и фракции, образцы, цены, оплата, Incoterms, документы, коды ТН ВЭД и сроки.',
+        },
+        updated: '2026-10-24',
+        priority: 0.7,
+    },
 ];
 
-export const SCHEMA_TYPES = ['WebPage', 'CollectionPage', 'TechArticle', 'DefinedTermSet'];
+export const SCHEMA_TYPES = ['WebPage', 'CollectionPage', 'TechArticle', 'DefinedTermSet', 'FAQPage'];
 
 export const findPage = (id) => PAGES.find((p) => p.id === id);
 

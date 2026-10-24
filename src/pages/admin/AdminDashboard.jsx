@@ -344,6 +344,37 @@ const TRANSLATION_GROUPS = [
             { key: 'modal_error', label: 'Sending failed (error box)' },
         ],
     },
+    {
+        // The FAQ page's own text (components/FaqList.jsx); the questions and
+        // answers themselves are in the FAQ tab.
+        id: 'faq_page', label: 'FAQ Page',
+        keys: [
+            { key: 'faq_link', label: 'Link name (footer)' },
+            { key: 'contact_faq_link', label: 'Link on the contact banner' },
+            { key: 'sample_faq_link', label: 'Link under the free-sample box' },
+            { key: 'faq_search_label', label: 'Search: label' },
+            { key: 'faq_search_placeholder', label: 'Search: example text' },
+            { key: 'faq_groups_label', label: 'Group buttons (for screen readers)' },
+            { key: 'faq_chip_all', label: 'Group button: all' },
+            ...['products', 'quality', 'ordering', 'shipping', 'origin'].flatMap((g) => [
+                { key: `faq_chip_${g}`, label: `Group button: ${g}` },
+                { key: `faq_group_${g}`, label: `Group heading: ${g}` },
+            ]),
+            { key: 'faq_results_one', label: 'Search count, 1 (keep {n})' },
+            { key: 'faq_results_few', label: 'Search count, 2–4 (Russian only; keep {n})' },
+            { key: 'faq_results_many', label: 'Search count, 5+ (Russian only; keep {n})' },
+            { key: 'faq_results_other', label: 'Search count, other (keep {n})' },
+            { key: 'faq_no_results', label: 'No answer found (keep {q})', multiline: true },
+            { key: 'faq_no_results_group', label: 'Empty group' },
+            { key: 'faq_ask_btn', label: 'Ask button (opens the form)' },
+            { key: 'faq_read_more', label: 'Before the "read more" links' },
+            { key: 'faq_copy_link', label: 'Copy link' },
+            { key: 'faq_link_copied', label: 'Link copied' },
+            { key: 'faq_loading', label: 'Loading' },
+            { key: 'faq_none', label: 'No answers published yet', multiline: true },
+            { key: 'faq_cta_title', label: 'Question box heading at the end' },
+        ],
+    },
 ];
 
 const AdminDashboard = () => {

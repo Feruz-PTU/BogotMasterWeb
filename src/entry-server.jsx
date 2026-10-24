@@ -4,6 +4,10 @@ import { HelmetProvider } from 'react-helmet-async';
 import App from './App.jsx';
 import { provideBodies as provideArticleBodies } from './content/articles/bodies.js';
 import { provideBodies as providePageBodies } from './content/pages/bodies.js';
+import { provideFaq } from './utils/faqData.js';
+// The published FAQ answers: in the browser they are their own chunk, or read
+// back from the prerendered page (utils/faqData.js).
+import FAQ from './data/build-faq.json';
 
 // Article and page texts are separate chunks in the browser (see the two
 // bodies.js files), but a synchronous render needs them now. The keys match
@@ -25,6 +29,7 @@ providePageBodies(
         import.meta.glob('./content/pages/*.md', { query: '?raw', import: 'default', eager: true })
     )
 );
+provideFaq(FAQ);
 
 /**
  * Render one URL to an HTML string at build time.

@@ -69,6 +69,7 @@ const ErrorIcon = () => (
  * - `initialType`: 'quote' | 'sample' | 'docs' | 'other'.
  * - `initialProducts`: product slugs, or { slug, quantity, unit } lines, to
  *   start with (the page's product, or the quote cart).
+ * - `initialMessage`: text to start the message field with.
  * - `onLinkClick`: called when the privacy link is followed, so a modal
  *   holding the form can close.
  * - `onSent(type)`: called after a request is sent.
@@ -76,7 +77,7 @@ const ErrorIcon = () => (
  * Give the form a `key` that changes with its starting values, so a new start
  * never shows inside the old state.
  */
-const RequestForm = ({ initialType = 'quote', initialProducts = [], onLinkClick, onSent }) => {
+const RequestForm = ({ initialType = 'quote', initialProducts = [], initialMessage = '', onLinkClick, onSent }) => {
     const { t, language } = useLanguage();
     const { products } = useContent();
     const uid = useId();
@@ -93,7 +94,7 @@ const RequestForm = ({ initialType = 'quote', initialProducts = [], onLinkClick,
             .filter((p) => choices.some((c) => c.slug === p.slug))
             .map((p) => ({ slug: p.slug, quantity: p.quantity || '', unit: p.unit || 't' }))
     );
-    const [form, setForm] = useState(EMPTY);
+    const [form, setForm] = useState(() => ({ ...EMPTY, message: initialMessage || '' }));
     const [errors, setErrors] = useState({});
     const [status, setStatus] = useState(null); // null | 'sending' | 'error' | 'success'
     const [countries, setCountries] = useState([]);
