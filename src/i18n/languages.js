@@ -1,3 +1,5 @@
+import { pageTopSegments } from '../content/pages/index.js';
+
 // ─────────────────────────────────────────────────────────────────────────────
 // THE SINGLE SOURCE OF TRUTH FOR LANGUAGES
 //
@@ -113,7 +115,8 @@ export function parsePathname(pathname) {
 
 /**
  * Top-level route segments that are NOT languages. Kept here so a future
- * two-letter route (e.g. /qa) is never mistaken for a language prefix.
+ * two-letter route (e.g. /qa) is never mistaken for a language prefix. The
+ * content pages' segments (logistics, buyers-guide…) come from their registry.
  */
 export const KNOWN_TOP_LEVEL_ROUTES = [
     'products',
@@ -122,4 +125,5 @@ export const KNOWN_TOP_LEVEL_ROUTES = [
     'privacy',
     'articles',
     'admin',
+    ...pageTopSegments(),
 ];

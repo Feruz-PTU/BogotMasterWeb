@@ -19,6 +19,13 @@
     margin: 26px 0 10px;
 }
 
+/* A heading reached by its anchor (/logistics#fca) stops below the fixed
+   navigation bar instead of under it. */
+.markdown h2,
+.markdown h3 {
+    scroll-margin-top: 110px;
+}
+
 .markdown p,
 .markdown li {
     color: #4A4A4A;

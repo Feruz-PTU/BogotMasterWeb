@@ -32,6 +32,7 @@ const SEO = ({
     product,
     products,
     article,
+    contentPage,
     breadcrumb,
     languages,
 }) => {
@@ -71,6 +72,7 @@ const SEO = ({
         product,
         products,
         article,
+        contentPage,
         breadcrumb,
     });
 

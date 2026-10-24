@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import LocalLink, { LocalNavLink } from './LocalLink';
 import { LIVE_LANGUAGES, localizedPath, parsePathname } from '../i18n/languages';
-import { routeInLanguage } from '../content/articles';
+import { routeInLanguage } from '../content/routeInLanguage';
 import './Navbar.css';
 
 const Navbar = () => {

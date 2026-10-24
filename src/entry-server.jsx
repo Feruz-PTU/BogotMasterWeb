@@ -2,20 +2,27 @@ import { renderToString } from 'react-dom/server';
 import { MemoryRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import App from './App.jsx';
-import { provideBodies } from './content/articles/bodies.js';
+import { provideBodies as provideArticleBodies } from './content/articles/bodies.js';
+import { provideBodies as providePageBodies } from './content/pages/bodies.js';
 
-// Article texts are separate chunks in the browser (see bodies.js), but a
-// synchronous render needs them now. The keys match bodies.js's own glob,
-// which is why the pattern is written relative to that folder's files.
-provideBodies(
+// Article and page texts are separate chunks in the browser (see the two
+// bodies.js files), but a synchronous render needs them now. The keys match
+// each bodies.js's own glob, which is why the folder is cut off the path.
+const relativeTo = (folder, texts) =>
     Object.fromEntries(
-        Object.entries(
-            import.meta.glob('./content/articles/*.md', {
-                query: '?raw',
-                import: 'default',
-                eager: true,
-            })
-        ).map(([path, text]) => [path.replace('./content/articles/', './'), text])
+        Object.entries(texts).map(([path, text]) => [path.replace(folder, './'), text])
+    );
+
+provideArticleBodies(
+    relativeTo(
+        './content/articles/',
+        import.meta.glob('./content/articles/*.md', { query: '?raw', import: 'default', eager: true })
+    )
+);
+providePageBodies(
+    relativeTo(
+        './content/pages/',
+        import.meta.glob('./content/pages/*.md', { query: '?raw', import: 'default', eager: true })
     )
 );
 

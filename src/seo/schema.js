@@ -101,8 +101,8 @@ function websiteNode() {
     };
 }
 
-function webPageNode({ canonical, title, description, lang, type = 'WebPage' }) {
-    return {
+function webPageNode({ canonical, title, description, lang, type = 'WebPage', dateModified }) {
+    const node = {
         '@type': type,
         '@id': `${canonical}#webpage`,
         url: canonical,
@@ -112,6 +112,56 @@ function webPageNode({ canonical, title, description, lang, type = 'WebPage' }) 
         about: { '@id': ID.org },
         inLanguage: lang,
     };
+    if (dateModified) node.dateModified = dateModified;
+    return node;
+}
+
+/**
+ * The extra node of a content page (content/pages/index.js), by its
+ * schemaType: a hub lists its pages, a guide chapter is a TechArticle, the
+ * glossary is a DefinedTermSet (folder 11 adds the terms). A plain WebPage
+ * needs nothing more. No HowTo, Offer or FAQPage here.
+ */
+function contentPageNode({ contentPage, canonical, lang, description }) {
+    const { schemaType, name, updated, children = [] } = contentPage;
+    if (schemaType === 'CollectionPage') {
+        if (!children.length) return null;
+        return {
+            '@type': 'ItemList',
+            '@id': `${canonical}#itemlist`,
+            numberOfItems: children.length,
+            itemListElement: children.map((c, i) => ({
+                '@type': 'ListItem',
+                position: i + 1,
+                name: c.name,
+                url: abs(c.path),
+            })),
+        };
+    }
+    if (schemaType === 'TechArticle') {
+        return {
+            '@type': 'TechArticle',
+            '@id': `${canonical}#article`,
+            headline: name,
+            description,
+            dateModified: updated,
+            inLanguage: lang,
+            mainEntityOfPage: { '@id': `${canonical}#webpage` },
+            author: { '@id': ID.org },
+            publisher: { '@id': ID.org },
+        };
+    }
+    if (schemaType === 'DefinedTermSet') {
+        return {
+            '@type': 'DefinedTermSet',
+            '@id': `${canonical}#terms`,
+            name,
+            description,
+            inLanguage: lang,
+            url: canonical,
+        };
+    }
+    return null;
 }
 
 function breadcrumbNode(canonical, trail) {
@@ -207,7 +257,7 @@ function articleNode({ article, canonical, lang, description }) {
 /**
  * Assemble the page graph.
  * `kind` is one of: home | products | product | about | contact | privacy |
- * articles | article
+ * articles | article | content (a registry page, with `contentPage`)
  */
 export function buildGraph({
     kind,
@@ -219,6 +269,7 @@ export function buildGraph({
     product,
     products,
     article,
+    contentPage,
     breadcrumb,
 }) {
     const graph = [organizationNode(t), websiteNode()];
@@ -232,10 +283,19 @@ export function buildGraph({
                 ? 'AboutPage'
                 : kind === 'contact'
                   ? 'ContactPage'
-                  : 'WebPage';
+                  : kind === 'content' && contentPage?.schemaType === 'CollectionPage'
+                    ? 'CollectionPage'
+                    : 'WebPage';
 
     graph.push(
-        webPageNode({ canonical, title, description, lang, type: pageType })
+        webPageNode({
+            canonical,
+            title,
+            description,
+            lang,
+            type: pageType,
+            dateModified: kind === 'content' ? contentPage?.updated : undefined,
+        })
     );
 
     const crumbs = breadcrumbNode(canonical, breadcrumb);
@@ -249,6 +309,10 @@ export function buildGraph({
     }
     if (kind === 'article' && article) {
         graph.push(articleNode({ article, canonical, lang, description }));
+    }
+    if (kind === 'content' && contentPage) {
+        const node = contentPageNode({ contentPage, canonical, lang, description });
+        if (node) graph.push(node);
     }
 
     return { '@context': 'https://schema.org', '@graph': graph };

@@ -8,6 +8,7 @@
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { join, resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { checkHtml } from './content-guard.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
@@ -277,6 +278,14 @@ if (/gallary/.test(JSON.stringify(pages)) || existsSync(join(DIST, 'gallary phot
 else ok('gallery folder renamed');
 if (existsSync(join(DIST, 'images', 'placeholder.png'))) ok('placeholder.png exists (12 hidden products reference it)');
 else fail('placeholder.png is missing');
+
+// ── 12. No placeholders ──────────────────────────────────────────────────────
+// The build already refuses them in the sources (content-guard.mjs); this is
+// the second net, over what was actually generated.
+console.log('\n12. Placeholders');
+const placeholders = checkHtml(DIST);
+if (placeholders.length) placeholders.forEach((f) => fail(`placeholder in ${f.where}: ${f.text}`));
+else ok('no [owner: …] or [verify] in any generated HTML, XML or text file');
 
 // ── Result ───────────────────────────────────────────────────────────────────
 console.log(`\n═══ ${failures} failure(s), ${warnings} warning(s) ═══\n`);

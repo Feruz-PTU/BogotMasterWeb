@@ -23,7 +23,9 @@ import {
     localizedPath,
 } from '../src/i18n/languages.js';
 import { ARTICLES, articleLanguages } from '../src/content/articles/index.js';
+import { PAGES, pageProblems } from '../src/content/pages/index.js';
 import { render } from '../dist-ssr/entry-server.js';
+import { checkSources, report } from './content-guard.mjs';
 import {
     STATE_FILE,
     toW3CDate,
@@ -58,20 +60,37 @@ if (!template.includes('<div id="root"></div>')) {
 /** Language-independent route paths that exist for every language. */
 const STATIC_ROUTES = ['/', '/products', '/about', '/contact', '/privacy', '/articles'];
 
+// ── Checks before anything is written ────────────────────────────────────────
+// No "[owner: …]" or "[verify]" may go live, and every content page in the
+// registry must be complete (see src/content/pages/index.js).
+if (!report(await checkSources(ROOT), 'the site text')) process.exit(1);
+const registryProblems = pageProblems({
+    reservedPaths: [...STATIC_ROUTES.filter((r) => r !== '/'), '/admin', ...LIVE_LANGUAGES.map((l) => `/${l.code}`)],
+    liveLanguages: LIVE_LANGUAGES.map((l) => l.code),
+    bodyExists: (id, code) => existsSync(join(ROOT, 'src/content/pages', `${id}.${code}.md`)),
+});
+if (registryProblems.length) {
+    console.error('✖ The content-page registry (src/content/pages/index.js) has problems:');
+    for (const p of registryProblems) console.error(`   ${p}`);
+    process.exit(1);
+}
+
 const productRoutes = content.products.map((p) => `/products/${p.slug}`);
 const articleRoutes = ARTICLES.map((a) => `/articles/${a.slug}`);
-const ALL_ROUTES = [...STATIC_ROUTES, ...productRoutes, ...articleRoutes];
+const pageRoutes = PAGES.map((p) => p.path);
+const ALL_ROUTES = [...STATIC_ROUTES, ...pageRoutes, ...productRoutes, ...articleRoutes];
 
 /**
  * Whether `routePath` has a page in language `code`. Everything does except
- * an article, which exists only in the languages it was written in; building
- * the others would put English text at a Russian URL.
+ * an article or a content page, which exist only in the languages they were
+ * written in; building the others would put English text at a Russian URL.
  */
-const ARTICLE_LANGUAGES = new Map(
-    ARTICLES.map((a) => [`/articles/${a.slug}`, articleLanguages(a)])
-);
+const ROUTE_LANGUAGES = new Map([
+    ...ARTICLES.map((a) => [`/articles/${a.slug}`, articleLanguages(a)]),
+    ...PAGES.map((p) => [p.path, p.languages]),
+]);
 const existsIn = (routePath, code) =>
-    ARTICLE_LANGUAGES.get(routePath)?.includes(code) ?? true;
+    ROUTE_LANGUAGES.get(routePath)?.includes(code) ?? true;
 
 function writeHtml(urlPath, html) {
     // '/'            -> dist/index.html
@@ -150,7 +169,10 @@ const now = toW3CDate(new Date());
 const previous = await loadPreviousState(STATE_URL);
 const sitemapState = resolveLastmod(fingerprints, previous.pages, now);
 
+const PAGE_PRIORITY = new Map(PAGES.map((p) => [p.path, p.priority.toFixed(1)]));
+
 const priorityFor = (routePath) => {
+    if (PAGE_PRIORITY.has(routePath)) return PAGE_PRIORITY.get(routePath);
     if (routePath === '/') return '1.0';
     if (routePath === '/products') return '0.9';
     if (routePath.startsWith('/products/')) return '0.8';
@@ -221,6 +243,11 @@ const articleLines = ARTICLES.map((a) => {
     const code = a.languages[DEFAULT_LANGUAGE] ? DEFAULT_LANGUAGE : articleLanguages(a)[0];
     return `- [${a.languages[code].title}](${SITE_URL}${localizedPath(code, `/articles/${a.slug}`)})`;
 }).join('\n');
+// The content pages, under the main pages of each language they exist in.
+const pageLines = (code) =>
+    PAGES.filter((p) => p.languages.includes(code))
+        .map((p) => `- [${p.h1[code]}](${SITE_URL}${localizedPath(code, p.path)})\n`)
+        .join('');
 
 writeFileSync(
     join(DIST, 'llms.txt'),
@@ -235,13 +262,17 @@ writeFileSync(
         `- [About](${SITE_URL}/about)\n` +
         `- [Articles](${SITE_URL}/articles)\n` +
         `- [Contact](${SITE_URL}/contact)\n` +
-        `- [Privacy](${SITE_URL}/privacy)\n\n` +
-        `## Main pages (Russian)\n\n` +
+        `- [Privacy](${SITE_URL}/privacy)\n` +
+        pageLines('en') +
+        `\n## Main pages (Russian)\n\n` +
         `- [Главная](${SITE_URL}/ru)\n` +
         `- [Продукция](${SITE_URL}/ru/products)\n` +
         `- [О компании](${SITE_URL}/ru/about)\n` +
         `- [Статьи](${SITE_URL}/ru/articles)\n` +
-        `- [Контакты](${SITE_URL}/ru/contact)\n\n` +
+        `- [Контакты](${SITE_URL}/ru/contact)\n` +
+        `- [Политика конфиденциальности](${SITE_URL}/ru/privacy)\n` +
+        pageLines('ru') +
+        `\n` +
         `## Products\n\n${productLines}\n\n` +
         `## Articles\n\n${articleLines}\n\n` +
         `## Contact\n\n` +

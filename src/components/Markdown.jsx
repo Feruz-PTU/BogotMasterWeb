@@ -14,12 +14,18 @@ import './Markdown.css';
  *   1. numbered lists       | pipe | tables   **bold**  *italic*  `code`
  *   [text](url)             \[ and other backslash escapes
  *
+ * Every heading gets an id, so a section can be linked to (/logistics#fca).
+ * `## Heading {#fca}` sets it; otherwise it is made from the heading text.
+ * Set it by hand where the English and Russian pages must share an anchor.
+ *
  * Anything else comes out as plain text. The source is always a file from
  * this repository, never visitor input, and it is rendered as React elements
  * rather than injected as HTML.
  */
 
 const HEADING = /^(#{2,3})\s+(.+)$/;
+// An explicit anchor at the end of a heading: "## Free carrier {#fca}".
+const ANCHOR = /\s*\{#([a-z0-9][a-z0-9-]*)\}\s*$/i;
 const BULLET = /^-\s+(.+)$/;
 const NUMBERED = /^\d+\.\s+(.+)$/;
 // Bold is tried before italic, so ***x*.** reads as bold around an italic x
@@ -42,13 +48,29 @@ const splitRow = (line) =>
 const isExternal = (href) =>
     /^https?:\/\//i.test(href) && !href.startsWith(CONTACT_INFO.website);
 
+/** "Free carrier (FCA)" -> "free-carrier-fca"; Cyrillic letters are kept. */
+const slugify = (text) =>
+    plainText(text)
+        .toLowerCase()
+        .replace(/[^\p{L}\p{N}]+/gu, '-')
+        .replace(/^-+|-+$/g, '') || 'section';
+
 function parseBlocks(source) {
     const lines = source
         .replace(/\r\n?/g, '\n')
         .split('\n')
         .map((line) => line.trim());
     const blocks = [];
+    const usedIds = new Set();
     let i = 0;
+
+    /** A heading's id: the explicit one, else from its text; never repeated. */
+    const headingId = (wanted) => {
+        let id = wanted;
+        for (let n = 2; usedIds.has(id); n++) id = `${wanted}-${n}`;
+        usedIds.add(id);
+        return id;
+    };
 
     /** Consume the run of lines matching `pattern`, keeping capture 1 of each. */
     const take = (pattern) => {
@@ -66,8 +88,14 @@ function parseBlocks(source) {
         if (!line) {
             i++;
         } else if (HEADING.test(line)) {
-            const [, hashes, text] = line.match(HEADING);
-            blocks.push({ type: hashes.length === 2 ? 'h2' : 'h3', text });
+            const [, hashes, raw] = line.match(HEADING);
+            const explicit = raw.match(ANCHOR)?.[1];
+            const text = raw.replace(ANCHOR, '');
+            blocks.push({
+                type: hashes.length === 2 ? 'h2' : 'h3',
+                text,
+                id: headingId(explicit ? explicit.toLowerCase() : slugify(text)),
+            });
             i++;
         } else if (BULLET.test(line)) {
             blocks.push({ type: 'ul', items: take(BULLET) });
@@ -149,9 +177,9 @@ function renderBlock(block, index) {
 
     switch (block.type) {
         case 'h2':
-            return <h2 key={key}>{renderInline(block.text, key)}</h2>;
+            return <h2 key={key} id={block.id}>{renderInline(block.text, key)}</h2>;
         case 'h3':
-            return <h3 key={key}>{renderInline(block.text, key)}</h3>;
+            return <h3 key={key} id={block.id}>{renderInline(block.text, key)}</h3>;
         case 'ul':
         case 'ol': {
             const List = block.type;

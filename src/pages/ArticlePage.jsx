@@ -1,81 +1,15 @@
-import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
-import Markdown from '../components/Markdown';
+import MarkdownBody from '../components/MarkdownBody';
 import LocalLink, { useLocalPath } from '../components/LocalLink';
 import NotFound from './NotFound';
 import { useLanguage } from '../context/LanguageContext';
 import { findArticle, articleLanguages } from '../content/articles';
-import { bodyNow, loadBody } from '../content/articles/bodies';
+import * as articleBodies from '../content/articles/bodies';
 import { getLanguage, localizedPath } from '../i18n/languages';
 import { formatDate } from '../utils/dates';
 import './ArticlePage.css';
-
-/** Texts already fetched in this visit, so going back to one is instant. */
-const fetched = new Map();
-
-/**
- * The article text.
- *
- * The browser bundle does not contain it (see content/articles/bodies.js).
- * That leaves two cases:
- *
- * - Opening the article's URL: the page arrives prerendered with the whole
- *   text in it. While hydrating, React leaves the children of an element that
- *   has dangerouslySetInnerHTML untouched, so the empty value below keeps the
- *   server's text on screen and nothing is downloaded.
- * - Arriving from another page of the site: there is no server HTML to keep,
- *   so the text is fetched and rendered.
- */
-const ArticleBody = ({ slug, language }) => {
-    const { t } = useLanguage();
-    const key = `${slug}.${language}`;
-    const [source, setSource] = useState(
-        () => bodyNow(slug, language) ?? fetched.get(key) ?? null
-    );
-    const [keepServerHtml] = useState(
-        () =>
-            source === null &&
-            typeof document !== 'undefined' &&
-            document.querySelector(`[data-article-body="${key}"]`) !== null
-    );
-
-    useEffect(() => {
-        if (source !== null || keepServerHtml) return undefined;
-        let current = true;
-        loadBody(slug, language)?.then((text) => {
-            fetched.set(key, text);
-            if (current) setSource(text);
-        });
-        return () => {
-            current = false;
-        };
-    }, [key, slug, language, source, keepServerHtml]);
-
-    if (keepServerHtml) {
-        return (
-            <div
-                className="article-body"
-                data-article-body={key}
-                suppressHydrationWarning
-                dangerouslySetInnerHTML={{ __html: '' }}
-            />
-        );
-    }
-    if (source === null) {
-        return (
-            <p className="article-loading" role="status">
-                {t('article_loading')}
-            </p>
-        );
-    }
-    return (
-        <div className="article-body" data-article-body={key}>
-            <Markdown source={source} />
-        </div>
-    );
-};
 
 const ArticlePage = () => {
     const { slug } = useParams();
@@ -151,7 +85,15 @@ const ArticlePage = () => {
                         fresh ArticleBody. Both language URLs render this same
                         component, so React would otherwise keep the old
                         instance, whose state still holds the previous text. */}
-                    <ArticleBody key={`${slug}.${language}`} slug={slug} language={language} />
+                    <MarkdownBody
+                        key={`${slug}.${language}`}
+                        bodies={articleBodies}
+                        kind="article"
+                        name={slug}
+                        language={language}
+                        className="article-body"
+                        loadingText={t('article_loading')}
+                    />
 
                     <footer className="article-footer">
                         <LocalLink to="/articles" className="btn-article-back">

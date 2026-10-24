@@ -210,6 +210,17 @@ const TRANSLATION_GROUPS = [
         ],
     },
     {
+        // Content pages from src/content/pages (logistics, buyer's guide…).
+        id: 'content_pages', label: 'Content Pages',
+        keys: [
+            { key: 'content_updated', label: 'Date line ("Updated")' },
+            { key: 'content_children_title', label: 'Section list heading' },
+            { key: 'content_cta_title', label: 'Question box: title' },
+            { key: 'content_cta_text', label: 'Question box: text', multiline: true },
+            { key: 'content_cta_btn', label: 'Question box: button' },
+        ],
+    },
+    {
         id: 'certs', label: 'Certificates',
         keys: [
             { key: 'company_docs_title', label: 'Section title' },

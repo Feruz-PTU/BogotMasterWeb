@@ -99,7 +99,7 @@
     line-height: 1.6;
 }
 
-.article-loading {
+.article-body-loading {
     color: var(--color-text-muted);
     padding: 40px 0;
 }

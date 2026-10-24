@@ -72,6 +72,14 @@ export const FALLBACK_STRINGS = {
         terms_hs_label: 'HS code',
         terms_hs: '1211.90',
 
+        // Content pages (src/content/pages): the date line, a hub's list of
+        // its pages, and the question box at the end of every page.
+        content_updated: 'Updated',
+        content_children_title: 'In this section',
+        content_cta_title: 'Questions about this?',
+        content_cta_text: 'Write to us and our sales representative will answer within 24 hours.',
+        content_cta_btn: 'Ask a question',
+
         // The named sales contact and the legal details (owner, 22–23 Oct 2026).
         sales_contact_title: 'Your contact',
         sales_contact_name: 'Feruz, Sales Representative',
@@ -230,6 +238,12 @@ export const FALLBACK_STRINGS = {
         terms_lead_time: 'Около 30 дней для партии 22 т',
         terms_hs_label: 'Код ТН ВЭД',
         terms_hs: '1211 90 860 1 (ТН ВЭД ЕАЭС); 1211.90 (HS)',
+
+        content_updated: 'Обновлено',
+        content_children_title: 'В этом разделе',
+        content_cta_title: 'Остались вопросы?',
+        content_cta_text: 'Напишите нам, и наш менеджер по продажам ответит в течение 24 часов.',
+        content_cta_btn: 'Задать вопрос',
 
         sales_contact_title: 'Ваш контакт',
         sales_contact_name: 'Феруз, менеджер по продажам',

@@ -25,7 +25,9 @@ import ContactPage from './pages/ContactPage';
 import PrivacyPage from './pages/PrivacyPage';
 import ArticlesPage from './pages/ArticlesPage';
 import ArticlePage from './pages/ArticlePage';
+import ContentPage from './pages/ContentPage';
 import NotFound from './pages/NotFound';
+import { PAGES } from './content/pages';
 
 const AdminLogin = lazy(() => import('./pages/admin/AdminLogin'));
 const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
@@ -45,6 +47,12 @@ function publicRoutes(addToast) {
         { path: 'privacy', element: <PrivacyPage /> },
         { path: 'articles', element: <ArticlesPage /> },
         { path: 'articles/:slug', element: <ArticlePage /> },
+        // Content pages from the registry (content/pages/index.js). A page
+        // not written in a language renders NotFound there.
+        ...PAGES.map((page) => ({
+            path: page.path.slice(1),
+            element: <ContentPage key={page.id} page={page} />,
+        })),
     ];
 }
 
