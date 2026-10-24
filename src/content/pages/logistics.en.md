@@ -65,7 +65,7 @@ Every load travels with:
 - the commercial invoice;
 - the packing list;
 - the phytosanitary certificate, issued by the Agency for Plant Protection and Quarantine under the Ministry of Agriculture of the Republic of Uzbekistan;
-- the certificate of origin, issued by SCC LLC "Khorezmexpertiza" of JSC "Uzbekexpertiza";
+- the certificate of origin on GSP Form A, issued by SCC LLC "Khorezmexpertiza" of JSC "Uzbekexpertiza";
 - the fumigation certificate: every load is fumigated with phosphine (aluminium phosphide) before it leaves;
 - the certificate of analysis for the load, from a professional laboratory in Uzbekistan that you can choose: glycyrrhizic acid, ash and moisture, and any other tests you ask for;
 - a copy of the sales contract, on request.

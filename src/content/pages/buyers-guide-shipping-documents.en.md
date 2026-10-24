@@ -35,9 +35,9 @@ Requirements differ by country: some ask for an import permit before the goods s
 
 ## Certificate of origin {#certificate-of-origin}
 
-States that the goods originate in Uzbekistan. Customs in your country uses it for the duty rate and for trade statistics; where a trade agreement or preference scheme applies, the right form of certificate can lower the duty. Ours is issued by SCC LLC "Khorezmexpertiza" of JSC "Uzbekexpertiza" in Urgench.
+States that the goods originate in Uzbekistan. Customs in your country uses it for the duty rate and for trade statistics; where a trade agreement or preference scheme applies, the right form of certificate can lower the duty. Ours is issued by SCC LLC "Khorezmexpertiza" of JSC "Uzbekexpertiza" in Urgench, on Form A of the Generalized System of Preferences (GSP), with origin criterion "P": wholly obtained in Uzbekistan. Whether your country grants a preference to licorice root from Uzbekistan, and which proof of origin it accepts, is for your customs broker to confirm.
 
-**Check:** the consignee, the description and the weights agree with the invoice. If your country grants a preference to goods from Uzbekistan, tell your broker and us before shipment, so the right form is issued.
+**Check:** the consignee, the description and the weights agree with the invoice. If your country asks for a different proof of origin, tell your broker and us before shipment, so the right one is issued.
 
 ## Fumigation certificate {#fumigation-certificate}
 

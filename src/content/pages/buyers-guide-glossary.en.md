@@ -153,7 +153,7 @@ The customs nomenclature of the Eurasian Economic Union, built on the Harmonized
 An official certificate that a consignment of plants or plant products was inspected and meets the importing country's plant-health requirements. In Uzbekistan it is issued by the Agency for Plant Protection and Quarantine.
 
 ### Certificate of origin {#certificate-of-origin}
-A document stating the country where the goods were produced, for customs and tariff purposes.
+A document stating the country where the goods were produced, for customs and tariff purposes. A preferential form, such as Form A of the Generalized System of Preferences (GSP), can lower the duty where a preference scheme applies; ours is issued on Form A.
 
 ### Packing list {#packing-list}
 A list of the packages in a shipment, with their contents, weights and marks.
