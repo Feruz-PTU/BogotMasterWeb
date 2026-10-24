@@ -158,6 +158,32 @@ export const PAGES = [
         updated: '2026-10-24',
         priority: 0.6,
     },
+    {
+        // Root first, then the partner's extract (never shown as ours). The
+        // EU and US figures were read on EUR-Lex and GovInfo on 24 Oct 2026.
+        // No health or nutrition claims. Parent: the hub, from folder 14.
+        id: 'applications-food',
+        path: '/applications/food-and-confectionery',
+        parent: null,
+        section: 'applications',
+        schemaType: 'WebPage',
+        languages: ['en', 'ru'],
+        title: {
+            en: 'Licorice for Food, Drinks & Confectionery | Bogot Master',
+            ru: 'Солодка для пищевой и кондитерской отрасли | Bogot Master',
+        },
+        h1: {
+            en: 'Licorice root and extract for food, drinks and confectionery',
+            ru: 'Корень и экстракт солодки для продуктов питания, напитков и кондитерских изделий',
+        },
+        navTitle: { en: 'Food and confectionery', ru: 'Пищевая отрасль' },
+        meta: {
+            en: 'Licorice root and extract for sweets, drinks and tea: the forms, EU labelling and ochratoxin A limits, US limits and the documents food buyers ask for.',
+            ru: 'Корень и экстракт солодки для кондитерских изделий, напитков и чая: формы поставки, маркировка и охратоксин A в ЕС, нормы США, документы.',
+        },
+        updated: '2026-10-24',
+        priority: 0.6,
+    },
 ];
 
 export const SCHEMA_TYPES = ['WebPage', 'CollectionPage', 'TechArticle', 'DefinedTermSet'];

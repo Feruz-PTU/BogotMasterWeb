@@ -210,6 +210,7 @@ const TRANSLATION_GROUPS = [
             { key: 'logistics_link', label: 'Link to the shipping page (card and footer)' },
             { key: 'terms_hs_link', label: 'Link after the HS code (to the codes chapter)' },
             { key: 'app_pharma_link', label: 'Link under the description (to the pharmaceutical page)' },
+            { key: 'app_food_link', label: 'Link under the description (to the food page)' },
         ],
     },
     {

@@ -30,7 +30,7 @@ Two national lines name licorice root directly:
 - confectionery or beverages with 100 mg/kg or 10 mg/l or more must say "contains liquorice", unless the word "liquorice" is already in the list of ingredients or the name of the food;
 - confectionery with 4 g/kg or more, and beverages with 50 mg/l or more (300 mg/l for beverages above 1.2 % alcohol), must say "contains liquorice – people suffering from hypertension should avoid excessive consumption".
 
-**Ochratoxin A.** Since 1 January 2023 the EU has set maximum levels of ochratoxin A, a mould toxin, for certain liquorice products. They were introduced by Regulation (EU) 2022/1370 and now sit in Regulation (EU) 2023/915. Check the current figures in Annex I of that regulation.
+**Ochratoxin A.** Since 1 January 2023 the EU has set maximum levels of ochratoxin A, a mould toxin, for certain liquorice products. They were introduced by Regulation (EU) 2022/1370 and now sit in Regulation (EU) 2023/915, Annex I, entry 1.2.19: 20 µg/kg for dried liquorice root, including as an ingredient in herbal infusions, and 80 µg/kg for liquorice extract for use in food. The levels for liquorice confectionery are on our [food page](/applications/food-and-confectionery#eu-ochratoxin).
 
 **Pesticide residues.** Regulation (EC) No 396/2005 sets the maximum residue levels of pesticides in or on food and feed of plant and animal origin. A maximum residue level is the highest level of a pesticide residue legally tolerated in or on food or feed when pesticides are applied correctly.
 
@@ -67,6 +67,7 @@ Your customs authority decides the classification of each shipment, and your bro
 - EAEU line 1211 90 860 1, "корни солодки", from 1 January 2017: [IFCG](https://www.ifcg.ru/kb/tnved/1211908601/) and [Alta-Soft](https://www.alta.ru/tnved/code/1211908601/) tariff databases.
 - [Regulation (EU) No 1169/2011](https://eur-lex.europa.eu/eli/reg/2011/1169/oj), Annex III, point 3.
 - AGRINFO, [Maximum levels of ochratoxin A](https://agrinfo.eu/book-of-reports/maximum-levels-of-ochratoxin-a/), 30 January 2023.
+- [Regulation (EU) 2023/915](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02023R0915-20260819), Annex I, entry 1.2.19 (consolidated text of 19 August 2026).
 - [Regulation (EC) No 396/2005](https://www.legislation.gov.uk/eur/2005/396/contents) on maximum residue levels of pesticides; European Commission, [Maximum Residue Levels](https://food.ec.europa.eu/plants/pesticides/maximum-residue-levels_en).
 - [21 CFR 184.1408](https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-184/subpart-B/section-184.1408), Licorice and licorice derivatives.
 - US Food and Drug Administration, [FSVP for importers of food](https://www.fda.gov/food/food-safety-modernization-act-fsma/fsma-final-rule-foreign-supplier-verification-programs-fsvp-importers-food-humans-and-animals).

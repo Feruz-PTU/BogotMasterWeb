@@ -1,8 +1,8 @@
 /**
  * The application pages a product page links to, as one line under its
  * description ("For pharmaceutical use →"). One entry per application page;
- * a product may be listed under several. The food and tobacco pages are added
- * here when they are written.
+ * a product may be listed under several. Later application pages (extraction,
+ * tobacco, cosmetics) are added here when they are written.
  */
 export const APPLICATION_LINKS = [
     {
@@ -23,6 +23,27 @@ export const APPLICATION_LINKS = [
             'peeled-granules',
             'crushed',
             'powder',
+        ],
+    },
+    {
+        path: '/applications/food-and-confectionery',
+        labelKey: 'app_food_link',
+        // Slices for cooking, root fibre for tea, granules, powder and the
+        // partner's extract: the same list as "Forms for food use".
+        slugs: [
+            'slice-a',
+            'slice-b',
+            'slice-c',
+            'slice-c1',
+            'slice-d',
+            'slice-l',
+            'slice-s',
+            'slice-mix',
+            'chips',
+            'granules',
+            'peeled-granules',
+            'powder',
+            'extract',
         ],
     },
 ];
