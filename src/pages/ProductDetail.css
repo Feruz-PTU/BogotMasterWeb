@@ -92,6 +92,25 @@
     margin-bottom: 36px;
 }
 
+/* "For pharmaceutical use →": sits close under the description. */
+.pd-application-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    margin: -24px 0 32px;
+    font-size: 0.92rem;
+    font-weight: 600;
+}
+
+.pd-application-links a {
+    color: var(--color-primary);
+}
+
+.pd-application-links a:hover,
+.pd-application-links a:focus-visible {
+    text-decoration: underline;
+}
+
 .pd-actions {
     display: flex;
     align-items: center;

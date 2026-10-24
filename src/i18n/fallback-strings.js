@@ -75,6 +75,8 @@ export const FALLBACK_STRINGS = {
         logistics_link: 'Shipping and Incoterms',
         // After the HS code in the trade-terms card: the guide's codes chapter.
         terms_hs_link: 'codes and import rules',
+        // Under the description of some product pages (utils/productApplications.js).
+        app_pharma_link: 'For pharmaceutical use',
 
         // Content pages (src/content/pages): the date line, a hub's list of
         // its pages, and the question box at the end of every page.
@@ -245,6 +247,7 @@ export const FALLBACK_STRINGS = {
         terms_hs: '1211 90 860 1 (ТН ВЭД ЕАЭС); 1211.90 (HS)',
         logistics_link: 'Доставка и Incoterms',
         terms_hs_link: 'коды и правила импорта',
+        app_pharma_link: 'Для фармацевтического производства',
 
         content_updated: 'Обновлено',
         content_children_title: 'В этом разделе',

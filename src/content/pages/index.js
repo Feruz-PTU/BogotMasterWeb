@@ -132,6 +132,32 @@ export const PAGES = [
         updated: '2026-10-24',
         priority: 0.5,
     },
+    {
+        // Pharmacopoeia figures are cited on the page. No health claims, no
+        // "pharmaceutical grade" or GMP. The parent becomes the applications
+        // hub once folder 14 adds it.
+        id: 'applications-pharmaceutical',
+        path: '/applications/pharmaceutical',
+        parent: null,
+        section: 'applications',
+        schemaType: 'WebPage',
+        languages: ['en', 'ru'],
+        title: {
+            en: 'Liquorice Root for Pharmaceutical Use | Bogot Master',
+            ru: 'Корень солодки для фармацевтики | Bogot Master',
+        },
+        h1: {
+            en: 'Licorice root for pharmaceutical manufacturing',
+            ru: 'Корень солодки для фармацевтического производства',
+        },
+        navTitle: { en: 'Pharmaceutical use', ru: 'Для фармацевтики' },
+        meta: {
+            en: 'Liquorice root as a herbal substance: Ph. Eur. 0277, the EMA monograph, the Russian pharmacopoeia and the documents pharma buyers ask for.',
+            ru: 'Корень солодки как лекарственное растительное сырьё: Ph. Eur. 0277, монография EMA, ФС.2.5.0040.15 и документы для фармацевтических закупок.',
+        },
+        updated: '2026-10-24',
+        priority: 0.6,
+    },
 ];
 
 export const SCHEMA_TYPES = ['WebPage', 'CollectionPage', 'TechArticle', 'DefinedTermSet'];

@@ -15,6 +15,7 @@ import {
     productBreadcrumb,
 } from '../seo/productMeta';
 import { isLicoriceRoot } from '../utils/productKind';
+import { applicationLinks } from '../utils/productApplications';
 import './ProductDetail.css';
 
 // The trade-terms card, in order: each key has a `terms_<key>_label` and a
@@ -63,6 +64,7 @@ const ProductDetail = ({ addToast }) => {
     // Free samples and trade terms: licorice root only, not the partner's
     // extract and not the dried fruit.
     const licorice = isLicoriceRoot(product);
+    const applications = applicationLinks(product);
     // Processing is stored as steps separated by ";" and shown as a numbered list.
     const processingSteps = String(specs.processing || '')
         .split(';')
@@ -109,6 +111,15 @@ const ProductDetail = ({ addToast }) => {
                     <div className="pd-info reveal reveal-delay-2">
                         <h1>{product.title}</h1>
                         <p className="pd-description">{product.description}</p>
+                        {applications.length > 0 && (
+                            <p className="pd-application-links">
+                                {applications.map((a) => (
+                                    <LocalLink key={a.path} to={a.path}>
+                                        {t(a.labelKey)} →
+                                    </LocalLink>
+                                ))}
+                            </p>
+                        )}
 
                         <div className="pd-actions">
                             <button
