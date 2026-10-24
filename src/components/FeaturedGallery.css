@@ -27,14 +27,7 @@
     margin: 0 auto;
 }
 
-/* Captions (settings.gallery_captions): under each photo and in the zoomed view. */
-.card-caption {
-    padding: 8px 4px 2px;
-    font-size: 0.82rem;
-    line-height: 1.4;
-    color: #4A4A4A;
-}
-
+/* Captions (settings.gallery_captions): in the full-screen view only. */
 .lightbox-caption {
     margin-top: 14px;
     max-width: 640px;

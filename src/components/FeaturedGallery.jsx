@@ -19,7 +19,8 @@ const FeaturedGallery = () => {
     const photos = gallery || [];
 
     // Each photo's caption (settings.gallery_captions, edited in the admin):
-    // shown under the photo and used as its alt text.
+    // the photo's alt text, and shown under the photo only in the full-screen
+    // view (owner, 24 Oct 2026: the grid shows the photos alone).
     const captions = rawSettings?.gallery_captions || {};
     const captionOf = (src) => captions[src]?.[language] || '';
     const altOf = (src, index) => captionOf(src) || `${t('gallery_item_alt')} ${index + 1}`;
@@ -173,9 +174,6 @@ const FeaturedGallery = () => {
                             <div className="card-image">
                                 <img src={src} alt={altOf(src, index)} loading="lazy" />
                             </div>
-                            {captionOf(src) && (
-                                <figcaption className="card-caption">{captionOf(src)}</figcaption>
-                            )}
                         </figure>
                     ))}
                 </div>
