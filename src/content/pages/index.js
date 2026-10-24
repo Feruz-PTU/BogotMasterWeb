@@ -35,20 +35,30 @@
  *   priority    the sitemap priority, 0.1 to 1.0
  */
 export const PAGES = [
-    // Folder 08 adds the first page (/logistics). An entry looks like this:
-    // {
-    //     id: 'logistics',
-    //     path: '/logistics',
-    //     parent: null,
-    //     section: 'logistics',
-    //     schemaType: 'WebPage',
-    //     languages: ['en', 'ru'],
-    //     title: { en: 'Shipping and Incoterms | Bogot Master', ru: '…' },
-    //     h1: { en: 'Shipping, loads and Incoterms', ru: '…' },
-    //     meta: { en: '…', ru: '…' },
-    //     updated: '2026-10-24',
-    //     priority: 0.7,
-    // },
+    {
+        // Facts: the owner's trade terms (22–23 Oct 2026) and the sales rep's
+        // logistics answers (24 Oct 2026); see _dev/tasks/08-logistics-page.
+        id: 'logistics',
+        path: '/logistics',
+        parent: null,
+        section: 'logistics',
+        schemaType: 'WebPage',
+        languages: ['en', 'ru'],
+        title: {
+            en: 'Licorice Root Shipping, Incoterms & Documents | Bogot Master',
+            ru: 'Доставка корня солодки, Incoterms, документы | Bogot Master',
+        },
+        h1: {
+            en: 'Shipping, Incoterms and documents',
+            ru: 'Доставка, Incoterms и документы',
+        },
+        meta: {
+            en: 'How licorice root ships from Khorezm, Uzbekistan: the Incoterms we quote, packing, loads per container or truck, routes and shipping documents.',
+            ru: 'Как корень солодки отправляется из Хорезма: условия Incoterms, упаковка, загрузка контейнера и фуры, маршруты и отгрузочные документы.',
+        },
+        updated: '2026-10-24',
+        priority: 0.7,
+    },
 ];
 
 export const SCHEMA_TYPES = ['WebPage', 'CollectionPage', 'TechArticle', 'DefinedTermSet'];

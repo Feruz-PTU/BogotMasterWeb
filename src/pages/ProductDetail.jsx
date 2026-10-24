@@ -251,7 +251,9 @@ const ProductDetail = ({ addToast }) => {
                                             </Fragment>
                                         ))}
                                     </dl>
-                                    {/* Folder 08: a "Shipping and Incoterms →" link to /logistics goes here. */}
+                                    <LocalLink to="/logistics" className="pd-terms-link">
+                                        {t('logistics_link')} →
+                                    </LocalLink>
                                 </div>
                             )}
                         </div>

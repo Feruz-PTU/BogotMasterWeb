@@ -71,6 +71,8 @@ export const FALLBACK_STRINGS = {
         terms_lead_time: 'About 30 days for a 22 t load',
         terms_hs_label: 'HS code',
         terms_hs: '1211.90',
+        // Link to /logistics: the trade-terms card and the footer.
+        logistics_link: 'Shipping and Incoterms',
 
         // Content pages (src/content/pages): the date line, a hub's list of
         // its pages, and the question box at the end of every page.
@@ -238,6 +240,7 @@ export const FALLBACK_STRINGS = {
         terms_lead_time: 'Около 30 дней для партии 22 т',
         terms_hs_label: 'Код ТН ВЭД',
         terms_hs: '1211 90 860 1 (ТН ВЭД ЕАЭС); 1211.90 (HS)',
+        logistics_link: 'Доставка и Incoterms',
 
         content_updated: 'Обновлено',
         content_children_title: 'В этом разделе',

@@ -179,7 +179,7 @@ export const SEED_TRANSLATIONS = {
         // About
         about_title: 'О компании',
         about_p1: 'Bogot Master — семейная компания, основанная в 2014 году, специализирующаяся на заготовке, переработке и экспорте корня солодки.',
-        about_p2: 'Компания поставляет корень солодки в разных формах и отгружает каждую партию с полным пакетом экспортных документов: экспортная декларация, коммерческий инвойс, фитосанитарный сертификат, упаковочный лист и сертификат происхождения.',
+        about_p2: 'Компания поставляет корень солодки в разных формах и отгружает каждую партию с полным пакетом экспортных документов: экспортная декларация, коммерческий инвойс, фитосанитарный сертификат, упаковочный лист, сертификат происхождения и сертификат фумигации.',
         about_p3: 'Производственные и заготовительные мощности Bogot Master позволяют экспортировать более 500 тонн корня солодки в год. В деятельности компании задействовано более 20 сотрудников, обеспечивающих контроль качества, переработку, упаковку и логистику продукции.',
         about_p4: 'Корень солодки заготавливается в дикой природе по разрешению Национального комитета Республики Узбекистан по экологии и изменению климата. Компания ориентирована на стабильные долгосрочные поставки и индивидуальный подход к требованиям заказчиков по форме, фракции и упаковке продукции.',
         about_benefit_1: 'Поставка по всему Миру',
@@ -347,7 +347,7 @@ export const SEED_TRANSLATIONS = {
         // About
         about_title: 'About Company',
         about_p1: 'Bogot Master is a family-owned company established in 2014, specializing in the harvesting, processing, and export of licorice root.',
-        about_p2: 'The company supplies licorice root in many forms and ships every load with the full set of export documents: export declaration, commercial invoice, phytosanitary certificate, packing list and certificate of origin.',
+        about_p2: 'The company supplies licorice root in many forms and ships every load with the full set of export documents: export declaration, commercial invoice, phytosanitary certificate, packing list, certificate of origin and fumigation certificate.',
         about_p3: 'Bogot Master\'s harvesting and processing capacity enables the export of more than 500 tons of licorice root a year. The company employs over 20 specialists who ensure consistent quality control, processing, packaging, and efficient logistics.',
         about_p4: 'Licorice root is harvested wild, under a permit from the National Committee of the Republic of Uzbekistan for Ecology and Climate Change. Bogot Master is committed to long-term, reliable partnerships and offers a flexible, customer-oriented approach to product form, size fraction, and packaging requirements.',
         about_benefit_1: 'Worldwide supply',

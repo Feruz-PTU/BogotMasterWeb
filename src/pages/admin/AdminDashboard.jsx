@@ -207,6 +207,7 @@ const TRANSLATION_GROUPS = [
             { key: 'terms_lead_time', label: 'Lead time' },
             { key: 'terms_hs_label', label: 'HS code: label' },
             { key: 'terms_hs', label: 'HS code' },
+            { key: 'logistics_link', label: 'Link to the shipping page (card and footer)' },
         ],
     },
     {

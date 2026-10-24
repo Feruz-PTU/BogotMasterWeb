@@ -37,6 +37,7 @@ const Footer = () => {
                         <li><LocalLink to="/">{t('home')}</LocalLink></li>
                         <li><LocalLink to="/about">{t('about')}</LocalLink></li>
                         <li><LocalLink to="/products">{t('products')}</LocalLink></li>
+                        <li><LocalLink to="/logistics">{t('logistics_link')}</LocalLink></li>
                         <li><LocalLink to="/articles">{t('articles')}</LocalLink></li>
                         <li><LocalLink to="/contact">{t('contact')}</LocalLink></li>
                         <li><LocalLink to="/privacy">{t('privacy_title')}</LocalLink></li>
