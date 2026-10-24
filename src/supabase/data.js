@@ -166,24 +166,34 @@ export async function trackPageView(path) {
  * Allowed event names are enforced again by a CHECK constraint in the
  * database (supabase/phase2-migration.sql).
  */
-export async function recordEvent({ name, path, lang, referrer_host }) {
-    const { error } = await supabase.from('events').insert({
+export async function recordEvent({ name, path, lang, referrer_host, detail }) {
+    const row = {
         name: String(name).slice(0, 40),
         path: path ? String(path).slice(0, 200) : null,
         lang: lang ? String(lang).slice(0, 8) : null,
         referrer_host: referrer_host ? String(referrer_host).slice(0, 120) : null,
-    });
+    };
+    // Only sent when there is one: the column exists once
+    // supabase/phase3-events.sql has been run.
+    if (detail) row.detail = String(detail).slice(0, 120);
+    const { error } = await supabase.from('events').insert(row);
     if (error) throw error;
 }
 
 export async function fetchEventSummary(days = 30) {
     const since = new Date(Date.now() - days * 86400000).toISOString();
-    const { data, error } = await supabase
-        .from('events')
-        .select('name, path, lang, referrer_host, created_at')
-        .gte('created_at', since)
-        .order('created_at', { ascending: false })
-        .limit(5000);
+    const query = (columns) =>
+        supabase
+            .from('events')
+            .select(columns)
+            .gte('created_at', since)
+            .order('created_at', { ascending: false })
+            .limit(5000);
+    let { data, error } = await query('name, path, lang, referrer_host, detail, created_at');
+    // Before phase3-events.sql there is no `detail` column.
+    if (error && ['PGRST204', '42703'].includes(error.code)) {
+        ({ data, error } = await query('name, path, lang, referrer_host, created_at'));
+    }
     if (error) throw error;
     return data || [];
 }

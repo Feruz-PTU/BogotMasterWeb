@@ -7,12 +7,15 @@
  * and a `key`, the translation key the form shows.
  */
 
-/** The four request types; `lead` is the type stored with the lead. */
+/**
+ * The four request types. `lead` is the type stored with the lead; `event` is
+ * the key in analytics.js EVENTS fired on a successful send.
+ */
 export const REQUEST_TYPES = [
-    { value: 'quote', lead: 'quote', key: 'rf_type_quote', submitKey: 'rf_submit_quote', event: 'form_submit_price' },
-    { value: 'sample', lead: 'sample', key: 'rf_type_sample', submitKey: 'rf_submit_sample', event: 'form_submit_sample' },
-    { value: 'docs', lead: 'docs', key: 'rf_type_docs', submitKey: 'rf_submit_docs', event: 'form_submit_docs' },
-    { value: 'other', lead: 'contact', key: 'rf_type_other', submitKey: 'rf_submit_other', event: 'form_submit_contact' },
+    { value: 'quote', lead: 'quote', key: 'rf_type_quote', submitKey: 'rf_submit_quote', event: 'FORM_SUBMIT_PRICE' },
+    { value: 'sample', lead: 'sample', key: 'rf_type_sample', submitKey: 'rf_submit_sample', event: 'FORM_SUBMIT_SAMPLE' },
+    { value: 'docs', lead: 'docs', key: 'rf_type_docs', submitKey: 'rf_submit_docs', event: 'FORM_SUBMIT_DOCS' },
+    { value: 'other', lead: 'contact', key: 'rf_type_other', submitKey: 'rf_submit_other', event: 'FORM_SUBMIT_CONTACT' },
 ];
 
 export const findRequestType = (value) =>

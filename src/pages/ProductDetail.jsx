@@ -2,12 +2,12 @@ import { useState, useRef, Fragment } from 'react';
 import { useParams } from 'react-router-dom';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
-import PriceModal from '../components/PriceModal';
 import QuoteButton from '../components/QuoteButton';
 import LocalLink, { useLocalPath } from '../components/LocalLink';
 import NotFound from './NotFound';
 import { useLanguage } from '../context/LanguageContext';
 import { useContent } from '../context/ContentContext';
+import { useRequest } from '../context/RequestContext';
 import { useReveal } from '../hooks/useReveal';
 import {
     productTitle,
@@ -22,16 +22,17 @@ import './ProductDetail.css';
 // `terms_<key>` string.
 const TRADE_TERMS = ['moq', 'loads', 'incoterms', 'payment', 'lead_time', 'hs'];
 
-const ProductDetail = ({ addToast }) => {
+const ProductDetail = () => {
     useReveal();
     const { slug } = useParams();
     const { t } = useLanguage();
     const { products } = useContent();
+    const { openRequest } = useRequest();
     const localPath = useLocalPath();
-    // One request form, as a price request or a free-sample request. The kind
-    // stays set while the form is closed, so reopening keeps what was typed.
-    const [modal, setModal] = useState({ open: false, kind: 'price' });
-    const openModal = (kind) => setModal({ open: true, kind });
+    // The request form, as a price quote or a free-sample request for this
+    // product. Reopening the same one keeps what was typed (RequestContext).
+    const openModal = (kind) =>
+        openRequest({ type: kind === 'sample' ? 'sample' : 'quote', products: [slug] });
     const [relatedProgress, setRelatedProgress] = useState(10);
     const relatedRef = useRef(null);
 
@@ -317,20 +318,6 @@ const ProductDetail = ({ addToast }) => {
                 )}
             </div>
             </div>
-
-            <PriceModal
-                key={modal.kind}
-                isOpen={modal.open}
-                onClose={() => setModal((m) => ({ ...m, open: false }))}
-                productTitle={product.title}
-                addToast={addToast}
-                {...(modal.kind === 'sample' && {
-                    title: t('sample_modal_title'),
-                    requireQuantity: false,
-                    initialMessage: t('sample_message'),
-                    productNote: 'free sample',
-                })}
-            />
         </Layout>
     );
 };

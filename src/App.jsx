@@ -2,10 +2,11 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 
 import ScrollToTop from './components/ScrollToTop';
-import { ToastContainer, useToast } from './components/Toast';
+import { ToastContainer, ToastContext, useToast } from './components/Toast';
 import { LanguageProvider } from './context/LanguageContext';
 import { ContentProvider } from './context/ContentContext';
 import { QuoteProvider } from './context/QuoteContext';
+import { RequestProvider } from './context/RequestContext';
 import {
     LIVE_LANGUAGES,
     DEFAULT_LANGUAGE,
@@ -38,13 +39,13 @@ const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
  * article that does not exist in a language renders NotFound there (see
  * ArticlePage).
  */
-function publicRoutes(addToast) {
+function publicRoutes() {
     return [
-        { path: '', element: <Home addToast={addToast} /> },
-        { path: 'products', element: <Products addToast={addToast} /> },
-        { path: 'products/:slug', element: <ProductDetail addToast={addToast} /> },
-        { path: 'about', element: <AboutPage addToast={addToast} /> },
-        { path: 'contact', element: <ContactPage addToast={addToast} /> },
+        { path: '', element: <Home /> },
+        { path: 'products', element: <Products /> },
+        { path: 'products/:slug', element: <ProductDetail /> },
+        { path: 'about', element: <AboutPage /> },
+        { path: 'contact', element: <ContactPage /> },
         { path: 'privacy', element: <PrivacyPage /> },
         { path: 'request', element: <RequestPage /> },
         { path: 'articles', element: <ArticlesPage /> },
@@ -69,12 +70,14 @@ function App() {
     const language = parsed?.lang ?? DEFAULT_LANGUAGE;
     const isUnknownLanguage = parsed === null && !pathname.startsWith('/admin');
 
-    const routes = publicRoutes(addToast);
+    const routes = publicRoutes();
 
     return (
         <LanguageProvider language={language}>
             <ContentProvider>
                 <QuoteProvider>
+                <ToastContext.Provider value={addToast}>
+                <RequestProvider>
                     <ScrollToTop />
                     {isUnknownLanguage ? (
                         <NotFound />
@@ -141,6 +144,8 @@ function App() {
                         </Routes>
                     )}
                     <ToastContainer toasts={toasts} removeToast={removeToast} />
+                </RequestProvider>
+                </ToastContext.Provider>
                 </QuoteProvider>
             </ContentProvider>
         </LanguageProvider>

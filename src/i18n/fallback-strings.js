@@ -174,6 +174,10 @@ export const FALLBACK_STRINGS = {
         request_meta_desc:
             'Ask for a price, a free sample or the spec sheet and documents for wild licorice root from Khorezm, Uzbekistan. We reply within 24 hours.',
         request_h1: 'Send a request',
+        // The quote list (QuoteCart.jsx) and the "Add to quote" button.
+        quote_request_btn: 'Request a quote for these products',
+        quote_request_note: 'You can add quantities and delivery details in the next step.',
+        quote_added_toast: '{product} is in your quote list.',
         request_intro:
             'A price quote, a free sample, a spec sheet or any other question: choose what you need, and our sales representative will reply within 24 hours.',
 
@@ -441,6 +445,9 @@ export const FALLBACK_STRINGS = {
         request_meta_desc:
             'Запросите цену, бесплатный образец или спецификацию и документы на корень дикорастущей солодки из Хорезма (Узбекистан). Ответим в течение 24 часов.',
         request_h1: 'Отправить запрос',
+        quote_request_btn: 'Запросить цену на эти позиции',
+        quote_request_note: 'Количество и условия поставки можно указать на следующем шаге.',
+        quote_added_toast: '{product} — в списке для запроса.',
         request_intro:
             'Коммерческое предложение, бесплатный образец, спецификация или другой вопрос: выберите, что вам нужно, и наш менеджер по продажам ответит в течение 24 часов.',
 

@@ -1,15 +1,14 @@
-import { useState } from 'react';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import Contact from '../components/Contact';
-import PriceModal from '../components/PriceModal';
 import { useReveal } from '../hooks/useReveal';
 import { useLanguage } from '../context/LanguageContext';
+import { useRequest } from '../context/RequestContext';
 
-const ContactPage = ({ addToast }) => {
+const ContactPage = () => {
     useReveal();
     const { t } = useLanguage();
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const { openRequest } = useRequest();
 
     return (
         <Layout>
@@ -23,18 +22,9 @@ const ContactPage = ({ addToast }) => {
                 description={t('contact_meta_desc')}
             />
             <div style={{ paddingTop: '90px' }}>
-                <Contact addToast={addToast} openPopup={() => setIsPopupOpen(true)} />
+                {/* The "Write to us" banner asks a general question. */}
+                <Contact openPopup={() => openRequest({ type: 'other' })} />
             </div>
-
-            {/* Rendered outside the .reveal transform context so position:fixed works correctly.
-                A general question, so no quantity is required. */}
-            <PriceModal
-                isOpen={isPopupOpen}
-                onClose={() => setIsPopupOpen(false)}
-                productTitle={t('modal_info_title')}
-                requireQuantity={false}
-                addToast={addToast}
-            />
         </Layout>
     );
 };

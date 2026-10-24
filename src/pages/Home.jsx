@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Layout from '../components/Layout';
 import LocalLink from '../components/LocalLink';
@@ -7,13 +6,13 @@ import Hero from '../components/Hero';
 import Stats from '../components/Stats';
 import Process from '../components/Process';
 import HomeCTA from '../components/HomeCTA';
-import PriceModal from '../components/PriceModal';
 import Certificates from '../components/Certificates';
 import Partners from '../components/Partners';
 import FeaturedGallery from '../components/FeaturedGallery';
 import LicoriceIntro from '../components/LicoriceIntro';
 import { useLanguage } from '../context/LanguageContext';
 import { useContent } from '../context/ContentContext';
+import { useRequest } from '../context/RequestContext';
 import { useReveal } from '../hooks/useReveal';
 import '../components/Gallery.css';
 import './Home.css';
@@ -24,17 +23,13 @@ const CheckIcon = () => (
     </svg>
 );
 
-const Home = ({ addToast }) => {
+const Home = () => {
     useReveal();
     const { t } = useLanguage();
     const { featuredProducts } = useContent();
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedProduct, setSelectedProduct] = useState(null);
+    const { openRequest } = useRequest();
 
-    const openProductModal = (product) => {
-        setSelectedProduct(product);
-        setIsModalOpen(true);
-    };
+    const openProductModal = (product) => openRequest({ type: 'quote', products: [product.slug] });
 
     return (
         <Layout>
@@ -67,7 +62,7 @@ const Home = ({ addToast }) => {
                 />
             </Helmet>
 
-            <Hero addToast={addToast} />
+            <Hero />
             <Stats />
 
             <section className="home-products-section reveal">
@@ -160,13 +155,6 @@ const Home = ({ addToast }) => {
             <div className="reveal"><FeaturedGallery /></div>
 
             <HomeCTA />
-
-            <PriceModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                productTitle={selectedProduct?.title || ''}
-                addToast={addToast}
-            />
         </Layout>
     );
 };

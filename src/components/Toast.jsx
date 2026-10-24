@@ -1,5 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, createContext, useContext } from 'react';
 import './Toast.css';
+
+/**
+ * `addToast(message, type, duration)` for any component, without passing it
+ * down as a prop. App provides it; outside the provider it does nothing.
+ */
+export const ToastContext = createContext(() => {});
+export const useAddToast = () => useContext(ToastContext);
 
 const Toast = ({ message, type = 'success', duration = 3000, onClose }) => {
     const [isVisible, setIsVisible] = useState(true);
@@ -37,7 +44,7 @@ const Toast = ({ message, type = 'success', duration = 3000, onClose }) => {
                 {icons[type]}
             </div>
             <p className="toast-message">{message}</p>
-            <button className="toast-close" onClick={() => {
+            <button className="toast-close" aria-label="Close" onClick={() => {
                 setIsVisible(false);
                 setTimeout(onClose, 300);
             }}>
@@ -52,7 +59,8 @@ const Toast = ({ message, type = 'success', duration = 3000, onClose }) => {
 // Toast Container component
 export const ToastContainer = ({ toasts, removeToast }) => {
     return (
-        <div className="toast-container">
+        // A live region, so a screen reader announces each message.
+        <div className="toast-container" role="status" aria-live="polite">
             {toasts.map((toast) => (
                 <Toast
                     key={toast.id}
@@ -70,14 +78,15 @@ export const ToastContainer = ({ toasts, removeToast }) => {
 export const useToast = () => {
     const [toasts, setToasts] = useState([]);
 
-    const addToast = (message, type = 'success', duration = 3000) => {
-        const id = Date.now();
+    // Stable, so the context that hands it out does not re-render its users.
+    const addToast = useCallback((message, type = 'success', duration = 3000) => {
+        const id = Date.now() + Math.random();
         setToasts((prev) => [...prev, { id, message, type, duration }]);
-    };
+    }, []);
 
-    const removeToast = (id) => {
+    const removeToast = useCallback((id) => {
         setToasts((prev) => prev.filter((toast) => toast.id !== id));
-    };
+    }, []);
 
     return { toasts, addToast, removeToast };
 };

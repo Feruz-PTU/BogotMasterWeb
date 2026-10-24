@@ -1,26 +1,21 @@
-import { useState } from 'react';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
-import PriceModal from '../components/PriceModal';
 import QuoteButton from '../components/QuoteButton';
 import LocalLink from '../components/LocalLink';
 import { useLanguage } from '../context/LanguageContext';
 import { useContent } from '../context/ContentContext';
+import { useRequest } from '../context/RequestContext';
 import { useReveal } from '../hooks/useReveal';
 import '../components/Gallery.css';
 import './Products.css';
 
-const Products = ({ addToast }) => {
+const Products = () => {
     useReveal();
     const { t } = useLanguage();
     const { products } = useContent();
-    const [selectedProduct, setSelectedProduct] = useState(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const { openRequest } = useRequest();
 
-    const openModal = (product) => {
-        setSelectedProduct(product);
-        setIsModalOpen(true);
-    };
+    const openModal = (product) => openRequest({ type: 'quote', products: [product.slug] });
 
     return (
         <Layout>
@@ -90,13 +85,6 @@ const Products = ({ addToast }) => {
                     </LocalLink>
                 </section>
             </div>
-
-            <PriceModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                productTitle={selectedProduct?.title || ''}
-                addToast={addToast}
-            />
         </Layout>
     );
 };

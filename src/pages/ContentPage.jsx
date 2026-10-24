@@ -1,11 +1,10 @@
-import { useState } from 'react';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import MarkdownBody from '../components/MarkdownBody';
 import LocalLink, { useLocalPath } from '../components/LocalLink';
-import PriceModal from '../components/PriceModal';
 import NotFound from './NotFound';
 import { useLanguage } from '../context/LanguageContext';
+import { useRequest } from '../context/RequestContext';
 import { pageAncestors, childPages, pageName } from '../content/pages';
 import * as pageBodies from '../content/pages/bodies';
 import { localizedPath } from '../i18n/languages';
@@ -35,7 +34,7 @@ function glossaryJson(page, language) {
 const ContentPage = ({ page }) => {
     const { t, language } = useLanguage();
     const localPath = useLocalPath();
-    const [askOpen, setAskOpen] = useState(false);
+    const { openRequest } = useRequest();
 
     // Not written in this language: a 404, never another language's text here.
     if (!page.languages.includes(language)) return <NotFound />;
@@ -127,22 +126,13 @@ const ContentPage = ({ page }) => {
                     <aside className="content-cta">
                         <h2>{t('content_cta_title')}</h2>
                         <p>{t('content_cta_text')}</p>
-                        <button type="button" className="content-cta-btn" onClick={() => setAskOpen(true)}>
+                        {/* A general question; the lead's page_url says which page it came from. */}
+                        <button type="button" className="content-cta-btn" onClick={() => openRequest({ type: 'other' })}>
                             {t('content_cta_btn')}
                         </button>
                     </aside>
                 </article>
             </div>
-
-            {/* A general question, so no quantity; the page's H1 tells the
-                owner where it came from. */}
-            <PriceModal
-                isOpen={askOpen}
-                onClose={() => setAskOpen(false)}
-                productTitle={h1}
-                title={t('modal_info_title')}
-                requireQuantity={false}
-            />
         </Layout>
     );
 };

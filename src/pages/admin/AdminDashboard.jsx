@@ -24,22 +24,28 @@ import './Admin.css';
 // Visitor actions recorded in the `events` table (src/analytics.js), in the
 // order the Stats tab lists them. Page views are counted separately.
 const EVENT_LABELS = [
-    ['form_submit_price', 'Price request sent'],
-    ['form_submit_quote', 'Quote request sent'],
-    ['form_submit_contact', 'Contact form sent'],
+    ['form_submit_price', 'Price quote request sent'],
+    ['form_submit_sample', 'Free sample request sent'],
+    ['form_submit_docs', 'Documents request sent'],
+    ['form_submit_contact', 'Question or contact form sent'],
+    ['form_submit_quote', 'Quote list sent (old form, before 24 Oct 2026)'],
     ['click_whatsapp', 'WhatsApp clicked'],
     ['click_telegram', 'Telegram clicked'],
     ['click_phone', 'Phone number clicked'],
     ['click_email', 'Email address clicked'],
-    ['quote_modal_open', 'Price form opened'],
+    ['quote_modal_open', 'Request form opened'],
+    ['form_start', 'Request form started (first field used)'],
+    ['form_error', 'Request form: send refused, fields to fix'],
     ['quote_add', 'Added to quote list'],
     ['click_certificate', 'Company document opened'],
+    ['spec_download', 'Spec sheet downloaded'],
+    ['coa_download', 'COA downloaded'],
 ];
 
 // The actions that mean a visitor got in touch: the pages and the sites they
 // came from are what the owner wants to compare.
 const CONTACT_EVENTS = new Set([
-    'form_submit_price', 'form_submit_quote', 'form_submit_contact',
+    'form_submit_price', 'form_submit_sample', 'form_submit_docs', 'form_submit_quote', 'form_submit_contact',
     'click_whatsapp', 'click_telegram', 'click_phone', 'click_email',
 ]);
 
@@ -218,8 +224,6 @@ const TRANSLATION_GROUPS = [
             { key: 'sample_title', label: 'Free samples: title' },
             { key: 'sample_text', label: 'Free samples: text', multiline: true },
             { key: 'sample_btn', label: 'Free samples: button' },
-            { key: 'sample_modal_title', label: 'Sample request form: title' },
-            { key: 'sample_message', label: 'Sample request form: comment it starts with' },
             { key: 'terms_title', label: 'Trade terms: card title' },
             { key: 'terms_moq_label', label: 'Minimum order: label' },
             { key: 'terms_moq', label: 'Minimum order' },
@@ -286,49 +290,22 @@ const TRANSLATION_GROUPS = [
         keys: [
             { key: 'quote_add', label: 'Add to quote button' },
             { key: 'quote_added', label: 'Added state' },
+            { key: 'quote_added_toast', label: 'Pop-up after adding ({product} = its name)' },
             { key: 'quote_cart_title', label: 'Cart title' },
             { key: 'quote_empty', label: 'Empty state' },
-            { key: 'quote_qty_placeholder', label: 'Quantity placeholder' },
             { key: 'quote_remove', label: 'Remove button' },
             { key: 'quote_clear', label: 'Clear list button' },
-            { key: 'quote_company', label: 'Company field label' },
-            { key: 'quote_optional_title', label: 'Shipping details: title' },
-            { key: 'quote_optional_hint', label: 'Shipping details: hint', multiline: true },
-            { key: 'quote_destination_country', label: 'Destination country label' },
-            { key: 'quote_destination_port', label: 'Port or city label' },
-            { key: 'quote_incoterms', label: 'Incoterms label' },
-            { key: 'quote_incoterms_choose', label: 'Incoterms: no choice yet' },
+            { key: 'quote_request_btn', label: 'Button that opens the request form' },
+            { key: 'quote_request_note', label: 'Note under that button' },
+            // Also used by the request form: the Incoterms groups and the units.
             { key: 'quote_incoterms_any', label: 'Incoterms group: any transport' },
             { key: 'quote_incoterms_sea', label: 'Incoterms group: sea' },
-            { key: 'quote_total_quantity', label: 'Total quantity label' },
             { key: 'quote_unit', label: 'Unit label' },
             { key: 'quote_unit_t', label: 'Unit: tonnes' },
             { key: 'quote_unit_kg', label: 'Unit: kilograms' },
             { key: 'quote_unit_20ft', label: 'Unit: 20 ft containers' },
             { key: 'quote_unit_40ft', label: 'Unit: 40 ft containers' },
             { key: 'quote_unit_truck', label: 'Unit: trucks' },
-            { key: 'quote_timeline', label: 'Needed-by label' },
-            { key: 'quote_timeline_placeholder', label: 'Needed-by placeholder' },
-            { key: 'quote_submit', label: 'Submit button' },
-            { key: 'quote_success', label: 'Success message' },
-        ],
-    },
-    {
-        id: 'modals', label: 'Price Modal',
-        keys: [
-            { key: 'modal_price_title', label: 'Price request title' },
-            { key: 'modal_info_title', label: 'Info request title' },
-            { key: 'modal_phone', label: 'Phone label (price form, quote cart)' },
-            { key: 'modal_phone_invalid', label: 'Phone invalid error' },
-            { key: 'modal_quantity', label: 'Quantity label' },
-            { key: 'modal_quantity_error', label: 'Quantity error' },
-            { key: 'modal_quantity_placeholder', label: 'Quantity placeholder' },
-            { key: 'form_moq_hint', label: 'Minimum order hint under quantity', multiline: true },
-            { key: 'modal_comment_placeholder', label: 'Comment placeholder' },
-            { key: 'modal_submit', label: 'Submit button' },
-            { key: 'modal_success_title', label: 'Success title' },
-            { key: 'modal_success', label: 'Success message' },
-            { key: 'modal_error', label: 'Error message' },
         ],
     },
     {
@@ -355,13 +332,16 @@ const TRANSLATION_GROUPS = [
         // The request form (components/RequestForm.jsx) and the /request page:
         // every one of its strings, labelled by its key.
         id: 'request_form', label: 'Request Form',
-        keys: Object.keys(FALLBACK_STRINGS.en)
-            .filter((key) => /^(rf_|form_err_|request_)/.test(key))
-            .map((key) => ({
-                key,
-                label: key.replace(/_/g, ' '),
-                multiline: /(_hint|_promise|_intro|_desc|_text)/.test(key),
-            })),
+        keys: [
+            ...Object.keys(FALLBACK_STRINGS.en)
+                .filter((key) => /^(rf_|form_err_|request_)/.test(key))
+                .map((key) => ({
+                    key,
+                    label: key.replace(/_/g, ' '),
+                    multiline: /(_hint|_promise|_intro|_desc|_text)/.test(key),
+                })),
+            { key: 'modal_error', label: 'Sending failed (error box)' },
+        ],
     },
 ];
 
@@ -1254,9 +1234,14 @@ const AdminDashboard = () => {
         const counts = {};
         const pages = {};
         const sources = {};
+        // form_error carries the names of the fields that stopped a send.
+        const errorFields = {};
         let contacts = 0;
         for (const e of events) {
             counts[e.name] = (counts[e.name] || 0) + 1;
+            if (e.name === 'form_error' && e.detail) {
+                for (const f of e.detail.split(',')) errorFields[f] = (errorFields[f] || 0) + 1;
+            }
             if (!CONTACT_EVENTS.has(e.name)) continue;
             contacts++;
             const page = e.path || '—';
@@ -1265,7 +1250,7 @@ const AdminDashboard = () => {
             sources[source] = (sources[source] || 0) + 1;
         }
         const top = (o) => Object.entries(o).sort((a, b) => b[1] - a[1]).slice(0, 10);
-        return { counts, contacts, pages: top(pages), sources: top(sources) };
+        return { counts, contacts, pages: top(pages), sources: top(sources), errorFields: top(errorFields) };
     }, [events]);
 
     const totalViews = useMemo(() => {
@@ -2714,12 +2699,13 @@ const AdminDashboard = () => {
                                         </tbody>
                                     </table>
                                     <p className="admin-card-meta" style={{ marginTop: 12 }}>
-                                        &ldquo;Got in touch&rdquo; below counts the first seven: a form sent, or a WhatsApp, Telegram, phone or email link clicked.
+                                        &ldquo;Got in touch&rdquo; below counts a request or form sent, or a WhatsApp, Telegram, phone or email link clicked.
                                     </p>
                                 </div>
                                 {[
                                     ['Pages Where Visitors Got in Touch', 'Page', eventStats.pages, true],
                                     ['Where Those Visitors Came From', 'Referring site', eventStats.sources, false],
+                                    ['Request Form: Fields That Stopped a Send', 'Field', eventStats.errorFields, true],
                                 ].map(([title, column, rows, mono]) => (
                                     <div className="admin-card" key={title}>
                                         <div className="admin-card-head">

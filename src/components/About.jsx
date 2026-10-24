@@ -1,7 +1,6 @@
-import { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import { useRequest } from '../context/RequestContext';
 import './About.css';
-import PriceModal from './PriceModal';
 
 const CheckIcon = () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="check-svg">
@@ -14,12 +13,12 @@ const CheckIcon = () => (
  * page keeps it as an <h2>. The About page previously had no <h1> at all.
  */
 const About = ({ headingLevel = 'h2' }) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const { t } = useLanguage();
+    const { openRequest } = useRequest();
     const Heading = headingLevel;
 
-    const openModal = () => setIsModalOpen(true);
-    const closeModal = () => setIsModalOpen(false);
+    // A price quote with no product chosen yet.
+    const openModal = () => openRequest({ type: 'quote' });
 
     return (
         <section className="about-section reveal" id="about">
@@ -69,13 +68,6 @@ const About = ({ headingLevel = 'h2' }) => {
                     </div>
                 </div>
             </div>
-
-            <PriceModal
-                isOpen={isModalOpen}
-                onClose={closeModal}
-                productTitle={t('consultation_title')}
-                requireQuantity={false}
-            />
         </section>
     );
 };

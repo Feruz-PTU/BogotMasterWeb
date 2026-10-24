@@ -1,15 +1,21 @@
 import './QuoteButton.css';
 import { useQuote } from '../context/QuoteContext';
 import { useLanguage } from '../context/LanguageContext';
+import { useAddToast } from './Toast';
 import { track, EVENTS } from '../analytics';
 
 const QuoteButton = ({ product, variant = '' }) => {
     const { has, toggleItem } = useQuote();
     const { t } = useLanguage();
+    const addToast = useAddToast();
     const active = has(product.slug);
 
     const handleClick = () => {
-        if (!active) track(EVENTS.QUOTE_ADD); // adding only, not removing
+        if (!active) {
+            track(EVENTS.QUOTE_ADD); // adding only, not removing
+            // Say so: the list itself is out of sight, behind the floating button.
+            addToast(t('quote_added_toast').replace('{product}', product.title), 'success', 2500);
+        }
         toggleItem({ slug: product.slug, title: product.title, image: product.image });
     };
 

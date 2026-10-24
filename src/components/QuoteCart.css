@@ -169,20 +169,6 @@
     color: var(--color-text-dark, #1A1A1A);
 }
 
-.quote-cart-qty {
-    width: 100%;
-    padding: 6px 10px;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    border-radius: 8px;
-    font-size: 0.82rem;
-    font-family: inherit;
-}
-
-.quote-cart-qty:focus {
-    outline: none;
-    border-color: var(--color-primary, #515E3B);
-}
-
 .quote-cart-remove {
     width: 34px;
     height: 34px;
@@ -211,110 +197,6 @@
     cursor: pointer;
 }
 
-.quote-cart-form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
-    padding-top: 18px;
-    margin-top: 4px;
-}
-
-.qc-field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-
-.qc-field label {
-    font-size: 0.82rem;
-    font-weight: 500;
-    color: var(--color-text-dark, #1A1A1A);
-}
-
-.qc-field .form-hint { margin-top: 0; }
-
-.quote-cart-form input,
-.quote-cart-form textarea,
-.quote-cart-form select {
-    width: 100%;
-    padding: 12px 14px;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    border-radius: 10px;
-    font-size: 0.9rem;
-    font-family: inherit;
-    resize: vertical;
-    background-color: #fff;
-    color: var(--color-text-dark, #1A1A1A);
-}
-
-.quote-cart-form select {
-    padding-right: 8px;
-    text-overflow: ellipsis;
-}
-
-.quote-cart-form input::placeholder,
-.quote-cart-form textarea::placeholder {
-    color: #6E6E6E;
-}
-
-.quote-cart-form input:focus,
-.quote-cart-form textarea:focus,
-.quote-cart-form select:focus {
-    outline: none;
-    border-color: var(--color-primary, #515E3B);
-    box-shadow: 0 0 0 3px rgba(81, 94, 59, 0.12);
-}
-
-.quote-cart-form input.error { border-color: #C62828; }
-
-/* Shipping details: an optional group under the contact fields. */
-.qc-trade {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    min-width: 0;
-    margin: 6px 0 0;
-    padding: 16px 0 0;
-    border: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-/* Floated, so it sits inside the group instead of on its top border. */
-.qc-trade legend {
-    float: left;
-    width: 100%;
-    padding: 0;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--color-text-dark, #1A1A1A);
-}
-
-.qc-trade > .form-hint { margin-top: -6px; }
-
-/* Total quantity and its unit side by side. */
-.qc-row {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
-    gap: 10px;
-}
-
-.qc-error { color: #C62828; font-size: 0.75rem; }
-
-.qc-success {
-    background: #e6f4ea;
-    color: #2e7d32;
-    padding: 12px;
-    border-radius: 10px;
-    font-size: 0.88rem;
-    text-align: center;
-}
-
-.qc-error-box {
-    background: #fdecea;
-    color: #c0392b;
-    padding: 12px;
-    border-radius: 10px;
-    font-size: 0.88rem;
-    text-align: center;
-}
-
 .quote-cart-submit {
     width: 100%;
     padding: 14px;
@@ -331,18 +213,20 @@
 .quote-cart-submit:hover:not(:disabled) { background: var(--color-primary-dark, #3D472C); }
 .quote-cart-submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
+.quote-cart-note {
+    margin-top: 10px;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: #5A5A5A;
+    text-align: center;
+}
+
 @media (max-width: 768px) {
     .quote-fab {
         left: 16px;
         bottom: 16px;
         width: 52px;
         height: 52px;
-    }
-
-    .quote-cart-form input,
-    .quote-cart-form textarea,
-    .quote-cart-form select {
-        font-size: 16px;
     }
 
     .quote-cart-overlay {

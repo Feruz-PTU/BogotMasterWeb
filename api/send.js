@@ -62,6 +62,27 @@ function shell(inner, { footerNote = '' } = {}) {
 </body></html>`;
 }
 
+// The tag that starts the owner's subject line, by request type.
+const SUBJECT_TAGS = { quote: 'Quote', price: 'Quote', sample: 'Sample', docs: 'Docs', contact: 'Question' };
+
+/**
+ * A subject the owner can triage before opening the email:
+ *   [Quote] Slice A 22 t +2 more · Germany · FCA
+ *   [Sample] Powder · South Korea
+ *   [Question] Ivan Petrov
+ * Every part is already clamped (control characters stripped), and the whole
+ * line is cut to 120 characters.
+ */
+export function subjectLine(d) {
+    const tag = `[${SUBJECT_TAGS[d.type] || 'Inquiry'}]`;
+    const [first, ...rest] = d.items || [];
+    const head = first
+        ? [first.title, first.quantity, rest.length ? `+${rest.length} more` : ''].filter(Boolean).join(' ')
+        : d.product;
+    const parts = [head || d.name, d.destination_country, d.incoterms].filter(Boolean);
+    return clamp(`${tag} ${parts.join(' · ')}`, 120);
+}
+
 // "22 t", "500 kg", "2 × 40 ft container", "1 × truck".
 function totalQuantity(quantity, unit) {
     if (!quantity) return '';
@@ -306,7 +327,7 @@ export default async function handler(req, res) {
             from: CONTACT_FROM_EMAIL,
             to: CONTACT_TO_EMAIL,
             replyTo: d.email,
-            subject: `New ${d.type} from ${d.name}`,
+            subject: subjectLine(d),
             html: businessHtml(d),
         });
         if (error) throw new Error(error.message || 'Resend error');

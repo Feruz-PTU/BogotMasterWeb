@@ -30,9 +30,24 @@ export const EVENTS = {
     CLICK_WHATSAPP: 'click_whatsapp',
     CLICK_TELEGRAM: 'click_telegram',
     CLICK_CERTIFICATE: 'click_certificate',
+    // The request form (folder 16). The database accepts these once
+    // supabase/phase3-events.sql has been run.
+    FORM_START: 'form_start',
+    FORM_ERROR: 'form_error',
+    FORM_SUBMIT_SAMPLE: 'form_submit_sample',
+    FORM_SUBMIT_DOCS: 'form_submit_docs',
+    // For the spec sheet and COA PDFs, once they exist (99 track A):
+    // track(EVENTS.SPEC_DOWNLOAD) on the download link's click.
+    SPEC_DOWNLOAD: 'spec_download',
+    COA_DOWNLOAD: 'coa_download',
 };
 
 const ALLOWED = new Set(Object.values(EVENTS));
+
+// Database errors that refuse one event but say nothing about the others: a
+// check constraint (an event name not yet allowed) or an unknown column (the
+// `detail` column before phase3-events.sql). Only that event is lost.
+const REFUSED_ONLY = new Set(['23514', 'PGRST204', '42703']);
 
 /** Only the host, so we never store a full referring URL. */
 function referrerHost() {
@@ -75,6 +90,10 @@ function whenIdle(fn) {
  */
 let disabled = false;
 
+/**
+ * Records one event. `extra.detail` is a short label (form_error: the names of
+ * the fields with errors, never what was typed).
+ */
 export function track(name, extra = {}) {
     if (typeof window === 'undefined') return;
     if (disabled) return;
@@ -91,9 +110,10 @@ export function track(name, extra = {}) {
                 referrer_host: referrerHost(),
                 ...extra,
             });
-        } catch {
+        } catch (err) {
             // Analytics must never break the page, and must never keep
             // retrying something that is not there.
+            if (err && REFUSED_ONLY.has(err.code)) return;
             disabled = true;
         }
     });

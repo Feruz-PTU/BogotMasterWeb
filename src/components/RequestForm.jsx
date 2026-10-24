@@ -5,7 +5,7 @@ import SocialButtons from './SocialButtons';
 import { useLanguage } from '../context/LanguageContext';
 import { useContent } from '../context/ContentContext';
 import { useSpamGuard } from '../hooks/useSpamGuard';
-import { track, leadContext } from '../analytics';
+import { track, leadContext, EVENTS } from '../analytics';
 import { sendRequest } from '../services/emailService';
 import { isValidEmail, isValidPhone } from '../utils/formValidation';
 import { isLicoriceRoot } from '../utils/productKind';
@@ -44,9 +44,15 @@ const EMPTY = {
     message: '',
 };
 
-/** Free samples cover licorice root only, not the partner's extract (owner). */
-const forSample = (product) => isLicoriceRoot(product);
-const pickable = (product) => isLicoriceRoot(product) || product.slug === 'extract';
+/**
+ * Free samples cover licorice root only: not the partner's extract, not the
+ * dried fruit (owner). Every other request can name any product on the site.
+ */
+const forSample = (product) => Boolean(product) && isLicoriceRoot(product);
+
+/** Field names for the form_error event: never what was typed. */
+const errorFields = (errors) =>
+    [...new Set(Object.keys(errors).filter((k) => errors[k]).map((k) => (k.startsWith('qty-') ? 'quantity' : k)))].join(',');
 
 const ErrorIcon = () => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -76,7 +82,7 @@ const RequestForm = ({ initialType = 'quote', initialProducts = [], onLinkClick,
     const uid = useId();
     const fieldId = (name) => `${uid}-${name}`;
 
-    const choices = useMemo(() => products.filter(pickable), [products]);
+    const choices = products;
     const productBySlug = useMemo(() => new Map(products.map((p) => [p.slug, p])), [products]);
     const titleOf = (slug) => productBySlug.get(slug)?.title || slug;
 
@@ -93,6 +99,13 @@ const RequestForm = ({ initialType = 'quote', initialProducts = [], onLinkClick,
     const [countries, setCountries] = useState([]);
     const { honeypotProps, isLikelyBot, guardPayload, reset } = useSpamGuard();
     const successRef = useRef(null);
+    // form_start fires once, on the first thing the visitor does in the form.
+    const started = useRef(false);
+    const markStarted = () => {
+        if (started.current) return;
+        started.current = true;
+        track(EVENTS.FORM_START);
+    };
 
     const requestType = findRequestType(type);
     const fields = FIELDS_BY_TYPE[type];
@@ -114,6 +127,7 @@ const RequestForm = ({ initialType = 'quote', initialProducts = [], onLinkClick,
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+        markStarted();
         setForm((prev) => ({ ...prev, [name]: value }));
         clearError(name);
         // A filled phone, or a channel that needs none, settles the phone error.
@@ -121,6 +135,7 @@ const RequestForm = ({ initialType = 'quote', initialProducts = [], onLinkClick,
     };
 
     const changeType = (value) => {
+        markStarted();
         setType(value);
         setErrors({});
         if (status === 'error') setStatus(null);
@@ -129,11 +144,13 @@ const RequestForm = ({ initialType = 'quote', initialProducts = [], onLinkClick,
     const addLine = (e) => {
         const slug = e.target.value;
         if (!slug) return;
+        markStarted();
         setLines((prev) => (prev.some((l) => l.slug === slug) ? prev : [...prev, { slug, quantity: '', unit: 't' }]));
         clearError('products');
     };
 
     const updateLine = (slug, patch) => {
+        markStarted();
         setLines((prev) => prev.map((l) => (l.slug === slug ? { ...l, ...patch } : l)));
         clearError(`qty-${slug}`);
     };
@@ -224,6 +241,7 @@ const RequestForm = ({ initialType = 'quote', initialProducts = [], onLinkClick,
         setErrors(e);
         const first = errorOrder.find((k) => e[k]);
         if (first) {
+            track(EVENTS.FORM_ERROR, { detail: errorFields(e) });
             document.getElementById(fieldId(first))?.focus();
             return;
         }
@@ -239,7 +257,7 @@ const RequestForm = ({ initialType = 'quote', initialProducts = [], onLinkClick,
                 language
             );
             if (!res.success) throw new Error(res.message);
-            track(requestType.event);
+            track(EVENTS[requestType.event]);
             reset();
             finish();
         } catch {
