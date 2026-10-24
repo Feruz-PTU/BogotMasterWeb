@@ -12,6 +12,7 @@ build
 # Generated at build time by scripts/fetch-content.mjs (live Supabase snapshot).
 # Never commit it: it would go stale and could be published instead of real data.
 src/data/build-content.json
+src/data/build-faq.json
 
 # Design mock-ups: kept on disk, not in the repo (24 MB of PNGs).
 resource/

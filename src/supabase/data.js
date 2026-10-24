@@ -95,6 +95,65 @@ export async function saveTranslations(data) {
     if (error) throw error;
 }
 
+// ─── FAQ ─────────────────────────────────────────────────────────────────────
+// One row per question (supabase/faq.sql). slug, order and status are
+// columns; the rest is the `data` document, flattened here like the other
+// tables. A visitor can read published rows only; the admin reads them all.
+// Public pages never call these: the build writes the published answers to
+// src/data/build-faq.json (scripts/fetch-content.mjs).
+
+const faqFromRow = (r) => ({
+    ...r.data,
+    id: r.id,
+    slug: r.slug,
+    order: r.order,
+    status: r.status,
+    createdAt: r.created_at,
+    updatedAt: r.updated_at,
+});
+
+// eslint-disable-next-line no-unused-vars -- createdAt/updatedAt are set by the database, so they are left out
+const faqToRow = ({ id, slug, order, status, createdAt, updatedAt, ...data }) => ({
+    ...(id ? { id } : {}),
+    slug,
+    order: order ?? 0,
+    status: status || 'draft',
+    data,
+});
+
+export async function fetchFaq() {
+    const { data, error } = await supabase
+        .from('faq')
+        .select('*')
+        .order('order', { ascending: true });
+    if (error) throw error;
+    return data.map(faqFromRow);
+}
+
+/** Adds the answer (no id yet) or updates it; returns the row as saved. */
+export async function saveFaq(item) {
+    const row = faqToRow(item);
+    const query = row.id
+        ? supabase.from('faq').update(row).eq('id', row.id)
+        : supabase.from('faq').insert(row);
+    const { data, error } = await query.select().single();
+    if (error) throw error;
+    return faqFromRow(data);
+}
+
+/** Several existing answers in one request (a new order inside a group). */
+export async function saveFaqs(items) {
+    const { error } = await supabase
+        .from('faq')
+        .upsert(items.map(faqToRow), { onConflict: 'id' });
+    if (error) throw error;
+}
+
+export async function deleteFaq(id) {
+    const { error } = await supabase.from('faq').delete().eq('id', id);
+    if (error) throw error;
+}
+
 // ─── Seed ────────────────────────────────────────────────────────────────────
 
 export async function seedDatabase() {

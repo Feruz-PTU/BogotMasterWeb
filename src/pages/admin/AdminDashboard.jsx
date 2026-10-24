@@ -18,6 +18,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import { FALLBACK_STRINGS } from '../../i18n/fallback-strings';
 import SEO from '../../components/SEO';
 import RelatedProductsPicker from './RelatedProductsPicker';
+import FaqAdmin from './FaqAdmin';
 import { resolveFamilies, familyChanges } from '../../utils/productFamily';
 import './Admin.css';
 
@@ -548,9 +549,19 @@ const AdminDashboard = () => {
         }
     };
 
-    const showToast = (msg) => {
+    // One timer for the toast: a new message restarts it, so an earlier
+    // message's timer cannot hide the new one early.
+    const toastTimer = useRef(null);
+    const showToast = (msg, ms = 3000) => {
         setToast(msg);
-        setTimeout(() => setToast(''), 3000);
+        clearTimeout(toastTimer.current);
+        toastTimer.current = setTimeout(() => setToast(''), ms);
+    };
+
+    // The confirmation pop-up, for the tabs that live in their own file.
+    const openConfirm = (opts) => {
+        setConfirmInput('');
+        setConfirmModal({ isOpen: true, title: '', message: '', onConfirm: null, isDanger: false, typeToConfirm: '', ...opts });
     };
 
     // Surface the background rebuild so the admin knows when an edit is
@@ -562,7 +573,8 @@ const AdminDashboard = () => {
                     ? result.message || 'Rebuilding the site…'
                     : `Saved, but the rebuild did not start: ${result.message}`
             );
-            setTimeout(() => setToast(''), 6000);
+            clearTimeout(toastTimer.current);
+            toastTimer.current = setTimeout(() => setToast(''), 6000);
         });
     }, []);
 
@@ -1411,6 +1423,13 @@ const AdminDashboard = () => {
                         >
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
                             <span>Products</span>
+                        </button>
+                        <button
+                            className={`admin-tab-btn ${tab === 'faq' ? 'active' : ''}`}
+                            onClick={() => setTabPersist('faq')}
+                        >
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                            <span>FAQ</span>
                         </button>
                         <button
                             className={`admin-tab-btn ${tab === 'inquiries' ? 'active' : ''}`}
@@ -2338,6 +2357,11 @@ const AdminDashboard = () => {
                                 </>
                             )}
                         </div>
+                    )}
+
+                    {/* ── FAQ tab (loads its own data; see FaqAdmin.jsx) ───────── */}
+                    {tab === 'faq' && (
+                        <FaqAdmin products={products} showToast={showToast} openConfirm={openConfirm} />
                     )}
 
                     {/* ── Inquiries tab ─────────────────────────────────────────── */}

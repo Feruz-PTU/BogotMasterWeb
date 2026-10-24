@@ -19,6 +19,9 @@ import {
     saveTranslations as _saveTranslations,
     deleteProduct as _deleteProduct,
     seedDatabase as _seedDatabase,
+    saveFaq as _saveFaq,
+    saveFaqs as _saveFaqs,
+    deleteFaq as _deleteFaq,
 } from '../supabase/data';
 import { requestRebuild } from './rebuildService';
 
@@ -55,8 +58,30 @@ export const saveTranslations = withRebuild(_saveTranslations);
 export const deleteProduct = withRebuild(_deleteProduct);
 export const seedDatabase = withRebuild(_seedDatabase);
 
+// FAQ: only published answers are on the site, so a save rebuilds only when
+// the answer is published now or was before (publishing or unpublishing it).
+const touchesSite = (...items) => items.some((i) => i?.status === 'published');
+
+/** `previous` is the answer as it was loaded, or null for a new one. */
+export async function saveFaq(item, previous = null) {
+    const saved = await _saveFaq(item);
+    if (touchesSite(saved, previous)) scheduleRebuild();
+    return saved;
+}
+
+export async function saveFaqs(items) {
+    await _saveFaqs(items);
+    if (touchesSite(...items)) scheduleRebuild();
+}
+
+export async function deleteFaq(item) {
+    await _deleteFaq(item.id);
+    if (touchesSite(item)) scheduleRebuild();
+}
+
 // Read operations are re-exported unchanged so the dashboard has one import.
 export {
+    fetchFaq,
     fetchProducts,
     fetchSettings,
     isDatabaseSeeded,

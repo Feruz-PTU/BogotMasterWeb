@@ -1,0 +1,280 @@
+/* Admin → FAQ tab (FaqAdmin.jsx). Builds on the shared admin classes in Admin.css. */
+
+.faq-admin-note {
+    color: #8a8576;
+    font-size: 0.875rem;
+    margin: 0 0 8px;
+}
+
+.faq-admin-setup {
+    background: #fff;
+    border: 1px solid #e8e4dd;
+    border-left: 4px solid #c48a00;
+    border-radius: 10px;
+    padding: 18px 20px;
+    max-width: 640px;
+}
+
+.faq-admin-setup strong {
+    display: block;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+}
+
+.faq-admin-setup p {
+    color: #555;
+    font-size: 0.875rem;
+    margin: 0 0 14px;
+}
+
+/* ── List ─────────────────────────────────────────────────────────────── */
+
+.faq-admin-group + .faq-admin-group {
+    margin-top: 28px;
+}
+
+.faq-admin-group-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.faq-admin-group-head h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.faq-admin-row-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 3px;
+}
+
+.faq-admin-status {
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: #f0ede8;
+    color: #6b665c;
+}
+
+.faq-admin-status.is-published {
+    background: #e8eedd;
+    color: #3f4a2e;
+}
+
+.faq-admin-status.is-needs_owner {
+    background: #fbf0d6;
+    color: #7a5600;
+}
+
+.faq-admin-slug {
+    font-family: monospace;
+    font-size: 0.75rem;
+    color: #8a8576;
+    overflow-wrap: anywhere;
+}
+
+.admin-product-row-info .faq-admin-q {
+    font-weight: 600;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+}
+
+.faq-admin-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 10px;
+    margin-top: 5px;
+    font-size: 0.75rem;
+    color: #8a8576;
+}
+
+.faq-admin-lang {
+    font-weight: 600;
+    color: #b3ada2;
+}
+
+.faq-admin-lang.is-done {
+    color: #515E3B;
+}
+
+.faq-admin-marks {
+    color: #7a5600;
+    font-weight: 600;
+}
+
+.faq-admin-row.is-draft .admin-product-row-info,
+.faq-admin-row.is-needs_owner .admin-product-row-info {
+    opacity: 0.85;
+}
+
+/* ── Editor ───────────────────────────────────────────────────────────── */
+
+.faq-admin-editor-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.faq-admin-hint {
+    font-size: 0.72rem;
+    color: #8a8576;
+    line-height: 1.4;
+}
+
+.faq-admin-hint.is-warn {
+    color: #9a5b00;
+    font-weight: 600;
+}
+
+.faq-admin-hint-tight {
+    margin-top: -6px;
+}
+
+.faq-admin-hint-block {
+    margin: -6px 0 12px;
+}
+
+.faq-admin-lang-block + .faq-admin-lang-block .admin-form-section-label,
+.faq-admin-lang-block ~ .admin-form-section-label {
+    margin-top: 28px;
+}
+
+.faq-admin-link-row {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr auto;
+    gap: 12px;
+    align-items: end;
+    padding-bottom: 4px;
+}
+
+.faq-admin-link-remove {
+    margin-bottom: 12px;
+}
+
+.faq-admin-chips {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0 0 12px;
+    padding: 0;
+}
+
+.faq-admin-chips li {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #eef1e8;
+    color: #3f4a2e;
+    border-radius: 999px;
+    padding: 4px 6px 4px 12px;
+    font-size: 0.8rem;
+}
+
+.faq-admin-chips li.is-off {
+    background: #f6eee0;
+    color: #7a5600;
+}
+
+.faq-admin-chips button {
+    border: none;
+    background: transparent;
+    color: inherit;
+    font-size: 1.05rem;
+    line-height: 1;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.faq-admin-chips button:hover,
+.faq-admin-chips button:focus-visible {
+    background: rgba(0, 0, 0, 0.08);
+}
+
+.faq-admin-add-product {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    max-width: 480px;
+}
+
+.faq-admin-add-product .admin-field {
+    flex: 1;
+}
+
+.faq-admin-add-product .admin-btn-sm {
+    margin-bottom: 12px;
+}
+
+.faq-admin-checks {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+.faq-admin-check {
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 0.85rem;
+    line-height: 1.45;
+    border: 1px solid;
+}
+
+.faq-admin-check ul {
+    margin: 6px 0 0;
+    padding-left: 18px;
+}
+
+.faq-admin-check p {
+    margin: 6px 0 0;
+}
+
+.faq-admin-check.is-error {
+    background: #fdf1f0;
+    border-color: #f3c7c2;
+    color: #8f1d14;
+}
+
+.faq-admin-check.is-warn {
+    background: #fdf8ea;
+    border-color: #ecdcae;
+    color: #6b4c00;
+}
+
+.faq-admin-check.is-ok {
+    background: #f1f5ea;
+    border-color: #d3dcc2;
+    color: #3f4a2e;
+}
+
+@media (max-width: 900px) {
+    .faq-admin-link-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+        border-bottom: 1px solid #f0ede8;
+        margin-bottom: 12px;
+    }
+
+    .faq-admin-link-remove {
+        justify-self: start;
+    }
+
+    .faq-admin-group-head {
+        flex-wrap: wrap;
+    }
+}

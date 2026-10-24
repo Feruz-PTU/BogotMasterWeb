@@ -18,10 +18,14 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { LANGUAGE_CODES, DEFAULT_LANGUAGE } from '../src/i18n/languages.js';
 import { resolveFamilies } from '../src/utils/productFamily.js';
+import { faqProblems, sortFaq } from '../src/utils/faq.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
 const OUT_FILE = resolve(ROOT, 'src/data/build-content.json');
+// The published FAQ answers, in their own file so they stay out of the main
+// bundle: only the FAQ page imports it.
+const FAQ_FILE = resolve(ROOT, 'src/data/build-faq.json');
 
 /**
  * Load .env for local runs.
@@ -282,9 +286,71 @@ if (missing.length) {
 mkdirSync(dirname(OUT_FILE), { recursive: true });
 writeFileSync(OUT_FILE, JSON.stringify(snapshot, null, 2), 'utf8');
 
+// ── FAQ ──────────────────────────────────────────────────────────────────────
+// Published answers only. The anon key cannot read any other row
+// (supabase/faq.sql), and the query and the filter below say so again.
+// Before that SQL has been run the table does not exist: the build then goes
+// on with no answers rather than failing. Any other error fails it as usual.
+async function fetchPublishedFaq() {
+    const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/faq?select=slug,order,status,data,updated_at&status=eq.published&order=order.asc`,
+        { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
+    );
+    const text = await res.text();
+    if (res.status === 404 && /PGRST205|42P01/.test(text)) return null;
+    if (!res.ok) fail(`Supabase returned HTTP ${res.status} for the FAQ.\n  ${text.slice(0, 300)}`);
+    return JSON.parse(text);
+}
+
+const faqRows = await fetchPublishedFaq();
+const faqSkipped = [];
+const faqWarnings = [];
+const visibleSlugs = products.map((p) => p.slug);
+const faqItems = sortFaq(
+    (faqRows || [])
+        .filter((r) => r.status === 'published')
+        .map((r) => ({
+            ...(r.data || {}),
+            slug: r.slug,
+            order: r.order,
+            // The date shown as "Last updated": set in the admin, or the
+            // date the row last changed.
+            updated: r.data?.updated || String(r.updated_at || '').slice(0, 10),
+        }))
+).filter((item) => {
+    const { errors, warnings } = faqProblems(item, { codes: LANGUAGE_CODES, productSlugs: visibleSlugs });
+    // An answer the page cannot place or show is left out. One that still
+    // has an "[owner: …]" mark is kept, so the placeholder guard stops the
+    // build and names it (the database should never let one be published).
+    const blocking = errors.filter((e) => e.code !== 'marks');
+    if (blocking.length) {
+        faqSkipped.push(`${item.slug} — ${blocking.map((e) => e.message).join(' ')}`);
+        return false;
+    }
+    // Length is a writing guideline, not a build note.
+    faqWarnings.push(...warnings.filter((w) => !/ words \(aim/.test(w)).map((w) => `faq "${item.slug}": ${w}`));
+    return true;
+});
+
+writeFileSync(
+    FAQ_FILE,
+    JSON.stringify({ generatedAt: snapshot.generatedAt, items: faqItems }, null, 2),
+    'utf8'
+);
+
 // ── Report ───────────────────────────────────────────────────────────────────
 console.log(`✓ ${products.length} visible products, ${LANGUAGE_CODES.length} languages`);
 console.log(`✓ wrote ${OUT_FILE.replace(process.cwd(), '.')}`);
+console.log(
+    faqRows === null
+        ? '  note: no FAQ table yet (run supabase/faq.sql); wrote an empty FAQ'
+        : `✓ ${faqItems.length} published FAQ answer(s) → ${FAQ_FILE.replace(process.cwd(), '.')}`
+);
+if (faqSkipped.length) {
+    console.log('\n  FAQ answers SKIPPED (published, but cannot be shown):');
+    for (const s of faqSkipped) console.log(`   • ${s}`);
+}
+warnings.push(...faqWarnings);
 
 if (droppedLanguages.length) {
     console.log(

@@ -15,9 +15,11 @@
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join, relative, resolve, dirname } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+// "[owner:", "[verify]" and "[verify in the tariff]", in any case. Kept in
+// src/ so the admin FAQ editor checks for exactly the same marks.
+import { PLACEHOLDER } from '../src/utils/placeholder.js';
 
-/** "[owner:", "[verify]" and "[verify in the tariff]", in any case. */
-export const PLACEHOLDER = /\[(owner:|verify\b)[^\]\n]*\]?/gi;
+export { PLACEHOLDER };
 
 function filesUnder(dir, test) {
     if (!existsSync(dir)) return [];
@@ -56,8 +58,13 @@ export async function checkSources(root) {
     const { PAGES } = await mod('src/content/pages/index.js');
     const { ARTICLES } = await mod('src/content/articles/index.js');
     const { FALLBACK_STRINGS } = await mod('src/i18n/fallback-strings.js');
-    const contentFile = join(root, 'src/data/build-content.json');
-    const content = existsSync(contentFile) ? JSON.parse(readFileSync(contentFile, 'utf8')) : {};
+    const readJson = (path) => {
+        const file = join(root, path);
+        // A byte-order mark (an editor may add one) is not JSON.
+        return existsSync(file) ? JSON.parse(readFileSync(file, 'utf8').replace(/^﻿/, '')) : {};
+    };
+    const content = readJson('src/data/build-content.json');
+    const faq = readJson('src/data/build-faq.json');
     return [
         ...filesUnder(join(root, 'src/content'), (n) => n.endsWith('.md')).flatMap((f) => scanFile(f, root)),
         ...PAGES.flatMap((p) => scanData(p, `content page "${p.id}"`)),
@@ -67,6 +74,9 @@ export async function checkSources(root) {
         ...scanData(content.products || [], 'database › products'),
         ...scanData(content.settings || {}, 'database › settings'),
         ...scanData(content.translations || {}, 'database › translations'),
+        // The published FAQ answers (supabase/faq.sql already refuses to
+        // publish one with a mark; this is the second net).
+        ...(faq.items || []).flatMap((item) => scanData(item, `database › faq "${item.slug}"`)),
     ];
 }
 
