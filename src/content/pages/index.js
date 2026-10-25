@@ -23,11 +23,20 @@
  *   path        the English path; the Russian page is /ru + path
  *   parent      the parent page's id, or null; it builds the breadcrumb, and
  *               a parent lists its children under its own text
+ *   under       optional, on a page with no parent: a fixed page outside this
+ *               registry that the page sits below, from FIXED_PARENTS ('/about'
+ *               for /about/origin). The path must start with it; the breadcrumb
+ *               and the language fallback go through it.
  *   section     the menu group (folder 21 builds the menu from it)
  *   schemaType  'WebPage' | 'CollectionPage' (a hub: lists its children) |
  *               'TechArticle' (a guide chapter) | 'DefinedTermSet' (the glossary) |
  *               'FAQPage' (the FAQ: its Markdown is the intro, the answers
- *               come from the database)
+ *               come from the database) | 'AboutPage' (about the company)
+ *   place       optional: { en: [...], ru: [...] }, the place the page is
+ *               about, smallest first; each item is a name or { name,
+ *               alternateName: [...] }. The last one is the country. It becomes
+ *               a schema.org Place the page is `about`, with no address or
+ *               coordinates.
  *   languages   e.g. ['en', 'ru']
  *   title       { en, ru }: the <title>, 60 characters or fewer
  *   h1          { en, ru }
@@ -380,9 +389,43 @@ export const PAGES = [
         updated: '2026-10-24',
         priority: 0.7,
     },
+    {
+        // Folder 30. Facts: the sales rep (all root wild, dug across Khorezm all
+        // year, the harvest permit; 22–24 Oct 2026) and the botany article's
+        // sources, each stated once with its limit (audit Appendix B §2.11).
+        id: 'about-origin',
+        path: '/about/origin',
+        parent: null,
+        under: '/about',
+        section: 'about',
+        schemaType: 'AboutPage',
+        languages: ['en', 'ru'],
+        title: {
+            en: 'Origin: Licorice from Khorezm, Uzbekistan | Bogot Master',
+            ru: 'Происхождение: солодка из Хорезма | Bogot Master',
+        },
+        h1: {
+            en: 'Where our licorice comes from',
+            ru: 'Откуда наша солодка',
+        },
+        navTitle: { en: 'Origin', ru: 'Происхождение' },
+        meta: {
+            en: 'Where our Glycyrrhiza glabra root comes from: wild root dug across Khorezm, Uzbekistan, all year round, under a state permit, and what is not known.',
+            ru: 'Откуда наш корень солодки голой: дикорастущий корень со всего Хорезма (Узбекистан), заготовка круглый год по разрешению, и чего мы не знаем.',
+        },
+        place: {
+            en: [{ name: 'Bogot district', alternateName: ['Bogʻot district', 'Bagat district'] }, 'Khorezm Region', 'Uzbekistan'],
+            ru: [{ name: 'Боготский район', alternateName: ['Багатский район'] }, 'Хорезмская область', 'Узбекистан'],
+        },
+        updated: '2026-10-25',
+        priority: 0.6,
+    },
 ];
 
-export const SCHEMA_TYPES = ['WebPage', 'CollectionPage', 'TechArticle', 'DefinedTermSet', 'FAQPage'];
+/** Fixed pages outside the registry a page may sit `under`: path → the string key of its name. */
+export const FIXED_PARENTS = { '/about': 'about' };
+
+export const SCHEMA_TYPES = ['WebPage', 'CollectionPage', 'TechArticle', 'DefinedTermSet', 'FAQPage', 'AboutPage'];
 
 export const findPage = (id) => PAGES.find((p) => p.id === id);
 
@@ -412,9 +455,13 @@ export const pageTopSegments = () => [...new Set(PAGES.map((p) => p.path.split('
 export function pageRouteInLanguage(routePath, code) {
     const page = pageByPath(routePath);
     if (!page || page.languages.includes(code)) return routePath;
-    const fallback = [...pageAncestors(page)].reverse().find((p) => p.languages.includes(code));
-    return fallback ? fallback.path : '/';
+    const ancestors = pageAncestors(page);
+    const fallback = [...ancestors].reverse().find((p) => p.languages.includes(code));
+    return fallback ? fallback.path : (ancestors[0] || page).under || '/';
 }
+
+/** The fixed page above a page's whole trail ('/about'), or null. */
+export const pageUnder = (page) => (pageAncestors(page)[0] || page).under || null;
 
 /**
  * What is wrong with the registry, as a list of messages (empty when all is
@@ -432,10 +479,24 @@ export function pageProblems({ reservedPaths = [], liveLanguages = [], bodyExist
             if (seen[key].has(page[key])) problems.push(`${where}: ${key} "${page[key]}" is used twice`);
             seen[key].add(page[key]);
         }
-        if (reservedPaths.some((r) => page.path === r || page.path.startsWith(`${r}/`))) {
+        // Below a reserved route only when the page says it sits `under` it.
+        if (reservedPaths.some((r) => page.path === r || (page.path.startsWith(`${r}/`) && r !== page.under))) {
             problems.push(`${where}: path ${page.path} clashes with an existing route`);
         }
         if (page.parent != null && !findPage(page.parent)) problems.push(`${where}: parent "${page.parent}" is not in the registry`);
+        if (page.under != null) {
+            if (!FIXED_PARENTS[page.under]) problems.push(`${where}: under must be one of ${Object.keys(FIXED_PARENTS).join(', ')}`);
+            if (page.parent != null) problems.push(`${where}: a page with a parent cannot also be under ${page.under}`);
+            if (!page.path?.startsWith(`${page.under}/`)) problems.push(`${where}: the path must start with ${page.under}/`);
+        }
+        if (page.place != null) {
+            for (const code of page.languages || []) {
+                const chain = page.place[code];
+                const ok = Array.isArray(chain) && chain.length > 0 &&
+                    chain.every((p) => (typeof p === 'string' ? p : p?.name)?.trim());
+                if (!ok) problems.push(`${where}: place needs a list of place names in "${code}"`);
+            }
+        }
         if (!SCHEMA_TYPES.includes(page.schemaType)) problems.push(`${where}: schemaType must be one of ${SCHEMA_TYPES.join(', ')}`);
         if (page.requestType != null && !['quote', 'other'].includes(page.requestType)) problems.push(`${where}: requestType must be 'quote' or 'other'`);
         if (page.aboutTerm != null && !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(page.aboutTerm)) problems.push(`${where}: aboutTerm must be a glossary anchor such as 'liquiritiae-radix'`);

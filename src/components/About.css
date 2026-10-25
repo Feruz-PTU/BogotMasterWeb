@@ -158,6 +158,18 @@
     margin-bottom: 20px;
 }
 
+/* The link to the origin page, under the mission text (AboutPage.jsx). */
+.about-origin-link {
+    display: inline-block;
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+.about-origin-link:hover,
+.about-origin-link:focus-visible {
+    text-decoration: underline;
+}
+
 .about-extra-stats {
     display: flex;
     flex-direction: column;

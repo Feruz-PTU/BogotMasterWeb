@@ -5,9 +5,11 @@ import Certificates from '../components/Certificates';
 import HomeCTA from '../components/HomeCTA';
 import { useLanguage } from '../context/LanguageContext';
 import { useReveal } from '../hooks/useReveal';
+import LocalLink from '../components/LocalLink';
+import { findPage } from '../content/pages';
 
 const AboutPage = () => {
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
     useReveal();
     return (
         <Layout>
@@ -32,6 +34,12 @@ const AboutPage = () => {
                                 {/* Shown here only: <About> above stops at about_p2. */}
                                 <p>{t('about_p3')}</p>
                                 <p>{t('about_p4')}</p>
+                                {/* The origin page (folder 30), where it exists in this language. */}
+                                {findPage('about-origin')?.languages.includes(language) && (
+                                    <LocalLink to="/about/origin" className="about-origin-link">
+                                        {t('about_origin_link')} →
+                                    </LocalLink>
+                                )}
                             </div>
                             <div className="about-extra-stats">
                                 <div className="extra-stat-card">

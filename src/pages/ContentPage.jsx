@@ -7,7 +7,9 @@ import NotFound from './NotFound';
 import { useLanguage } from '../context/LanguageContext';
 import { useContent } from '../context/ContentContext';
 import { useRequest } from '../context/RequestContext';
-import { pageAncestors, childPages, pageName, findPage } from '../content/pages';
+import { pageAncestors, childPages, pageName, findPage, pageUnder, FIXED_PARENTS } from '../content/pages';
+import { PAGE_PHOTOS } from '../content/pages/photos';
+import PagePhotos from '../components/PagePhotos';
 import * as pageBodies from '../content/pages/bodies';
 import { localizedPath } from '../i18n/languages';
 import { SITE_URL, definedTermsGraph, safeJsonLd } from '../seo/schema';
@@ -22,9 +24,13 @@ import { GRADE_FORMS } from '../utils/productGrades';
  * What a page text's {{name}} lines show. {{grade-table}}: the slice and tablet
  * grades by root diameter, from the product data (folder 28); the guide
  * chapter's own heading names it, and the chapter is the guide link's target.
+ * {{photos-<set>}}: a set of gallery photos from content/pages/photos.js.
  */
 const WIDGETS = {
     'grade-table': <GradeTable forms={GRADE_FORMS} title={false} guideLink={false} />,
+    ...Object.fromEntries(
+        Object.entries(PAGE_PHOTOS).map(([name, photos]) => [`photos-${name}`, <PagePhotos key={name} photos={photos} />]),
+    ),
 };
 import './ContentPage.css';
 
@@ -35,6 +41,10 @@ import './ContentPage.css';
  * default, the company.
  */
 function aboutIds(page, language, products) {
+    // A page about a place (the origin page): the company and the place.
+    if (page.place?.[language]) {
+        return [`${SITE_URL}/#organization`, `${SITE_URL}${localizedPath(language, page.path)}#place`];
+    }
     const published = new Set(products.map((p) => p.slug));
     const ids = applicationSlugsFor(page.path)
         .filter((slug) => published.has(slug))
@@ -77,10 +87,17 @@ const ContentPage = ({ page }) => {
     if (!page.languages.includes(language)) return <NotFound />;
 
     // Ancestors that do not exist in this language are left out of the trail.
-    const trail = [...pageAncestors(page), page].filter((p) => p.languages.includes(language));
+    // A page `under` a fixed page (the origin page, under /about) shows it first.
+    const under = pageUnder(page);
+    const trail = [
+        ...(under ? [{ to: under, name: t(FIXED_PARENTS[under]) }] : []),
+        ...[...pageAncestors(page), page]
+            .filter((p) => p.languages.includes(language))
+            .map((p) => ({ to: p.path, name: pageName(p, language) })),
+    ];
     const breadcrumb = [
         { name: t('home'), path: localPath('/') },
-        ...trail.map((p) => ({ name: pageName(p, language), path: localPath(p.path) })),
+        ...trail.map((p) => ({ name: p.name, path: localPath(p.to) })),
     ];
     const children = childPages(page).filter((c) => c.languages.includes(language));
     const h1 = page.h1[language];
@@ -103,6 +120,7 @@ const ContentPage = ({ page }) => {
                     name: h1,
                     updated,
                     children: children.map((c) => ({ name: pageName(c, language), path: localPath(c.path) })),
+                    place: page.place?.[language],
                 }}
             />
             <div className="content-page">
@@ -112,7 +130,7 @@ const ContentPage = ({ page }) => {
                             {breadcrumb.map((item, i) => (
                                 <li key={item.path}>
                                     {i < breadcrumb.length - 1 ? (
-                                        <LocalLink to={i === 0 ? '/' : trail[i - 1].path}>{item.name}</LocalLink>
+                                        <LocalLink to={i === 0 ? '/' : trail[i - 1].to}>{item.name}</LocalLink>
                                     ) : (
                                         <span aria-current="page">{item.name}</span>
                                     )}

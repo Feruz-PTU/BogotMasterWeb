@@ -1,0 +1,40 @@
+/* Photos inside a content page's text (PagePhotos.jsx). */
+.page-photos {
+    display: grid;
+    gap: 16px;
+    margin: 24px 0 32px;
+}
+
+.page-photos-two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.page-photo {
+    margin: 0;
+}
+
+.page-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    background: #E4E2D9;
+}
+
+.page-photo figcaption {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--color-text-muted);
+}
+
+/* Phones: one photo a row; the root font is 81% here, so the caption is set in px. */
+@media (max-width: 640px) {
+    .page-photos-two {
+        grid-template-columns: 1fr;
+    }
+
+    .page-photo figcaption {
+        font-size: 13px;
+    }
+}

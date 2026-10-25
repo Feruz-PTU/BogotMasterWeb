@@ -134,7 +134,8 @@ function webPageNode({ canonical, title, description, lang, type = 'WebPage', da
  * FAQPage; its questions are added by faqPageGraph. No HowTo or Offer.
  */
 function contentPageNode({ contentPage, canonical, lang, description }) {
-    const { schemaType, name, updated, children = [] } = contentPage;
+    const { schemaType, name, updated, children = [], place } = contentPage;
+    if (place?.length) return placeNode(place, `${canonical}#place`);
     if (schemaType === 'CollectionPage') {
         if (!children.length) return null;
         return {
@@ -173,6 +174,21 @@ function contentPageNode({ contentPage, canonical, lang, description }) {
         };
     }
     return null;
+}
+
+/**
+ * The place a page is about (the registry's `place`, smallest first): a Place,
+ * each inside the next, the last a Country. Names only: no address or
+ * coordinates, which this project does not have.
+ */
+function placeNode(chain, id) {
+    const [first, ...rest] = chain;
+    const { name, alternateName } = typeof first === 'string' ? { name: first } : first;
+    const node = { '@type': rest.length ? 'Place' : 'Country', name };
+    if (id) node['@id'] = id;
+    if (alternateName?.length) node.alternateName = alternateName;
+    if (rest.length) node.containedInPlace = placeNode(rest);
+    return node;
 }
 
 function breadcrumbNode(canonical, trail) {
@@ -308,7 +324,9 @@ export function buildGraph({
                     ? 'CollectionPage'
                     : kind === 'content' && contentPage?.schemaType === 'FAQPage'
                       ? 'FAQPage'
-                      : 'WebPage';
+                      : kind === 'content' && contentPage?.schemaType === 'AboutPage'
+                        ? 'AboutPage'
+                        : 'WebPage';
 
     graph.push(
         webPageNode({
