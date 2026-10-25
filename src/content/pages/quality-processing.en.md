@@ -26,6 +26,8 @@ Root that is cut by machine into slices, tablets or industrial-grade pieces is s
 
 Steaming is not a sterilisation step. Hand-cut sticks and fingers are not steamed, the extraction grade is not steamed, and granules, crushed root, root fibre and powder have no steaming step of their own.
 
+{{photos-processing-steaming}}
+
 ## 5. Cutting {#cutting}
 
 Sticks and fingers are cut by hand. Everything else is cut by machine:
@@ -52,6 +54,8 @@ The sizes below are those in each product's specification:
 | [Extraction grade](/products/extraction-grade) | Machine, roughly | 2–5 cm |
 
 How to choose between the forms and grades is covered in the guide chapter [choosing a form and grade](/buyers-guide/choosing-a-grade).
+
+**Checked at this step:** the cut length. The knife blades are sharpened three times a day, and the cut length is checked after each sharpening.
 
 {{photos-processing-cutting}}
 

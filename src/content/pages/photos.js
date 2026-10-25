@@ -29,9 +29,13 @@ export const PAGE_PHOTOS = {
     'processing-receiving': [
         { src: `${GALLERY}image-1792247908450.webp` }, // raw root stored under cover
     ],
+    'processing-steaming': [
+        { src: `${GALLERY}image-1792247909843.webp`, date: '2023-08-19' }, // the steaming tank, sticks beside it
+    ],
     'processing-cutting': [
         { src: `${GALLERY}image-1792247912920.webp`, date: '2026-03-21' }, // cutting sticks by hand
         { src: `${GALLERY}image-1792247913476.webp`, date: '2026-03-21' }, // machine cutting into slices or tablets
+        { src: `${GALLERY}image-1792247909334.webp`, date: '2023-08-19' }, // machine cutting sticks into tablets
     ],
     'processing-drying': [
         { src: `${GALLERY}image-1792247911231.webp`, date: '2023-08-19' }, // cut root drying in the open air
