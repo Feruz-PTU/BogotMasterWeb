@@ -387,7 +387,7 @@ export const PAGES = [
             en: 'Licorice root for cosmetics makers: INCI names checked in CosIng, the EU Cosmetics Regulation, and the microbiology and heavy-metal data we provide.',
             ru: 'Корень солодки для производителей косметики: названия INCI по базе CosIng, Регламент ЕС о косметике, данные по микробиологии и тяжёлым металлам.',
         },
-        updated: '2026-10-25',
+        updated: '2026-10-26',
         priority: 0.6,
     },
     {

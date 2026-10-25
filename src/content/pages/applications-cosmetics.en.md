@@ -53,13 +53,23 @@ These are the figures for dried root, the same on every root product page. Set t
 - **Treatment:** every load is fumigated with phosphine (aluminium phosphide) before shipping, and the root is never irradiated. The steps from dug root to packed bag are on the [processing page](/quality/processing).
 - **Certificates:** we hold no quality certificate, such as ISO or GMP, and no organic or natural-cosmetics certification. Instead, you can test free samples of 100–200 g per grade, and audit our site.
 
-If you make glycyrrhizic acid, glycyrrhetinic acid or their salts from our root, the US Cosmetic Ingredient Review (CIR) Expert Panel's 2007 report on those compounds is a useful reference. It noted that they are not plant extracts, powders or juices, and advised limits for them: total PCB and pesticide residues of not more than 40 ppm, with not more than 10 ppm for any one residue; not more than 3 mg/kg of arsenic; not more than 0.002 % heavy metals; and not more than 1 mg/kg of lead. These limits are for the compounds, not for the root; name the tests you need, and the laboratory adds them.
+### What the CIR Expert Panel asks of the ingredient {#cir}
+
+The US Cosmetic Ingredient Review (CIR) Expert Panel assessed the licorice root ingredients themselves, among them GLYCYRRHIZA GLABRA (LICORICE) ROOT, ROOT POWDER and ROOT EXTRACT, in a final report of 23 September 2008. It concluded that they "are safe as cosmetic ingredients in the practices of use and concentration given in this safety assessment". That conclusion is about the ingredients in general, not about any one lot; the safety assessment of your product stays with you. On purity, the Panel asked the industry to:
+
+- limit pesticide residues and heavy metals in the ingredient before it is blended into a formulation;
+- limit mycotoxins in the same way, and keep the ingredients free of methanol;
+- keep aflatoxin out: it adopted the USDA designation of 15 ppb or less as a "negative" aflatoxin content.
+
+Aflatoxin is not part of our standard certificate of analysis: name it in your enquiry, and the laboratory adds it to the load's certificate.
+
+If you make glycyrrhizic acid, glycyrrhetinic acid or their salts from our root, the Panel's 2007 report on those compounds is also a useful reference. It noted that they are not plant extracts, powders or juices, and advised limits for them: total PCB and pesticide residues of not more than 40 ppm, with not more than 10 ppm for any one residue; not more than 3 mg/kg of arsenic; not more than 0.002 % heavy metals; and not more than 1 mg/kg of lead. These limits are for the compounds, not for the root; name the tests you need, and the laboratory adds them.
 
 ## Forms we supply {#forms}
 
 - **[Powder](/products/powder):** milled from washed, dried root, 1 mm or less.
 - **Cut root for extraction:** [granules](/products/granules) (3–4 mm), [crushed root](/products/crushed) (2–3 mm) and tablets ([A](/products/tablet-a), [1.2](/products/tablet-1.2) and [mixed sizes](/products/tablet-mix)). The feedstock grades are on the [extraction page](/applications/extraction).
-- **[Licorice extract](/products/extract):** made by our extraction partner, "Licorice Extract" LLC, not by us. Ask us for its specification.
+- **[Licorice extract](/products/extract):** made by our extraction partner, "Licorice Extract" LLC, not by us. It is a raw material for further purification, into glycyrrhizic acid and the root's other components, not an extract for direct use in a cosmetic formula. Ask us for its specification.
 
 Packing is PP bags of 20, 21, 25 or 30 kg, or the packing you specify. For a quote or a sample, use the button below.
 
@@ -68,4 +78,5 @@ Packing is PP bags of 20, 21, 25 or 30 kg, or the packing you specify. For a quo
 - European Commission, [CosIng](https://ec.europa.eu/growth/tools-databases/cosing/), entries for *Glycyrrhiza glabra* and for lead, cadmium, mercury and arsenic, read on 25 October 2026.
 - [Regulation (EC) No 1223/2009](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02009R1223-20260518) on cosmetic products, Articles 4, 10, 17, 19, 20 and 33, Annex I and Annex II (consolidated text of 18 May 2026), read on 25 October 2026.
 - [Commission Regulation (EU) No 655/2013](https://eur-lex.europa.eu/eli/reg/2013/655/oj), common criteria for the justification of claims used in relation to cosmetic products.
+- Cosmetic Ingredient Review, [final report on the safety assessment of the *Glycyrrhiza glabra*, *G. inflata* and *G. uralensis* root and leaf ingredients](https://cir-reports.cir-safety.org/cir-ingredient-status-report/?id=8af42a9c-945c-4629-9b1a-76b15b253800), 23 September 2008: Discussion and Conclusion; read on 26 October 2026.
 - Cosmetic Ingredient Review, [final report on the safety assessment of glycyrrhetinic acid, glycyrrhizic acid and their salts and esters](https://pubmed.ncbi.nlm.nih.gov/17613133/), International Journal of Toxicology, 2007, 26 Suppl 2: 79–112; abstract read on 25 October 2026.
