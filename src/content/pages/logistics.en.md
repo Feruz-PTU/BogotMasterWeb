@@ -49,6 +49,8 @@ Our standard packing is polypropylene (PP) bags of 20, 21, 25 or 30 kg. Packing 
 | 40 ft container | 22 t |
 | Tent truck | 22 t |
 
+Root is dense, so weight, not space, sets the load. A 40 ft container could take about 26 t, but we load 22 t so the truck stays within the road limits on axle weight all the way. A heavier load is possible on request; finding a truck that may carry it takes extra time.
+
 ## Lead time and transit {#timing}
 
 Preparing a 22 t load takes about 30 days from the order. Transit then depends on the destination and the route: most shipments take about 20 days or more, because routes from a doubly landlocked country are long and seldom direct. Ask about the route to your destination when you request a quote. Freight is quoted per order; we do not publish freight costs.

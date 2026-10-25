@@ -64,7 +64,7 @@ export const PAGES = [
             en: 'How licorice root ships from Khorezm, Uzbekistan: the Incoterms we quote, packing, loads per container or truck, routes and shipping documents.',
             ru: 'Как корень солодки отправляется из Хорезма: условия Incoterms, упаковка, загрузка контейнера и фуры, маршруты и отгрузочные документы.',
         },
-        updated: '2026-10-24',
+        updated: '2026-10-25',
         priority: 0.7,
     },
     {
