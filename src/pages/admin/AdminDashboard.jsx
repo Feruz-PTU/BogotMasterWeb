@@ -296,8 +296,9 @@ const TRANSLATION_GROUPS = [
     {
         id: 'footer', label: 'Footer',
         keys: [
-            { key: 'footer_slogan', label: 'Slogan' },
-            { key: 'footer_quick_links', label: 'Quick links heading' },
+            // footer_slogan and footer_quick_links are no longer shown (the
+            // footer was reorganised on 25 Oct 2026); their rows stay in the
+            // database. The column headings are under Navigation & UI.
             { key: 'footer_contact_us', label: 'Contact us heading' },
             { key: 'footer_rights', label: 'Rights text' },
         ],
@@ -700,9 +701,11 @@ const AdminDashboard = () => {
                     storage: '≤ 25°C, cool and dry, away from sunlight',
                     documents: [],
                 };
-                // Ash, heavy metals and pesticides have never been measured,
-                // so a new product says "on request" instead of quoting a limit.
+                // Ash is on every load's laboratory certificate of analysis
+                // (with glycyrrhizic acid and moisture); heavy metals and
+                // pesticides are tested on request (sales rep, 24–25 Oct 2026).
                 const onRequest = { ru: 'По запросу' };
+                const onCoa = { ru: 'В сертификате анализа каждой партии' };
                 // The Russian block gets Russian words, not the English defaults.
                 const translated = {
                     ru: {
@@ -721,7 +724,8 @@ const AdminDashboard = () => {
                 const s = {};
                 langs.forEach(l => {
                     const v = onRequest[l.code] || 'Available on request';
-                    s[l.code] = { ...defaults, ...translated[l.code], ash: v, heavy_metals: v, pesticide_residues: v };
+                    const ash = onCoa[l.code] || "On each load's certificate of analysis";
+                    s[l.code] = { ...defaults, ...translated[l.code], ash, heavy_metals: v, pesticide_residues: v };
                 });
                 return s;
             })(),
@@ -2134,7 +2138,7 @@ const AdminDashboard = () => {
                                             {openSpecSections.quality && (<>
                                                 <div className="admin-fields-row">
                                                     <div className="admin-field"><label>Moisture</label><input value={productForm.specs?.[prodLangTab]?.moisture || ''} onChange={e => handleSpecChange('moisture', e.target.value)} placeholder="≤ 8%" /></div>
-                                                    <div className="admin-field"><label>Ash</label><input value={productForm.specs?.[prodLangTab]?.ash || ''} onChange={e => handleSpecChange('ash', e.target.value)} placeholder="Available on request" /></div>
+                                                    <div className="admin-field"><label>Ash</label><input value={productForm.specs?.[prodLangTab]?.ash || ''} onChange={e => handleSpecChange('ash', e.target.value)} placeholder="On each load's certificate of analysis" /></div>
                                                 </div>
                                                 <div className="admin-fields-row">
                                                     <div className="admin-field"><label>Glycyrrhizin</label><input value={productForm.specs?.[prodLangTab]?.glycyrrhizin || ''} onChange={e => handleSpecChange('glycyrrhizin', e.target.value)} placeholder="≥ 4% (root) / 8–12% (extract)" /></div>

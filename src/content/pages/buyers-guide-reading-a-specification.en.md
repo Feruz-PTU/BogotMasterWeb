@@ -33,7 +33,7 @@ Moisture matters twice: you pay for the water in the load, and the drier the roo
 | Russian State Pharmacopoeia, ФС.2.5.0040.15 | Not more than 8 % | Not more than 2.5 %; whole peeled root, not more than 1 % |
 | US 21 CFR 184.1408 (food use) | Not more than 9.5 %, anhydrous | Not more than 2.5 %, anhydrous |
 
-For the European Pharmacopoeia's limits, see monograph 0277 itself. Washing removes soil from the surface, and peeling removes it with the bark, so both lower acid-insoluble ash. Our specifications give ash as "available on request": the result for each load is on its certificate of analysis from the laboratory, which always includes ash. Name the limit your specification sets in your enquiry.
+For the European Pharmacopoeia's limits, see monograph 0277 itself. Washing removes soil from the surface, and peeling removes it with the bark, so both lower acid-insoluble ash. Our specifications give ash as "on each load's certificate of analysis": the laboratory measures it for every load. Name the limit your specification sets in your enquiry.
 
 ## Foreign matter {#foreign-matter}
 

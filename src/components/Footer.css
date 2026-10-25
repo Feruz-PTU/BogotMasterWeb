@@ -4,8 +4,8 @@
     padding: 60px 20px 20px;
 }
 
-/* The brand column (logo, slogan, contact) beside the link columns, which
-   come from the pages registry (content/navigation.js). */
+/* The contact column beside the link columns, which come from the pages
+   registry (content/navigation.js); every column's heading on one line. */
 .footer-content {
     max-width: 100%;
     padding: 0 5%;
@@ -14,12 +14,6 @@
     grid-template-columns: minmax(220px, 260px) 1fr;
     gap: 48px;
     margin-bottom: 40px;
-}
-
-.footer-brand {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
 }
 
 .footer-nav {
@@ -56,13 +50,19 @@
     }
 }
 
+/* The logo, centred at the bottom above the copyright and legal lines. */
+.footer-logo {
+    display: inline-block;
+    margin-bottom: 14px;
+}
+
 .footer-logo img {
+    display: block;
     height: 40px;
     /* The width/height attributes on the <img> (904x904, for CLS) would
        otherwise set the used width to 904px while CSS pinned the height to
        40px, stretching a square logo to 342x40. */
     width: auto;
-    margin-bottom: 20px;
     filter: brightness(0) invert(1);
 }
 
@@ -82,9 +82,12 @@
 
 .footer-bottom {
     text-align: center;
-    padding-top: 20px;
+    padding-top: 28px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     font-size: 0.9rem;
+}
+
+.footer-bottom p {
     opacity: 0.8;
 }
 
