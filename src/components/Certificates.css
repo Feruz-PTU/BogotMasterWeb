@@ -82,6 +82,34 @@
     font-weight: 500;
 }
 
+/* The year and the document's language(s), under its title (folder 26). */
+.cert-meta {
+    margin: -8px auto 0;
+    font-size: 0.78rem;
+    color: #6b6b6b;
+    line-height: 1.4;
+    max-width: 180px;
+}
+
+.certificates-note,
+.certificates-legal {
+    margin: 32px auto 0;
+    max-width: 720px;
+    font-size: 0.85rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+.certificates-legal {
+    margin-top: 10px;
+    color: #333;
+}
+
+.certificates-legal span {
+    display: inline-block;
+    margin: 0 8px;
+}
+
 /* Response */
 @media (max-width: 1024px) {
     .certificates-grid {
@@ -95,6 +123,15 @@
     }
 
     .cert-title {
+        font-size: 0.8rem;
+    }
+
+    .cert-meta {
+        font-size: 0.72rem;
+    }
+
+    .certificates-note,
+    .certificates-legal {
         font-size: 0.8rem;
     }
 

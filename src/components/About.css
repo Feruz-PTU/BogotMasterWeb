@@ -39,6 +39,11 @@
     height: auto;
 }
 
+/* The two opening paragraphs had no space between them. */
+.about-description p + p {
+    margin-top: 12px;
+}
+
 .about-benefits {
     list-style: none;
     padding: 0;

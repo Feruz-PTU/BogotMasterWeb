@@ -282,6 +282,13 @@ export const FALLBACK_STRINGS = {
         legal_form_note: 'family enterprise',
         inn_label: 'INN (tax ID)',
 
+        // The company documents (Certificates.jsx, folder 26): each one's
+        // language, and how to check the tax certificates.
+        doc_lang_uz_ru: 'PDF, in Uzbek and Russian',
+        doc_lang_uz: 'PDF, in Uzbek',
+        a11y_new_tab: '(opens in a new tab)',
+        company_docs_note: 'The two tax certificates carry a QR code for checking that they are genuine.',
+
         seo_suffix_licorice: 'Bulk Licorice Root Supplier | Bogot Master',
         seo_suffix_generic: 'Bulk Supply from Uzbekistan | Bogot Master',
         // Leads a licorice root product's meta description when its own
@@ -627,6 +634,11 @@ export const FALLBACK_STRINGS = {
         legal_name_label: 'Юридическое название',
         legal_form_note: 'семейное предприятие',
         inn_label: 'ИНН',
+
+        doc_lang_uz_ru: 'PDF, на узбекском и русском',
+        doc_lang_uz: 'PDF, на узбекском',
+        a11y_new_tab: '(откроется в новой вкладке)',
+        company_docs_note: 'На обоих налоговых свидетельствах есть QR-код для проверки их подлинности.',
 
         seo_suffix_licorice: 'Оптовый поставщик корня солодки | Bogot Master',
         seo_suffix_generic: 'Оптовые поставки из Узбекистана | Bogot Master',

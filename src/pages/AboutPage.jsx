@@ -29,6 +29,7 @@ const AboutPage = () => {
                                     composed the nonsense heading "About Company
                                     & Excellence in every detail." */}
                                 <h2>{t('about_mission_title')}</h2>
+                                {/* Shown here only: <About> above stops at about_p2. */}
                                 <p>{t('about_p3')}</p>
                                 <p>{t('about_p4')}</p>
                             </div>
@@ -46,8 +47,9 @@ const AboutPage = () => {
                     </div>
                 </section>
 
-                <div className="reveal"><Certificates /></div>
-                
+                {/* The legal name and INN under the documents, as on the contact page. */}
+                <div className="reveal"><Certificates withLegal /></div>
+
                 <HomeCTA />
             </div>
         </Layout>

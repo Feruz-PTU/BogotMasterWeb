@@ -9,8 +9,13 @@ const CheckIcon = () => (
 );
 
 /**
- * `headingLevel` lets the About page render this as its <h1> while the home
- * page keeps it as an <h2>. The About page previously had no <h1> at all.
+ * The top of the About page (the home page has its own short version).
+ * `headingLevel` lets the About page render this as its <h1>; the page
+ * previously had no <h1> at all.
+ *
+ * Only the first two paragraphs are here: about_p3 (capacity and staff) and
+ * about_p4 (wild harvest, partnerships) are the "What we do and how we work"
+ * section right below, and used to show twice (folder 26).
  */
 const About = ({ headingLevel = 'h2' }) => {
     const { t } = useLanguage();
@@ -34,8 +39,6 @@ const About = ({ headingLevel = 'h2' }) => {
                         <div className="about-description">
                             <p>{t('about_p1')}</p>
                             <p>{t('about_p2')}</p>
-                            <p>{t('about_p3')}</p>
-                            <p>{t('about_p4')}</p>
                         </div>
                         <ul className="about-benefits">
                             <li>

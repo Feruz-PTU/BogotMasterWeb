@@ -292,9 +292,14 @@ const TRANSLATION_GROUPS = [
         keys: [
             { key: 'company_docs_title', label: 'Section title' },
             { key: 'documentation_label', label: 'Small label' },
-            { key: 'cert_2', label: 'Document 1 (VAT certificate)' },
-            { key: 'cert_3', label: 'Document 2 (registration certificate)' },
-            { key: 'cert_4', label: 'Document 3 (registration ID)' },
+            // Shown in this order: state registration, tax registration, VAT.
+            { key: 'cert_3', label: 'Document 1 (state registration certificate, 2014)' },
+            { key: 'cert_4', label: 'Document 2 (tax registration / INN certificate, 2014)' },
+            { key: 'cert_2', label: 'Document 3 (VAT registration certificate, 2020)' },
+            { key: 'doc_lang_uz', label: 'Language line: Uzbek only (document 1)' },
+            { key: 'doc_lang_uz_ru', label: 'Language line: Uzbek and Russian (documents 2, 3)' },
+            { key: 'company_docs_note', label: 'Note under the documents (QR codes)', multiline: true },
+            { key: 'a11y_new_tab', label: '"Opens in a new tab" (read by screen readers)' },
         ],
     },
     {
