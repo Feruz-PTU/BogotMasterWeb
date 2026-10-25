@@ -24,18 +24,18 @@ export const PAGE_PHOTOS = {
     ],
 
     // The processing page (folder 31), one set per step. Dates of 19 Aug 2023
-    // come from the phone camera; the Canon photos (hand and machine cutting,
-    // checking dried root) record 21 Mar 2026, not used until confirmed.
+    // come from the phone camera; 21 Mar 2026 from the Canon camera (the owner
+    // confirmed its clock, 25 Oct 2026).
     'processing-receiving': [
         { src: `${GALLERY}image-1792247908450.webp` }, // raw root stored under cover
     ],
     'processing-cutting': [
-        { src: `${GALLERY}image-1792247912920.webp` }, // cutting sticks by hand
-        { src: `${GALLERY}image-1792247913476.webp` }, // machine cutting into slices or tablets
+        { src: `${GALLERY}image-1792247912920.webp`, date: '2026-03-21' }, // cutting sticks by hand
+        { src: `${GALLERY}image-1792247913476.webp`, date: '2026-03-21' }, // machine cutting into slices or tablets
     ],
     'processing-drying': [
         { src: `${GALLERY}image-1792247911231.webp`, date: '2023-08-19' }, // cut root drying in the open air
-        { src: `${GALLERY}image-1792247913989.webp` }, // checking dried cut root
+        { src: `${GALLERY}image-1792247913989.webp`, date: '2026-03-21' }, // checking dried cut root
     ],
     'processing-sorting': [
         { src: `${GALLERY}image-1792247910745.webp`, date: '2023-08-19' }, // rotating drum sieve cleaning sticks
