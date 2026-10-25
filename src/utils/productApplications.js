@@ -29,8 +29,10 @@ export const APPLICATION_LINKS = [
     {
         path: '/applications/food-and-confectionery',
         labelKey: 'app_food_link',
-        // Slices for cooking, root fibre for tea, granules, powder and the
-        // partner's extract: the same list as "Forms for food use".
+        // Slices for cooking, root fibre for tea, granules and powder: the
+        // same list as "Forms for food use". Not the partner's extract: it is
+        // a raw material for purification, not for direct use (sales rep,
+        // 26 Oct 2026).
         slugs: [
             'slice-a',
             'slice-b',
@@ -44,15 +46,15 @@ export const APPLICATION_LINKS = [
             'granules',
             'peeled-granules',
             'powder',
-            'extract',
         ],
     },
     {
         path: '/applications/extraction',
         labelKey: 'app_extraction_link',
         // The feedstock grades and the cut root extractors take: the grades
-        // table and "Cut root for extraction" on that page. The extract is
-        // linked there too, but it is the product of extraction, not feedstock.
+        // table and "Cut root for extraction" on that page; and the partner's
+        // extract, a raw material for purification into glycyrrhizic acid
+        // ("Extract from our partner" on that page).
         slugs: [
             'industrial-grade',
             'extraction-grade',
@@ -60,6 +62,7 @@ export const APPLICATION_LINKS = [
             'tablet-1.2',
             'tablet-mix',
             'crushed',
+            'extract',
         ],
     },
     {

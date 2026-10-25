@@ -51,7 +51,7 @@ Every load comes with a certificate of analysis, a phytosanitary certificate, a 
 
 ## Extract from our partner {#extract}
 
-We do not make extract. "Licorice Extract" LLC, our extraction partner, does, and its [licorice root extract](/products/extract), as powder or liquid, is supplied through us. Ask us for its specification.
+We do not make extract. "Licorice Extract" LLC, our extraction partner, does, and its [licorice root extract](/products/extract), as powder or liquid, is supplied through us. It is a raw material for further purification, into glycyrrhizic acid and the root's other components, not an extract for direct use in food, cosmetics or medicines. Ask us for its specification.
 
 For a quote, a sample or a supply programme, use the button below.
 

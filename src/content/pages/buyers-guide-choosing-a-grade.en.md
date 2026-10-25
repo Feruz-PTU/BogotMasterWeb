@@ -2,10 +2,11 @@ Licorice root is sold in many cuts, and the choice comes down to two questions: 
 
 ## Start from your process {#process}
 
-- **Extraction.** Tablets, the cheaper cut for extraction; crushed root; the industrial grade; and the extraction grade, a low-cost feedstock. See [licorice root for extraction](/applications/extraction).
+- **Extraction.** Tablets, the cheaper cut for extraction; crushed root; the industrial grade; and the extraction grade, a low-cost feedstock. For purification into glycyrrhizic acid, there is also licorice extract, made by our partner. See [licorice root for extraction](/applications/extraction).
 - **Tea and infusions.** Root fibre and granules, the small cuts; some tea makers choose root fibre partly because it costs less. Slices, where a piece should stay whole when boiled.
-- **Food and confectionery.** Slices, which hold together in cooking; granules, root fibre and powder to blend in; licorice extract, made by our partner. See [food and confectionery](/applications/food-and-confectionery).
+- **Food and confectionery.** Slices, which hold together in cooking; granules, root fibre and powder to blend in. See [food and confectionery](/applications/food-and-confectionery).
 - **Pharmaceutical.** Whole root as sticks or fingers, peeled or unpeeled, and tablets, granules, crushed root and powder. See [pharmaceutical use](/applications/pharmaceutical).
+- **Cosmetics.** Powder, and tablets, granules and crushed root for extraction. See [cosmetics](/applications/cosmetics).
 
 These are the usual choices, not rules: any form can be ordered for any use. The [applications page](/applications#forms-by-use) has the same overview as a table.
 

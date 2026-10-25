@@ -128,7 +128,7 @@ export const PAGES = [
             en: 'Which licorice root form suits your process, slice and tablet grades by root diameter in mm, peeled or unpeeled, and when to order a custom cut.',
             ru: 'Какая форма корня солодки подходит вашему производству, фракции слайсов и таблеток по диаметру в мм, очищенный корень и своя нарезка.',
         },
-        updated: '2026-10-25',
+        updated: '2026-10-26',
         priority: 0.6,
     },
     {
@@ -283,7 +283,7 @@ export const PAGES = [
             en: 'Which licorice root forms suit pharmaceutical, food, extraction and cosmetics use, and the rules each sector works under.',
             ru: 'Какие формы корня солодки подходят для фармацевтики, пищевой отрасли, экстракции и косметики и по каким правилам работает каждая отрасль.',
         },
-        updated: '2026-10-25',
+        updated: '2026-10-26',
         priority: 0.6,
     },
     {
@@ -312,8 +312,10 @@ export const PAGES = [
         priority: 0.6,
     },
     {
-        // Root first, then the partner's extract (never shown as ours). The
-        // EU and US figures were read on EUR-Lex and GovInfo on 24 Oct 2026.
+        // Root only. The partner's extract is not offered for food: it is a
+        // raw material for purification, not for direct use (sales rep,
+        // 26 Oct 2026). The rules on extract in food stay, as rules. The EU
+        // and US figures were read on EUR-Lex and GovInfo on 24 Oct 2026.
         // No health or nutrition claims.
         id: 'applications-food',
         path: '/applications/food-and-confectionery',
@@ -326,15 +328,15 @@ export const PAGES = [
             ru: 'Солодка для пищевой и кондитерской отрасли | Bogot Master',
         },
         h1: {
-            en: 'Licorice root and extract for food, drinks and confectionery',
-            ru: 'Корень и экстракт солодки для продуктов питания, напитков и кондитерских изделий',
+            en: 'Licorice root for food, drinks and confectionery',
+            ru: 'Корень солодки для продуктов питания, напитков и кондитерских изделий',
         },
         navTitle: { en: 'Food and confectionery', ru: 'Пищевая отрасль' },
         meta: {
-            en: 'Licorice root and extract for sweets, drinks and tea: the forms, EU labelling and ochratoxin A limits, US limits and the documents food buyers ask for.',
-            ru: 'Корень и экстракт солодки для кондитерских изделий, напитков и чая: формы поставки, маркировка и охратоксин A в ЕС, нормы США, документы.',
+            en: 'Licorice root for sweets, drinks and tea: the forms, EU labelling and ochratoxin A limits, US limits and the documents food buyers ask for.',
+            ru: 'Корень солодки для кондитерских изделий, напитков и чая: формы поставки, маркировка и охратоксин A в ЕС, нормы США, документы.',
         },
-        updated: '2026-10-24',
+        updated: '2026-10-26',
         priority: 0.6,
     },
     {
@@ -360,7 +362,7 @@ export const PAGES = [
             en: "Licorice root as feedstock for extract makers: industrial and extraction grades, cut root, what to specify, yearly supply and our partner's extract.",
             ru: 'Корень солодки как сырьё для производителей экстрактов: промышленный и экстракционный сорта, резаный корень, спецификация, годовые поставки.',
         },
-        updated: '2026-10-25',
+        updated: '2026-10-26',
         priority: 0.6,
     },
     {

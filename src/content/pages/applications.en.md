@@ -12,7 +12,7 @@ We supply licorice root to four kinds of buyer: pharmaceutical manufacturers; fo
 | Root fibre | — | Yes | — | — |
 | Powder | Yes | Yes | — | Yes |
 | Industrial and extraction grades | — | — | Yes | — |
-| Licorice extract, from our partner | — | Yes | — | — |
+| Licorice extract, from our partner, for purification | — | — | Yes | — |
 
 The table shows the forms usually taken for each use; a form can still be ordered for another one. Each product page links to the uses it suits, and the [catalogue](/products) lists every form.
 

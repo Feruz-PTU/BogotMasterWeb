@@ -1,4 +1,4 @@
-Bogot Master supplies wild licorice root (*Glycyrrhiza glabra*) from Khorezm, Uzbekistan, to food, drink and tea makers: as slices, root fibre, granules or powder. Licorice extract is available too, made by our extraction partner. This page sets out the forms, the EU and US rules food buyers work under, and the documents we can give you.
+Bogot Master supplies wild licorice root (*Glycyrrhiza glabra*) from Khorezm, Uzbekistan, to food, drink and tea makers: as slices, root fibre, granules or powder. This page sets out the forms, the EU and US rules food buyers work under, and the documents we can give you.
 
 ## Where licorice goes in food {#uses}
 
@@ -11,7 +11,7 @@ The root goes into teas and infusions, and into dishes cooked with it. The extra
 - **Slices:** cut at a shallow angle, so their fibres are long and they hold together in boiling water: the cut for cooking, as in traditional Korean dishes. Dried in the shade to keep their colour. Grades by diameter: [A](/products/slice-a), [B](/products/slice-b), [C](/products/slice-c) and [C1](/products/slice-c1); [L](/products/slice-l) and [S](/products/slice-s), cut from large and small sticks; [D](/products/slice-d), the irregular pieces; and [mixed sizes](/products/slice-mix).
 - **[Root fibre](/products/chips):** short strands of crushed root, the cheapest form, often taken for tea.
 - **Granules and powder:** [granules](/products/granules), [peeled granules](/products/peeled-granules) and [powder](/products/powder), made from dried root that is washed or, for peeled granules, peeled.
-- **[Licorice extract](/products/extract):** as powder or liquid. It is made by our extraction partner, "Licorice Extract" LLC, not by us; ask us for its specification. More on the root it is made from is on our [extraction page](/applications/extraction).
+Licorice extract, made by our extraction partner, "Licorice Extract" LLC, is not offered for food: it is a raw material for further purification, into glycyrrhizic acid and the root's other components, not an extract for direct use. See our [extraction page](/applications/extraction#extract).
 
 Each root product page gives the processing steps, moisture, microbiology limits and shelf life.
 
