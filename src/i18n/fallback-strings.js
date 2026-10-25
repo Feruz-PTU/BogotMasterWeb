@@ -182,6 +182,25 @@ export const FALLBACK_STRINGS = {
         rf_success_title: 'Request sent',
         rf_success_text: 'Thank you. We have your request and will reply within 24 hours.',
         rf_success_again: 'Send another request',
+        // The success screen (folder 24): the reference, a copy of the request
+        // and the next steps. {email} and {ref} are filled in.
+        rf_success_ref: 'Your reference',
+        rf_success_ref_hint: 'Mention it when you write to us about this request.',
+        rf_success_confirm: 'A copy is on its way to {email}. Reply to it to add details or files.',
+        rf_echo_title: 'What you sent',
+        rf_echo_destination: 'Destination',
+        rf_echo_incoterms: 'Delivery terms',
+        rf_next_title: 'What happens next',
+        rf_next_reply: 'We reply within 24 hours.',
+        rf_next_quote:
+            'Your quotation states the Incoterm and named place, how long the price is valid (7 days), payment terms (T/T, L/C or D/P), lead time and packing.',
+        rf_next_sample_offer:
+            'Want to test first? Free samples, 100–200 g per grade, are sent by FedEx after 3 business days of preparation.',
+        rf_next_sample_ship:
+            'Your free sample is sent by FedEx after 3 business days of preparation, at your cost or on your own FedEx account.',
+        rf_next_docs: 'We send the specification and the documents you asked for.',
+        rf_success_whatsapp: 'Message us on WhatsApp',
+        rf_success_whatsapp_msg: 'Hello! About my request {ref}: ',
         // One error key per field, so no field can show another field's message.
         form_err_products: 'Please add at least one product.',
         form_err_sample_root: 'Free samples are for licorice root only; remove the extract.',
@@ -202,6 +221,7 @@ export const FALLBACK_STRINGS = {
         quote_request_btn: 'Request a quote for these products',
         quote_request_note: 'You can add quantities and delivery details in the next step.',
         quote_added_toast: '{product} is in your quote list.',
+        quote_sent_note: 'Sent as request {ref}. The list stays here until you clear it.',
         request_intro:
             'A price quote, a free sample, a spec sheet or any other question: choose what you need, and our sales representative will reply within 24 hours.',
 
@@ -518,6 +538,23 @@ export const FALLBACK_STRINGS = {
         rf_success_title: 'Запрос отправлен',
         rf_success_text: 'Спасибо! Мы получили ваш запрос и ответим в течение 24 часов.',
         rf_success_again: 'Отправить ещё один запрос',
+        rf_success_ref: 'Номер запроса',
+        rf_success_ref_hint: 'Укажите его, когда будете писать нам об этом запросе.',
+        rf_success_confirm: 'Копия запроса отправлена на {email}. Ответьте на это письмо, чтобы добавить детали или файлы.',
+        rf_echo_title: 'Что вы отправили',
+        rf_echo_destination: 'Пункт назначения',
+        rf_echo_incoterms: 'Условия поставки',
+        rf_next_title: 'Что дальше',
+        rf_next_reply: 'Мы ответим в течение 24 часов.',
+        rf_next_quote:
+            'В коммерческом предложении будут базис поставки Incoterms с названным местом, срок действия цены (7 дней), условия оплаты (T/T, аккредитив или D/P), срок поставки и упаковка.',
+        rf_next_sample_offer:
+            'Хотите сначала проверить качество? Бесплатные образцы, 100–200 г каждой позиции, отправляем FedEx через 3 рабочих дня подготовки.',
+        rf_next_sample_ship:
+            'Бесплатный образец отправим FedEx через 3 рабочих дня подготовки — доставка за ваш счёт или через ваш аккаунт FedEx.',
+        rf_next_docs: 'Мы пришлём спецификацию и запрошенные документы.',
+        rf_success_whatsapp: 'Написать в WhatsApp',
+        rf_success_whatsapp_msg: 'Здравствуйте! По моему запросу {ref}: ',
         form_err_products: 'Добавьте хотя бы одну позицию.',
         form_err_sample_root: 'Бесплатные образцы — только корня солодки; уберите экстракт.',
         form_err_amount: 'Введите число больше 0.',
@@ -536,6 +573,7 @@ export const FALLBACK_STRINGS = {
         quote_request_btn: 'Запросить цену на эти позиции',
         quote_request_note: 'Количество и условия поставки можно указать на следующем шаге.',
         quote_added_toast: '{product} — в списке для запроса.',
+        quote_sent_note: 'Отправлено, номер запроса {ref}. Список останется здесь, пока вы его не очистите.',
         request_intro:
             'Коммерческое предложение, бесплатный образец, спецификация или другой вопрос: выберите, что вам нужно, и наш менеджер по продажам ответит в течение 24 часов.',
 

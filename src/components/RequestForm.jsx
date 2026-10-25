@@ -7,6 +7,9 @@ import { useContent } from '../context/ContentContext';
 import { useSpamGuard } from '../hooks/useSpamGuard';
 import { track, leadContext, EVENTS } from '../analytics';
 import { sendRequest } from '../services/emailService';
+import { makeReference } from '../utils/leadReference';
+import { whatsappHref } from '../utils/links';
+import { CONTACT_INFO } from '../config';
 import { isValidEmail, isValidPhone } from '../utils/formValidation';
 import { isLicoriceRoot } from '../utils/productKind';
 import { groupProducts } from '../utils/productGroups';
@@ -51,6 +54,17 @@ const EMPTY = {
  */
 const forSample = (product) => Boolean(product) && isLicoriceRoot(product);
 
+/**
+ * The success screen's next steps after "We reply within 24 hours", by type.
+ * The auto-reply (api/send.js) lists the same ones.
+ */
+const NEXT_STEPS = {
+    quote: ['rf_next_quote', 'rf_next_sample_offer'],
+    sample: ['rf_next_sample_ship', 'rf_next_quote'],
+    docs: ['rf_next_docs', 'rf_next_sample_offer'],
+    other: [],
+};
+
 /** Field names for the form_error event: never what was typed. */
 const errorFields = (errors) =>
     [...new Set(Object.keys(errors).filter((k) => errors[k]).map((k) => (k.startsWith('qty-') ? 'quantity' : k)))].join(',');
@@ -73,14 +87,14 @@ const ErrorIcon = () => (
  * - `initialMessage`: text to start the message field with.
  * - `onLinkClick`: called when the privacy link is followed, so a modal
  *   holding the form can close.
- * - `onSent(type)`: called after a request is sent.
+ * - `onSent(type, reference)`: called after a request is sent.
  *
  * Give the form a `key` that changes with its starting values, so a new start
  * never shows inside the old state.
  */
 const RequestForm = ({ initialType = 'quote', initialProducts = [], initialMessage = '', onLinkClick, onSent }) => {
     const { t, language } = useLanguage();
-    const { products } = useContent();
+    const { products, settings } = useContent();
     const uid = useId();
     const fieldId = (name) => `${uid}-${name}`;
 
@@ -98,6 +112,8 @@ const RequestForm = ({ initialType = 'quote', initialProducts = [], initialMessa
     const [form, setForm] = useState(() => ({ ...EMPTY, message: initialMessage || '' }));
     const [errors, setErrors] = useState({});
     const [status, setStatus] = useState(null); // null | 'sending' | 'error' | 'success'
+    // What the success screen shows: the reference and a copy of the request.
+    const [sent, setSent] = useState(null);
     const [countries, setCountries] = useState([]);
     const { honeypotProps, isLikelyBot, guardPayload, reset } = useSpamGuard();
     const successRef = useRef(null);
@@ -229,12 +245,39 @@ const RequestForm = ({ initialType = 'quote', initialProducts = [], initialMessa
         };
     };
 
-    const finish = () => {
+    /** "22 t", "500 кг", "2 × 40 ft containers", in the page language. */
+    const amountText = (value, unit) => {
+        const v = String(value || '').trim();
+        if (!v) return '';
+        const label = t(QUANTITY_UNITS.find((u) => u.value === unit)?.label || 'quote_unit_t');
+        return unit === 't' || unit === 'kg' ? `${v} ${label}` : `${v} × ${label}`;
+    };
+
+    /**
+     * `result` is what the send returned: the reference and whether the
+     * auto-reply went out. A discarded bot send gets a reference too, so its
+     * screen looks the same.
+     */
+    const finish = (result = {}) => {
+        const reference = result.reference || makeReference();
+        setSent({
+            reference,
+            confirmation: Boolean(result.confirmation),
+            type,
+            email: form.email.trim(),
+            lines: shows('products')
+                ? lines.map((l) => ({ title: titleOf(l.slug), amount: shows('quantity') ? amountText(l.quantity, l.unit) : '' }))
+                : [],
+            destination: shows('country')
+                ? [form.country.trim(), shows('port') ? form.port.trim() : ''].filter(Boolean).join(', ')
+                : '',
+            incoterms: shows('incoterms') ? form.incoterms : '',
+        });
         setStatus('success');
         setForm(EMPTY);
         setLines([]);
         setErrors({});
-        onSent?.(type);
+        onSent?.(type, reference);
     };
 
     const handleSubmit = async (ev) => {
@@ -261,7 +304,7 @@ const RequestForm = ({ initialType = 'quote', initialProducts = [], initialMessa
             if (!res.success) throw new Error(res.message);
             track(EVENTS[requestType.event]);
             reset();
-            finish();
+            finish(res);
         } catch {
             setStatus('error');
         }
@@ -331,16 +374,89 @@ const RequestForm = ({ initialType = 'quote', initialProducts = [], initialMessa
         </div>
     );
 
-    if (status === 'success') {
+    if (status === 'success' && sent) {
+        const hasEcho = sent.lines.length > 0 || sent.destination || sent.incoterms;
+        const steps = ['rf_next_reply', ...(NEXT_STEPS[sent.type] || [])];
+        const whatsapp = whatsappHref(
+            settings?.whatsapp || CONTACT_INFO.social.whatsapp,
+            t('rf_success_whatsapp_msg').replace('{ref}', sent.reference)
+        );
         return (
             <div className="rf-success" role="status" tabIndex={-1} ref={successRef}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <svg className="rf-success-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                     <path d="M22 4 12 14.01l-3-3" />
                 </svg>
                 <h3>{t('rf_success_title')}</h3>
-                <p>{t('rf_success_text')}</p>
-                <button type="button" className="rf-again" onClick={startOver}>{t('rf_success_again')}</button>
+                <p className="rf-success-lead">{t('rf_success_text')}</p>
+
+                <div className="rf-ref">
+                    <span className="rf-ref-label">{t('rf_success_ref')}</span>
+                    <strong className="rf-ref-value">{sent.reference}</strong>
+                    <span className="rf-ref-hint">{t('rf_success_ref_hint')}</span>
+                </div>
+
+                {hasEcho && (
+                    <div className="rf-success-box rf-echo">
+                        <h4>{t('rf_echo_title')}</h4>
+                        <p className="rf-echo-type">{t(findRequestType(sent.type).key)}</p>
+                        {sent.lines.length > 0 && (
+                            <ul className="rf-echo-lines">
+                                {sent.lines.map((l) => (
+                                    <li key={l.title}>
+                                        {l.title}
+                                        {l.amount && <> — <strong>{l.amount}</strong></>}
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                        {(sent.destination || sent.incoterms) && (
+                            <dl>
+                                {sent.destination && (
+                                    <>
+                                        <dt>{t('rf_echo_destination')}</dt>
+                                        <dd>{sent.destination}</dd>
+                                    </>
+                                )}
+                                {sent.incoterms && (
+                                    <>
+                                        <dt>{t('rf_echo_incoterms')}</dt>
+                                        <dd>{incotermLabel(sent.incoterms, language)}</dd>
+                                    </>
+                                )}
+                            </dl>
+                        )}
+                    </div>
+                )}
+
+                <div className="rf-success-box rf-next">
+                    <h4>{t('rf_next_title')}</h4>
+                    <ol>
+                        {steps.map((key) => (
+                            <li key={key}>{t(key)}</li>
+                        ))}
+                    </ol>
+                </div>
+
+                {sent.confirmation && sent.email && (
+                    <p className="rf-success-confirm">{t('rf_success_confirm').replace('{email}', sent.email)}</p>
+                )}
+
+                <div className="rf-success-actions">
+                    <a
+                        className="rf-success-whatsapp"
+                        href={whatsapp}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => track(EVENTS.CLICK_WHATSAPP)}
+                    >
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                        </svg>
+                        {t('rf_success_whatsapp')}
+                    </a>
+                    <button type="button" className="rf-again" onClick={startOver}>{t('rf_success_again')}</button>
+                </div>
             </div>
         );
     }

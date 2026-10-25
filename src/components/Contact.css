@@ -238,6 +238,11 @@
     margin-bottom: 16px;
 }
 
+.success-reference {
+    display: block;
+    margin-top: 6px;
+}
+
 .error-message-box {
     background-color: #FEE2E2;
     border: 1px solid #C62828;

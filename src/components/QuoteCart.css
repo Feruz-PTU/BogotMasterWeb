@@ -132,6 +132,18 @@
     margin-top: 40px;
 }
 
+/* After a send: the request's reference; the list itself stays. */
+.quote-cart-sent {
+    margin: 0 0 14px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: var(--color-secondary, #F5F4F0);
+    border-left: 3px solid var(--color-primary, #515E3B);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--color-text-dark, #1A1A1A);
+}
+
 .quote-cart-items {
     display: flex;
     flex-direction: column;

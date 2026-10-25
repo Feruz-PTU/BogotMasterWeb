@@ -321,14 +321,14 @@
     color: #5A5A5A;
 }
 
-/* After a request is sent. */
+/* After a request is sent: the reference, a copy of the request, the next steps. */
 .rf-success {
-    padding: 32px 24px;
+    padding: 24px 8px 8px;
     text-align: center;
     outline: none;
 }
 
-.rf-success svg {
+.rf-success-icon {
     width: 48px;
     height: 48px;
     color: var(--color-primary);
@@ -340,10 +340,162 @@
     color: var(--color-text-dark);
 }
 
-.rf-success p {
+.rf-success-lead {
     margin: 0 0 20px;
     color: #5A5A5A;
     line-height: 1.6;
+}
+
+.rf-ref {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    max-width: 100%;
+    margin: 0 0 24px;
+    padding: 14px 28px;
+    border: 1.5px dashed rgba(81, 94, 59, 0.45);
+    border-radius: 16px;
+    background: var(--color-secondary);
+}
+
+.rf-ref-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #5A5A5A;
+}
+
+.rf-ref-value {
+    font-size: 1.6rem;
+    letter-spacing: 0.12em;
+    color: var(--color-primary);
+    user-select: all;
+}
+
+.rf-ref-hint {
+    font-size: 0.8rem;
+    line-height: 1.45;
+    color: #5A5A5A;
+}
+
+.rf-success-box {
+    max-width: 480px;
+    margin: 0 auto 16px;
+    padding: 16px 18px;
+    border: 1px solid #ECEAE3;
+    border-radius: 14px;
+    text-align: left;
+}
+
+.rf-success-box h4 {
+    margin: 0 0 10px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #5A5A5A;
+}
+
+.rf-echo-type {
+    margin: 0 0 6px;
+    font-weight: 600;
+    color: var(--color-text-dark);
+}
+
+.rf-echo-lines {
+    margin: 0 0 8px;
+    padding-left: 18px;
+    line-height: 1.7;
+    color: var(--color-text-dark);
+}
+
+.rf-echo dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px 14px;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.rf-echo dt {
+    color: #5A5A5A;
+}
+
+.rf-echo dd {
+    margin: 0;
+    color: var(--color-text-dark);
+    overflow-wrap: anywhere;
+}
+
+.rf-next ol {
+    margin: 0;
+    padding-left: 20px;
+    color: var(--color-text-dark);
+}
+
+.rf-next li {
+    margin-bottom: 8px;
+    line-height: 1.55;
+}
+
+.rf-next li:last-child {
+    margin-bottom: 0;
+}
+
+.rf-success-confirm {
+    max-width: 480px;
+    margin: 4px auto 18px;
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: #5A5A5A;
+    overflow-wrap: anywhere;
+}
+
+.rf-success-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+/* A darker WhatsApp green, so the white text is readable (7.6:1). */
+.rf-success-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 22px;
+    border-radius: 999px;
+    background: #075E54;
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.rf-success-whatsapp:hover,
+.rf-success-whatsapp:focus-visible {
+    background: #054A42;
+    color: #fff;
+}
+
+.rf-success-whatsapp svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+    .rf-ref {
+        display: flex;
+        padding: 14px 16px;
+    }
+
+    .rf-success-actions > * {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 .rf-again {

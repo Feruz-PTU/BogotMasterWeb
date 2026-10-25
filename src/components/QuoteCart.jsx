@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './QuoteCart.css';
 import { useQuote } from '../context/QuoteContext';
 import { useLanguage } from '../context/LanguageContext';
@@ -17,15 +17,22 @@ function legacyLine(item) {
     return { slug: item.slug, quantity: m[1], unit };
 }
 
+/** The list's identity, so the "sent" note only shows for the list that was sent. */
+const signatureOf = (items) => items.map((i) => i.slug).join(',');
+
 /**
  * The quote list: the products a visitor collected with "Add to quote". The
- * button opens the request form as a price quote for all of them; the list
- * empties once the request is sent.
+ * button opens the request form as a price quote for all of them. Sending
+ * does not empty the list (folder 24): it stays until the visitor removes the
+ * products or clears it, with a note giving the request's reference.
  */
 const QuoteCart = () => {
     const { items, count, isOpen, openCart, closeCart, removeItem, clear } = useQuote();
     const { t } = useLanguage();
     const { openRequest } = useRequest();
+    // { reference, signature } of the last request sent from this list.
+    const [lastSent, setLastSent] = useState(null);
+    const sentNote = lastSent && lastSent.signature === signatureOf(items) ? lastSent.reference : '';
 
     useEffect(() => {
         document.body.style.overflow = isOpen ? 'hidden' : '';
@@ -35,8 +42,13 @@ const QuoteCart = () => {
     }, [isOpen]);
 
     const requestQuote = () => {
+        const signature = signatureOf(items);
         closeCart();
-        openRequest({ type: 'quote', products: items.map(legacyLine), onSent: clear });
+        openRequest({
+            type: 'quote',
+            products: items.map(legacyLine),
+            onSent: (type, reference) => setLastSent({ reference, signature }),
+        });
     };
 
     return (
@@ -68,6 +80,11 @@ const QuoteCart = () => {
                     <p className="quote-cart-empty">{t('quote_empty')}</p>
                 ) : (
                     <>
+                        {sentNote && (
+                            <p className="quote-cart-sent" role="status">
+                                {t('quote_sent_note').replace('{ref}', sentNote)}
+                            </p>
+                        )}
                         <div className="quote-cart-items">
                             {items.map(item => (
                                 <div className="quote-cart-item" key={item.slug}>

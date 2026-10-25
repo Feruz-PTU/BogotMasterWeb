@@ -8,6 +8,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { useSpamGuard } from '../hooks/useSpamGuard';
 import { track, EVENTS, leadContext } from '../analytics';
 import { telHref, mailtoHref } from '../utils/links';
+import { makeReference } from '../utils/leadReference';
 import LocalLink from './LocalLink';
 import { CONTACT_INFO } from '../config';
 
@@ -28,6 +29,8 @@ const Contact = ({ openPopup }) => {
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState(null);
+    // The sent message's reference (BM-…), shown with the success message.
+    const [reference, setReference] = useState('');
 
     const validateForm = () => {
         const newErrors = {};
@@ -61,6 +64,7 @@ const Contact = ({ openPopup }) => {
 
         // Silently accept and discard: telling a bot why it failed helps it.
         if (isLikelyBot()) {
+            setReference(makeReference());
             setSubmitStatus('success');
             setFormData({ name: '', email: '', message: '' });
             return;
@@ -75,6 +79,7 @@ const Contact = ({ openPopup }) => {
                 language
             );
             if (!result.success) throw new Error(result.message);
+            setReference(result.reference || '');
             setSubmitStatus('success');
             track(EVENTS.FORM_SUBMIT_CONTACT);
             setFormData({ name: '', email: '', message: '' });
@@ -280,6 +285,11 @@ const Contact = ({ openPopup }) => {
                         {submitStatus === 'success' && (
                             <div className="success-message" role="status" aria-live="polite">
                                 {t('form_success')}
+                                {reference && (
+                                    <span className="success-reference">
+                                        {t('rf_success_ref')}: <strong>{reference}</strong>
+                                    </span>
+                                )}
                             </div>
                         )}
 

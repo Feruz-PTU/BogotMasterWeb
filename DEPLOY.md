@@ -51,7 +51,7 @@ Follow the steps once. After that, every `git push` auto-deploys.
    | `VITE_SUPABASE_URL` | Project URL from step 1.5 |
    | `VITE_SUPABASE_ANON_KEY` | anon key from step 1.5 |
    | `RESEND_API_KEY` | from Resend (step 3) — **server-side, no VITE_ prefix** |
-   | `CONTACT_TO_EMAIL` | inbox that receives leads, e.g. `feruz@bogotmaster.org` |
+   | `CONTACT_TO_EMAIL` | inbox that receives leads, e.g. `feruz@bogotmaster.org`; also the Reply-To of the buyer's auto-reply |
    | `CONTACT_FROM_EMAIL` | verified sender, e.g. `Bogot Master <noreply@bogotmaster.org>` |
 
 4. Click **Deploy**. Wait for the build to finish.
@@ -71,9 +71,11 @@ and a verified sending domain.
 3. **API Keys** → **Create API Key** → copy it (shown once).
 4. Put the three email env vars in Vercel (step 2.3):
    - `RESEND_API_KEY` = the key
-   - `CONTACT_TO_EMAIL` = where leads should arrive
+   - `CONTACT_TO_EMAIL` = where leads should arrive (a buyer's reply to the
+     auto-reply also goes here)
    - `CONTACT_FROM_EMAIL` = a sender on the verified domain, e.g.
-     `Bogot Master <noreply@bogotmaster.org>`
+     `Bogot Master <noreply@bogotmaster.org>`. The auto-reply uses the same
+     address with the name "Feruz from Bogot Master".
 5. **Redeploy** so the function picks up the variables.
 
 > No verified domain yet? For quick testing, set

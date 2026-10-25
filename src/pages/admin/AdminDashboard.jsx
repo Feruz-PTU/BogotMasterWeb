@@ -62,6 +62,16 @@ const INQUIRY_TYPES = {
 };
 const inquiryTypeLabel = (type, long = false) => (INQUIRY_TYPES[type] || INQUIRY_TYPES.contact)[long ? 1 : 0];
 
+// "Reply by Email" opens a draft whose subject carries the lead's reference,
+// worded like the auto-reply the buyer received (folder 24).
+const replyHref = (inq) => {
+    if (!inq.reference) return `mailto:${inq.email}`;
+    const subject = inq.language === 'ru'
+        ? `Ваш запрос ${inq.reference} | Bogot Master`
+        : `Your request ${inq.reference} | Bogot Master`;
+    return `mailto:${inq.email}?subject=${encodeURIComponent(`Re: ${subject}`)}`;
+};
+
 // The trade and request details a lead may carry, as [label, field].
 const INQUIRY_DETAILS = [
     ['Reply by', 'preferred_channel'],
@@ -316,6 +326,7 @@ const TRANSLATION_GROUPS = [
             { key: 'quote_clear', label: 'Clear list button' },
             { key: 'quote_request_btn', label: 'Button that opens the request form' },
             { key: 'quote_request_note', label: 'Note under that button' },
+            { key: 'quote_sent_note', label: 'Note after the list was sent (keep {ref})' },
             // Also used by the request form: the Incoterms groups and the units.
             { key: 'quote_incoterms_any', label: 'Incoterms group: any transport' },
             { key: 'quote_incoterms_sea', label: 'Incoterms group: sea' },
@@ -357,7 +368,7 @@ const TRANSLATION_GROUPS = [
                 .map((key) => ({
                     key,
                     label: key.replace(/_/g, ' '),
-                    multiline: /(_hint|_promise|_intro|_desc|_text)/.test(key),
+                    multiline: /(_hint|_promise|_intro|_desc|_text|_next_|_confirm)/.test(key),
                 })),
             { key: 'modal_error', label: 'Sending failed (error box)' },
         ],
@@ -1073,7 +1084,7 @@ const AdminDashboard = () => {
             i.name?.toLowerCase().includes(q) ||
             i.email?.toLowerCase().includes(q) ||
             i.product?.toLowerCase().includes(q) ||
-            i.message?.toLowerCase().includes(q);
+            i.message?.toLowerCase().includes(q) || i.reference?.toLowerCase().includes(q);
         return matchesFilter && matchesSearch;
     });
 
@@ -2456,7 +2467,7 @@ const AdminDashboard = () => {
                                             </span>
                                         </div>
                                         <div className="admin-inq-detail-actions">
-                                            <a href={`mailto:${selectedInquiry.email}`} className="admin-btn-primary admin-btn-sm" style={{ textDecoration: 'none' }}>Reply by Email</a>
+                                            <a href={replyHref(selectedInquiry)} className="admin-btn-primary admin-btn-sm" style={{ textDecoration: 'none' }}>Reply by Email</a>
                                             <button className="admin-btn-danger admin-btn-sm" onClick={() => handleDeleteInquiry(selectedInquiry)}>Delete</button>
                                         </div>
                                     </div>
@@ -2467,7 +2478,7 @@ const AdminDashboard = () => {
                                             <div className="admin-inq-avatar">
                                                 {(selectedInquiry.name || '?')[0].toUpperCase()}
                                             </div>
-                                            <h3 className="admin-inq-detail-name">{selectedInquiry.name || '—'}</h3>
+                                            <h3 className="admin-inq-detail-name">{selectedInquiry.name || '—'}</h3>{selectedInquiry.reference && <p className="admin-inq-detail-ref">{selectedInquiry.reference}</p>}
                                             {selectedInquiry.company && <p className="admin-inq-detail-company">{selectedInquiry.company}</p>}
 
                                             <div className="admin-inq-meta-list">
@@ -2584,7 +2595,7 @@ const AdminDashboard = () => {
                                             <svg className="admin-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>
                                             <input
                                                 type="text"
-                                                placeholder="Search by name, email, product..."
+                                                placeholder="Search by name, email, product, reference..."
                                                 value={inqSearch}
                                                 onChange={e => setInqSearch(e.target.value)}
                                             />
@@ -2661,7 +2672,7 @@ const AdminDashboard = () => {
                                                                 <td>
                                                                     <span className="admin-tcell-name">
                                                                         {!inq.read && <span className="admin-unread-dot" />}
-                                                                        {inq.name || '—'}
+                                                                        {inq.name || '—'}{inq.reference && <span className="admin-inq-ref">{inq.reference}</span>}
                                                                     </span>
                                                                 </td>
                                                                 <td className="admin-tcell-muted">{inq.email || '—'}</td>
@@ -2708,7 +2719,7 @@ const AdminDashboard = () => {
                                                                                 </div>
                                                                             )}
                                                                             <div className="admin-inquiry-actions">
-                                                                                <a href={`mailto:${inq.email}`} className="admin-btn-primary admin-btn-sm" style={{ textDecoration: 'none' }}>Reply by Email</a>
+                                                                                <a href={replyHref(inq)} className="admin-btn-primary admin-btn-sm" style={{ textDecoration: 'none' }}>Reply by Email</a>
                                                                                 {!inq.read && (
                                                                                     <button className="admin-btn-secondary admin-btn-sm" onClick={() => handleMarkRead(inq.id)}>Mark as Read</button>
                                                                                 )}

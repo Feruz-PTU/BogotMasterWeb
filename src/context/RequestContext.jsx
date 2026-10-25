@@ -21,7 +21,8 @@ const signatureOf = (type, products, message) =>
  * - `type`: 'quote' (default) | 'sample' | 'docs' | 'other'.
  * - `products`: slugs, or { slug, quantity, unit } lines.
  * - `message`: text to start the message field with (the FAQ's unanswered search).
- * - `onSent`: called after a successful send (the quote cart empties itself).
+ * - `onSent(type, reference)`: called after a successful send (the quote
+ *   list notes the reference).
  *
  * Reopening the same request keeps what was typed; a different request, or
  * any request after a successful send, starts afresh.
@@ -49,8 +50,8 @@ export const RequestProvider = ({ children }) => {
 
     const close = useCallback(() => setState((prev) => ({ ...prev, open: false })), []);
 
-    const handleSent = useCallback(() => {
-        state.request?.onSent?.();
+    const handleSent = useCallback((type, reference) => {
+        state.request?.onSent?.(type, reference);
         setState((prev) => ({ ...prev, request: prev.request && { ...prev.request, done: true } }));
     }, [state.request]);
 

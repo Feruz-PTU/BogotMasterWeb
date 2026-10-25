@@ -7,6 +7,13 @@
 // roughly 110-140 KB — into the eagerly-loaded homepage bundle, defeating the
 // dynamic imports the contexts were careful to use. The SDK is only needed at
 // the moment someone actually submits a form.
+//
+// Every send has one reference (utils/leadReference.js), made here before both
+// calls, so the saved lead, both emails and the success screen carry the same
+// one. Each sender resolves to { success, reference, confirmation }:
+// `confirmation` is true once the server reports the auto-reply as sent.
+
+import { makeReference } from '../utils/leadReference';
 
 async function postSend(payload) {
     const res = await fetch('/api/send', {
@@ -26,7 +33,13 @@ async function postSend(payload) {
             message: data.message || `Request failed (${res.status})`,
         };
     }
-    return { success: true };
+    return {
+        success: true,
+        // The server keeps the browser's reference; it makes its own only when
+        // that one is missing or malformed.
+        reference: data.reference || payload.reference,
+        confirmation: data.confirmation === true,
+    };
 }
 
 async function record(row) {
@@ -52,9 +65,12 @@ const guard = (formData) => ({
     elapsed_ms: formData.elapsed_ms || 0,
 });
 
+/** The contact page's short form (Contact.jsx). */
 export const sendContactEmail = async (formData, language = 'en') => {
+    const reference = makeReference();
     record({
         type: 'contact',
+        reference,
         name: formData.name,
         email: formData.email,
         message: formData.message,
@@ -63,34 +79,10 @@ export const sendContactEmail = async (formData, language = 'en') => {
 
     return postSend({
         type: 'contact',
+        reference,
         language,
         name: formData.name,
         email: formData.email,
-        message: formData.message,
-        ...guard(formData),
-    });
-};
-
-export const sendPriceInquiryEmail = async (formData, language = 'en') => {
-    record({
-        type: 'price',
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        product: formData.product,
-        quantity: formData.quantity,
-        message: formData.message,
-        ...context(formData),
-    });
-
-    return postSend({
-        type: 'price',
-        language,
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        product: formData.product,
-        quantity: formData.quantity,
         message: formData.message,
         ...guard(formData),
     });
@@ -120,6 +112,7 @@ function fitForDatabase(row) {
  */
 export const sendRequest = async (request, language = 'en') => {
     const { company_website, elapsed_ms, page_url, referrer_host, ...fields } = request;
+    const reference = makeReference();
     // Only filled fields are stored and sent.
     const filled = Object.fromEntries(
         Object.entries(fields).filter(([, v]) => (Array.isArray(v) ? v.length > 0 : String(v ?? '').trim() !== ''))
@@ -129,64 +122,17 @@ export const sendRequest = async (request, language = 'en') => {
 
     record(fitForDatabase({
         ...filled,
+        reference,
         ...(product ? { product } : {}),
         ...context({ page_url, language, referrer_host }),
     }));
 
     return postSend({
         ...filled,
+        reference,
         ...(product ? { product } : {}),
         items: items.map((i) => ({ title: i.title, quantity: i.quantity || '' })),
         language,
         ...guard({ company_website, elapsed_ms }),
-    });
-};
-
-export const sendQuoteEmail = async (formData, items, language = 'en') => {
-    // The optional B2B fields. Every one of these was previously missing, so
-    // each enquiry began with a round-trip asking the basics.
-    const text = (v) => String(v || '').trim();
-    const totalQuantity = text(formData.total_quantity);
-    const trade = {
-        destination_country: text(formData.destination_country),
-        destination_port: text(formData.destination_port),
-        incoterms: text(formData.incoterms),
-        total_quantity: totalQuantity,
-        // The unit select always has a value; on its own it says nothing.
-        quantity_unit: totalQuantity ? text(formData.quantity_unit) : '',
-        timeline: text(formData.timeline),
-    };
-
-    record({
-        type: 'quote',
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        company: formData.company || '',
-        items: items.map((i) => ({
-            slug: i.slug,
-            title: i.title,
-            quantity: i.quantity || '',
-        })),
-        message: formData.message || '',
-        ...trade,
-        ...context(formData),
-    });
-
-    return postSend({
-        type: 'quote',
-        language,
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        company: formData.company || '',
-        product: items.map((i) => i.title).join(', '),
-        items: items.map((i) => ({
-            title: i.title,
-            quantity: i.quantity || '',
-        })),
-        message: formData.message || '',
-        ...trade,
-        ...guard(formData),
     });
 };
