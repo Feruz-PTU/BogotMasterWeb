@@ -144,7 +144,8 @@ export function businessHtml(d) {
 // ─── The auto-reply to the buyer ────────────────────────────────────────────
 //
 // Signed by the sales representative, with the reference, a copy of the
-// request and the next steps. It goes to whatever address was typed into the
+// request and the next steps. It speaks as "we", like the site (sales rep,
+// 25 Oct 2026). It goes to whatever address was typed into the
 // form, so it repeats only the structured request: never the free-text
 // message, the address or the phone, and no field that holds a link (a
 // spammer could otherwise use the form to send their text from our domain).
@@ -170,13 +171,13 @@ const AUTO_REPLY = {
             channel: 'Reply by',
         },
         nextTitle: 'What happens next',
-        reply: (via) => (via ? `I reply within 24 hours, ${via} as you asked.` : 'I reply within 24 hours.'),
+        reply: (via) => (via ? `We reply within 24 hours, ${via} as you asked.` : 'We reply within 24 hours.'),
         via: { WhatsApp: 'on WhatsApp', Email: 'by email', Telegram: 'on Telegram', 'Phone call': 'by phone' },
         steps: {
             quote: 'Your quotation states the Incoterm and named place, how long the price is valid (7 days), payment terms (T/T, L/C or D/P), lead time and packing.',
             sampleOffer: 'Want to test first? Free samples, 100–200 g per grade, are sent by FedEx after 3 business days of preparation.',
             sampleShip: 'Your free sample is sent by FedEx after 3 business days of preparation, at your cost or on your own FedEx account.',
-            docs: 'I send the specification and the documents you asked for.',
+            docs: 'We send the specification and the documents you asked for.',
         },
         replyNote: 'Reply to this email to add details or files.',
         regards: 'Best regards,',
@@ -203,13 +204,13 @@ const AUTO_REPLY = {
             channel: 'Способ связи',
         },
         nextTitle: 'Что дальше',
-        reply: (via) => (via ? `Я отвечу в течение 24 часов — ${via}, как вы просили.` : 'Я отвечу в течение 24 часов.'),
+        reply: (via) => (via ? `Мы ответим в течение 24 часов — ${via}, как вы просили.` : 'Мы ответим в течение 24 часов.'),
         via: { WhatsApp: 'в WhatsApp', Email: 'по электронной почте', Telegram: 'в Telegram', 'Phone call': 'по телефону' },
         steps: {
             quote: 'В коммерческом предложении будут базис поставки Incoterms с названным местом, срок действия цены (7 дней), условия оплаты (T/T, аккредитив или D/P), срок поставки и упаковка.',
             sampleOffer: 'Хотите сначала проверить качество? Бесплатные образцы, 100–200 г каждой позиции, отправляем FedEx через 3 рабочих дня подготовки.',
             sampleShip: 'Бесплатный образец отправим FedEx через 3 рабочих дня подготовки — доставка за ваш счёт или через ваш аккаунт FedEx.',
-            docs: 'Я пришлю спецификацию и запрошенные документы.',
+            docs: 'Мы пришлём спецификацию и запрошенные документы.',
         },
         replyNote: 'Ответьте на это письмо, чтобы добавить детали или файлы.',
         regards: 'С уважением,',
