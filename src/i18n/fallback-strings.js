@@ -45,6 +45,16 @@ export const FALLBACK_STRINGS = {
         products_cta_title: 'Need a grade that is not listed?',
         products_cta_text:
             'We cut, grade and pack to order. Send us your specification and we will tell you what is possible.',
+        // The catalogue's groups by form (utils/productGroups.js; folder 23).
+        products_groups_nav: 'Product forms',
+        products_group_slices: 'Slices',
+        products_group_tablets: 'Tablets',
+        products_group_granules: 'Granules, crushed root and powder',
+        products_group_sticks: 'Sticks and fingers',
+        products_group_industrial: 'Industrial and extraction grades',
+        products_group_custom: 'Custom order',
+        products_group_extract: 'Extract, made by our partner',
+        products_group_other: 'Other products',
 
         about_mission_title: 'What we do and how we work',
 
@@ -382,6 +392,15 @@ export const FALLBACK_STRINGS = {
         products_cta_title: 'Нужна позиция, которой нет в списке?',
         products_cta_text:
             'Мы режем, калибруем и упаковываем под заказ. Пришлите вашу спецификацию, и мы скажем, что возможно.',
+        products_groups_nav: 'Формы продукции',
+        products_group_slices: 'Слайсы',
+        products_group_tablets: 'Таблетки',
+        products_group_granules: 'Гранулы, измельчённый корень и порошок',
+        products_group_sticks: 'Палочки и бочонок',
+        products_group_industrial: 'Сорта для промышленности и экстракции',
+        products_group_custom: 'Индивидуальный заказ',
+        products_group_extract: 'Экстракт производства нашего партнёра',
+        products_group_other: 'Другая продукция',
 
         about_mission_title: 'Чем мы занимаемся и как работаем',
 

@@ -6,6 +6,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { useContent } from '../context/ContentContext';
 import { useRequest } from '../context/RequestContext';
 import { useReveal } from '../hooks/useReveal';
+import { groupProducts } from '../utils/productGroups';
 import '../components/Gallery.css';
 import './Products.css';
 
@@ -17,6 +18,11 @@ const Products = () => {
 
     const openModal = (product) => openRequest({ type: 'quote', products: [product.slug] });
 
+    // Grouped by form, so a buyer looking for powder does not scroll past every
+    // slice grade. The structured data lists the products in the same order.
+    const groups = groupProducts(products);
+    const ordered = groups.flatMap((g) => g.products);
+
     return (
         <Layout>
             <SEO
@@ -24,7 +30,7 @@ const Products = () => {
                 routePath="/products"
                 title={t('products_meta_title')}
                 description={t('products_meta_desc')}
-                products={products}
+                products={ordered}
             />
             <div className="products-page">
                 <div className="products-page-header reveal">
@@ -32,48 +38,72 @@ const Products = () => {
                     <p className="products-page-intro">{t('products_intro')}</p>
                 </div>
 
-                <div className="products-grid">
-                    {/* Content is baked into the page at build time, so there is
-                        no loading state here any more — the grid is in the HTML. */}
-                    {products.map((product, index) => (
-                        <div key={product.slug} className={`reveal reveal-delay-${(index % 4) + 1}`}>
-                            <div className="gallery-card-item">
-                                <LocalLink
-                                    to={`/products/${product.slug}`}
-                                    className="gallery-card-image"
-                                    tabIndex={-1}
-                                    aria-hidden="true"
-                                >
-                                    <img
-                                        src={product.image}
-                                        alt=""
-                                        width="1024"
-                                        height="1024"
-                                        loading={index < 4 ? 'eager' : 'lazy'}
-                                        decoding="async"
-                                    />
-                                </LocalLink>
-                                <div className="gallery-card-content">
-                                    {/* h2, not h3: the page goes h1 -> h2 with no
-                                        skipped level. */}
-                                    <h2 className="gallery-card-title">
-                                        <LocalLink to={`/products/${product.slug}`}>
-                                            {product.title}
-                                        </LocalLink>
-                                    </h2>
-                                    <p>{product.description}</p>
-                                    <button
-                                        className="btn-price"
-                                        onClick={() => openModal(product)}
-                                    >
-                                        {t('get_price')}
-                                    </button>
-                                    <QuoteButton product={product} variant="compact" />
-                                </div>
-                            </div>
+                {/* Plain fragment links: they work before the scripts load, and
+                    the browser scrolls to the heading itself. */}
+                <nav className="products-jump" aria-label={t('products_groups_nav')}>
+                    <ul>
+                        {groups.map((g) => (
+                            <li key={g.id}>
+                                <a href={`#${g.id}`}>
+                                    {t(`products_group_${g.id}`)}
+                                    <span className="products-jump-count">{g.products.length}</span>
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
+
+                {/* Content is baked into the page at build time, so there is no
+                    loading state here: the groups are in the HTML. */}
+                {groups.map((g) => (
+                    <section key={g.id} className="products-group" aria-labelledby={g.id}>
+                        <h2 id={g.id} className="products-group-title">
+                            {t(`products_group_${g.id}`)}
+                        </h2>
+                        <div className="products-grid">
+                            {g.products.map((product, i) => {
+                                const index = ordered.indexOf(product);
+                                return (
+                                    <div key={product.slug} className={`reveal reveal-delay-${(i % 4) + 1}`}>
+                                        <div className="gallery-card-item">
+                                            <LocalLink
+                                                to={`/products/${product.slug}`}
+                                                className="gallery-card-image"
+                                                tabIndex={-1}
+                                                aria-hidden="true"
+                                            >
+                                                <img
+                                                    src={product.image}
+                                                    alt=""
+                                                    width="1024"
+                                                    height="1024"
+                                                    loading={index < 4 ? 'eager' : 'lazy'}
+                                                    decoding="async"
+                                                />
+                                            </LocalLink>
+                                            <div className="gallery-card-content">
+                                                {/* h3 under the group's h2. */}
+                                                <h3 className="gallery-card-title">
+                                                    <LocalLink to={`/products/${product.slug}`}>
+                                                        {product.title}
+                                                    </LocalLink>
+                                                </h3>
+                                                <p>{product.description}</p>
+                                                <button
+                                                    className="btn-price"
+                                                    onClick={() => openModal(product)}
+                                                >
+                                                    {t('get_price')}
+                                                </button>
+                                                <QuoteButton product={product} variant="compact" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
                         </div>
-                    ))}
-                </div>
+                    </section>
+                ))}
 
                 {/* The catalogue used to end abruptly after the last card with
                     no way to act on it. */}

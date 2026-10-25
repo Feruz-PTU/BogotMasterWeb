@@ -9,6 +9,7 @@ import { track, leadContext, EVENTS } from '../analytics';
 import { sendRequest } from '../services/emailService';
 import { isValidEmail, isValidPhone } from '../utils/formValidation';
 import { isLicoriceRoot } from '../utils/productKind';
+import { groupProducts } from '../utils/productGroups';
 import { INCOTERMS_ANY, INCOTERMS_SEA, QUANTITY_UNITS, incotermLabel } from '../i18n/incoterms';
 import {
     REQUEST_TYPES,
@@ -441,12 +442,18 @@ const RequestForm = ({ initialType = 'quote', initialProducts = [], initialMessa
                         className={errors.products ? 'error' : ''}
                     >
                         <option value="">{t('rf_products_add')}</option>
-                        {choices
-                            .filter((p) => !lines.some((l) => l.slug === p.slug))
-                            .filter((p) => type !== 'sample' || forSample(p))
-                            .map((p) => (
-                                <option key={p.slug} value={p.slug}>{p.title}</option>
-                            ))}
+                        {/* Grouped by form, as in the catalogue. */}
+                        {groupProducts(
+                            choices
+                                .filter((p) => !lines.some((l) => l.slug === p.slug))
+                                .filter((p) => type !== 'sample' || forSample(p))
+                        ).map((g) => (
+                            <optgroup key={g.id} label={t(`products_group_${g.id}`)}>
+                                {g.products.map((p) => (
+                                    <option key={p.slug} value={p.slug}>{p.title}</option>
+                                ))}
+                            </optgroup>
+                        ))}
                     </select>
                     {errorText('products')}
                     {shows('quantity') && <span className="form-hint">{t('rf_quantity_hint')}</span>}

@@ -25,6 +25,8 @@ import {
 import { ARTICLES, articleLanguages } from '../src/content/articles/index.js';
 import { PAGES, pageProblems } from '../src/content/pages/index.js';
 import { faqLanguages, sortFaq } from '../src/utils/faq.js';
+import { groupProducts } from '../src/utils/productGroups.js';
+import { FALLBACK_STRINGS } from '../src/i18n/fallback-strings.js';
 import { render } from '../dist-ssr/entry-server.js';
 import { checkSources, report } from './content-guard.mjs';
 import {
@@ -235,12 +237,18 @@ console.log('✓ robots.txt');
 // ── llms.txt ─────────────────────────────────────────────────────────────────
 // Plain-text summary for AI crawlers, generated from the live catalogue.
 const t = content.translations[DEFAULT_LANGUAGE] || {};
-const productLines = content.products
+// Under the catalogue's groups by form, in the same language as the titles.
+const groupName = (id) =>
+    t[`products_group_${id}`] || FALLBACK_STRINGS[DEFAULT_LANGUAGE]?.[`products_group_${id}`] || id;
+const productLines = groupProducts(content.products)
     .map(
-        (p) =>
-            `- [${p[`title_${DEFAULT_LANGUAGE}`] || p.slug}](${SITE_URL}/products/${p.slug})`
+        (g) =>
+            `### ${groupName(g.id)}\n\n` +
+            g.products
+                .map((p) => `- [${p[`title_${DEFAULT_LANGUAGE}`] || p.slug}](${SITE_URL}/products/${p.slug})`)
+                .join('\n')
     )
-    .join('\n');
+    .join('\n\n');
 const articleLines = ARTICLES.map((a) => {
     const code = a.languages[DEFAULT_LANGUAGE] ? DEFAULT_LANGUAGE : articleLanguages(a)[0];
     return `- [${a.languages[code].title}](${SITE_URL}${localizedPath(code, `/articles/${a.slug}`)})`;

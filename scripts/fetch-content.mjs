@@ -18,6 +18,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { LANGUAGE_CODES, DEFAULT_LANGUAGE } from '../src/i18n/languages.js';
 import { resolveFamilies } from '../src/utils/productFamily.js';
+import { PRODUCT_GROUPS, groupOf } from '../src/utils/productGroups.js';
 import { sortFaq } from '../src/utils/faq.js';
 import { faqProblems } from '../src/utils/faqChecks.js';
 
@@ -227,6 +228,9 @@ const products = allProducts
             if (!p[`desc_${code}`] || !String(p[`desc_${code}`]).trim()) {
                 warnings.push(`"${p.slug}" has no desc_${code}`);
             }
+        }
+        if (!PRODUCT_GROUPS.includes(p.group)) {
+            warnings.push(`"${p.slug}" has no catalogue group; /products shows it under "${groupOf(p)}" (pick one in the admin)`);
         }
         return p;
     })

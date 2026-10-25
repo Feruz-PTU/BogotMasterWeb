@@ -20,6 +20,7 @@ import SEO from '../../components/SEO';
 import RelatedProductsPicker from './RelatedProductsPicker';
 import FaqAdmin from './FaqAdmin';
 import { resolveFamilies, familyChanges } from '../../utils/productFamily';
+import { PRODUCT_GROUPS, groupOf } from '../../utils/productGroups';
 import './Admin.css';
 
 // Visitor actions recorded in the `events` table (src/analytics.js), in the
@@ -877,7 +878,8 @@ const AdminDashboard = () => {
             // Every member stores the family, so the other members whose stored
             // family changes are saved in the same request. `related` is the
             // one-way list used before families; it is replaced, not kept.
-            const updated = { ...productForm, image: imageUrl, family, related: undefined };
+            // The catalogue group is stored on every save (utils/productGroups.js).
+            const updated = { ...productForm, group: groupOf(productForm), image: imageUrl, family, related: undefined };
             const others = [...familyChanges(products, slug, family)].map(([s, fam]) => ({
                 ...products.find(p => p.slug === s),
                 family: fam,
@@ -2030,6 +2032,18 @@ const AdminDashboard = () => {
                                                             onChange={e => setProductForm(p => ({ ...p, order: parseInt(e.target.value) || 0 }))}
                                                         />
                                                     </div>
+                                                </div>
+
+                                                <div className="admin-field">
+                                                    <label>Catalogue group <span className="admin-field-hint">the heading it sits under on /products</span></label>
+                                                    <select
+                                                        value={groupOf(productForm)}
+                                                        onChange={e => setProductForm(p => ({ ...p, group: e.target.value }))}
+                                                    >
+                                                        {PRODUCT_GROUPS.map(id => (
+                                                            <option key={id} value={id}>{FALLBACK_STRINGS.en[`products_group_${id}`]}</option>
+                                                        ))}
+                                                    </select>
                                                 </div>
 
                                                 <label className="admin-toggle-row">
