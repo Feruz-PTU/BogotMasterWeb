@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import QuoteButton from '../components/QuoteButton';
+import MediaImage from '../components/MediaImage';
 import LocalLink, { useLocalPath } from '../components/LocalLink';
 import NotFound from './NotFound';
 import { useLanguage } from '../context/LanguageContext';
@@ -98,10 +99,12 @@ const ProductDetail = () => {
                 <div className="pd-main">
                     <div className="pd-image-wrap reveal reveal-delay-1">
                         {/* Above the fold and the LCP element on this page:
-                            eager, high priority, and sized to stop layout shift. */}
-                        <img
+                            eager, high priority, and sized to stop layout shift.
+                            The full width of the page up to 900 px, half above. */}
+                        <MediaImage
                             src={product.image}
                             alt={product.title}
+                            sizes="(max-width: 900px) 92vw, 600px"
                             width="1024"
                             height="1024"
                             fetchPriority="high"
@@ -309,7 +312,15 @@ const ProductDetail = () => {
                             {related.map((p, index) => (
                                 <LocalLink key={p.slug} to={`/products/${p.slug}`} className={`pd-related-card reveal reveal-delay-${Math.min(index + 1, 4)}`}>
                                     <div className="pd-related-image">
-                                        <img src={p.image} alt="" width="1024" height="1024" loading="lazy" decoding="async" />
+                                        {/* A swipe row of 65% cards up to 768 px, 3 a row above. */}
+                                        <MediaImage
+                                            src={p.image}
+                                            sizes="(max-width: 768px) 60vw, (max-width: 1300px) 28vw, 360px"
+                                            width="1024"
+                                            height="1024"
+                                            loading="lazy"
+                                            decoding="async"
+                                        />
                                     </div>
                                     <div className="pd-related-info">
                                         <h3>{p.title}</h3>

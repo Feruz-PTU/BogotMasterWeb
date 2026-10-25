@@ -5,6 +5,7 @@ import LocalLink, { LocalNavLink } from './LocalLink';
 import { LIVE_LANGUAGES, localizedPath, parsePathname } from '../i18n/languages';
 import { routeInLanguage } from '../content/routeInLanguage';
 import { menuGroups, groupIsActive } from '../content/navigation';
+import { LOGO } from '../utils/siteImages';
 import './Navbar.css';
 
 const Chevron = ({ open }) => (
@@ -133,11 +134,16 @@ const Navbar = () => {
             <div className="navbar-container">
                 <div className="navbar-logo">
                     <LocalLink to="/" onClick={close}>
+                        {/* 40-50 px tall: a 3-8 KB copy instead of the 26 KB
+                            904 px PNG, which loaded at high priority beside
+                            each page's main image (folder 27). */}
                         <img
-                            src="/Logo/new-logo.png"
                             alt={t('nav_home_logo_alt')}
                             width="904"
                             height="904"
+                            sizes="50px"
+                            srcSet={LOGO.srcSet}
+                            src={LOGO.src}
                         />
                     </LocalLink>
                 </div>

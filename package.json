@@ -7,7 +7,7 @@
         "node": ">=20.19.0"
     },
     "scripts": {
-        "content": "node scripts/fetch-content.mjs",
+        "content": "node scripts/fetch-content.mjs && node scripts/build-media.mjs",
         "dev": "npm run content && vite",
         "build:client": "vite build",
         "build:server": "vite build --ssr src/entry-server.jsx --outDir dist-ssr",

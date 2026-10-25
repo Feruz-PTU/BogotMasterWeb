@@ -26,6 +26,10 @@ Follow the steps once. After that, every `git push` auto-deploys.
 3. **Storage** (left sidebar) → **New bucket**:
    - Name: `products` → toggle **Public bucket ON** → Create.
    - **New bucket** again → Name: `gallery` → **Public bucket ON** → Create.
+   - Photos uploaded in the admin are stored here. The public pages show the
+     site's own copies of them, made in several widths on every build
+     (`scripts/build-media.mjs`, part of `npm run content`); a photo the build
+     cannot download is shown from the bucket as before.
 
 4. **Authentication** → **Users** → **Add user** → **Create new user**:
    - Enter the admin email + password he wants for logging into `/admin`.

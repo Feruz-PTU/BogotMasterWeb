@@ -701,3 +701,40 @@
     margin: 0 8px;
     color: #8A8A8A;
 }
+
+/* Text sizes on phones (folder 27). Up to 768 px the site's root font size is
+   81% (index.css), so 1rem is about 13 px there and the rem sizes above came
+   out at 9–12 px: on 21 Oct, 78% of this page's text was under 12 px on a
+   phone. Here they are set in px: the specifications at 14 px or more, the
+   description and the sample text at 16 px. */
+@media (max-width: 768px) {
+    .pd-breadcrumb { font-size: 14px; }
+    .pd-description { font-size: 16px; line-height: 1.7; }
+    .pd-application-links { font-size: 15px; }
+    .pd-cta { font-size: 16px !important; }
+    .pd-contact-link { font-size: 15px; }
+    .pd-quote .quote-btn { font-size: 15px; }
+
+    .pd-sample-title { font-size: 17px; }
+    .pd-sample-text { font-size: 16px; }
+    .pd-sample-btn { font-size: 15px; }
+    .pd-sample-faq { font-size: 14px; }
+    .pd-badges span { font-size: 14px; }
+
+    .pd-specs-guide { font-size: 15px; }
+    .pd-spec-card { padding: 20px 18px; }
+    .pd-spec-card-title { font-size: 14px; letter-spacing: 0.06em; }
+    .pd-spec-list dt { font-size: 14px; }
+    .pd-spec-list dd { font-size: 15px; }
+    .pd-doc-list li { font-size: 15px; }
+    .pd-doc-list li::before { font-size: 14px; }
+    .pd-process-steps li { font-size: 15px; padding-left: 38px; }
+    .pd-process-steps li::before { width: 26px; height: 26px; font-size: 13px; }
+    .pd-process-steps li:not(:last-child)::after { left: 13px; top: 32px; }
+    .pd-process-single { font-size: 15px; }
+    .pd-terms-link { font-size: 15px; }
+
+    .pd-related-info h3 { font-size: 16px; }
+    .pd-related-info p { font-size: 14px; }
+    .pd-related-link { font-size: 14px; }
+}

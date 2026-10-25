@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import './FeaturedGallery.css';
 import Skeleton from './Skeleton';
+import MediaImage from './MediaImage';
 import { useLanguage } from '../context/LanguageContext';
 import { useContent } from '../context/ContentContext';
 
@@ -172,7 +173,15 @@ const FeaturedGallery = () => {
                             style={{ cursor: 'pointer' }}
                         >
                             <div className="card-image">
-                                <img src={src} alt={altOf(src, index)} loading="lazy" />
+                                {/* A swipe row of 70-80% cards up to 768 px,
+                                    then 3 a row, 4 above 1200 px. */}
+                                <MediaImage
+                                    src={src}
+                                    alt={altOf(src, index)}
+                                    sizes="(max-width: 480px) 78vw, (max-width: 768px) 66vw, (max-width: 1200px) 28vw, 290px"
+                                    loading="lazy"
+                                    decoding="async"
+                                />
                             </div>
                         </figure>
                     ))}
@@ -197,7 +206,7 @@ const FeaturedGallery = () => {
                     </button>
                     
                     <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
-                        <img src={activeImage} alt={altOf(activeImage, photos.indexOf(activeImage))} />
+                        <MediaImage src={activeImage} alt={altOf(activeImage, photos.indexOf(activeImage))} largest />
                         {captionOf(activeImage) && (
                             <p className="lightbox-caption">{captionOf(activeImage)}</p>
                         )}

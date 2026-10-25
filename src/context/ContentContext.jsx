@@ -5,6 +5,10 @@ import { DEFAULT_LANGUAGE } from '../i18n/languages';
 
 const ContentContext = createContext();
 
+// The site's own copies of the product and gallery photos, by original
+// address (scripts/build-media.mjs; components/MediaImage.jsx).
+const MEDIA = BUILD_CONTENT.media || {};
+
 export const useContent = () => useContext(ContentContext);
 
 /**
@@ -109,6 +113,7 @@ export const ContentProvider = ({ children }) => {
             featuredProducts,
             gallery,
             settings,
+            media: MEDIA,
             // Content is always present at first paint now, so nothing ever
             // renders a skeleton on a public page.
             loading: false,

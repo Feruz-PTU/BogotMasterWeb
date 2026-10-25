@@ -2,6 +2,7 @@ import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import QuoteButton from '../components/QuoteButton';
 import LocalLink from '../components/LocalLink';
+import MediaImage from '../components/MediaImage';
 import { useLanguage } from '../context/LanguageContext';
 import { useContent } from '../context/ContentContext';
 import { useRequest } from '../context/RequestContext';
@@ -72,9 +73,10 @@ const Products = () => {
                                                 tabIndex={-1}
                                                 aria-hidden="true"
                                             >
-                                                <img
+                                                {/* 2 cards a row up to 768 px, 3 to 992, 4 to 1200, then 5. */}
+                                                <MediaImage
                                                     src={product.image}
-                                                    alt=""
+                                                    sizes="(max-width: 768px) 40vw, (max-width: 992px) 29vw, (max-width: 1200px) 22vw, 260px"
                                                     width="1024"
                                                     height="1024"
                                                     loading={index < 4 ? 'eager' : 'lazy'}

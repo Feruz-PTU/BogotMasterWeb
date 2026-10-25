@@ -1,5 +1,6 @@
 import { useLanguage } from '../context/LanguageContext';
 import { InlineMarkdown } from './Markdown';
+import { PLANT_PHOTO } from '../utils/siteImages';
 import './PlantPhoto.css';
 
 /**
@@ -21,12 +22,14 @@ const PlantPhoto = ({ className = '', loading = 'lazy' }) => {
     return (
         <figure className={`plant-photo ${className}`.trim()}>
             <img
-                src="/images/Glycyrrhiza_glabra_Y03.webp"
+                loading={loading}
+                decoding="async"
                 alt={t('plant_photo_alt')}
                 width="640"
                 height="853"
-                loading={loading}
-                decoding="async"
+                sizes={PLANT_PHOTO.sizes}
+                srcSet={PLANT_PHOTO.srcSet}
+                src={PLANT_PHOTO.src}
             />
             <figcaption>
                 <InlineMarkdown text={t('plant_photo_caption')} />

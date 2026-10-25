@@ -174,3 +174,13 @@
     margin-top: 6px;
     font-size: 0.8rem;
 }
+
+/* Up to 768 px 1rem is about 13 px (index.css), so the small lines above came
+   out at 10–11 px on a phone: at least 13 px here (folder 27). */
+@media (max-width: 768px) {
+    .footer-bottom,
+    .footer-legal,
+    .footer-contact-person span {
+        font-size: 13px;
+    }
+}

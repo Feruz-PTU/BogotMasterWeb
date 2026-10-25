@@ -10,6 +10,8 @@ import Certificates from '../components/Certificates';
 import Partners from '../components/Partners';
 import FeaturedGallery from '../components/FeaturedGallery';
 import LicoriceIntro from '../components/LicoriceIntro';
+import MediaImage from '../components/MediaImage';
+import { HERO_DESKTOP, HERO_MOBILE, HERO_MOBILE_MEDIA, LOGO } from '../utils/siteImages';
 import { useLanguage } from '../context/LanguageContext';
 import { useContent } from '../context/ContentContext';
 import { useRequest } from '../context/RequestContext';
@@ -45,20 +47,26 @@ const Home = () => {
                     stylesheet — that background is the LCP element on mobile
                     and was never preloaded. The old setup preloaded the
                     DESKTOP image on every device, so phones spent high-priority
-                    bandwidth on a file they never showed. */}
+                    bandwidth on a file they never showed.
+                    Since folder 27 the hero is a <picture> (Hero.jsx); each
+                    preload names exactly what its <img> or <source> picks, the
+                    desktop one with the same srcset and sizes, so the browser
+                    reuses the preloaded file instead of fetching a second. */}
                 <link
                     rel="preload"
                     as="image"
-                    href="/images/hero-bg-new.webp"
+                    href={HERO_DESKTOP.src}
+                    imageSrcSet={HERO_DESKTOP.srcSet}
+                    imageSizes={HERO_DESKTOP.sizes}
                     fetchPriority="high"
                     media="(min-width: 641px)"
                 />
                 <link
                     rel="preload"
                     as="image"
-                    href="/images/mobile-main-hero-image.webp"
+                    href={HERO_MOBILE}
                     fetchPriority="high"
-                    media="(max-width: 640px)"
+                    media={HERO_MOBILE_MEDIA}
                 />
             </Helmet>
 
@@ -85,9 +93,10 @@ const Home = () => {
                                     tabIndex={-1}
                                     aria-hidden="true"
                                 >
-                                    <img
+                                    {/* Two cards a row up to 1200 px, four above. */}
+                                    <MediaImage
                                         src={product.image}
-                                        alt=""
+                                        sizes="(max-width: 1200px) 40vw, 270px"
                                         width="1024"
                                         height="1024"
                                         loading="lazy"
@@ -124,7 +133,16 @@ const Home = () => {
                     <h2 className="section-title" style={{ gridColumn: '1 / span 2', marginBottom: '40px' }}>{t('about_title')}</h2>
                     
                     <div className="home-about-logo reveal reveal-delay-1">
-                        <img src="/Logo/new-logo.png" alt="Bogot Master" width="904" height="904" loading="lazy" decoding="async" />
+                        <img
+                            alt="Bogot Master"
+                            width="904"
+                            height="904"
+                            loading="lazy"
+                            decoding="async"
+                            sizes="(max-width: 900px) 200px, 320px"
+                            srcSet={LOGO.srcSet}
+                            src={LOGO.src}
+                        />
                     </div>
                     <div className="home-about-text reveal reveal-delay-2">
                         <p>{t('about_p1')}</p>

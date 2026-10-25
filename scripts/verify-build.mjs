@@ -26,7 +26,7 @@ function walk(dir, base = '') {
     for (const entry of readdirSync(dir)) {
         const full = join(dir, entry);
         if (statSync(full).isDirectory()) {
-            if (['assets', 'images', 'images-new', 'gallery', 'Logo', 'partner', 'Certificate'].includes(entry)) continue;
+            if (['assets', 'images', 'images-new', 'gallery', 'Logo', 'partner', 'Certificate', 'media'].includes(entry)) continue;
             out.push(...walk(full, `${base}/${entry}`));
         } else if (entry === 'index.html') {
             out.push(base === '' ? '/' : base);
@@ -290,6 +290,40 @@ console.log('\n12. Placeholders');
 const placeholders = checkHtml(DIST);
 if (placeholders.length) placeholders.forEach((f) => fail(`placeholder in ${f.where}: ${f.text}`));
 else ok('no [owner: …] or [verify] in any generated HTML, XML or text file');
+
+// ── 13. Images ───────────────────────────────────────────────────────────────
+// Every image file a page names, in src, srcset or a preload's imagesrcset,
+// must exist (a srcset width that is missing shows a broken image only on the
+// screens that pick it). The product and gallery photos should come from the
+// site's own copies (scripts/build-media.mjs): if one is still on supabase.co,
+// the build could not copy it, and the page loads it the slow way.
+console.log('\n13. Images');
+const missingImages = new Set();
+let remotePhotos = 0;
+let imageRefs = 0;
+for (const p of pages) {
+    const html = htmlFor(p);
+    const refs = [
+        ...all(html, /<(?:img|source)\b[^>]*?\ssrc="([^"]+)"/gi),
+        ...all(html, /\s(?:srcset|imagesrcset)="([^"]+)"/gi).flatMap((set) => set.split(',').map((c) => c.trim().split(/\s+/)[0])),
+    ];
+    for (const ref of refs) {
+        imageRefs++;
+        if (/^https:\/\/[^/]+\.supabase\.co\//.test(ref)) { remotePhotos++; continue; }
+        if (!ref.startsWith('/')) continue;
+        if (!existsSync(join(DIST, decodeURIComponent(ref.split('?')[0]).slice(1)))) missingImages.add(`${ref} (on ${p})`);
+    }
+}
+if (missingImages.size) [...missingImages].forEach((m) => fail(`missing image: ${m}`));
+else ok(`all ${imageRefs} image references (src and srcset) resolve to real files`);
+if (remotePhotos) warn(`${remotePhotos} photo reference(s) still point at supabase.co (the build could not copy them; see build-media's output)`);
+else ok('product and gallery photos are served from the site\'s own copies');
+const slice = pages.find((p) => p === '/products/slice-a');
+if (slice) {
+    const main = htmlFor(slice).match(/<img\b[^>]*fetchpriority="high"[^>]*>/i)?.[0] || '';
+    if (/\ssrcset="\/media\//i.test(main) && /\ssizes="/i.test(main)) ok('the product page\'s main photo has a srcset of the site\'s copies');
+    else warn('the product page\'s main photo has no srcset of the site\'s copies');
+}
 
 // ── Result ───────────────────────────────────────────────────────────────────
 console.log(`\n═══ ${failures} failure(s), ${warnings} warning(s) ═══\n`);

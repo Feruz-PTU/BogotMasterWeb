@@ -6,6 +6,7 @@ import { track, EVENTS } from '../analytics';
 import { telHref, mailtoHref } from '../utils/links';
 import { CONTACT_INFO } from '../config';
 import { footerGroups } from '../content/navigation';
+import { LOGO } from '../utils/siteImages';
 
 const Footer = () => {
     const { t, language } = useLanguage();
@@ -69,12 +70,14 @@ const Footer = () => {
             <div className="footer-bottom">
                 <LocalLink to="/" className="footer-logo">
                     <img
-                        src="/Logo/new-logo.png"
                         alt={t('nav_home_logo_alt')}
                         width="904"
                         height="904"
                         loading="lazy"
                         decoding="async"
+                        sizes="40px"
+                        srcSet={LOGO.srcSet}
+                        src={LOGO.src}
                     />
                 </LocalLink>
                 <p>&copy; {new Date().getFullYear()} Bogot Master. {t('footer_rights')}</p>

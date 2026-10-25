@@ -198,6 +198,10 @@
 }
 
 .lightbox-content img {
+    /* The width and height attributes give the shape only; the photo keeps
+       its own proportions when the limits below shrink it. */
+    width: auto;
+    height: auto;
     max-width: 100%;
     max-height: 80vh;
     object-fit: contain;

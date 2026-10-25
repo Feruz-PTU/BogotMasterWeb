@@ -1,5 +1,6 @@
 import { useLanguage } from '../context/LanguageContext';
 import { useRequest } from '../context/RequestContext';
+import { LOGO } from '../utils/siteImages';
 import './About.css';
 
 const CheckIcon = () => (
@@ -33,7 +34,15 @@ const About = ({ headingLevel = 'h2' }) => {
                 </div>
                 <div className="about-content">
                     <div className="about-logo reveal reveal-delay-1">
-                        <img src="/Logo/new-logo.png" alt="Bogot Master" width="904" height="904" />
+                        <img
+                            alt="Bogot Master"
+                            width="904"
+                            height="904"
+                            decoding="async"
+                            sizes="(max-width: 600px) 200px, (max-width: 1024px) 260px, 380px"
+                            srcSet={LOGO.srcSet}
+                            src={LOGO.src}
+                        />
                     </div>
                     <div className="about-text reveal reveal-delay-2">
                         <div className="about-description">

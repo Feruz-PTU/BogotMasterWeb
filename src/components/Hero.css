@@ -40,6 +40,11 @@
     justify-content: flex-end;
 }
 
+/* The <picture> adds no box: the <img> stays the flex item it always was. */
+.hero-image picture {
+    display: contents;
+}
+
 .hero-image img {
     max-width: 100%;
     height: auto;
@@ -160,17 +165,21 @@
         width: 85%;
         /* Fixed comfortable height — not too big, not too small */
         height: 220px;
-        background-image: url('/images/mobile-main-hero-image.webp');
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center center;
         background-color: transparent;
         /* Small gap between image and text */
         margin-bottom: 16px;
     }
 
+    /* The phone picture (the <source> in Hero.jsx), fitted into the box the
+       way the old CSS background was: whole, centred. */
     .hero-image img {
-        display: none;
+        display: block;
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        object-fit: contain;
+        object-position: center;
+        filter: none;
     }
 
     /* ---- TEXT + BUTTON directly below image ---- */

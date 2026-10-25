@@ -3,6 +3,7 @@ import './QuoteCart.css';
 import { useQuote } from '../context/QuoteContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useRequest } from '../context/RequestContext';
+import MediaImage from './MediaImage';
 
 /**
  * A quantity typed in the older cart ("5 t", "500 kg", "22"), as a line for
@@ -88,7 +89,7 @@ const QuoteCart = () => {
                         <div className="quote-cart-items">
                             {items.map(item => (
                                 <div className="quote-cart-item" key={item.slug}>
-                                    <img src={item.image} alt="" loading="lazy" />
+                                    <MediaImage src={item.image} sizes="52px" loading="lazy" decoding="async" />
                                     <div className="quote-cart-item-body">
                                         <span className="quote-cart-item-title">{item.title}</span>
                                     </div>
