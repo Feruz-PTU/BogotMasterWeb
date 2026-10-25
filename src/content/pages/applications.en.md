@@ -1,18 +1,18 @@
-We supply licorice root to three kinds of buyer: pharmaceutical manufacturers; food, drink and tea makers; and extract makers. Each page below sets out the forms that suit the use, the rules buyers in that sector work under, and the documents they ask for.
+We supply licorice root to four kinds of buyer: pharmaceutical manufacturers; food, drink and tea makers; extract makers; and makers of cosmetic ingredients and products. Each page below sets out the forms that suit the use, the rules buyers in that sector work under, and the documents they ask for.
 
 ## Which forms suit which use {#forms-by-use}
 
-| Form | Pharmaceutical | Food and drinks | Extraction |
-|---|---|---|---|
-| Whole root: sticks and fingers | Yes | — | — |
-| Slices | — | Yes | — |
-| Tablets | Yes | — | Yes |
-| Granules | Yes | Yes | — |
-| Crushed root | Yes | — | Yes |
-| Root fibre | — | Yes | — |
-| Powder | Yes | Yes | — |
-| Industrial and extraction grades | — | — | Yes |
-| Licorice extract, from our partner | — | Yes | — |
+| Form | Pharmaceutical | Food and drinks | Extraction | Cosmetics |
+|---|---|---|---|---|
+| Whole root: sticks and fingers | Yes | — | — | — |
+| Slices | — | Yes | — | — |
+| Tablets | Yes | — | Yes | Yes |
+| Granules | Yes | Yes | — | Yes |
+| Crushed root | Yes | — | Yes | Yes |
+| Root fibre | — | Yes | — | — |
+| Powder | Yes | Yes | — | Yes |
+| Industrial and extraction grades | — | — | Yes | — |
+| Licorice extract, from our partner | — | Yes | — | — |
 
 The table shows the forms usually taken for each use; a form can still be ordered for another one. Each product page links to the uses it suits, and the [catalogue](/products) lists every form.
 

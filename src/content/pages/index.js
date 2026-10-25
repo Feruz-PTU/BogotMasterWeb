@@ -262,7 +262,7 @@ export const PAGES = [
     },
     {
         // The hub: a forms-by-use table, then its sector pages, in the order
-        // below (pharmaceutical, food, extraction). Product pages link to the
+        // below (pharmaceutical, food, extraction, cosmetics). Product pages link to the
         // sector pages from utils/productApplications.js.
         id: 'applications',
         path: '/applications',
@@ -280,10 +280,10 @@ export const PAGES = [
         },
         navTitle: { en: 'Applications', ru: 'Применение' },
         meta: {
-            en: 'Which licorice root forms suit pharmaceutical, food and extraction use, and the rules each sector works under.',
-            ru: 'Какие формы корня солодки подходят для фармацевтики, пищевой отрасли и экстракции и по каким правилам работает каждая отрасль.',
+            en: 'Which licorice root forms suit pharmaceutical, food, extraction and cosmetics use, and the rules each sector works under.',
+            ru: 'Какие формы корня солодки подходят для фармацевтики, пищевой отрасли, экстракции и косметики и по каким правилам работает каждая отрасль.',
         },
-        updated: '2026-10-24',
+        updated: '2026-10-25',
         priority: 0.6,
     },
     {
@@ -359,6 +359,33 @@ export const PAGES = [
         meta: {
             en: "Licorice root as feedstock for extract makers: industrial and extraction grades, cut root, what to specify, yearly supply and our partner's extract.",
             ru: 'Корень солодки как сырьё для производителей экстрактов: промышленный и экстракционный сорта, резаный корень, спецификация, годовые поставки.',
+        },
+        updated: '2026-10-25',
+        priority: 0.6,
+    },
+    {
+        // INCI names read in CosIng, and Reg. (EC) No 1223/2009 read on
+        // EUR-Lex, on 25 Oct 2026 (_dev/research/cosmetics-cosing.md). No skin
+        // claims at all, not even CosIng's function names: claims belong to
+        // the finished product's maker (Art. 20).
+        id: 'applications-cosmetics',
+        path: '/applications/cosmetics',
+        parent: 'applications',
+        section: 'applications',
+        schemaType: 'WebPage',
+        languages: ['en', 'ru'],
+        title: {
+            en: 'Licorice Root for Cosmetics Manufacturing | Bogot Master',
+            ru: 'Корень солодки для производства косметики | Bogot Master',
+        },
+        h1: {
+            en: 'Licorice root for cosmetic ingredients and products',
+            ru: 'Корень солодки для косметических ингредиентов и продукции',
+        },
+        navTitle: { en: 'Cosmetics', ru: 'Для косметики' },
+        meta: {
+            en: 'Licorice root for cosmetics makers: INCI names checked in CosIng, the EU Cosmetics Regulation, and the microbiology and heavy-metal data we provide.',
+            ru: 'Корень солодки для производителей косметики: названия INCI по базе CosIng, Регламент ЕС о косметике, данные по микробиологии и тяжёлым металлам.',
         },
         updated: '2026-10-25',
         priority: 0.6,

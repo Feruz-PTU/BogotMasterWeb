@@ -285,6 +285,7 @@ const TRANSLATION_GROUPS = [
             { key: 'app_pharma_link', label: 'Link under the description (to the pharmaceutical page)' },
             { key: 'app_food_link', label: 'Link under the description (to the food page)' },
             { key: 'app_extraction_link', label: 'Link under the description (to the extraction page)' },
+            { key: 'app_cosmetics_link', label: 'Link under the description (to the cosmetics page)' },
         ],
     },
     {

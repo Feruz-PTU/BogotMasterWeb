@@ -119,6 +119,7 @@ export const FALLBACK_STRINGS = {
         app_pharma_link: 'For pharmaceutical use',
         app_food_link: 'For food use',
         app_extraction_link: 'For extraction',
+        app_cosmetics_link: 'For cosmetics',
 
         // The request form (components/RequestForm.jsx), worded as in Appendix A
         // §A2 of the strategy audit, and the /request page that holds it.
@@ -499,6 +500,7 @@ export const FALLBACK_STRINGS = {
         app_pharma_link: 'Для фармацевтического производства',
         app_food_link: 'Для пищевой промышленности',
         app_extraction_link: 'Для экстракции',
+        app_cosmetics_link: 'Для косметики',
 
         rf_type_label: 'Что вам нужно?',
         rf_type_quote: 'Коммерческое предложение',
