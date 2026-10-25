@@ -34,12 +34,19 @@ const AboutPage = () => {
                                 {/* Shown here only: <About> above stops at about_p2. */}
                                 <p>{t('about_p3')}</p>
                                 <p>{t('about_p4')}</p>
-                                {/* The origin page (folder 30), where it exists in this language. */}
-                                {findPage('about-origin')?.languages.includes(language) && (
-                                    <LocalLink to="/about/origin" className="about-origin-link">
-                                        {t('about_origin_link')} →
-                                    </LocalLink>
-                                )}
+                                {/* The origin (folder 30) and processing (folder 31) pages, where they exist in this language. */}
+                                <div className="about-page-links">
+                                    {findPage('about-origin')?.languages.includes(language) && (
+                                        <LocalLink to="/about/origin" className="about-page-link">
+                                            {t('about_origin_link')} →
+                                        </LocalLink>
+                                    )}
+                                    {findPage('quality-processing')?.languages.includes(language) && (
+                                        <LocalLink to="/quality/processing" className="about-page-link">
+                                            {t('process_page_link')} →
+                                        </LocalLink>
+                                    )}
+                                </div>
                             </div>
                             <div className="about-extra-stats">
                                 <div className="extra-stat-card">

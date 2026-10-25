@@ -390,6 +390,34 @@ export const PAGES = [
         priority: 0.7,
     },
     {
+        // Folder 31. Facts: the sales rep's processing answers (22–24 Oct 2026;
+        // task 28.5) and the product step lists (_dev/notes/db-scripts/
+        // processing-lines.mjs). No figure here that the sales rep did not give.
+        // The quality hub (/quality) does not exist yet, so the breadcrumb is
+        // Home › Processing.
+        id: 'quality-processing',
+        path: '/quality/processing',
+        parent: null,
+        section: 'quality',
+        schemaType: 'WebPage',
+        languages: ['en', 'ru'],
+        title: {
+            en: 'Licorice Root Processing: Washing to Packing | Bogot Master',
+            ru: 'Переработка корня солодки: от сырья до мешка | Bogot Master',
+        },
+        h1: {
+            en: 'How we process licorice root',
+            ru: 'Как мы перерабатываем корень солодки',
+        },
+        navTitle: { en: 'Processing', ru: 'Переработка' },
+        meta: {
+            en: 'Each step from dug root to packed bag: washing, peeling, steaming, cutting, drying, sorting and packing, and the checks we make along the way.',
+            ru: 'Все этапы от выкопанного корня до упакованного мешка: мойка, очистка, пропаривание, нарезка, сушка, сортировка, упаковка и проверки по ходу.',
+        },
+        updated: '2026-10-25',
+        priority: 0.6,
+    },
+    {
         // Folder 30. Facts: the sales rep (all root wild, dug across Khorezm all
         // year, the harvest permit; 22–24 Oct 2026) and the botany article's
         // sources, each stated once with its limit (audit Appendix B §2.11).

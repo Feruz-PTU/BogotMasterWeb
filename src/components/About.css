@@ -158,15 +158,21 @@
     margin-bottom: 20px;
 }
 
-/* The link to the origin page, under the mission text (AboutPage.jsx). */
-.about-origin-link {
-    display: inline-block;
+/* The links to the origin and processing pages, under the mission text (AboutPage.jsx). */
+.about-page-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.about-page-link {
     font-weight: 600;
     color: var(--color-primary);
 }
 
-.about-origin-link:hover,
-.about-origin-link:focus-visible {
+.about-page-link:hover,
+.about-page-link:focus-visible {
     text-decoration: underline;
 }
 

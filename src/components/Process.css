@@ -118,6 +118,22 @@
     padding: 0 15px;
 }
 
+/* The link to the processing page (folder 31), under the steps. */
+.process-more {
+    margin-top: 48px;
+    text-align: center;
+}
+
+.process-more-link {
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+.process-more-link:hover,
+.process-more-link:focus-visible {
+    text-decoration: underline;
+}
+
 /* ── Responsive ── */
 @media (max-width: 1024px) {
     .process-items {

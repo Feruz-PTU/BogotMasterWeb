@@ -1,9 +1,13 @@
 import './Process.css';
 import { useLanguage } from '../context/LanguageContext';
 import { Sprout, Settings2, ShieldCheck, Ship } from 'lucide-react';
+import LocalLink from './LocalLink';
+import { findPage } from '../content/pages';
 
 const Process = () => {
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
+    // The processing page (folder 31), where it exists in this language.
+    const hasPage = findPage('quality-processing')?.languages.includes(language);
 
     const steps = [
         {
@@ -64,6 +68,13 @@ const Process = () => {
                         ))}
                     </div>
                 </div>
+                {hasPage && (
+                    <div className="process-more">
+                        <LocalLink to="/quality/processing" className="process-more-link">
+                            {t('process_page_link')} →
+                        </LocalLink>
+                    </div>
+                )}
             </div>
         </section>
     );
