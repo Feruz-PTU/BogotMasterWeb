@@ -150,8 +150,11 @@ export const SEED_TRANSLATIONS = {
         meta_title: 'Bogot Master | Экспорт корня солодки из Узбекистана',
         meta_description: 'Bogot Master — заготовка, переработка и экспорт дикорастущего корня солодки из Узбекистана: слайсы, палочки, гранулы и порошок оптом. Образцы бесплатно.',
         meta_keywords: 'корень солодки, солодка оптом, экспорт солодки, экстракт солодки, Узбекистан, Bogot Master, licorice root, licorice',
-        og_title: 'Bogot Master | Экспорт Качественной Солодки',
-        og_description: 'Производство и экспорт корня солодки высшего качества из Узбекистана. Надежный партнер для вашего бизнеса.',
+        // og_title, og_description and meta_keywords are not used: social
+        // previews take the page's own title and description (SEO.jsx), and
+        // no page prints a keywords tag. Kept plain in case they ever are.
+        og_title: 'Bogot Master | Экспорт корня солодки из Узбекистана',
+        og_description: 'Bogot Master — заготовка, переработка и экспорт дикорастущего корня солодки из Узбекистана: слайсы, палочки, гранулы и порошок оптом. Образцы бесплатно.',
         schema_description: 'Семейная компания, специализирующаяся на заготовке, переработке и экспорте корня солодки из Узбекистана.',
         hero_image_alt: 'Корни солодки из Узбекистана',
         // Per-page SEO
@@ -160,7 +163,7 @@ export const SEED_TRANSLATIONS = {
         notfound_text: 'К сожалению, запрашиваемая страница не существует или была перемещена.',
         notfound_home: 'Вернуться на главную',
         products_meta_title: 'Продукция — Корень солодки оптом | Bogot Master',
-        products_meta_desc: 'Полный каталог продукции из корня солодки: палочки, слайсы, гранулы, порошок и экстракт. Оптовые поставки из Узбекистана по всему миру.',
+        products_meta_desc: 'Дикорастущий корень солодки из Узбекистана оптом: слайсы, таблетки, палочки, гранулы, порошок, сорта для экстракции и экстракт. Образцы бесплатно.',
         about_meta_title: 'О компании | Экспортёр солодки | Bogot Master',
         about_meta_desc: 'Bogot Master — семейная компания с 2014 года, заготовка, переработка и экспорт корня солодки из Узбекистана. Более 500 тонн в год.',
         contact_meta_title: 'Контакты | Запросить предложение | Bogot Master',
@@ -281,7 +284,8 @@ export const SEED_TRANSLATIONS = {
         spec_moq: 'Минимальный заказ',
         spec_moisture: 'Влажность',
         spec_ash: 'Зольность',
-        spec_glycyrrhizin: 'Глицирризин',
+        // As the pharmacopoeias and the specification chapter state it.
+        spec_glycyrrhizin: 'Глицирризиновая кислота',
         spec_foreign_matter: 'Примеси',
         spec_heavy_metals: 'Тяжелые металлы',
         spec_pesticide_residues: 'Остатки пестицидов',
@@ -316,10 +320,10 @@ export const SEED_TRANSLATIONS = {
         read_more: 'Read More',
         // SEO
         meta_title: 'Bogot Master | Licorice Root Export from Uzbekistan',
-        meta_description: 'Bogot Master harvests, processes and exports wild licorice root from Uzbekistan: slices, sticks, granules and powder in bulk. Free samples.',
+        meta_description: 'Bogot Master harvests, processes and exports wild licorice (liquorice) root from Uzbekistan: slices, sticks, granules and powder in bulk. Free samples.',
         meta_keywords: 'licorice root, licorice wholesale, licorice export, licorice extract, Uzbekistan, Bogot Master',
-        og_title: 'Bogot Master | Premium Licorice Export',
-        og_description: 'Production and export of high-quality licorice root from Uzbekistan. A reliable partner for your business.',
+        og_title: 'Bogot Master | Licorice Root Export from Uzbekistan',
+        og_description: 'Bogot Master harvests, processes and exports wild licorice (liquorice) root from Uzbekistan: slices, sticks, granules and powder in bulk. Free samples.',
         schema_description: 'Family-owned company specializing in the harvesting, processing, and export of licorice root from Uzbekistan.',
         hero_image_alt: 'Licorice Roots from Uzbekistan',
         // Per-page SEO
@@ -328,7 +332,7 @@ export const SEED_TRANSLATIONS = {
         notfound_text: 'Sorry, the page you are looking for does not exist or has been moved.',
         notfound_home: 'Back to Home',
         products_meta_title: 'Products — Wholesale Licorice Root | Bogot Master',
-        products_meta_desc: 'Full catalog of licorice root products: sticks, slices, granules, powder and extract. Wholesale supply from Uzbekistan worldwide.',
+        products_meta_desc: 'Wild licorice (liquorice) root from Uzbekistan in bulk: slices, sticks, tablets, granules, powder, extraction grades and licorice extract. Free samples.',
         about_meta_title: 'About | Licorice Exporter | Bogot Master',
         about_meta_desc: 'Bogot Master is a family-owned company since 2014: harvesting, processing and export of licorice root from Uzbekistan. Over 500 tons a year.',
         contact_meta_title: 'Contact | Request a Quote | Bogot Master',
@@ -449,7 +453,7 @@ export const SEED_TRANSLATIONS = {
         spec_moq: 'MOQ',
         spec_moisture: 'Moisture',
         spec_ash: 'Ash',
-        spec_glycyrrhizin: 'Glycyrrhizin',
+        spec_glycyrrhizin: 'Glycyrrhizic acid',
         spec_foreign_matter: 'Foreign matter',
         spec_heavy_metals: 'Heavy metals',
         spec_pesticide_residues: 'Pesticide residues',

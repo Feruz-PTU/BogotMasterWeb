@@ -179,7 +179,7 @@ const TRANSLATION_GROUPS = [
             { key: 'spec_moq', label: 'Label: MOQ' },
             { key: 'spec_moisture', label: 'Label: Moisture' },
             { key: 'spec_ash', label: 'Label: Ash' },
-            { key: 'spec_glycyrrhizin', label: 'Label: Glycyrrhizin' },
+            { key: 'spec_glycyrrhizin', label: 'Label: Glycyrrhizic acid' },
             { key: 'spec_foreign_matter', label: 'Label: Foreign matter' },
             { key: 'spec_heavy_metals', label: 'Label: Heavy metals' },
             { key: 'spec_pesticide_residues', label: 'Label: Pesticide residues' },
@@ -331,9 +331,9 @@ const TRANSLATION_GROUPS = [
         keys: [
             { key: 'meta_title', label: 'Home meta title' },
             { key: 'meta_description', label: 'Home meta description', multiline: true },
-            { key: 'meta_keywords', label: 'Home meta keywords' },
-            { key: 'og_title', label: 'OG title' },
-            { key: 'og_description', label: 'OG description', multiline: true },
+            // meta_keywords, og_title and og_description are not shown: no page
+            // prints a keywords tag, and social previews take each page's own
+            // title and description (components/SEO.jsx). Folder 22, 25 Oct 2026.
             { key: 'schema_description', label: 'Schema description', multiline: true },
             { key: 'products_meta_title', label: 'Products page title' },
             { key: 'products_meta_desc', label: 'Products page desc', multiline: true },
@@ -395,6 +395,64 @@ const TRANSLATION_GROUPS = [
         ],
     },
 ];
+
+/**
+ * The specs a new product starts with, one block per language: the values
+ * every licorice root product shares. "Add product" and a direct visit to
+ * /admin/products/new both use it; the second used to carry its own, older
+ * list ("Wild + artificial", "Within WHO/EU limits").
+ * Moisture ≤ 12 % is what every root product states. Ash is on every load's
+ * laboratory certificate of analysis (with glycyrrhizic acid and moisture);
+ * heavy metals and pesticides are tested on request (sales rep, 24–25 Oct 2026).
+ */
+function newProductSpecs(langs) {
+    const defaults = {
+        botanical_name: 'Glycyrrhiza glabra',
+        origin: 'Uzbekistan',
+        part_used: 'Root',
+        cultivation: 'Wild',
+        form_cut_type: '',
+        cut_size: '',
+        diameter_grade: '',
+        processing: '',
+        packaging: 'PP bags 20/21/25/30 kg',
+        moq: '',
+        moisture: '≤ 12%',
+        glycyrrhizin: '',
+        foreign_matter: '≤ 1%',
+        tpc: '≤ 100,000 CFU/g',
+        yeast_mould: '≤ 1,000 CFU/g',
+        e_coli: 'Absent',
+        salmonella: 'Absent',
+        shelf_life: '36 months',
+        storage: '≤ 25°C, cool and dry, away from sunlight',
+        documents: [],
+    };
+    const onRequest = { ru: 'По запросу' };
+    const onCoa = { ru: 'В сертификате анализа каждой партии' };
+    // The Russian block gets Russian words, not the English defaults.
+    const translated = {
+        ru: {
+            origin: 'Узбекистан',
+            part_used: 'Корень',
+            cultivation: 'Дикорастущий',
+            packaging: 'ПП мешки 20/21/25/30 кг',
+            tpc: '≤ 100 000 КОЕ/г',
+            yeast_mould: '≤ 1 000 КОЕ/г',
+            e_coli: 'Отсутствует',
+            salmonella: 'Отсутствует',
+            shelf_life: '36 месяцев',
+            storage: 'До +25 °C, в сухом, прохладном месте, защищённом от солнца.',
+        },
+    };
+    const s = {};
+    langs.forEach((l) => {
+        const v = onRequest[l.code] || 'Available on request';
+        const ash = onCoa[l.code] || "On each load's certificate of analysis";
+        s[l.code] = { ...defaults, ...translated[l.code], ash, heavy_metals: v, pesticide_residues: v };
+    });
+    return s;
+}
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
@@ -537,8 +595,7 @@ const AdminDashboard = () => {
                 setProdLangTab(firstLangCode());
                 setNewDocInput('');
                 const langs = adminTranslations.languages || [{ code: 'ru' }, { code: 'en' }];
-                const defaults = { botanical_name: 'Glycyrrhiza glabra', origin: 'Uzbekistan', part_used: 'Root', cultivation: 'Wild + artificial', form_cut_type: '', cut_size: '', diameter_grade: '', processing: '', packaging: 'PP bags 25 kg', moq: '', moisture: '≤ 8%', ash: '≤ 9%', glycyrrhizin: '', foreign_matter: '≤ 1%', heavy_metals: 'Within WHO/EU limits', pesticide_residues: 'Within WHO/EU limits', tpc: '≤ 100,000 CFU/g', yeast_mould: '≤ 1,000 CFU/g', e_coli: 'Absent', salmonella: 'Absent', shelf_life: '24 months', storage: '≤ 25°C, cool dry, no sunlight', documents: [] };
-                const s = {}; langs.forEach(l => { s[l.code] = { ...defaults }; });
+                const s = newProductSpecs(langs);
                 const langFields = {}; langs.forEach(l => { langFields[`title_${l.code}`] = ''; langFields[`desc_${l.code}`] = ''; });
                 setProductForm({ slug: '', ...langFields, featured: false, hidden: false, order: products.length > 0 ? Math.max(...products.map(p => p.order || 0)) + 1 : 1, image: '', specs: s, family: [] });
                 setImageFile(null); setImagePreview('');
@@ -678,57 +735,7 @@ const AdminDashboard = () => {
             hidden: false,
             order: products.length > 0 ? Math.max(...products.map(p => p.order || 0)) + 1 : 1,
             image: '',
-            specs: (() => {
-                const defaults = {
-                    botanical_name: 'Glycyrrhiza glabra',
-                    origin: 'Uzbekistan',
-                    part_used: 'Root',
-                    cultivation: 'Wild',
-                    form_cut_type: '',
-                    cut_size: '',
-                    diameter_grade: '',
-                    processing: '',
-                    packaging: 'PP bags 20/21/25/30 kg',
-                    moq: '',
-                    moisture: '≤ 8%',
-                    glycyrrhizin: '',
-                    foreign_matter: '≤ 1%',
-                    tpc: '≤ 100,000 CFU/g',
-                    yeast_mould: '≤ 1,000 CFU/g',
-                    e_coli: 'Absent',
-                    salmonella: 'Absent',
-                    shelf_life: '36 months',
-                    storage: '≤ 25°C, cool and dry, away from sunlight',
-                    documents: [],
-                };
-                // Ash is on every load's laboratory certificate of analysis
-                // (with glycyrrhizic acid and moisture); heavy metals and
-                // pesticides are tested on request (sales rep, 24–25 Oct 2026).
-                const onRequest = { ru: 'По запросу' };
-                const onCoa = { ru: 'В сертификате анализа каждой партии' };
-                // The Russian block gets Russian words, not the English defaults.
-                const translated = {
-                    ru: {
-                        origin: 'Узбекистан',
-                        part_used: 'Корень',
-                        cultivation: 'Дикорастущий',
-                        packaging: 'ПП мешки 20/21/25/30 кг',
-                        tpc: '≤ 100 000 КОЕ/г',
-                        yeast_mould: '≤ 1 000 КОЕ/г',
-                        e_coli: 'Отсутствует',
-                        salmonella: 'Отсутствует',
-                        shelf_life: '36 месяцев',
-                        storage: 'До +25 °C, в сухом, прохладном месте, защищённом от солнца.',
-                    },
-                };
-                const s = {};
-                langs.forEach(l => {
-                    const v = onRequest[l.code] || 'Available on request';
-                    const ash = onCoa[l.code] || "On each load's certificate of analysis";
-                    s[l.code] = { ...defaults, ...translated[l.code], ash, heavy_metals: v, pesticide_residues: v };
-                });
-                return s;
-            })(),
+            specs: newProductSpecs(langs),
             family: [],
         });
         setImageFile(null);
@@ -2137,11 +2144,11 @@ const AdminDashboard = () => {
                                             </button>
                                             {openSpecSections.quality && (<>
                                                 <div className="admin-fields-row">
-                                                    <div className="admin-field"><label>Moisture</label><input value={productForm.specs?.[prodLangTab]?.moisture || ''} onChange={e => handleSpecChange('moisture', e.target.value)} placeholder="≤ 8%" /></div>
+                                                    <div className="admin-field"><label>Moisture</label><input value={productForm.specs?.[prodLangTab]?.moisture || ''} onChange={e => handleSpecChange('moisture', e.target.value)} placeholder="≤ 12%" /></div>
                                                     <div className="admin-field"><label>Ash</label><input value={productForm.specs?.[prodLangTab]?.ash || ''} onChange={e => handleSpecChange('ash', e.target.value)} placeholder="On each load's certificate of analysis" /></div>
                                                 </div>
                                                 <div className="admin-fields-row">
-                                                    <div className="admin-field"><label>Glycyrrhizin</label><input value={productForm.specs?.[prodLangTab]?.glycyrrhizin || ''} onChange={e => handleSpecChange('glycyrrhizin', e.target.value)} placeholder="≥ 4% (root) / 8–12% (extract)" /></div>
+                                                    <div className="admin-field"><label>Glycyrrhizic acid</label><input value={productForm.specs?.[prodLangTab]?.glycyrrhizin || ''} onChange={e => handleSpecChange('glycyrrhizin', e.target.value)} placeholder="≥ 4% (root) / 8–12% (extract)" /></div>
                                                     <div className="admin-field"><label>Foreign matter</label><input value={productForm.specs?.[prodLangTab]?.foreign_matter || ''} onChange={e => handleSpecChange('foreign_matter', e.target.value)} placeholder="≤ 1%" /></div>
                                                 </div>
                                                 <div className="admin-fields-row">

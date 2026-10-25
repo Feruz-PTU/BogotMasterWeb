@@ -30,6 +30,33 @@ export function productTitle(product, t) {
 }
 
 /**
+ * The description's opening sentence, naming the product as licorice root
+ * once, with the EU spelling "liquorice" beside it in English (folder 22): the
+ * European Pharmacopoeia, the EMA and EU law all write "liquorice root".
+ * - A description that names licorice gets "(liquorice)" after its first
+ *   "licorice": "Licorice (liquorice) root cut into granules."
+ * - A licorice root product whose description does not ("Large diameter,
+ *   sorted by size and quality") is led by `seo_meta_licorice_lead`:
+ *   "Licorice (liquorice) root: large diameter, sorted by size and quality."
+ * Russian text never contains "licorice", so only the lead applies there.
+ */
+function openingSentence(base, specs, t) {
+    let out = base;
+    if (isLicorice(specs) && !/licorice|liquorice|солодк/i.test(out)) {
+        const lead = t('seo_meta_licorice_lead');
+        // Lower-case the first letter unless the first word is an acronym.
+        const rest = /^\p{Lu}\p{Ll}/u.test(out) ? out[0].toLowerCase() + out.slice(1) : out;
+        out = out ? `${lead}: ${rest}` : lead;
+    }
+    if (!/liquorice/i.test(out)) {
+        out = out.replace(/\blicorice\b/i, (word) => `${word} (liquorice)`);
+    }
+    // The specs follow as sentences, so the opening one must end like one.
+    if (out && !/[.!?…]$/.test(out)) out += '.';
+    return out;
+}
+
+/**
  * Builds the longest description that fits the ~155 character budget, adding
  * specs in order of how much a buyer cares about them, and stopping cleanly
  * rather than mid-word.
@@ -37,7 +64,7 @@ export function productTitle(product, t) {
 export function productDescription(product, t) {
     const specs = product.activeSpecs || {};
 
-    const base = String(product.description || '').trim();
+    const base = openingSentence(String(product.description || '').trim(), specs, t);
     const parts = [];
 
     const add = (labelKey, value) => {

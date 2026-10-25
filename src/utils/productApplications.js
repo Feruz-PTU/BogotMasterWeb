@@ -66,3 +66,16 @@ export const APPLICATION_LINKS = [
 
 export const applicationLinks = (product) =>
     APPLICATION_LINKS.filter((a) => a.slugs.includes(product?.slug));
+
+/**
+ * The products an application page covers, in list order and each once: its
+ * own list, or for the hub (/applications) the lists of all its sector pages.
+ * The page's structured data names them as what the page is `about`.
+ */
+export const applicationSlugsFor = (path) => [
+    ...new Set(
+        APPLICATION_LINKS.filter((a) => a.path === path || a.path.startsWith(`${path}/`)).flatMap(
+            (a) => a.slugs
+        )
+    ),
+];

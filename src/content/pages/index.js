@@ -37,6 +37,10 @@
  *   priority    the sitemap priority, 0.1 to 1.0
  *   requestType optional: the request type the box at the end of the page
  *               opens, 'quote' for a price quote; default 'other' (a question)
+ *   aboutTerm   optional: the anchor of a glossary term the page is about, for
+ *               its structured data ('liquiritiae-radix'). An applications
+ *               page needs none: its `about` lists the products that
+ *               utils/productApplications.js links to it.
  */
 export const PAGES = [
     {
@@ -81,9 +85,12 @@ export const PAGES = [
         },
         navTitle: { en: "Buyer's guide", ru: 'Руководство покупателя' },
         meta: {
-            en: 'Practical answers for importers of licorice root: customs codes and import rules, with chapters on grades, documents and ordering as they are written.',
-            ru: 'Практические ответы для импортёров корня солодки: коды ТН ВЭД и правила импорта, а по мере написания — главы о фракциях, документах и заказе.',
+            en: 'Practical answers for importers of licorice root: reading a specification, shipping documents, samples and ordering, HS codes and a trade glossary.',
+            ru: 'Практические ответы для импортёров корня солодки: как читать спецификацию, отгрузочные документы, образцы и заказ, коды ТН ВЭД и глоссарий терминов.',
         },
+        // The guide is about licorice root in general, not about particular
+        // grades: its structured data points at the glossary's term for it.
+        aboutTerm: 'liquiritiae-radix',
         updated: '2026-10-24',
         priority: 0.6,
     },
@@ -403,6 +410,7 @@ export function pageProblems({ reservedPaths = [], liveLanguages = [], bodyExist
         if (page.parent != null && !findPage(page.parent)) problems.push(`${where}: parent "${page.parent}" is not in the registry`);
         if (!SCHEMA_TYPES.includes(page.schemaType)) problems.push(`${where}: schemaType must be one of ${SCHEMA_TYPES.join(', ')}`);
         if (page.requestType != null && !['quote', 'other'].includes(page.requestType)) problems.push(`${where}: requestType must be 'quote' or 'other'`);
+        if (page.aboutTerm != null && !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(page.aboutTerm)) problems.push(`${where}: aboutTerm must be a glossary anchor such as 'liquiritiae-radix'`);
         if (!/^\d{4}-\d{2}-\d{2}$/.test(page.updated || '')) problems.push(`${where}: updated must be YYYY-MM-DD`);
         if (!(page.priority >= 0.1 && page.priority <= 1)) problems.push(`${where}: priority must be between 0.1 and 1.0`);
         if (!page.languages?.length) problems.push(`${where}: no languages`);

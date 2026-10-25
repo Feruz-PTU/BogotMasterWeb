@@ -35,6 +35,7 @@ const SEO = ({
     contentPage,
     breadcrumb,
     languages,
+    about,
 }) => {
     const { t, language } = useLanguage();
     const langMeta = getLanguage(language);
@@ -74,6 +75,7 @@ const SEO = ({
         article,
         contentPage,
         breadcrumb,
+        about,
     });
 
     return (

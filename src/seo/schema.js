@@ -54,6 +54,8 @@ function organizationNode(t) {
         legalName: CONTACT_INFO.legal_name,
         taxID: CONTACT_INFO.inn,
         foundingDate: String(FOUNDING_YEAR),
+        // "Over 20 specialists" (the owner; about_p3): a floor, not a count.
+        numberOfEmployees: { '@type': 'QuantitativeValue', minValue: 20 },
         email: CONTACT_INFO.email,
         address: {
             '@type': 'PostalAddress',
@@ -101,7 +103,11 @@ function websiteNode() {
     };
 }
 
-function webPageNode({ canonical, title, description, lang, type = 'WebPage', dateModified }) {
+/**
+ * `about`: the @ids the page is about. By default the company; a page about
+ * products or a subject passes their @ids instead (see buildGraph).
+ */
+function webPageNode({ canonical, title, description, lang, type = 'WebPage', dateModified, about }) {
     const node = {
         '@type': type,
         '@id': `${canonical}#webpage`,
@@ -109,7 +115,11 @@ function webPageNode({ canonical, title, description, lang, type = 'WebPage', da
         name: title,
         description,
         isPartOf: { '@id': ID.website },
-        about: { '@id': ID.org },
+        about: about?.length
+            ? about.length === 1
+                ? { '@id': about[0] }
+                : about.map((id) => ({ '@id': id }))
+            : { '@id': ID.org },
         inLanguage: lang,
     };
     if (dateModified) node.dateModified = dateModified;
@@ -185,8 +195,17 @@ function breadcrumbNode(canonical, trail) {
  * offers" in Search Console — that is expected and correct, not a bug. A fake
  * price would be worse than no rich result.
  */
-function productNode({ product, canonical }) {
+function productNode({ product, canonical, t }) {
     const specs = product.activeSpecs || {};
+    // Each property is named as in the page's specification table
+    // ("Glycyrrhizic acid", "Глицирризиновая кислота"); a spec with no label
+    // string keeps its key, made readable.
+    const label = (key) => {
+        const text = t ? t(`spec_${key}`) : '';
+        return text && text !== `spec_${key}`
+            ? text
+            : key.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+    };
     const additionalProperty = Object.entries(specs)
         .filter(
             ([key, value]) =>
@@ -196,9 +215,7 @@ function productNode({ product, canonical }) {
         )
         .map(([key, value]) => ({
             '@type': 'PropertyValue',
-            name: key
-                .replace(/_/g, ' ')
-                .replace(/\b\w/g, (c) => c.toUpperCase()),
+            name: label(key),
             value: String(value).trim(),
         }));
 
@@ -259,6 +276,8 @@ function articleNode({ article, canonical, lang, description }) {
  * Assemble the page graph.
  * `kind` is one of: home | products | product | about | contact | privacy |
  * articles | article | content (a registry page, with `contentPage`)
+ * `about`: optional @ids the page is about, in place of the company (an
+ * applications page lists its products' Product nodes; see ContentPage).
  */
 export function buildGraph({
     kind,
@@ -272,6 +291,7 @@ export function buildGraph({
     article,
     contentPage,
     breadcrumb,
+    about,
 }) {
     const graph = [organizationNode(t), websiteNode()];
 
@@ -298,6 +318,7 @@ export function buildGraph({
             lang,
             type: pageType,
             dateModified: kind === 'content' ? contentPage?.updated : undefined,
+            about,
         })
     );
 
@@ -305,7 +326,7 @@ export function buildGraph({
     if (crumbs) graph.push(crumbs);
 
     if (kind === 'product' && product) {
-        graph.push(productNode({ product, canonical }));
+        graph.push(productNode({ product, canonical, t }));
     }
     if (kind === 'products' && products?.length) {
         graph.push(itemListNode({ canonical, products, lang }));

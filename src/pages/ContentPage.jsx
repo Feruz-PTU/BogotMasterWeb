@@ -5,15 +5,36 @@ import FaqList from '../components/FaqList';
 import LocalLink, { useLocalPath } from '../components/LocalLink';
 import NotFound from './NotFound';
 import { useLanguage } from '../context/LanguageContext';
+import { useContent } from '../context/ContentContext';
 import { useRequest } from '../context/RequestContext';
-import { pageAncestors, childPages, pageName } from '../content/pages';
+import { pageAncestors, childPages, pageName, findPage } from '../content/pages';
 import * as pageBodies from '../content/pages/bodies';
 import { localizedPath } from '../i18n/languages';
 import { SITE_URL, definedTermsGraph, safeJsonLd } from '../seo/schema';
 import { termsFromMarkdown } from '../utils/glossaryTerms';
 import { formatDate } from '../utils/dates';
 import { useFaq, latestFaqDate } from '../utils/faqData';
+import { applicationSlugsFor } from '../utils/productApplications';
 import './ContentPage.css';
+
+/**
+ * What the page is about, as structured-data @ids (folder 22): the Product
+ * nodes of the published products an applications page covers, or the
+ * glossary term named by the registry's `aboutTerm`. Undefined leaves the
+ * default, the company.
+ */
+function aboutIds(page, language, products) {
+    const published = new Set(products.map((p) => p.slug));
+    const ids = applicationSlugsFor(page.path)
+        .filter((slug) => published.has(slug))
+        .map((slug) => `${SITE_URL}${localizedPath(language, `/products/${slug}`)}#product`);
+    if (ids.length) return ids;
+    const glossary = findPage('buyers-guide-glossary');
+    if (page.aboutTerm && glossary?.languages.includes(language)) {
+        return [`${SITE_URL}${localizedPath(language, glossary.path)}#${page.aboutTerm}`];
+    }
+    return undefined;
+}
 
 /**
  * A glossary's DefinedTerm list, as JSON-LD text. Only the prerender has the
@@ -37,6 +58,7 @@ const ContentPage = ({ page }) => {
     const { t, language } = useLanguage();
     const localPath = useLocalPath();
     const { openRequest } = useRequest();
+    const { products } = useContent();
     const isFaq = page.schemaType === 'FAQPage';
     const faqItems = useFaq(isFaq && page.languages.includes(language) ? language : null);
 
@@ -64,6 +86,7 @@ const ContentPage = ({ page }) => {
                 description={page.meta[language]}
                 languages={page.languages}
                 breadcrumb={breadcrumb}
+                about={aboutIds(page, language, products)}
                 contentPage={{
                     schemaType: page.schemaType,
                     name: h1,

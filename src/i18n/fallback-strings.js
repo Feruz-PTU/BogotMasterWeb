@@ -41,7 +41,7 @@ export const FALLBACK_STRINGS = {
         footer_company: 'Company',
 
         products_intro:
-            'Licorice root (Glycyrrhiza glabra) from Khorezm, Uzbekistan, in the cuts and grades below. Every grade is available in bulk; tell us the form and volume you need and we will quote it.',
+            'Wild licorice root (liquorice, Glycyrrhiza glabra) from Khorezm, Uzbekistan, in the cuts and grades below. Every grade is available in bulk; tell us the form and volume you need and we will quote it.',
         products_cta_title: 'Need a grade that is not listed?',
         products_cta_text:
             'We cut, grade and pack to order. Send us your specification and we will tell you what is possible.',
@@ -254,6 +254,9 @@ export const FALLBACK_STRINGS = {
 
         seo_suffix_licorice: 'Bulk Licorice Root Supplier | Bogot Master',
         seo_suffix_generic: 'Bulk Supply from Uzbekistan | Bogot Master',
+        // Leads a licorice root product's meta description when its own
+        // description does not name licorice (seo/productMeta.js).
+        seo_meta_licorice_lead: 'Licorice (liquorice) root',
 
         a11y_close: 'Close',
         a11y_prev_image: 'Previous image',
@@ -341,7 +344,7 @@ export const FALLBACK_STRINGS = {
         home_licorice_label: 'Licorice root',
         home_licorice_title: 'What is licorice root?',
         home_licorice_text:
-            'Licorice root is the dried root of *Glycyrrhiza*, a perennial plant of the legume family. The species we supply, *G. glabra*, grows wild along the rivers of Central Asia, including the Amu Darya in Khorezm. Its sweetness comes from glycyrrhizin, about 50 times sweeter than sugar, and it is used in confectionery, drinks, tobacco and herbal medicine.',
+            'Licorice root (spelled liquorice in British English and in EU texts) is the dried root of *Glycyrrhiza*, a perennial plant of the legume family. The species we supply, *G. glabra*, grows wild along the rivers of Central Asia, including the Amu Darya in Khorezm. Its sweetness comes from glycyrrhizin, about 50 times sweeter than sugar, and it is used in confectionery, drinks, tobacco and herbal medicine.',
 
         // Photo of the plant (components/PlantPhoto.jsx). A third-party photo
         // taken in Russia: do not caption it as our field or region.
@@ -375,7 +378,7 @@ export const FALLBACK_STRINGS = {
         footer_company: 'Компания',
 
         products_intro:
-            'Корень солодки (Glycyrrhiza glabra) из Хорезма, Узбекистан, в указанных ниже формах и фракциях. Все позиции доступны оптом — сообщите нужную форму и объём, и мы подготовим предложение.',
+            'Дикорастущий корень солодки (Glycyrrhiza glabra) из Хорезма, Узбекистан, в указанных ниже формах и фракциях. Все позиции доступны оптом — сообщите нужную форму и объём, и мы подготовим предложение.',
         products_cta_title: 'Нужна позиция, которой нет в списке?',
         products_cta_text:
             'Мы режем, калибруем и упаковываем под заказ. Пришлите вашу спецификацию, и мы скажем, что возможно.',
@@ -570,6 +573,7 @@ export const FALLBACK_STRINGS = {
 
         seo_suffix_licorice: 'Оптовый поставщик корня солодки | Bogot Master',
         seo_suffix_generic: 'Оптовые поставки из Узбекистана | Bogot Master',
+        seo_meta_licorice_lead: 'Корень солодки',
 
         a11y_close: 'Закрыть',
         a11y_prev_image: 'Предыдущее изображение',
@@ -653,7 +657,7 @@ export const FALLBACK_STRINGS = {
         home_licorice_label: 'Корень солодки',
         home_licorice_title: 'Что такое корень солодки?',
         home_licorice_text:
-            'Корень солодки — это высушенный корень *Glycyrrhiza*, многолетнего растения семейства бобовых. Вид, который мы поставляем, — *G. glabra* (солодка голая); он растёт в дикой природе по берегам рек Средней Азии, в том числе Амударьи в Хорезме. Сладость корню придаёт глицирризин, который примерно в 50 раз слаще сахара. Корень используют в кондитерском производстве, напитках, табачной промышленности и фитотерапии.',
+            'Корень солодки, или солодковый корень, — это высушенный корень *Glycyrrhiza*, многолетнего растения семейства бобовых. Вид, который мы поставляем, — *G. glabra* (солодка голая); он растёт в дикой природе по берегам рек Средней Азии, в том числе Амударьи в Хорезме. Сладость корню придаёт глицирризин, который примерно в 50 раз слаще сахара. Корень используют в кондитерском производстве, напитках, табачной промышленности и фитотерапии.',
 
         plant_photo_alt:
             'Высокие стебли с перистыми листьями и кистями мелких бледно-фиолетовых цветков',
