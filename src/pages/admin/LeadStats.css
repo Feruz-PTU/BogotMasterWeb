@@ -1,0 +1,47 @@
+/* The Stats tab's "Leads and Replies" section (folder 25). */
+
+.lead-stats { margin-bottom: 28px; }
+
+.lead-stats-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+.lead-stats-head h3 { font-size: 1.05rem; font-weight: 700; color: #1A1A1A; margin: 0 0 2px; }
+
+.lead-stats-kpis { margin-bottom: 8px; }
+
+/* The median against the promise: a sign and words, not colour alone. */
+.lead-stats-target { font-size: 0.78rem; font-weight: 600; color: #888; }
+.lead-stats-target.kept { color: #2E5A22; }
+.lead-stats-target.missed { color: #9F1D14; }
+
+.lead-stats-num {
+    padding: 12px 12px;
+    font-weight: 700;
+    color: #333;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+.lead-stats-outcome { margin: 12px 0 0; font-size: 0.85rem; color: #444; }
+.lead-stats-outcome + .lead-stats-outcome { margin-top: 4px; }
+
+.lead-stats-note { margin: -8px 0 12px; font-size: 0.8rem; color: #888; line-height: 1.5; }
+
+.lead-stats-off {
+    margin: 0 0 16px;
+    padding: 14px 18px;
+    background: #fff;
+    border: 1px solid #e8e4dd;
+    border-radius: 12px;
+    font-size: 0.88rem;
+    color: #555;
+}
+.lead-stats-off code { font-size: 0.82rem; background: #F5F4F0; padding: 1px 5px; border-radius: 4px; }
+
+/* Narrow screens: the tables scroll inside their card, never the page. */
+.lead-stats .admin-card { min-width: 0; overflow-x: auto; }

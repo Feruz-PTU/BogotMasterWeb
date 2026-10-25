@@ -304,6 +304,26 @@
 
 .admin-filter-chips::-webkit-scrollbar { display: none; }
 
+/* The leads list's status filter, under the type filter (folder 25). */
+.admin-status-controls {
+    justify-content: flex-start;
+    gap: 10px;
+    margin-top: -8px;
+}
+.admin-status-controls-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.admin-status-off {
+    margin: -8px 0 16px;
+    font-size: 0.82rem;
+    color: #777;
+}
+.admin-status-off code { font-size: 0.78rem; background: #F5F4F0; padding: 1px 5px; border-radius: 4px; }
+
 .admin-chip {
     border: none;
     background: transparent;
@@ -1223,7 +1243,8 @@
     background: #fff;
     border: 1px solid #e8e4dd;
     border-radius: 12px;
-    overflow: hidden;
+    /* Columns widened by hand scroll inside the table, never off the page. */
+    overflow-x: auto;
 }
 
 .admin-table {

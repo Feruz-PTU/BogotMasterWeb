@@ -185,13 +185,43 @@ export async function saveInquiry(data) {
     if (error) throw error;
 }
 
+// A lead's status (folder 25) lives in its own columns, added by
+// supabase/phase4-lead-status.sql, never in `data`, which visitors write.
+const STATUS_FIELDS = ['status', 'lost_reason', 'first_reply_at', 'status_updated_at', 'status_history'];
+
+function inquiryFromRow(r) {
+    const lead = { ...r.data, id: r.id, read: r.read, createdAt: r.created_at };
+    for (const f of STATUS_FIELDS) delete lead[f];
+    // Before the SQL has been run the row has no status, and the admin says so.
+    if ('status' in r) for (const f of STATUS_FIELDS) lead[f] = r[f];
+    return lead;
+}
+
 export async function fetchInquiries() {
     const { data, error } = await supabase
         .from('inquiries')
         .select('*')
         .order('created_at', { ascending: false });
     if (error) throw error;
-    return data.map(r => ({ ...r.data, id: r.id, read: r.read, createdAt: r.created_at }));
+    return data.map(inquiryFromRow);
+}
+
+/**
+ * Saves a lead's five status fields (worked out by utils/leadStatus.js) and
+ * returns them as saved. The database's row rules let only the admin update a
+ * lead; an update they block changes no row, so an empty answer is an error.
+ */
+export async function updateInquiryStatus(id, patch) {
+    const fields = Object.fromEntries(STATUS_FIELDS.map((f) => [f, patch[f] ?? null]));
+    if (!Array.isArray(fields.status_history)) fields.status_history = [];
+    const { data, error } = await supabase
+        .from('inquiries')
+        .update(fields)
+        .eq('id', id)
+        .select(STATUS_FIELDS.join(', '));
+    if (error) throw error;
+    if (!data?.length) throw new Error('The lead was not saved: it may have been deleted, or this account may not edit leads.');
+    return Object.fromEntries(STATUS_FIELDS.map((f) => [f, data[0][f]]));
 }
 
 export async function markInquiryRead(id) {
@@ -239,22 +269,48 @@ export async function recordEvent({ name, path, lang, referrer_host, detail }) {
     if (error) throw error;
 }
 
+// Supabase answers at most 1000 rows per request (the project's "max rows"),
+// whatever limit is asked for, so longer lists are read a page at a time.
+const PAGE_ROWS = 1000;
+async function fetchAllPages(build, maxRows = 20000) {
+    const rows = [];
+    for (let from = 0; from < maxRows; from += PAGE_ROWS) {
+        const { data, error } = await build().range(from, from + PAGE_ROWS - 1);
+        if (error) throw error;
+        rows.push(...(data || []));
+        if (!data || data.length < PAGE_ROWS) break;
+    }
+    return rows;
+}
+
 export async function fetchEventSummary(days = 30) {
     const since = new Date(Date.now() - days * 86400000).toISOString();
-    const query = (columns) =>
+    const pages = (columns) => fetchAllPages(() =>
         supabase
             .from('events')
             .select(columns)
             .gte('created_at', since)
-            .order('created_at', { ascending: false })
-            .limit(5000);
-    let { data, error } = await query('name, path, lang, referrer_host, detail, created_at');
-    // Before phase3-events.sql there is no `detail` column.
-    if (error && ['PGRST204', '42703'].includes(error.code)) {
-        ({ data, error } = await query('name, path, lang, referrer_host, created_at'));
+            .order('created_at', { ascending: false }));
+    try {
+        return await pages('name, path, lang, referrer_host, detail, created_at');
+    } catch (error) {
+        // Before phase3-events.sql there is no `detail` column.
+        if (['PGRST204', '42703'].includes(error?.code)) return pages('name, path, lang, referrer_host, created_at');
+        throw error;
     }
-    if (error) throw error;
-    return data || [];
+}
+
+/** Product-page views (/products/<slug>, any language), for leads per 100 views. */
+export async function fetchProductPageViews(days = 90) {
+    const since = new Date(Date.now() - days * 86400000).toISOString();
+    return fetchAllPages(() =>
+        supabase
+            .from('events')
+            .select('path, lang, referrer_host, created_at')
+            .eq('name', 'page_view')
+            .like('path', '%/products/%')
+            .gte('created_at', since)
+            .order('created_at', { ascending: false }));
 }
 
 export async function fetchStats() {

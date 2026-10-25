@@ -8,8 +8,8 @@ import {
     fetchProducts, fetchSettings,
     saveProduct, saveProducts, saveSettings, deleteProduct,
     seedDatabase, isDatabaseSeeded,
-    fetchInquiries, markInquiryRead, deleteInquiry,
-    fetchStats, fetchEventSummary,
+    fetchInquiries, markInquiryRead, deleteInquiry, updateInquiryStatus,
+    fetchStats, fetchEventSummary, fetchProductPageViews,
     fetchTranslations, saveTranslations,
     SEED_TRANSLATIONS,
     onRebuildStatus,
@@ -19,6 +19,9 @@ import { FALLBACK_STRINGS } from '../../i18n/fallback-strings';
 import SEO from '../../components/SEO';
 import RelatedProductsPicker from './RelatedProductsPicker';
 import FaqAdmin from './FaqAdmin';
+import LeadStatusPanel, { StatusPill, LeadFlag } from './LeadStatusPanel';
+import LeadStats from './LeadStats';
+import { LEAD_STATUSES, statusOf, leadFlag, needsAction } from '../../utils/leadStatus';
 import { resolveFamilies, familyChanges } from '../../utils/productFamily';
 import { PRODUCT_GROUPS, groupOf } from '../../utils/productGroups';
 import './Admin.css';
@@ -508,6 +511,8 @@ const AdminDashboard = () => {
     const [expandedInquiry, setExpandedInquiry] = useState(null);
     const [selectedInquiry, setSelectedInquiry] = useState(null);
     const [inqFilter, setInqFilter] = useState('all');
+    // 'any', 'action' (overdue or a follow-up due) or a status id (folder 25).
+    const [inqStatusFilter, setInqStatusFilter] = useState('any');
     const [inqSearch, setInqSearch] = useState('');
     const [productsPage, setProductsPage] = useState(0);
     const [inqPage, setInqPage] = useState(0);
@@ -517,6 +522,8 @@ const AdminDashboard = () => {
     // Stats state
     const [stats, setStats] = useState({ total: 0, paths: {} });
     const [events, setEvents] = useState([]);
+    // Product-page views of the last 90 days, for leads per 100 views.
+    const [productViews, setProductViews] = useState([]);
     const [statsLoading, setStatsLoading] = useState(false);
 
     // Gallery state
@@ -545,9 +552,10 @@ const AdminDashboard = () => {
 
     const [colWidths, setColWidths] = useState({
         type: 90,
+        status: 170,
         name: 150,
         email: 180,
-        details: 350,
+        details: 200,
         date: 130,
     });
 
@@ -591,7 +599,7 @@ const AdminDashboard = () => {
     }, [user]);
 
     useEffect(() => { setProductsPage(0); }, [searchTerm, filterFeatured]);
-    useEffect(() => { setInqPage(0); }, [inqFilter, inqSearch]);
+    useEffect(() => { setInqPage(0); }, [inqFilter, inqStatusFilter, inqSearch]);
 
     useEffect(() => {
         if (!productSlug) {
@@ -642,9 +650,9 @@ const AdminDashboard = () => {
     const loadData = async () => {
         setDataLoading(true);
         try {
-            const [prodsR, setsR, inqsR, statsR, transR, eventsR] = await Promise.allSettled([
+            const [prodsR, setsR, inqsR, statsR, transR, eventsR, viewsR] = await Promise.allSettled([
                 fetchProducts(), fetchSettings(), fetchInquiries(), fetchStats(), fetchTranslations(),
-                fetchEventSummary(30),
+                fetchEventSummary(30), fetchProductPageViews(90),
             ]);
             const prods = prodsR.status === 'fulfilled' ? (prodsR.value || []) : [];
             const sets  = setsR.status  === 'fulfilled' ? (setsR.value  || {}) : {};
@@ -656,11 +664,12 @@ const AdminDashboard = () => {
             setInquiries(inqs);
             setStats(sts);
             setEvents(eventsR.status === 'fulfilled' ? (eventsR.value || []) : []);
+            setProductViews(viewsR.status === 'fulfilled' ? (viewsR.value || []) : []);
             setGallery(sets.gallery || []);
             setAdminTranslations(trans);
             setTranslationsDirty(false);
             setTransLangTab(trans.languages?.[0]?.code || 'ru');
-            const failures = [prodsR, setsR, inqsR, statsR, transR, eventsR].filter(r => r.status === 'rejected');
+            const failures = [prodsR, setsR, inqsR, statsR, transR, eventsR, viewsR].filter(r => r.status === 'rejected');
             if (failures.length) showToast(`Warning: ${failures.length} data source(s) failed to load. Check console.`);
             failures.forEach(r => console.error('[loadData]', r.reason));
         } finally {
@@ -1072,9 +1081,35 @@ const AdminDashboard = () => {
         });
     };
 
+    // Lead status (folder 25): saves the five fields, then updates the lead in
+    // the list and in the open detail view. A failure is shown in the card.
+    const handleStatusSave = async (inq, patch) => {
+        const saved = await updateInquiryStatus(inq.id, patch);
+        setInquiries(prev => prev.map(i => i.id === inq.id ? { ...i, ...saved } : i));
+        setSelectedInquiry(prev => prev?.id === inq.id ? { ...prev, ...saved } : prev);
+        showToast('Status saved.');
+    };
+
+    // The status columns exist once supabase/phase4-lead-status.sql has run.
+    // With no leads there is nothing to tell either way: the figures show zeros.
+    const statusEnabled = inquiries.length === 0 || inquiries.some(i => i.status !== undefined);
+    const statusCounts = { action: 0 };
+    LEAD_STATUSES.forEach(s => { statusCounts[s.id] = 0; });
+    if (statusEnabled) {
+        inquiries.forEach(i => {
+            statusCounts[statusOf(i)]++;
+            if (needsAction(i)) statusCounts.action++;
+        });
+    }
+
     const unreadCount = inquiries.filter(i => !i.read).length;
 
     const filteredInquiries = inquiries.filter(i => {
+        const matchesStatus =
+            !statusEnabled || inqStatusFilter === 'any' ? true :
+            inqStatusFilter === 'action' ? needsAction(i) :
+            statusOf(i) === inqStatusFilter;
+        if (!matchesStatus) return false;
         const matchesFilter =
             inqFilter === 'all' ? true :
             inqFilter === 'unread' ? !i.read :
@@ -2505,6 +2540,14 @@ const AdminDashboard = () => {
 
                                         {/* Right — inquiry content */}
                                         <div className="admin-inq-detail-main">
+                                            {/* Status: the pipeline, the reply time, follow-ups (folder 25) */}
+                                            <LeadStatusPanel
+                                                key={selectedInquiry.id}
+                                                lead={selectedInquiry}
+                                                enabled={statusEnabled}
+                                                onSave={(patch) => handleStatusSave(selectedInquiry, patch)}
+                                            />
+
                                             {/* Product / quantity */}
                                             {(selectedInquiry.product || selectedInquiry.quantity) && (
                                                 <div className="admin-inq-detail-card">
@@ -2621,6 +2664,33 @@ const AdminDashboard = () => {
                                         </div>
                                     </div>
 
+                                    {/* Status filter (folder 25) */}
+                                    {statusEnabled ? (
+                                        <div className="admin-list-controls admin-status-controls">
+                                            <span className="admin-status-controls-label">Status</span>
+                                            <div className="admin-filter-chips">
+                                                {[
+                                                    ['any', 'Any'],
+                                                    ['action', `Needs action (${statusCounts.action})`],
+                                                    ...LEAD_STATUSES.map(s => [s.id, `${s.label} (${statusCounts[s.id]})`]),
+                                                ].map(([key, label]) => (
+                                                    <button
+                                                        key={key}
+                                                        className={`admin-chip ${inqStatusFilter === key ? 'active' : ''}`}
+                                                        aria-pressed={inqStatusFilter === key}
+                                                        onClick={() => setInqStatusFilter(key)}
+                                                    >
+                                                        {label}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ) : inquiries.length > 0 && (
+                                        <p className="admin-status-off">
+                                            Lead status and reply times are off until <code>supabase/phase4-lead-status.sql</code> has been run in Supabase.
+                                        </p>
+                                    )}
+
                                     <div className="admin-table-wrap">
                                         <table className="admin-table">
                                             <thead>
@@ -2629,6 +2699,12 @@ const AdminDashboard = () => {
                                                         <span>Type</span>
                                                         <div className="admin-resizer" onMouseDown={(e) => startResize(e, 'type')} />
                                                     </th>
+                                                    {statusEnabled && (
+                                                        <th style={{ width: colWidths.status }} className="admin-resizable-th" title="Drag to resize">
+                                                            <span>Status</span>
+                                                            <div className="admin-resizer" onMouseDown={(e) => startResize(e, 'status')} />
+                                                        </th>
+                                                    )}
                                                     <th style={{ width: colWidths.name }} className="admin-resizable-th" title="Drag to resize">
                                                         <span>Name</span>
                                                         <div className="admin-resizer" onMouseDown={(e) => startResize(e, 'name')} />
@@ -2651,7 +2727,7 @@ const AdminDashboard = () => {
                                             <tbody>
                                                 {filteredInquiries.length === 0 ? (
                                                     <tr>
-                                                        <td colSpan={6} className="admin-table-empty">
+                                                        <td colSpan={statusEnabled ? 7 : 6} className="admin-table-empty">
                                                             {inquiries.length === 0
                                                                 ? 'No inquiries yet. They will appear here when visitors submit a contact, price, or quote request.'
                                                                 : 'No inquiries match this filter.'}
@@ -2669,6 +2745,14 @@ const AdminDashboard = () => {
                                                                         {inquiryTypeLabel(inq.type)}
                                                                     </span>
                                                                 </td>
+                                                                {statusEnabled && (
+                                                                    <td>
+                                                                        <span className="lead-status-cell">
+                                                                            <StatusPill status={statusOf(inq)} />
+                                                                            <LeadFlag flag={leadFlag(inq)} />
+                                                                        </span>
+                                                                    </td>
+                                                                )}
                                                                 <td>
                                                                     <span className="admin-tcell-name">
                                                                         {!inq.read && <span className="admin-unread-dot" />}
@@ -2692,7 +2776,7 @@ const AdminDashboard = () => {
                                                             </tr>
                                                             {expandedInquiry === inq.id && (
                                                                 <tr className="admin-trow-detail">
-                                                                    <td colSpan={6}>
+                                                                    <td colSpan={statusEnabled ? 7 : 6}>
                                                                         <div className="admin-inquiry-detail">
                                                                             {inq.phone && <p><strong>Phone:</strong> {inq.phone}</p>}
                                                                             {inq.company && <p><strong>Company:</strong> {inq.company}</p>}
@@ -2749,16 +2833,23 @@ const AdminDashboard = () => {
                     {!dataLoading && tab === 'stats' && (
                         <div className="admin-section">
                             <div className="admin-section-header">
-                                <h2>Visitor Stats</h2>
+                                <h2>Leads and Visitor Stats</h2>
                                 <button
                                     className="admin-btn-secondary"
                                     disabled={statsLoading}
                                     onClick={async () => {
                                         setStatsLoading(true);
                                         try {
-                                            const [sts, evs] = await Promise.all([fetchStats(), fetchEventSummary(30)]);
+                                            const [sts, evs, views, inqs] = await Promise.all([
+                                                fetchStats(), fetchEventSummary(30), fetchProductPageViews(90), fetchInquiries(),
+                                            ]);
                                             setStats(sts || { total: 0, paths: {} });
                                             setEvents(evs || []);
+                                            setProductViews(views || []);
+                                            setInquiries(inqs || []);
+                                        } catch (err) {
+                                            console.error('[stats refresh]', err);
+                                            showToast('Some figures could not be refreshed.');
                                         } finally {
                                             setStatsLoading(false);
                                         }
@@ -2767,6 +2858,9 @@ const AdminDashboard = () => {
                                     {statsLoading ? 'Refreshing…' : '↺ Refresh'}
                                 </button>
                             </div>
+
+                            {/* Leads: reply time, pipeline, quality, per 100 views (folder 25) */}
+                            <LeadStats leads={inquiries} productViews={productViews} enabled={statusEnabled} />
 
                             {/* KPI row */}
                             <div className="admin-stats-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>

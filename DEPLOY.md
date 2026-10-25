@@ -17,6 +17,11 @@ Follow the steps once. After that, every `git push` auto-deploys.
    `supabase/schema.sql` from this repo, copy ALL of it, paste, click **Run**.
    - This creates the tables, security rules, and the page-view counter.
    - Safe to run more than once.
+   - Then run the later files the same way, in this order (each says at the
+     top what it does): `phase2-migration.sql` (edit the admin email in its
+     step 1 first), `phase3-request-form.sql`, `phase3-events.sql`, `faq.sql`,
+     `phase4-lead-reference.sql`, `phase4-lead-status.sql` (lead status and
+     reply times in the admin).
 
 3. **Storage** (left sidebar) → **New bucket**:
    - Name: `products` → toggle **Public bucket ON** → Create.

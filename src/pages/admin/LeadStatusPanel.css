@@ -1,0 +1,129 @@
+/* A lead's status (folder 25): the pill and flag in the leads list, and the
+   Status card in the detail view. Every pill and flag carries its words, so
+   colour is never the only sign. */
+
+.lead-status-pill {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+.lead-status-pill.new { background: #FCE7D6; color: #8A3B0C; }
+.lead-status-pill.replied { background: #DCE8F7; color: #2B4F7E; }
+.lead-status-pill.quoted { background: #E9E1F4; color: #553A80; }
+.lead-status-pill.sample_sent { background: #F3E7B8; color: #6B5B1E; }
+.lead-status-pill.won { background: #D7EBCF; color: #2E5A22; }
+.lead-status-pill.lost { background: #ECEAE6; color: #5F5A53; }
+
+.lead-flag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 10px;
+    white-space: nowrap;
+    line-height: 1.4;
+}
+.lead-flag svg { flex-shrink: 0; }
+.lead-flag.overdue { background: #FEE4E2; color: #9F1D14; }
+.lead-flag.follow { background: #FEF0C7; color: #7A4A06; }
+.lead-flag.due { background: #fff; color: #666; box-shadow: inset 0 0 0 1px #e8e4dd; }
+
+/* The list's status cell: the pill, and under it what the lead needs. */
+.lead-status-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+.lead-status-cell .lead-flag { white-space: normal; max-width: 100%; }
+
+/* ── The Status card ─────────────────────────────────────────────────────── */
+.lead-status-card { display: flex; flex-direction: column; gap: 10px; }
+.lead-status-card .admin-inq-detail-card-label { margin-bottom: 0; }
+
+.lead-status-now {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+.lead-status-now .lead-status-pill { font-size: 0.8rem; padding: 3px 10px; }
+.lead-status-since { font-size: 0.82rem; color: #777; }
+
+.lead-status-reply { margin: 0; font-size: 0.85rem; color: #444; }
+
+.lead-status-off { margin: 0; font-size: 0.88rem; color: #555; line-height: 1.5; }
+.lead-status-off code { font-size: 0.82rem; background: #F5F4F0; padding: 1px 5px; border-radius: 4px; }
+
+.lead-status-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    padding-top: 4px;
+}
+.lead-status-actions-label { font-size: 0.78rem; color: #888; margin-left: 4px; }
+
+.lead-status-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px 16px;
+    background: #F9F8F5;
+    border: 1px solid #e8e4dd;
+    border-radius: 10px;
+}
+.lead-status-form-title { margin: 0; font-size: 0.88rem; font-weight: 600; color: #333; }
+
+.lead-status-reasons {
+    border: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+}
+.lead-status-reasons legend { font-size: 0.8rem; font-weight: 600; color: #555; margin-bottom: 6px; padding: 0; }
+.lead-status-reasons label { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; color: #333; cursor: pointer; }
+
+.lead-status-when { display: inline-flex; align-items: center; gap: 10px; font-size: 0.85rem; color: #555; }
+.lead-status-when input {
+    font: inherit;
+    font-size: 0.85rem;
+    padding: 6px 8px;
+    border: 1px solid #d9d4cb;
+    border-radius: 6px;
+    background: #fff;
+}
+.lead-status-hint { margin: -4px 0 0; font-size: 0.76rem; color: #888; }
+.lead-status-form-buttons { display: flex; gap: 8px; }
+
+.lead-status-error { margin: 0; font-size: 0.84rem; color: #9F1D14; }
+
+.lead-status-history { border-top: 1px solid #efebe4; padding-top: 10px; }
+.lead-status-history-title { margin: 0 0 6px; font-size: 0.72rem; font-weight: 700; color: #999; text-transform: uppercase; letter-spacing: 0.06em; }
+.lead-status-history ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.lead-status-history li { font-size: 0.84rem; color: #333; display: flex; gap: 10px; }
+.lead-status-history-when { color: #888; min-width: 150px; font-variant-numeric: tabular-nums; }
+.lead-status-undo {
+    margin-top: 8px;
+    padding: 0;
+    border: none;
+    background: none;
+    font: inherit;
+    font-size: 0.8rem;
+    color: #515E3B;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.lead-status-undo:disabled { color: #aaa; cursor: default; }
+
+@media (max-width: 600px) {
+    .lead-status-history li { flex-direction: column; gap: 0; }
+    .lead-status-history-when { min-width: 0; }
+}

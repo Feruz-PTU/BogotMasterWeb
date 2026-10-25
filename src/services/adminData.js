@@ -91,5 +91,9 @@ export {
     fetchStats,
     fetchTranslations,
     fetchEventSummary,
+    fetchProductPageViews,
     SEED_TRANSLATIONS,
 } from '../supabase/data';
+
+// A lead's status is not on the public site, so saving it starts no rebuild.
+export { updateInquiryStatus } from '../supabase/data';
