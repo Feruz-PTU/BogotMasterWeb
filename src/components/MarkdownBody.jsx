@@ -24,8 +24,12 @@ const fetched = new Map();
  *
  * Give it a `key` that changes with the text, so a new text never shows inside
  * the old component's state.
+ *
+ * `widgets`, optional: { name: element } for the text's {{name}} lines (the
+ * buyer's guide puts the grade table, built from the product data, there).
+ * They render in the prerender and in the browser alike.
  */
-const MarkdownBody = ({ bodies, kind, name, language, className, loadingText, headingLinks, anchorLabel }) => {
+const MarkdownBody = ({ bodies, kind, name, language, className, loadingText, headingLinks, anchorLabel, widgets }) => {
     const bodyKey = `${kind}:${name}.${language}`;
     const [source, setSource] = useState(
         () => bodies.bodyNow(name, language) ?? fetched.get(bodyKey) ?? null
@@ -86,7 +90,7 @@ const MarkdownBody = ({ bodies, kind, name, language, className, loadingText, he
     }
     return (
         <div className={className} data-md-body={bodyKey}>
-            <Markdown source={source} headingLinks={headingLinks} anchorLabel={anchorLabel} />
+            <Markdown source={source} headingLinks={headingLinks} anchorLabel={anchorLabel} widgets={widgets} />
         </div>
     );
 };

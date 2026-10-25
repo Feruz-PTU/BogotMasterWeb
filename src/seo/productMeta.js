@@ -64,7 +64,10 @@ function openingSentence(base, specs, t) {
 export function productDescription(product, t) {
     const specs = product.activeSpecs || {};
 
-    const base = openingSentence(String(product.description || '').trim(), specs, t);
+    // The first sentence only: the slices and tablets add a second one on how
+    // they are cut (folder 28), which would leave no room for the specs.
+    const firstSentence = String(product.description || '').trim().split(/(?<=[.!?])\s+/)[0];
+    const base = openingSentence(firstSentence, specs, t);
     const parts = [];
 
     const add = (labelKey, value) => {

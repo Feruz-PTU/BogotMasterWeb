@@ -94,13 +94,15 @@
     overflow-x: auto;
 }
 
-.markdown table {
+.markdown-table table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.markdown th,
-.markdown td {
+/* Scoped to the Markdown's own tables (.markdown-table), so a table a page
+   adds as a widget (the grade table) keeps its own look. */
+.markdown-table th,
+.markdown-table td {
     text-align: left;
     vertical-align: top;
     padding: 10px 12px;
@@ -110,7 +112,7 @@
     line-height: 1.6;
 }
 
-.markdown th {
+.markdown-table th {
     background: var(--color-secondary);
     color: #1A1A1A;
     font-weight: 600;
@@ -120,7 +122,7 @@
     /* A four-column table cannot be read on a phone. Each row becomes a card
        and each cell is labelled with its column heading (data-label) instead.
        The header row is hidden visually but stays available to screen readers. */
-    .markdown thead {
+    .markdown-table thead {
         position: absolute;
         width: 1px;
         height: 1px;
@@ -128,26 +130,26 @@
         clip: rect(0 0 0 0);
     }
 
-    .markdown table,
-    .markdown tbody,
-    .markdown tr,
-    .markdown td {
+    .markdown-table table,
+    .markdown-table tbody,
+    .markdown-table tr,
+    .markdown-table td {
         display: block;
     }
 
-    .markdown tr {
+    .markdown-table tr {
         border: 1px solid #E4E2D9;
         border-radius: 8px;
         margin-bottom: 12px;
         padding: 4px 0;
     }
 
-    .markdown td {
+    .markdown-table td {
         border: 0;
         padding: 8px 14px;
     }
 
-    .markdown td::before {
+    .markdown-table td::before {
         content: attr(data-label);
         display: block;
         color: #1A1A1A;

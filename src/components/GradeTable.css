@@ -1,0 +1,95 @@
+/* The grades of one form by root diameter (folder 28). Sizes in px: up to
+   768 px the root font size is 81% (index.css), and this text must stay at
+   14 px or more on a phone. */
+.grade-table {
+    margin: 0;
+}
+
+.grade-table-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-text-dark);
+    margin: 0 0 10px;
+}
+
+.grade-table table {
+    width: 100%;
+    /* "separate" so a parent's rounded corners can apply. */
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #fff;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.grade-table th,
+.grade-table td {
+    text-align: left;
+    vertical-align: top;
+    padding: 9px 10px;
+    border-bottom: 1px solid #ece9e2;
+}
+
+.grade-table thead th {
+    font-size: 13px;
+    font-weight: 600;
+    color: #5f5f5f;
+    background: #f7f6f2;
+}
+
+.grade-table tbody th {
+    font-weight: 700;
+    color: var(--color-primary);
+    white-space: nowrap;
+}
+
+.grade-table td a {
+    color: var(--color-primary);
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.grade-table tr.is-current th,
+.grade-table tr.is-current td {
+    background: rgba(81, 94, 59, 0.09);
+    font-weight: 600;
+}
+
+.grade-table-here {
+    font-weight: 400;
+    color: #5f5f5f;
+}
+
+.grade-table-note {
+    margin: 10px 0 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #5f5f5f;
+}
+
+.grade-table-note a {
+    color: var(--color-primary);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.grade-table-note a:hover,
+.grade-table-note a:focus-visible {
+    text-decoration: underline;
+}
+
+/* In a page's text (the buyer's guide chapter). */
+.markdown .grade-table {
+    margin: 8px 0 24px;
+}
+
+.markdown .grade-table table {
+    border: 1px solid #E4E2D9;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.markdown .grade-table td a {
+    font-weight: 500;
+}

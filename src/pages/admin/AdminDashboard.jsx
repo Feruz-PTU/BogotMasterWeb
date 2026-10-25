@@ -107,6 +107,7 @@ const TRANSLATION_GROUPS = [
             { key: 'nav_resources', label: 'Menu: Resources' },
             { key: 'nav_company', label: 'Menu: About → company' },
             { key: 'footer_all_products', label: 'Footer: all products' },
+            { key: 'footer_grade_guide', label: 'Footer: grade guide (the choosing-a-grade chapter)' },
             { key: 'footer_custom_order', label: 'Footer: custom order' },
             { key: 'footer_request', label: 'Footer: request link' },
             { key: 'footer_quality_shipping', label: 'Footer: quality and shipping heading' },
@@ -203,6 +204,20 @@ const TRANSLATION_GROUPS = [
             { key: 'spec_salmonella', label: 'Label: Salmonella' },
             { key: 'spec_shelf_life', label: 'Label: Shelf life' },
             { key: 'spec_storage', label: 'Label: Storage' },
+            // The grade table on /products and the slice and tablet pages,
+            // built from each product's "Diameter grade" (folder 28).
+            { key: 'grades_title_slices', label: 'Grade table: slices heading' },
+            { key: 'grades_title_tablets', label: 'Grade table: tablets heading' },
+            { key: 'grades_title_all', label: 'Grade table: name of the combined table in the guide chapter (for screen readers)' },
+            { key: 'grades_col_grade', label: 'Grade table: Grade column' },
+            { key: 'grades_col_diameter', label: 'Grade table: Root diameter column' },
+            { key: 'grades_col_product', label: 'Grade table: Product column' },
+            { key: 'grades_mix', label: 'Grade table: what Mix means' },
+            { key: 'grades_this', label: 'Grade table: "this product"' },
+            { key: 'grades_note_slices', label: 'Grade table: note under the slices table' },
+            { key: 'grades_note_tablets', label: 'Grade table: note under the tablets table' },
+            { key: 'grades_note_all', label: 'Grade table: note under the combined table in the guide chapter' },
+            { key: 'grades_guide_link', label: 'Grade table: link to the guide chapter' },
         ],
     },
     {
@@ -2190,11 +2205,11 @@ const AdminDashboard = () => {
                                             {openSpecSections.physical && (<>
                                                 <div className="admin-fields-row">
                                                     <div className="admin-field"><label>Form / cut type</label><input value={productForm.specs?.[prodLangTab]?.form_cut_type || ''} onChange={e => handleSpecChange('form_cut_type', e.target.value)} placeholder="e.g. Fingers, Sticks, Powder" /></div>
-                                                    <div className="admin-field"><label>Cut size / length</label><input value={productForm.specs?.[prodLangTab]?.cut_size || ''} onChange={e => handleSpecChange('cut_size', e.target.value)} placeholder="e.g. 5–8 cm" /></div>
+                                                    <div className="admin-field"><label>Cut size / length</label><input value={productForm.specs?.[prodLangTab]?.cut_size || ''} onChange={e => handleSpecChange('cut_size', e.target.value)} placeholder="e.g. 5–7 mm (thickness) or 45–55 cm (length)" /></div>
                                                 </div>
                                                 <div className="admin-fields-row">
-                                                    <div className="admin-field"><label>Diameter grade</label><input value={productForm.specs?.[prodLangTab]?.diameter_grade || ''} onChange={e => handleSpecChange('diameter_grade', e.target.value)} placeholder="e.g. A / B / C" /></div>
-                                                    <div className="admin-field"><label>Processing</label><input value={productForm.specs?.[prodLangTab]?.processing || ''} onChange={e => handleSpecChange('processing', e.target.value)} placeholder="Steps, separated by ; e.g. Machine-washed; Steamed to soften the root; Machine-cut at 90°" /></div>
+                                                    <div className="admin-field"><label>Diameter grade</label><input value={productForm.specs?.[prodLangTab]?.diameter_grade || ''} onChange={e => handleSpecChange('diameter_grade', e.target.value)} placeholder="Grade (range), e.g. B (about 20–30 mm), or Mix: the grade table reads it" /></div>
+                                                    <div className="admin-field"><label>Processing</label><input value={productForm.specs?.[prodLangTab]?.processing || ''} onChange={e => handleSpecChange('processing', e.target.value)} placeholder="Steps, separated by ; e.g. Machine-washed; Steamed so the root cuts cleanly and keeps its colour; Machine-cut at 90°" /></div>
                                                 </div>
                                                 <div className="admin-fields-row">
                                                     <div className="admin-field"><label>Packaging</label><input value={productForm.specs?.[prodLangTab]?.packaging || ''} onChange={e => handleSpecChange('packaging', e.target.value)} placeholder="PP bags 25 kg" /></div>

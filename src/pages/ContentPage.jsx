@@ -15,6 +15,17 @@ import { termsFromMarkdown } from '../utils/glossaryTerms';
 import { formatDate } from '../utils/dates';
 import { useFaq, latestFaqDate } from '../utils/faqData';
 import { applicationSlugsFor } from '../utils/productApplications';
+import GradeTable from '../components/GradeTable';
+import { GRADE_FORMS } from '../utils/productGrades';
+
+/**
+ * What a page text's {{name}} lines show. {{grade-table}}: the slice and tablet
+ * grades by root diameter, from the product data (folder 28); the guide
+ * chapter's own heading names it, and the chapter is the guide link's target.
+ */
+const WIDGETS = {
+    'grade-table': <GradeTable forms={GRADE_FORMS} title={false} guideLink={false} />,
+};
 import './ContentPage.css';
 
 /**
@@ -128,6 +139,7 @@ const ContentPage = ({ page }) => {
                         loadingText={t('article_loading')}
                         headingLinks={isGlossary}
                         anchorLabel={t('glossary_term_link')}
+                        widgets={WIDGETS}
                     />
 
                     {isFaq && <FaqList key={language} items={faqItems} />}

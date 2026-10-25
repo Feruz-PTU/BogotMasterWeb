@@ -164,7 +164,7 @@ A 20 ft shipping container takes 11 t of root; a 40 ft container, or a tent truc
 ## Product forms {#forms}
 
 ### Slice {#slice}
-Root cut at a shallow angle, which gives long oval pieces whose fibres hold together in boiling water. Graded by diameter: A, B, C and C1. See [Slice A](/products/slice-a).
+Root cut at a shallow angle, which gives long oval pieces whose fibres hold together in boiling water. Graded by root diameter, from A, about 30 mm and over, to C1, under 10 mm: see the [grade table](/buyers-guide/choosing-a-grade#slice-grades) and [Slice A](/products/slice-a).
 
 ### Tablet {#tablet}
 Root cut at 90°, which gives round discs; the cheaper cut for extraction. See [Tablet A](/products/tablet-a).
@@ -188,7 +188,7 @@ Root cut by hand into pieces 5–8 cm long, always of mixed diameters. See [fing
 Root cut by hand into straight lengths of 45–55 cm. See [selected sticks](/products/selected-sticks).
 
 ### Extraction grade {#extraction-grade}
-Thin root, under 0.7 cm, cut roughly by machine: a low-cost raw material for making extract. See [extraction grade](/products/extraction-grade).
+Thin root, under 7 mm across, cut roughly by machine: a low-cost raw material for making extract. See [extraction grade](/products/extraction-grade).
 
 ## Sources {#sources}
 

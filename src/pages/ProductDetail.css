@@ -397,6 +397,37 @@
     color: #3a3a3a;
 }
 
+/* The form's grades by root diameter (folder 28): the table's title looks like
+   the other cards' titles, and the table sits flush in the card. */
+.pd-grades .grade-table-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-primary);
+    margin: 0 0 6px 0;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgba(81, 94, 59, 0.15);
+}
+
+.pd-grades table {
+    font-size: 0.85rem;
+}
+
+.pd-grades thead th {
+    background: transparent;
+    font-size: 0.78rem;
+}
+
+.pd-grades th,
+.pd-grades td {
+    padding: 8px 6px;
+}
+
+.pd-grades .grade-table-note {
+    font-size: 0.85rem;
+}
+
 /* Trade terms: the values are sentences, so the card takes two columns of the
    grid and gives the value the wider column. */
 .pd-terms-card {
@@ -733,6 +764,10 @@
     .pd-process-steps li:not(:last-child)::after { left: 13px; top: 32px; }
     .pd-process-single { font-size: 15px; }
     .pd-terms-link { font-size: 15px; }
+    .pd-grades .grade-table-title { font-size: 14px; letter-spacing: 0.06em; }
+    .pd-grades table { font-size: 14px; }
+    .pd-grades thead th { font-size: 14px; }
+    .pd-grades .grade-table-note { font-size: 14px; }
 
     .pd-related-info h3 { font-size: 16px; }
     .pd-related-info p { font-size: 14px; }

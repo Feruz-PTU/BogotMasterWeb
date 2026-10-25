@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { CONTACT_INFO } from '../config';
 import './Markdown.css';
 
@@ -13,6 +14,9 @@ import './Markdown.css';
  *   ## and ### headings     paragraphs        - bullet lists
  *   1. numbered lists       | pipe | tables   **bold**  *italic*  `code`
  *   [text](url)             \[ and other backslash escapes
+ *   {{name}} alone on a line: the element the page passes as `widgets.name`
+ *   (the buyer's guide's grade table, built from the product data); nothing
+ *   when the page passes none.
  *
  * Every heading gets an id, so a section can be linked to (/logistics#fca).
  * `## Heading {#fca}` sets it; otherwise it is made from the heading text.
@@ -27,6 +31,7 @@ import './Markdown.css';
 const HEADING = /^(#{2,3})\s+(.+)$/;
 // An explicit anchor at the end of a heading: "## Free carrier {#fca}".
 const ANCHOR = /\s*\{#([a-z0-9][a-z0-9-]*)\}\s*$/i;
+const WIDGET = /^\{\{([a-z][a-z0-9-]*)\}\}$/;
 const BULLET = /^-\s+(.+)$/;
 const NUMBERED = /^\d+\.\s+(.+)$/;
 // Bold is tried before italic, so ***x*.** reads as bold around an italic x
@@ -37,7 +42,7 @@ const INLINE =
 const isTableRow = (line) => line.startsWith('|');
 
 const startsBlock = (line) =>
-    HEADING.test(line) || BULLET.test(line) || NUMBERED.test(line) || isTableRow(line);
+    HEADING.test(line) || BULLET.test(line) || NUMBERED.test(line) || isTableRow(line) || WIDGET.test(line);
 
 const splitRow = (line) =>
     line
@@ -87,6 +92,9 @@ function parseBlocks(source) {
         const line = lines[i];
 
         if (!line) {
+            i++;
+        } else if (WIDGET.test(line)) {
+            blocks.push({ type: 'widget', name: line.match(WIDGET)[1] });
             i++;
         } else if (HEADING.test(line)) {
             const [, hashes, raw] = line.match(HEADING);
@@ -182,6 +190,10 @@ function renderBlock(block, index, options = {}) {
     const key = `b${index}`;
 
     switch (block.type) {
+        case 'widget': {
+            const widget = options.widgets?.[block.name];
+            return widget ? <Fragment key={key}>{widget}</Fragment> : null;
+        }
         case 'h2':
             return <h2 key={key} id={block.id}>{renderInline(block.text, key)}</h2>;
         case 'h3':
@@ -244,11 +256,12 @@ function renderBlock(block, index, options = {}) {
 
 /**
  * `headingLinks`: give every ### heading a "#" link to itself, labelled
- * `anchorLabel` for screen readers.
+ * `anchorLabel` for screen readers. `widgets`: { name: element } for the
+ * {{name}} lines.
  */
-const Markdown = ({ source, headingLinks = false, anchorLabel }) => (
+const Markdown = ({ source, headingLinks = false, anchorLabel, widgets }) => (
     <div className="markdown">
-        {parseBlocks(source).map((block, i) => renderBlock(block, i, { headingLinks, anchorLabel }))}
+        {parseBlocks(source).map((block, i) => renderBlock(block, i, { headingLinks, anchorLabel, widgets }))}
     </div>
 );
 

@@ -85,13 +85,41 @@ export const PAGES = [
         },
         navTitle: { en: "Buyer's guide", ru: 'Руководство покупателя' },
         meta: {
-            en: 'Practical answers for importers of licorice root: reading a specification, shipping documents, samples and ordering, HS codes and a trade glossary.',
-            ru: 'Практические ответы для импортёров корня солодки: как читать спецификацию, отгрузочные документы, образцы и заказ, коды ТН ВЭД и глоссарий терминов.',
+            en: 'Practical answers for importers of licorice root: choosing a grade, reading a specification, shipping documents, ordering, HS codes and a glossary.',
+            ru: 'Практические ответы для импортёров корня солодки: выбор фракции, как читать спецификацию, документы, заказ, коды ТН ВЭД и глоссарий.',
         },
         // The guide is about licorice root in general, not about particular
         // grades: its structured data points at the glossary's term for it.
         aboutTerm: 'liquiritiae-radix',
-        updated: '2026-10-24',
+        updated: '2026-10-25',
+        priority: 0.6,
+    },
+    {
+        // Chapter 1 (Appendix B §B3; folder 28). The grade ranges are the
+        // owner's (22–23 Oct 2026), approximate because slices are sorted by
+        // hand; the processing facts are the sales rep's (23 Oct, 28.5). The
+        // grade table is not typed in the text: its {{grade-table}} line is
+        // filled from the product data (utils/productGrades.js).
+        id: 'buyers-guide-choosing-a-grade',
+        path: '/buyers-guide/choosing-a-grade',
+        parent: 'buyers-guide',
+        section: 'guide',
+        schemaType: 'TechArticle',
+        languages: ['en', 'ru'],
+        title: {
+            en: 'Choosing Licorice Root Forms and Grades | Bogot Master',
+            ru: 'Как выбрать форму и фракцию корня солодки | Bogot Master',
+        },
+        h1: {
+            en: 'Choosing a form and grade of licorice root',
+            ru: 'Как выбрать форму и фракцию корня солодки',
+        },
+        navTitle: { en: 'Choosing a form and grade', ru: 'Выбор формы и фракции' },
+        meta: {
+            en: 'Which licorice root form suits your process, slice and tablet grades by root diameter in mm, peeled or unpeeled, and when to order a custom cut.',
+            ru: 'Какая форма корня солодки подходит вашему производству, фракции слайсов и таблеток по диаметру в мм, очищенный корень и своя нарезка.',
+        },
+        updated: '2026-10-25',
         priority: 0.6,
     },
     {
@@ -220,7 +248,7 @@ export const PAGES = [
             en: 'Short definitions of 60 terms in licorice root trade: the plant and its chemistry, quality tests, Incoterms, payment, documents and product forms.',
             ru: 'Краткие определения 60 терминов торговли корнем солодки: растение и химия, анализы качества, Incoterms, оплата, документы и формы продукции.',
         },
-        updated: '2026-10-24',
+        updated: '2026-10-25',
         priority: 0.5,
     },
     {
@@ -323,7 +351,7 @@ export const PAGES = [
             en: "Licorice root as feedstock for extract makers: industrial and extraction grades, cut root, what to specify, yearly supply and our partner's extract.",
             ru: 'Корень солодки как сырьё для производителей экстрактов: промышленный и экстракционный сорта, резаный корень, спецификация, годовые поставки.',
         },
-        updated: '2026-10-24',
+        updated: '2026-10-25',
         priority: 0.6,
     },
     {

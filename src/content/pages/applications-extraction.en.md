@@ -14,7 +14,7 @@ Uzbekistan was the largest exporter of licorice extract by value in 2024 among t
 
 | | [Industrial grade](/products/industrial-grade) | [Extraction grade](/products/extraction-grade) |
 |---|---|---|
-| Root | Medium roots, 0.5–2 cm across | Thin roots, under 0.7 cm across |
+| Root | Medium roots, 5–20 mm across | Thin roots, under 7 mm across |
 | Cut | Pieces under 5 cm | Cut roughly into 2–5 cm pieces |
 | Glycyrrhizic acid | At least 4 % | At least 3.5 % |
 | Moisture | Not more than 12 % | Not more than 12 % |
@@ -27,7 +27,7 @@ Extraction-grade root can also travel uncut, pressed into cubes of about 110 kg,
 
 ## Cut root for extraction {#cut-root}
 
-When a specification calls for washed root with at least 4 % glycyrrhizic acid, the cut root grades fit: tablets ([A](/products/tablet-a), [1.2 cm](/products/tablet-1.2) and [mixed sizes](/products/tablet-mix)) and [crushed root](/products/crushed). Tablets are cut straight across the root and are the cheaper cut for extraction. Sticks can also be pressed into bales of about 120 kg; see [packing](/logistics#packing).
+When a specification calls for washed root with at least 4 % glycyrrhizic acid, the cut root grades fit: tablets ([A](/products/tablet-a), [1.2, 12 mm](/products/tablet-1.2) and [mixed sizes](/products/tablet-mix); see the [grades](/buyers-guide/choosing-a-grade#tablets)) and [crushed root](/products/crushed). Tablets are cut straight across the root and are the cheaper cut for extraction. Sticks can also be pressed into bales of about 120 kg; see [packing](/logistics#packing).
 
 ## What to put in your specification {#specification}
 

@@ -4,6 +4,9 @@ import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import QuoteButton from '../components/QuoteButton';
 import MediaImage from '../components/MediaImage';
+import GradeTable from '../components/GradeTable';
+import { GRADE_FORMS, parseGrade } from '../utils/productGrades';
+import { groupOf } from '../utils/productGroups';
 import LocalLink, { useLocalPath } from '../components/LocalLink';
 import NotFound from './NotFound';
 import { useLanguage } from '../context/LanguageContext';
@@ -210,6 +213,13 @@ const ProductDetail = () => {
                                             a bare "MOQ: 1 MT" beside it would read as a second rule. */}
                                         {specs.moq && !licorice && <><dt>{t('spec_moq')}</dt><dd>{specs.moq}</dd></>}
                                     </dl>
+                                </div>
+                            )}
+                            {/* Slices and tablets: the form's grades by root
+                                diameter, this product's row marked (folder 28). */}
+                            {GRADE_FORMS.includes(groupOf(product)) && parseGrade(specs.diameter_grade) && (
+                                <div className="pd-spec-card pd-grade-card">
+                                    <GradeTable form={groupOf(product)} current={product.slug} className="pd-grades" />
                                 </div>
                             )}
                             {processingSteps.length > 0 && (

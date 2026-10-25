@@ -62,6 +62,8 @@ export function footerGroups(language, t) {
             label: t('products'),
             items: [
                 { to: '/products', label: t('footer_all_products') },
+                // The guide chapter on choosing a form and grade (folder 28).
+                ...pageItems('buyers-guide-choosing-a-grade', language).map((i) => ({ ...i, label: t('footer_grade_guide') })),
                 { to: '/products/custom-order', label: t('footer_custom_order') },
                 { to: '/request', label: t('footer_request') },
             ],

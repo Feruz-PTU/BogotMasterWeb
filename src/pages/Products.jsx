@@ -3,6 +3,8 @@ import SEO from '../components/SEO';
 import QuoteButton from '../components/QuoteButton';
 import LocalLink from '../components/LocalLink';
 import MediaImage from '../components/MediaImage';
+import GradeTable from '../components/GradeTable';
+import { GRADE_FORMS } from '../utils/productGrades';
 import { useLanguage } from '../context/LanguageContext';
 import { useContent } from '../context/ContentContext';
 import { useRequest } from '../context/RequestContext';
@@ -104,6 +106,9 @@ const Products = () => {
                                 );
                             })}
                         </div>
+                        {/* Slices and tablets: their grades by root diameter,
+                            from the product data (folder 28). */}
+                        {GRADE_FORMS.includes(g.id) && <GradeTable form={g.id} className="products-grades" />}
                     </section>
                 ))}
 
