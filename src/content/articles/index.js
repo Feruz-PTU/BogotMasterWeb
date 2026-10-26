@@ -24,6 +24,34 @@
  */
 export const ARTICLES = [
     {
+        // Folders 34–35: drafted as a Claude Doc, reviewed by three agents
+        // (facts, claims, clarity) on 26 Oct 2026. UN Comtrade figures pulled
+        // on 26 Oct 2026; the charts are SVGs drawn by
+        // scripts/article-charts/extract-trade.mjs. Re-pull before a revision:
+        // 2024 and 2025 are still incomplete.
+        slug: 'licorice-extract-world-trade',
+        published: '2026-10-26',
+        languages: {
+            en: {
+                title: 'Licorice Extract in World Trade, 2000–2025: Exporters, Importers and Prices',
+                shortTitle: 'Licorice Extract in World Trade, 2000–2025',
+                summary:
+                    "What UN Comtrade data on licorice extract (HS 1302.12) show for 2000–2025: who exports and imports it, prices per tonne, Uzbekistan's exports, and where the statistics fall short.",
+                description:
+                    "UN Comtrade data on licorice extract (HS 1302.12), 2000–2025: exporters, importers, prices per tonne, Uzbekistan's exports and the gaps in the statistics.",
+            },
+            ru: {
+                title: 'Экстракт солодки в мировой торговле, 2000–2025: экспортёры, импортёры и цены',
+                shortTitle: 'Экстракт солодки в мировой торговле, 2000–2025',
+                summary:
+                    'Что данные UN Comtrade об экстракте солодки (ГС 1302.12) показывают за 2000–2025 годы: кто его экспортирует и импортирует, цены за тонну, экспорт Узбекистана и пробелы в статистике.',
+                description:
+                    'Данные UN Comtrade об экстракте солодки (ГС 1302.12) за 2000–2025 годы: экспортёры, импортёры, цены за тонну, экспорт Узбекистана и пробелы в статистике.',
+                translatedFrom: 'en',
+            },
+        },
+    },
+    {
         slug: 'licorice-botany-distribution-ecology',
         published: '2026-10-14',
         languages: {

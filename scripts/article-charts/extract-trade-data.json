@@ -1,0 +1,897 @@
+{
+ "source": "UN Comtrade public API, HS 130212, all reporters, partner World; retrieved 26 October 2026. World totals sum country reporters (no aggregates); 2019 exports exclude the Afghanistan record (USD 114.9 million). Values in USD million.",
+ "world": [
+  {
+   "year": 2000,
+   "flow": "Exports",
+   "v": 64.7
+  },
+  {
+   "year": 2000,
+   "flow": "Imports",
+   "v": 70.3
+  },
+  {
+   "year": 2001,
+   "flow": "Exports",
+   "v": 68.3
+  },
+  {
+   "year": 2001,
+   "flow": "Imports",
+   "v": 76.3
+  },
+  {
+   "year": 2002,
+   "flow": "Exports",
+   "v": 72.2
+  },
+  {
+   "year": 2002,
+   "flow": "Imports",
+   "v": 77.4
+  },
+  {
+   "year": 2003,
+   "flow": "Exports",
+   "v": 73.5
+  },
+  {
+   "year": 2003,
+   "flow": "Imports",
+   "v": 83.8
+  },
+  {
+   "year": 2004,
+   "flow": "Exports",
+   "v": 77.5
+  },
+  {
+   "year": 2004,
+   "flow": "Imports",
+   "v": 90.5
+  },
+  {
+   "year": 2005,
+   "flow": "Exports",
+   "v": 88.5
+  },
+  {
+   "year": 2005,
+   "flow": "Imports",
+   "v": 92.2
+  },
+  {
+   "year": 2006,
+   "flow": "Exports",
+   "v": 109.5
+  },
+  {
+   "year": 2006,
+   "flow": "Imports",
+   "v": 108.6
+  },
+  {
+   "year": 2007,
+   "flow": "Exports",
+   "v": 107.2
+  },
+  {
+   "year": 2007,
+   "flow": "Imports",
+   "v": 124.2
+  },
+  {
+   "year": 2008,
+   "flow": "Exports",
+   "v": 126.3
+  },
+  {
+   "year": 2008,
+   "flow": "Imports",
+   "v": 150
+  },
+  {
+   "year": 2009,
+   "flow": "Exports",
+   "v": 122.7
+  },
+  {
+   "year": 2009,
+   "flow": "Imports",
+   "v": 158.7
+  },
+  {
+   "year": 2010,
+   "flow": "Exports",
+   "v": 151.4
+  },
+  {
+   "year": 2010,
+   "flow": "Imports",
+   "v": 143.6
+  },
+  {
+   "year": 2011,
+   "flow": "Exports",
+   "v": 187.1
+  },
+  {
+   "year": 2011,
+   "flow": "Imports",
+   "v": 162.5
+  },
+  {
+   "year": 2012,
+   "flow": "Exports",
+   "v": 150.9
+  },
+  {
+   "year": 2012,
+   "flow": "Imports",
+   "v": 199.7
+  },
+  {
+   "year": 2013,
+   "flow": "Exports",
+   "v": 219.4
+  },
+  {
+   "year": 2013,
+   "flow": "Imports",
+   "v": 228.2
+  },
+  {
+   "year": 2014,
+   "flow": "Exports",
+   "v": 194.9
+  },
+  {
+   "year": 2014,
+   "flow": "Imports",
+   "v": 179.6
+  },
+  {
+   "year": 2015,
+   "flow": "Exports",
+   "v": 172
+  },
+  {
+   "year": 2015,
+   "flow": "Imports",
+   "v": 168.9
+  },
+  {
+   "year": 2016,
+   "flow": "Exports",
+   "v": 176.2
+  },
+  {
+   "year": 2016,
+   "flow": "Imports",
+   "v": 188.1
+  },
+  {
+   "year": 2017,
+   "flow": "Exports",
+   "v": 196.7
+  },
+  {
+   "year": 2017,
+   "flow": "Imports",
+   "v": 193.2
+  },
+  {
+   "year": 2018,
+   "flow": "Exports",
+   "v": 203.2
+  },
+  {
+   "year": 2018,
+   "flow": "Imports",
+   "v": 195.5
+  },
+  {
+   "year": 2019,
+   "flow": "Exports",
+   "v": 157.8
+  },
+  {
+   "year": 2019,
+   "flow": "Imports",
+   "v": 145.8
+  },
+  {
+   "year": 2020,
+   "flow": "Exports",
+   "v": 157.1
+  },
+  {
+   "year": 2020,
+   "flow": "Imports",
+   "v": 145.2
+  },
+  {
+   "year": 2021,
+   "flow": "Exports",
+   "v": 133.8
+  },
+  {
+   "year": 2021,
+   "flow": "Imports",
+   "v": 119.3
+  },
+  {
+   "year": 2022,
+   "flow": "Exports",
+   "v": 154.9
+  },
+  {
+   "year": 2022,
+   "flow": "Imports",
+   "v": 130.5
+  },
+  {
+   "year": 2023,
+   "flow": "Exports",
+   "v": 143.5
+  },
+  {
+   "year": 2023,
+   "flow": "Imports",
+   "v": 140.4
+  },
+  {
+   "year": 2024,
+   "flow": "Exports",
+   "v": 128.2
+  },
+  {
+   "year": 2024,
+   "flow": "Imports",
+   "v": 132.2
+  }
+ ],
+ "exporters": [
+  {
+   "year": 2000,
+   "country": "China",
+   "v": 7
+  },
+  {
+   "year": 2000,
+   "country": "France",
+   "v": 10.5
+  },
+  {
+   "year": 2000,
+   "country": "Germany",
+   "v": 2
+  },
+  {
+   "year": 2000,
+   "country": "Iran",
+   "v": 4.3
+  },
+  {
+   "year": 2000,
+   "country": "United States",
+   "v": 25.7
+  },
+  {
+   "year": 2001,
+   "country": "China",
+   "v": 6.3
+  },
+  {
+   "year": 2001,
+   "country": "France",
+   "v": 10.5
+  },
+  {
+   "year": 2001,
+   "country": "Germany",
+   "v": 2.3
+  },
+  {
+   "year": 2001,
+   "country": "Iran",
+   "v": 4.3
+  },
+  {
+   "year": 2001,
+   "country": "United States",
+   "v": 29.4
+  },
+  {
+   "year": 2002,
+   "country": "China",
+   "v": 7
+  },
+  {
+   "year": 2002,
+   "country": "France",
+   "v": 10.7
+  },
+  {
+   "year": 2002,
+   "country": "Germany",
+   "v": 3.2
+  },
+  {
+   "year": 2002,
+   "country": "Iran",
+   "v": 7.2
+  },
+  {
+   "year": 2002,
+   "country": "United States",
+   "v": 26.7
+  },
+  {
+   "year": 2003,
+   "country": "China",
+   "v": 8.2
+  },
+  {
+   "year": 2003,
+   "country": "France",
+   "v": 12.6
+  },
+  {
+   "year": 2003,
+   "country": "Germany",
+   "v": 2.5
+  },
+  {
+   "year": 2003,
+   "country": "Iran",
+   "v": 7.7
+  },
+  {
+   "year": 2003,
+   "country": "United States",
+   "v": 24.8
+  },
+  {
+   "year": 2004,
+   "country": "China",
+   "v": 6.7
+  },
+  {
+   "year": 2004,
+   "country": "France",
+   "v": 13.8
+  },
+  {
+   "year": 2004,
+   "country": "Germany",
+   "v": 3.8
+  },
+  {
+   "year": 2004,
+   "country": "Iran",
+   "v": 8.2
+  },
+  {
+   "year": 2004,
+   "country": "United States",
+   "v": 26.6
+  },
+  {
+   "year": 2005,
+   "country": "China",
+   "v": 7.9
+  },
+  {
+   "year": 2005,
+   "country": "France",
+   "v": 15.1
+  },
+  {
+   "year": 2005,
+   "country": "Germany",
+   "v": 5
+  },
+  {
+   "year": 2005,
+   "country": "Iran",
+   "v": 6.9
+  },
+  {
+   "year": 2005,
+   "country": "United States",
+   "v": 31
+  },
+  {
+   "year": 2006,
+   "country": "China",
+   "v": 13.5
+  },
+  {
+   "year": 2006,
+   "country": "France",
+   "v": 15.3
+  },
+  {
+   "year": 2006,
+   "country": "Germany",
+   "v": 5.2
+  },
+  {
+   "year": 2006,
+   "country": "Iran",
+   "v": 13.1
+  },
+  {
+   "year": 2006,
+   "country": "United States",
+   "v": 34.7
+  },
+  {
+   "year": 2007,
+   "country": "China",
+   "v": 14.5
+  },
+  {
+   "year": 2007,
+   "country": "France",
+   "v": 19.5
+  },
+  {
+   "year": 2007,
+   "country": "Germany",
+   "v": 7.5
+  },
+  {
+   "year": 2007,
+   "country": "United States",
+   "v": 36.1
+  },
+  {
+   "year": 2008,
+   "country": "China",
+   "v": 18.5
+  },
+  {
+   "year": 2008,
+   "country": "France",
+   "v": 18.2
+  },
+  {
+   "year": 2008,
+   "country": "Germany",
+   "v": 10.3
+  },
+  {
+   "year": 2008,
+   "country": "United States",
+   "v": 46.1
+  },
+  {
+   "year": 2009,
+   "country": "China",
+   "v": 19.2
+  },
+  {
+   "year": 2009,
+   "country": "France",
+   "v": 17.8
+  },
+  {
+   "year": 2009,
+   "country": "Germany",
+   "v": 9.3
+  },
+  {
+   "year": 2009,
+   "country": "United States",
+   "v": 45.1
+  },
+  {
+   "year": 2010,
+   "country": "China",
+   "v": 19.7
+  },
+  {
+   "year": 2010,
+   "country": "France",
+   "v": 17
+  },
+  {
+   "year": 2010,
+   "country": "Germany",
+   "v": 11.4
+  },
+  {
+   "year": 2010,
+   "country": "Iran",
+   "v": 28.5
+  },
+  {
+   "year": 2010,
+   "country": "United States",
+   "v": 46.3
+  },
+  {
+   "year": 2011,
+   "country": "China",
+   "v": 25.3
+  },
+  {
+   "year": 2011,
+   "country": "France",
+   "v": 17.9
+  },
+  {
+   "year": 2011,
+   "country": "Germany",
+   "v": 12.8
+  },
+  {
+   "year": 2011,
+   "country": "Iran",
+   "v": 42.8
+  },
+  {
+   "year": 2011,
+   "country": "United States",
+   "v": 52.6
+  },
+  {
+   "year": 2012,
+   "country": "China",
+   "v": 23.6
+  },
+  {
+   "year": 2012,
+   "country": "France",
+   "v": 16.4
+  },
+  {
+   "year": 2012,
+   "country": "Germany",
+   "v": 14.3
+  },
+  {
+   "year": 2012,
+   "country": "United States",
+   "v": 58.1
+  },
+  {
+   "year": 2013,
+   "country": "China",
+   "v": 45.2
+  },
+  {
+   "year": 2013,
+   "country": "France",
+   "v": 20.6
+  },
+  {
+   "year": 2013,
+   "country": "Germany",
+   "v": 17.4
+  },
+  {
+   "year": 2013,
+   "country": "Iran",
+   "v": 37.7
+  },
+  {
+   "year": 2013,
+   "country": "United States",
+   "v": 55.9
+  },
+  {
+   "year": 2014,
+   "country": "China",
+   "v": 19.6
+  },
+  {
+   "year": 2014,
+   "country": "France",
+   "v": 20.7
+  },
+  {
+   "year": 2014,
+   "country": "Germany",
+   "v": 21.7
+  },
+  {
+   "year": 2014,
+   "country": "Iran",
+   "v": 33.4
+  },
+  {
+   "year": 2014,
+   "country": "United States",
+   "v": 50.2
+  },
+  {
+   "year": 2015,
+   "country": "China",
+   "v": 21.8
+  },
+  {
+   "year": 2015,
+   "country": "France",
+   "v": 14.3
+  },
+  {
+   "year": 2015,
+   "country": "Germany",
+   "v": 24.2
+  },
+  {
+   "year": 2015,
+   "country": "Iran",
+   "v": 34
+  },
+  {
+   "year": 2015,
+   "country": "United States",
+   "v": 33.9
+  },
+  {
+   "year": 2016,
+   "country": "China",
+   "v": 26.2
+  },
+  {
+   "year": 2016,
+   "country": "France",
+   "v": 25.9
+  },
+  {
+   "year": 2016,
+   "country": "Germany",
+   "v": 19.6
+  },
+  {
+   "year": 2016,
+   "country": "Iran",
+   "v": 37.7
+  },
+  {
+   "year": 2016,
+   "country": "United States",
+   "v": 30.8
+  },
+  {
+   "year": 2017,
+   "country": "China",
+   "v": 15.8
+  },
+  {
+   "year": 2017,
+   "country": "France",
+   "v": 18.6
+  },
+  {
+   "year": 2017,
+   "country": "Germany",
+   "v": 19.6
+  },
+  {
+   "year": 2017,
+   "country": "Iran",
+   "v": 41.1
+  },
+  {
+   "year": 2017,
+   "country": "United States",
+   "v": 27.6
+  },
+  {
+   "year": 2017,
+   "country": "Uzbekistan",
+   "v": 20.5
+  },
+  {
+   "year": 2018,
+   "country": "China",
+   "v": 20.8
+  },
+  {
+   "year": 2018,
+   "country": "France",
+   "v": 28.1
+  },
+  {
+   "year": 2018,
+   "country": "Germany",
+   "v": 18.3
+  },
+  {
+   "year": 2018,
+   "country": "Iran",
+   "v": 32.3
+  },
+  {
+   "year": 2018,
+   "country": "United States",
+   "v": 19.1
+  },
+  {
+   "year": 2018,
+   "country": "Uzbekistan",
+   "v": 18.8
+  },
+  {
+   "year": 2019,
+   "country": "China",
+   "v": 16.5
+  },
+  {
+   "year": 2019,
+   "country": "France",
+   "v": 27.6
+  },
+  {
+   "year": 2019,
+   "country": "Germany",
+   "v": 18.7
+  },
+  {
+   "year": 2019,
+   "country": "Iran",
+   "v": 9.9
+  },
+  {
+   "year": 2019,
+   "country": "United States",
+   "v": 13.1
+  },
+  {
+   "year": 2019,
+   "country": "Uzbekistan",
+   "v": 25.9
+  },
+  {
+   "year": 2020,
+   "country": "China",
+   "v": 24
+  },
+  {
+   "year": 2020,
+   "country": "France",
+   "v": 32.5
+  },
+  {
+   "year": 2020,
+   "country": "Germany",
+   "v": 18
+  },
+  {
+   "year": 2020,
+   "country": "Iran",
+   "v": 11.7
+  },
+  {
+   "year": 2020,
+   "country": "United States",
+   "v": 8.2
+  },
+  {
+   "year": 2020,
+   "country": "Uzbekistan",
+   "v": 28.6
+  },
+  {
+   "year": 2021,
+   "country": "China",
+   "v": 11.7
+  },
+  {
+   "year": 2021,
+   "country": "France",
+   "v": 32.3
+  },
+  {
+   "year": 2021,
+   "country": "Germany",
+   "v": 18.1
+  },
+  {
+   "year": 2021,
+   "country": "Iran",
+   "v": 10.3
+  },
+  {
+   "year": 2021,
+   "country": "United States",
+   "v": 3.4
+  },
+  {
+   "year": 2021,
+   "country": "Uzbekistan",
+   "v": 30.6
+  },
+  {
+   "year": 2022,
+   "country": "China",
+   "v": 27.3
+  },
+  {
+   "year": 2022,
+   "country": "France",
+   "v": 32.4
+  },
+  {
+   "year": 2022,
+   "country": "Germany",
+   "v": 15.5
+  },
+  {
+   "year": 2022,
+   "country": "Iran",
+   "v": 9.6
+  },
+  {
+   "year": 2022,
+   "country": "United States",
+   "v": 4.2
+  },
+  {
+   "year": 2022,
+   "country": "Uzbekistan",
+   "v": 23.6
+  },
+  {
+   "year": 2023,
+   "country": "China",
+   "v": 25.3
+  },
+  {
+   "year": 2023,
+   "country": "France",
+   "v": 30.8
+  },
+  {
+   "year": 2023,
+   "country": "Germany",
+   "v": 14.6
+  },
+  {
+   "year": 2023,
+   "country": "Iran",
+   "v": 12
+  },
+  {
+   "year": 2023,
+   "country": "United States",
+   "v": 3.1
+  },
+  {
+   "year": 2023,
+   "country": "Uzbekistan",
+   "v": 26.8
+  },
+  {
+   "year": 2024,
+   "country": "China",
+   "v": 22
+  },
+  {
+   "year": 2024,
+   "country": "France",
+   "v": 33.9
+  },
+  {
+   "year": 2024,
+   "country": "Germany",
+   "v": 14.4
+  },
+  {
+   "year": 2024,
+   "country": "United States",
+   "v": 2.2
+  },
+  {
+   "year": 2024,
+   "country": "Uzbekistan",
+   "v": 39
+  }
+ ]
+}

@@ -17,6 +17,8 @@ import './Markdown.css';
  *   {{name}} alone on a line: the element the page passes as `widgets.name`
  *   (the buyer's guide's grade table, built from the product data); nothing
  *   when the page passes none.
+ *   ![alt text](/path.svg) alone on a line: an image from this site (a site
+ *   path only), shown as a figure; an article's charts are drawn this way.
  *
  * Every heading gets an id, so a section can be linked to (/logistics#fca).
  * `## Heading {#fca}` sets it; otherwise it is made from the heading text.
@@ -32,6 +34,8 @@ const HEADING = /^(#{2,3})\s+(.+)$/;
 // An explicit anchor at the end of a heading: "## Free carrier {#fca}".
 const ANCHOR = /\s*\{#([a-z0-9][a-z0-9-]*)\}\s*$/i;
 const WIDGET = /^\{\{([a-z][a-z0-9-]*)\}\}$/;
+// An image line: alt text, then a path on this site (never another host).
+const IMAGE = /^!\[([^\]]+)\]\((\/(?!\/)[^)\s]+)\)$/;
 const BULLET = /^-\s+(.+)$/;
 const NUMBERED = /^\d+\.\s+(.+)$/;
 // Bold is tried before italic, so ***x*.** reads as bold around an italic x
@@ -42,7 +46,12 @@ const INLINE =
 const isTableRow = (line) => line.startsWith('|');
 
 const startsBlock = (line) =>
-    HEADING.test(line) || BULLET.test(line) || NUMBERED.test(line) || isTableRow(line) || WIDGET.test(line);
+    HEADING.test(line) ||
+    BULLET.test(line) ||
+    NUMBERED.test(line) ||
+    isTableRow(line) ||
+    WIDGET.test(line) ||
+    IMAGE.test(line);
 
 const splitRow = (line) =>
     line
@@ -95,6 +104,10 @@ function parseBlocks(source) {
             i++;
         } else if (WIDGET.test(line)) {
             blocks.push({ type: 'widget', name: line.match(WIDGET)[1] });
+            i++;
+        } else if (IMAGE.test(line)) {
+            const [, alt, src] = line.match(IMAGE);
+            blocks.push({ type: 'img', alt, src });
             i++;
         } else if (HEADING.test(line)) {
             const [, hashes, raw] = line.match(HEADING);
@@ -194,6 +207,12 @@ function renderBlock(block, index, options = {}) {
             const widget = options.widgets?.[block.name];
             return widget ? <Fragment key={key}>{widget}</Fragment> : null;
         }
+        case 'img':
+            return (
+                <figure className="markdown-figure" key={key}>
+                    <img src={block.src} alt={block.alt} loading="lazy" decoding="async" />
+                </figure>
+            );
         case 'h2':
             return <h2 key={key} id={block.id}>{renderInline(block.text, key)}</h2>;
         case 'h3':
