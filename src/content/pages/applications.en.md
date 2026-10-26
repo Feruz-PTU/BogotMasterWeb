@@ -1,4 +1,4 @@
-We supply licorice root to four kinds of buyer: pharmaceutical manufacturers; food, drink and tea makers; extract makers; and makers of cosmetic ingredients and products. Each page below sets out the forms that suit the use, the rules buyers in that sector work under, and the documents they ask for.
+We supply licorice root to five kinds of buyer: pharmaceutical manufacturers; food, drink and tea makers; extract makers; makers of cosmetic ingredients and products; and tobacco manufacturers. Each page below sets out the forms that suit the use, the rules buyers in that sector work under, and the documents they ask for.
 
 ## Which forms suit which use {#forms-by-use}
 

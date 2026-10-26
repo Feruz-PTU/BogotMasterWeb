@@ -262,7 +262,7 @@ export const PAGES = [
     },
     {
         // The hub: a forms-by-use table, then its sector pages, in the order
-        // below (pharmaceutical, food, extraction, cosmetics). Product pages link to the
+        // below (pharmaceutical, food, extraction, cosmetics, tobacco). Product pages link to the
         // sector pages from utils/productApplications.js.
         id: 'applications',
         path: '/applications',
@@ -280,8 +280,8 @@ export const PAGES = [
         },
         navTitle: { en: 'Applications', ru: 'Применение' },
         meta: {
-            en: 'Which licorice root forms suit pharmaceutical, food, extraction and cosmetics use, and the rules each sector works under.',
-            ru: 'Какие формы корня солодки подходят для фармацевтики, пищевой отрасли, экстракции и косметики и по каким правилам работает каждая отрасль.',
+            en: 'Which licorice root forms suit pharmaceutical, food, extraction, cosmetics and tobacco use, and the rules each sector works under.',
+            ru: 'Какие формы корня солодки подходят для фармацевтики, пищевой, косметической и табачной отраслей и экстракции и по каким правилам работает каждая отрасль.',
         },
         updated: '2026-10-26',
         priority: 0.6,
@@ -391,6 +391,35 @@ export const PAGES = [
         },
         updated: '2026-10-26',
         priority: 0.6,
+    },
+    {
+        // Strictly B2B and neutral (the owner said yes, 23 Oct 2026): no
+        // flavour, "smoother" or "milder" wording, nothing consumer-facing.
+        // US law on law.cornell.edu, TPD and 2016/787 on EUR-Lex, read on
+        // 26 Oct 2026 (_dev/research/tobacco-rules.md). The partner's extract
+        // is not offered (a raw material for purification). No product links
+        // or hub column until the sales rep names the forms tobacco buyers take.
+        id: 'applications-tobacco',
+        path: '/applications/tobacco',
+        parent: 'applications',
+        section: 'applications',
+        schemaType: 'WebPage',
+        languages: ['en', 'ru'],
+        title: {
+            en: 'Licorice Root for Tobacco Manufacturing | Bogot Master',
+            ru: 'Корень солодки для табачной промышленности | Bogot Master',
+        },
+        h1: {
+            en: 'Licorice root for tobacco manufacturing',
+            ru: 'Корень солодки для табачного производства',
+        },
+        navTitle: { en: 'Tobacco', ru: 'Для табачной отрасли' },
+        meta: {
+            en: 'Licorice root for tobacco manufacturers: the US and EU rules on characterising flavours and ingredient reporting, our documents and the forms we supply.',
+            ru: 'Корень солодки для табачной отрасли: правила США и ЕС о характерных ароматах и отчётности по ингредиентам, наши документы и формы поставки.',
+        },
+        updated: '2026-10-26',
+        priority: 0.5,
     },
     {
         // The FAQ (folders 17–18). The Markdown is only the intro; the answers
