@@ -58,13 +58,13 @@ The European Pharmacopoeia, published by the Council of Europe's European Direct
 The United States Pharmacopeia, the US book of standards for medicines, dietary supplements and their ingredients.
 
 ### Loss on drying and moisture {#loss-on-drying}
-Loss on drying is the weight a sample loses when dried under set conditions, given as a percentage; it counts water and anything else that evaporates. Moisture, or water content, counts water only. A specification should say which one it means, and by which method.
+Loss on drying is the weight a sample loses when dried under set conditions, given as a percentage; it counts water and anything else that evaporates. Moisture, or water content, counts water only. A specification should say which one it means, and by which method. The European Pharmacopoeia sets loss on drying for liquorice root at not more than 10.0 %.
 
 ### Total ash {#total-ash}
-What remains after a sample is burnt: the plant's own minerals plus any soil or sand. A high value points to soil or sand on the root.
+What remains after a sample is burnt: the plant's own minerals plus any soil or sand. A high value points to soil or sand on the root. The European Pharmacopoeia allows at most 10.0 % for unpeeled liquorice root and 6.0 % for peeled.
 
 ### Acid-insoluble ash {#acid-insoluble-ash}
-The part of the ash that does not dissolve in dilute hydrochloric acid: mostly sand and silica, so it measures the soil left on the root. US food rules allow at most 2.5 % for licorice (21 CFR 184.1408).
+The part of the ash that does not dissolve in dilute hydrochloric acid: mostly sand and silica, so it measures the soil left on the root. The European Pharmacopoeia allows at most 2.0 % for unpeeled liquorice root and 0.5 % for peeled; US food rules allow at most 2.5 % for licorice (21 CFR 184.1408).
 
 ### Foreign matter {#foreign-matter}
 Anything in a lot that is not the specified plant part, such as stems, leaves, other plants, stones or soil.
@@ -193,6 +193,7 @@ Thin root, under 7 mm across, cut roughly by machine: a low-cost raw material fo
 ## Sources {#sources}
 
 - European Medicines Agency, [Liquiritiae radix](https://www.ema.europa.eu/en/medicines/herbal/liquiritiae-radix): the EU herbal monograph and its assessment report, which quote the Ph. Eur. 0277 definition and the 4.0 % minimum.
+- European Pharmacopoeia, monograph 0277, Liquorice root (Liquiritiae radix), printed edition: loss on drying, total ash, acid-insoluble ash, identification, assay and labelling. The edition in force is sold by the [EDQM](https://www.edqm.eu/).
 - Pastorino G. et al., "Liquorice (*Glycyrrhiza glabra*): a phytochemical and pharmacological review", *Phytotherapy Research* 32 (2018); Kondo K. et al., *Biological and Pharmaceutical Bulletin* 30 (2007): glabridin, liquiritin and the species markers.
 - World Health Organization, [Model certificate of analysis](https://cdn.who.int/media/docs/default-source/medicines/norms-and-standards/guidelines/quality-control/who-model-certificate-of-analysis.pdf), TRS 1010 (2018), Annex 4.
 - [United States Pharmacopeia](https://www.usp.org/).

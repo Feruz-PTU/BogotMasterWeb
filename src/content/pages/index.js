@@ -128,12 +128,12 @@ export const PAGES = [
             en: 'Which licorice root form suits your process, slice and tablet grades by root diameter in mm, peeled or unpeeled, and when to order a custom cut.',
             ru: 'Какая форма корня солодки подходит вашему производству, фракции слайсов и таблеток по диаметру в мм, очищенный корень и своя нарезка.',
         },
-        updated: '2026-10-26',
+        updated: '2026-10-30',
         priority: 0.6,
     },
     {
         // Chapter 2 (Appendix B §B3; folder 20). Limits only from texts read:
-        // Ph. Eur. 0277 via the EMA report (the 4.0 % minimum only), ГФ
+        // Ph. Eur. 0277 via the EMA report (4.0 % minimum) and photos of a printed edition (loss on drying, ash; _dev/photos/eu pharm), ГФ
         // ФС.2.5.0040.15, 21 CFR 184.1408, EU 2023/915; COA fields from WHO
         // TRS 1010 Annex 4. The annotated sample COA waits for a lab result.
         id: 'buyers-guide-reading-a-specification',
@@ -155,7 +155,7 @@ export const PAGES = [
             en: 'What each line of a licorice root specification means: glycyrrhizic acid, moisture, ash, foreign matter, microbiology, contaminants and the COA.',
             ru: 'Что означает каждая строка спецификации на корень солодки: глицирризиновая кислота, влажность, зола, примеси, микробиология, загрязнители и COA.',
         },
-        updated: '2026-10-24',
+        updated: '2026-10-30',
         priority: 0.6,
     },
     {
@@ -257,7 +257,7 @@ export const PAGES = [
             en: 'Short definitions of 60 terms in licorice root trade: the plant and its chemistry, quality tests, Incoterms, payment, documents and product forms.',
             ru: 'Краткие определения 60 терминов торговли корнем солодки: растение и химия, анализы качества, Incoterms, оплата, документы и формы продукции.',
         },
-        updated: '2026-10-25',
+        updated: '2026-10-30',
         priority: 0.5,
     },
     {
@@ -308,7 +308,7 @@ export const PAGES = [
             en: 'Liquorice root as a herbal substance: Ph. Eur. 0277, the EMA monograph, the Russian pharmacopoeia and the documents pharma buyers ask for.',
             ru: 'Корень солодки как лекарственное растительное сырьё: Ph. Eur. 0277, монография EMA, ФС.2.5.0040.15 и документы для фармацевтических закупок.',
         },
-        updated: '2026-10-24',
+        updated: '2026-10-30',
         priority: 0.6,
     },
     {
@@ -362,7 +362,7 @@ export const PAGES = [
             en: "Licorice root as feedstock for extract makers: industrial and extraction grades, cut root, what to specify, yearly supply and our partner's extract.",
             ru: 'Корень солодки как сырьё для производителей экстрактов: промышленный и экстракционный сорта, резаный корень, спецификация, годовые поставки.',
         },
-        updated: '2026-10-26',
+        updated: '2026-10-30',
         priority: 0.6,
     },
     {
@@ -389,7 +389,7 @@ export const PAGES = [
             en: 'Licorice root for cosmetics makers: INCI names checked in CosIng, the EU Cosmetics Regulation, and the microbiology and heavy-metal data we provide.',
             ru: 'Корень солодки для производителей косметики: названия INCI по базе CosIng, Регламент ЕС о косметике, данные по микробиологии и тяжёлым металлам.',
         },
-        updated: '2026-10-26',
+        updated: '2026-10-30',
         priority: 0.6,
     },
     {
@@ -472,7 +472,7 @@ export const PAGES = [
             en: 'Each step from dug root to packed bag: washing, peeling, steaming, cutting, drying, sorting and packing, and the checks we make along the way.',
             ru: 'Все этапы от выкопанного корня до упакованного мешка: мойка, очистка, пропаривание, нарезка, сушка, сортировка, упаковка и проверки по ходу.',
         },
-        updated: '2026-10-25',
+        updated: '2026-10-30',
         priority: 0.6,
     },
     {

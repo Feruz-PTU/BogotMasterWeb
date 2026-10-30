@@ -22,7 +22,7 @@ So compare figures obtained by the same method on the same basis, and ask for bo
 
 [Loss on drying](/buyers-guide/glossary#loss-on-drying) is the weight a sample loses when dried under set conditions: water plus anything else that evaporates. Moisture, or water content, counts water only. A specification should say which of the two it means, and by which method.
 
-Moisture matters twice: you pay for the water in the load, and the drier the root, the less room mould has to grow in storage. Our specifications set moisture at not more than 8 %, and every load's certificate of analysis gives it. The Russian monograph allows up to 14 %.
+Moisture matters twice: you pay for the water in the load, and the drier the root, the less room mould has to grow in storage. Our specifications set moisture at not more than 8 %, and every load's certificate of analysis gives it. The Russian monograph allows up to 14 %. The European Pharmacopoeia sets loss on drying instead: not more than 10.0 %, after 2 hours at 105 °C.
 
 ## Total ash and acid-insoluble ash {#ash}
 
@@ -30,10 +30,11 @@ Moisture matters twice: you pay for the water in the load, and the drier the roo
 
 | Standard | Total ash | Acid-insoluble ash |
 |---|---|---|
+| European Pharmacopoeia, monograph 0277 | Not more than 10.0 %; peeled root, not more than 6.0 % | Not more than 2.0 %; peeled root, not more than 0.5 % |
 | Russian State Pharmacopoeia, ФС.2.5.0040.15 | Not more than 8 % | Not more than 2.5 %; whole peeled root, not more than 1 % |
 | US 21 CFR 184.1408 (food use) | Not more than 9.5 %, anhydrous | Not more than 2.5 %, anhydrous |
 
-For the European Pharmacopoeia's limits, see monograph 0277 itself. Washing removes soil from the surface, and peeling removes it with the bark, so both lower acid-insoluble ash. Our specifications set ash at not more than 7 % for washed root, 6 % for peeled root and 10 % for unwashed root, and the laboratory measures it for every load. Sticks and fingers are unwashed unless you ask for washing. Name the limit your specification sets in your enquiry.
+The European figures are from a printed edition of the monograph; check the edition your specification cites. Washing removes soil from the surface, and peeling removes it with the bark, so both lower acid-insoluble ash. Our specifications set ash at not more than 7 % for washed root, 6 % for peeled root and 10 % for unwashed root, and the laboratory measures it for every load. Sticks and fingers are unwashed unless you ask for washing. Name the limit your specification sets in your enquiry.
 
 ## Foreign matter {#foreign-matter}
 
@@ -79,6 +80,7 @@ Each of our export loads has a certificate of analysis from a professional labor
 ## Sources {#sources}
 
 - European Medicines Agency, [Liquiritiae radix](https://www.ema.europa.eu/en/medicines/herbal/liquiritiae-radix): the assessment report quotes the European Pharmacopoeia monograph 0277, its definition and its 4.0 % minimum.
+- European Pharmacopoeia, monograph 0277, Liquorice root (Liquiritiae radix), printed edition: loss on drying, total ash, acid-insoluble ash, identification, assay and labelling. The edition in force is sold by the [EDQM](https://www.edqm.eu/).
 - Ministry of Health of the Russian Federation, [ФС.2.5.0040.15 «Солодки корни»](https://static-0.minzdrav.gov.ru/system/attachments/attaches/000/027/509/original/2.5.40._%28%D0%A4%D0%A1.2.5.0040.15%29.docx) (Word file, in Russian).
 - [21 CFR 184.1408](https://www.govinfo.gov/content/pkg/CFR-2025-title21-vol3/xml/CFR-2025-title21-vol3-sec184-1408.xml), Licorice and licorice derivatives (edition of 1 April 2025).
 - [Regulation (EU) 2023/915](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02023R0915-20260819) on maximum levels for certain contaminants in food, Annex I, entry 1.2.19.

@@ -17,22 +17,22 @@ Liquiritiae radix is the pharmacopoeial name of liquorice root. The table compar
 | Requirement | European Pharmacopoeia 0277 | State Pharmacopoeia of the Russian Federation, ФС.2.5.0040.15 | US 21 CFR 184.1408 (food use) |
 |---|---|---|---|
 | Species | *G. glabra*, *G. inflata* and *G. uralensis* | *G. glabra* and *G. uralensis*, wild-growing | *G. glabra* or other *Glycyrrhiza* species |
-| Peeled or unpeeled | Both | Both | — |
-| Marker | 18β-glycyrrhizic acid, not less than 4.0 %, on the dried drug | Glycyrrhizic acid, not less than 6 %, on absolutely dry material (UV, 258 nm) | Glycyrrhizin measured by a set AOAC method; no minimum |
-| Moisture | See the monograph | Not more than 14 % | — |
-| Total ash | See the monograph | Not more than 8 % | Not more than 9.5 %, anhydrous |
-| Acid-insoluble ash | See the monograph | Not more than 2.5 %; whole peeled root, not more than 1 % | Not more than 2.5 %, anhydrous |
-| Foreign matter | See the monograph | Organic and mineral matter each not more than 1 % (unpeeled), 0.5 % (peeled) | — |
-| Heavy metals | See the monograph | By the general monograph | Not more than 40 ppm (as lead); arsenic not more than 3 ppm |
-| Identification | See the monograph | Thin-layer chromatography against 18β-glycyrrhizic acid and quercetin reference standards | — |
+| Peeled or unpeeled | Both; the label states which | Both | — |
+| Marker | Glycyrrhizic acid, not less than 4.0 %, on the dried drug (liquid chromatography) | Glycyrrhizic acid, not less than 6 %, on absolutely dry material (UV, 258 nm) | Glycyrrhizin measured by a set AOAC method; no minimum |
+| Moisture or loss on drying | Loss on drying not more than 10.0 % (105 °C, 2 hours) | Not more than 14 % | — |
+| Total ash | Not more than 10.0 %; peeled root, not more than 6.0 % | Not more than 8 % | Not more than 9.5 %, anhydrous |
+| Acid-insoluble ash | Not more than 2.0 %; peeled root, not more than 0.5 % | Not more than 2.5 %; whole peeled root, not more than 1 % | Not more than 2.5 %, anhydrous |
+| Foreign matter | By the general monograph on herbal drugs | Organic and mineral matter each not more than 1 % (unpeeled), 0.5 % (peeled) | — |
+| Heavy metals | By the general monograph on herbal drugs | By the general monograph | Not more than 40 ppm (as lead); arsenic not more than 3 ppm |
+| Identification | Description of the root, microscopy of the powder, and thin-layer chromatography against glycyrrhetic acid | Thin-layer chromatography against 18β-glycyrrhizic acid and quercetin reference standards | — |
 
-The figures differ partly because each standard sets its own methods and basis: the Russian monograph measures glycyrrhizic acid by UV absorbance on absolutely dry material; the European one states its minimum on the dried drug. A lot that meets one standard is not automatically tested to another, so name the standard you buy to in your enquiry. The Russian figures are from the monograph's 2015 text; check the edition in force for your registration.
+The figures differ partly because each standard sets its own methods and basis: the Russian monograph measures glycyrrhizic acid by UV absorbance on absolutely dry material; the European one measures it by liquid chromatography and states its minimum on the dried drug. A lot that meets one standard is not automatically tested to another, so name the standard you buy to in your enquiry. The Russian figures are from the monograph's 2015 text. The European figures are from a printed edition of monograph 0277; the 01/2012 text quoted by the EMA names the marker 18β-glycyrrhizic acid. Check the edition in force for your registration.
 
 Glycyrrhizic acid content tends to follow root diameter and harvest season. If your specification sets a higher minimum, such as the Russian monograph's 6 %, say so in your enquiry: lots richer in glycyrrhizic acid can be selected.
 
 If you buy to the United States Pharmacopeia, send its monograph with your enquiry; we do not quote it here.
 
-Pharmacopoeial root is also tested for contaminants: heavy metals, pesticide residues, radionuclides and microbial contamination. The Russian monograph sets these by its general monographs (ОФС), not in its own text. Our product pages give the moisture, ash and microbiology limits. Each load's certificate of analysis from the laboratory always covers glycyrrhizic acid, ash and moisture; heavy metals, pesticide residues and other tests are added when you name them in your enquiry.
+Pharmacopoeial root is also tested for contaminants: heavy metals, pesticide residues, radionuclides and microbial contamination. Both pharmacopoeias set these by their general monographs, not in the root's own text: the Russian one by its ОФС, the European one by its general monograph on herbal drugs. Our product pages give the moisture, ash and microbiology limits. Each load's certificate of analysis from the laboratory always covers glycyrrhizic acid, ash and moisture; heavy metals, pesticide residues and other tests are added when you name them in your enquiry.
 
 ## Regulatory status in the EU {#eu-status}
 
@@ -48,7 +48,7 @@ The three licorice species can usually be told apart by typical compounds: glabr
 
 ## Peeled or unpeeled {#peeled}
 
-Both pharmacopoeias accept peeled and unpeeled root. The Russian monograph sets tighter limits for peeled root: acid-insoluble ash not more than 1 % for whole peeled root, and organic and mineral matter not more than 0.5 % each. We peel by hand and by machine, and peeled root needs no washing, because the soil comes off with the bark. See [peeled sticks](/products/peeled-sticks).
+Both pharmacopoeias accept peeled and unpeeled root, and both set tighter limits for peeled root. The European monograph allows total ash of not more than 6.0 % and acid-insoluble ash of not more than 0.5 % for peeled root, against 10.0 % and 2.0 % for unpeeled, and the label must state whether the root is peeled. The Russian monograph sets acid-insoluble ash at not more than 1 % for whole peeled root, and organic and mineral matter at not more than 0.5 % each. We peel by hand and by machine, and peeled root needs no washing, because the soil comes off with the bark. See [peeled sticks](/products/peeled-sticks).
 
 Soil left on unpeeled root shows up as [acid-insoluble ash](/buyers-guide/glossary#acid-insoluble-ash). If your specification is tight on it, ask for washed or peeled root: sticks and fingers are washed on request. Our ash limits are not more than 6 % for peeled root, 7 % for washed root and 10 % for unwashed root.
 
@@ -89,6 +89,7 @@ For a quote, a sample or an audit visit, use the button below.
 ## Sources {#sources}
 
 - European Medicines Agency, [Liquiritiae radix](https://www.ema.europa.eu/en/medicines/herbal/liquiritiae-radix): the EU herbal monograph, Revision 1 (EMA/HMPC/108399/2024, adopted 4 March 2026), and its assessment report, which quotes the Ph. Eur. 0277 definition and the 4.0 % minimum.
+- European Pharmacopoeia, monograph 0277, Liquorice root (Liquiritiae radix), printed edition: loss on drying, total ash, acid-insoluble ash, identification, assay and labelling. The edition in force is sold by the [EDQM](https://www.edqm.eu/).
 - Ministry of Health of the Russian Federation, [ФС.2.5.0040.15 «Солодки корни»](https://static-0.minzdrav.gov.ru/system/attachments/attaches/000/027/509/original/2.5.40._%28%D0%A4%D0%A1.2.5.0040.15%29.docx) (Word file, in Russian), read on 24 October 2026.
 - [21 CFR 184.1408](https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-184/subpart-B/section-184.1408), Licorice and licorice derivatives.
 - EMA, [Guideline on GACP for starting materials of herbal origin](https://www.ema.europa.eu/system/files/documents/scientific-guideline/hmpc-guideline-gacp-may-2025_en.pdf), EMA/HMPC/246816/2005 Rev. 1, adopted 9 July 2025.
