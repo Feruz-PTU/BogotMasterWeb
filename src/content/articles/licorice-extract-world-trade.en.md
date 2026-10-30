@@ -1,6 +1,6 @@
 Countries reported USD 128 million of licorice (liquorice) extract exports to UN Comtrade for 2024, a year for which Iran and the United Arab Emirates have not yet reported. Reported exports peaked at USD 219 million in 2013, leaving aside one outlying record for 2019. The United States led until 2014, Iran in 2015–2017, the United Arab Emirates in 2018 and France in 2019–2023; among the countries that have reported 2024, Uzbekistan, France and China were the largest. Uzbekistan has reported its trade only since 2017. This article sets out what the statistics show, and where they fall short.
 
-Licorice extract has its own subheading in the Harmonized System (HS), the customs nomenclature most countries use: 1302.12, "saps and extracts of liquorice". The figures below are the values and weights that countries report under that subheading to the United Nations' trade database, UN Comtrade, from 2000 to 2025. Figures for 2024 and 2025 are still incomplete.
+Licorice extract has its own subheading in the Harmonized System (HS), the customs nomenclature most countries use: 1302.12, for saps and extracts of liquorice. The figures below are the values and weights that countries report under that subheading to the United Nations' trade database, UN Comtrade, from 2000 to 2025. Figures for 2024 and 2025 are still incomplete.
 
 ## What HS 1302.12 covers {#hs-1302-12}
 
@@ -12,7 +12,7 @@ It takes several kilograms of root to make one of extract. The EU's contaminant 
 
 The same committee listed the products through which glycyrrhizinic acid reaches people: confectionery, beverages, chewing gum, toothpaste, medicinal products and tobacco. It noted that liquorice extract is added to tobacco products at up to 4 %.
 
-Subheading 1302.12 covers extract as liquid, block or powder. Chemically defined glycyrrhizic acid and its salts, such as ammonium glycyrrhizate, are classified elsewhere, among the glycosides of heading 29.38 (the UK tariff, for example, has a line 2938 90 30 "Glycyrrhizic acid and glycyrrhizates": [UK Trade Tariff, heading 2938](https://www.trade-tariff.service.gov.uk/headings/2938)). Even so, 1302.12 spans a wide range of products, so a tonne under this code can mean very different things.
+Subheading 1302.12 covers extract as liquid, block or powder. Chemically defined glycyrrhizic acid and its salts, such as ammonium glycyrrhizate, are classified elsewhere, among the glycosides of heading 29.38 (the UK tariff, for example, has a line 2938 90 30 "Glycyrrhizic acid and glycyrrhizates": [UK Trade Tariff, heading 2938](https://www.trade-tariff.service.gov.uk/headings/2938)). Even so, 1302.12 spans a wide range of products, so a tonne under this code can mean very different things. How the forms of licorice extract differ, and how each is specified, is set out in our article [Licorice extract: block, paste, powder and liquid](/articles/licorice-extract-forms).
 
 ## Who exports licorice extract {#exporters}
 

@@ -24,6 +24,32 @@
  */
 export const ARTICLES = [
     {
+        // Folders 36–37: drafted as a Claude Doc (30 Oct 2026), reviewed by
+        // three agents (facts, claims, clarity). The US Pharmacopeia texts
+        // cited are older editions on a mirror site; see the Sources section.
+        slug: 'licorice-extract-forms',
+        published: '2026-10-30',
+        languages: {
+            en: {
+                title: 'Licorice Extract Forms: Block, Paste, Powder and Liquid, and How They Are Specified',
+                shortTitle: 'Licorice Extract: Block, Paste, Powder and Liquid',
+                summary:
+                    'How licorice extract is made and sold as block or paste, spray-dried powder and liquid: what the standards set for glycyrrhizic acid, dry matter and contaminants, which industries use each form, and how they are classified under HS 1302.12.',
+                description:
+                    'Licorice extract as block, paste, spray-dried powder and liquid: how each is made, glycyrrhizic acid and dry-matter specs, uses and HS 1302.12.',
+            },
+            ru: {
+                title: 'Формы экстракта солодки: блок, паста, порошок, жидкость и их спецификации',
+                shortTitle: 'Экстракт солодки: блок, паста, порошок и жидкость',
+                summary:
+                    'Как получают экстракт солодки и в каких формах его продают — блок или паста, порошок распылительной сушки и жидкость: что стандарты задают для глицирризиновой кислоты, сухого вещества и загрязнителей, какие отрасли используют каждую форму и как их классифицируют в ГС (субпозиция 1302.12).',
+                description:
+                    'Экстракт солодки: блок, паста, порошок и жидкость — как получают, нормы по глицирризиновой кислоте и сухому веществу, применение, код ГС 1302.12.',
+                translatedFrom: 'en',
+            },
+        },
+    },
+    {
         // Folders 34–35: drafted as a Claude Doc, reviewed by three agents
         // (facts, claims, clarity) on 26 Oct 2026. UN Comtrade figures pulled
         // on 26 Oct 2026; the charts are SVGs drawn by

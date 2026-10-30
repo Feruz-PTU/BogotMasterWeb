@@ -2,7 +2,7 @@ Extract makers buy licorice root as feedstock: what they take out of it, with wa
 
 ## Who buys feedstock {#buyers}
 
-- **Makers of licorice extract**, sold as liquid, paste or powder. The US food rule describes licorice extract as the part of the root extracted by boiling water after maceration, then sometimes purified (21 CFR 184.1408).
+- **Makers of licorice extract**, sold as liquid, paste or powder. The US food rule describes licorice extract as the part of the root extracted by boiling water after maceration, then sometimes purified (21 CFR 184.1408). How the forms are made and specified is in our article [Licorice extract: block, paste, powder and liquid](/articles/licorice-extract-forms).
 - **Makers of glycyrrhizin products**: ammoniated glycyrrhizin is made from the water extract of the root, by acid precipitation and neutralisation with dilute ammonia, and monoammonium glycyrrhizinate from that (the same rule).
 - **Makers of herbal extracts for medicines**, which buy to a pharmacopoeia; see our [pharmaceutical page](/applications/pharmaceutical).
 
