@@ -437,9 +437,10 @@ const TRANSLATION_GROUPS = [
  * every licorice root product shares. "Add product" and a direct visit to
  * /admin/products/new both use it; the second used to carry its own, older
  * list ("Wild + artificial", "Within WHO/EU limits").
- * Moisture ≤ 12 % is what every root product states. Ash is on every load's
- * laboratory certificate of analysis (with glycyrrhizic acid and moisture);
- * heavy metals and pesticides are tested on request (sales rep, 24–25 Oct 2026).
+ * Moisture ≤ 8 % is what every root product states. Ash: ≤ 7 % washed (the
+ * default), ≤ 6 % peeled, ≤ 10 % unwashed (new tests, sales rep, 30 Oct 2026);
+ * set it by hand for peeled or unwashed root. Both are on every load's
+ * certificate of analysis; heavy metals and pesticides are tested on request.
  */
 function newProductSpecs(langs) {
     const defaults = {
@@ -453,7 +454,8 @@ function newProductSpecs(langs) {
         processing: '',
         packaging: 'PP bags 20/21/25/30 kg',
         moq: '',
-        moisture: '≤ 12%',
+        moisture: '≤ 8%',
+        ash: '≤ 7%',
         glycyrrhizin: '',
         foreign_matter: '≤ 1%',
         tpc: '≤ 100,000 CFU/g',
@@ -465,7 +467,6 @@ function newProductSpecs(langs) {
         documents: [],
     };
     const onRequest = { ru: 'По запросу' };
-    const onCoa = { ru: 'В сертификате анализа каждой партии' };
     // The Russian block gets Russian words, not the English defaults.
     const translated = {
         ru: {
@@ -484,8 +485,7 @@ function newProductSpecs(langs) {
     const s = {};
     langs.forEach((l) => {
         const v = onRequest[l.code] || 'Available on request';
-        const ash = onCoa[l.code] || "On each load's certificate of analysis";
-        s[l.code] = { ...defaults, ...translated[l.code], ash, heavy_metals: v, pesticide_residues: v };
+        s[l.code] = { ...defaults, ...translated[l.code], heavy_metals: v, pesticide_residues: v };
     });
     return s;
 }
@@ -2225,8 +2225,8 @@ const AdminDashboard = () => {
                                             </button>
                                             {openSpecSections.quality && (<>
                                                 <div className="admin-fields-row">
-                                                    <div className="admin-field"><label>Moisture</label><input value={productForm.specs?.[prodLangTab]?.moisture || ''} onChange={e => handleSpecChange('moisture', e.target.value)} placeholder="≤ 12%" /></div>
-                                                    <div className="admin-field"><label>Ash</label><input value={productForm.specs?.[prodLangTab]?.ash || ''} onChange={e => handleSpecChange('ash', e.target.value)} placeholder="On each load's certificate of analysis" /></div>
+                                                    <div className="admin-field"><label>Moisture</label><input value={productForm.specs?.[prodLangTab]?.moisture || ''} onChange={e => handleSpecChange('moisture', e.target.value)} placeholder="≤ 8%" /></div>
+                                                    <div className="admin-field"><label>Ash</label><input value={productForm.specs?.[prodLangTab]?.ash || ''} onChange={e => handleSpecChange('ash', e.target.value)} placeholder="≤ 7% washed, ≤ 6% peeled, ≤ 10% unwashed" /></div>
                                                 </div>
                                                 <div className="admin-fields-row">
                                                     <div className="admin-field"><label>Glycyrrhizic acid</label><input value={productForm.specs?.[prodLangTab]?.glycyrrhizin || ''} onChange={e => handleSpecChange('glycyrrhizin', e.target.value)} placeholder="≥ 4% (root) / 8–12% (extract)" /></div>

@@ -21,7 +21,7 @@ export const SEED_PRODUCTS = [
             packaging: 'PP bags 25 kg',
             moq: '',
             moisture: '≤ 8%',
-            ash: "On each load's certificate of analysis",
+            ash: '≤ 10% (≤ 7% if washed)',
             glycyrrhizin: '≥ 4%',
             foreign_matter: '≤ 1%',
             heavy_metals: 'Available on request',

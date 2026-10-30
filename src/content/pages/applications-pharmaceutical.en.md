@@ -32,7 +32,7 @@ Glycyrrhizic acid content tends to follow root diameter and harvest season. If y
 
 If you buy to the United States Pharmacopeia, send its monograph with your enquiry; we do not quote it here.
 
-Pharmacopoeial root is also tested for contaminants: heavy metals, pesticide residues, radionuclides and microbial contamination. The Russian monograph sets these by its general monographs (ОФС), not in its own text. Our product pages give the microbiology limits. Each load's certificate of analysis from the laboratory always covers glycyrrhizic acid, ash and moisture; heavy metals, pesticide residues and other tests are added when you name them in your enquiry.
+Pharmacopoeial root is also tested for contaminants: heavy metals, pesticide residues, radionuclides and microbial contamination. The Russian monograph sets these by its general monographs (ОФС), not in its own text. Our product pages give the moisture, ash and microbiology limits. Each load's certificate of analysis from the laboratory always covers glycyrrhizic acid, ash and moisture; heavy metals, pesticide residues and other tests are added when you name them in your enquiry.
 
 ## Regulatory status in the EU {#eu-status}
 
@@ -50,7 +50,7 @@ The three licorice species can usually be told apart by typical compounds: glabr
 
 Both pharmacopoeias accept peeled and unpeeled root. The Russian monograph sets tighter limits for peeled root: acid-insoluble ash not more than 1 % for whole peeled root, and organic and mineral matter not more than 0.5 % each. We peel by hand and by machine, and peeled root needs no washing, because the soil comes off with the bark. See [peeled sticks](/products/peeled-sticks).
 
-Soil left on unpeeled root shows up as [acid-insoluble ash](/buyers-guide/glossary#acid-insoluble-ash). If your specification is tight on it, ask for washed or peeled root: sticks and fingers are washed on request.
+Soil left on unpeeled root shows up as [acid-insoluble ash](/buyers-guide/glossary#acid-insoluble-ash). If your specification is tight on it, ask for washed or peeled root: sticks and fingers are washed on request. Our ash limits are not more than 6 % for peeled root, 7 % for washed root and 10 % for unwashed root.
 
 ## How the root is handled {#handling}
 

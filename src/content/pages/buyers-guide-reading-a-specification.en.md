@@ -2,7 +2,7 @@ A specification is the agreed list of a product's properties and limits: what a 
 
 ## Maximum, minimum and typical {#limits}
 
-- **"≤" or "not more than"** is a maximum: moisture ≤ 12 % means any result up to 12 % passes.
+- **"≤" or "not more than"** is a maximum: moisture ≤ 8 % means any result up to 8 % passes.
 - **"≥" or "not less than"** is a minimum: glycyrrhizic acid ≥ 4 % means a result of 4 % or more passes.
 - **"Absent"** means not found in the amount tested. A good specification says how much: Salmonella absent in 25 g is a different test from absent in 1 g.
 - **A typical value** is what is usually found. It is information, not a limit, and a lot can differ from it.
@@ -22,7 +22,7 @@ So compare figures obtained by the same method on the same basis, and ask for bo
 
 [Loss on drying](/buyers-guide/glossary#loss-on-drying) is the weight a sample loses when dried under set conditions: water plus anything else that evaporates. Moisture, or water content, counts water only. A specification should say which of the two it means, and by which method.
 
-Moisture matters twice: you pay for the water in the load, and the drier the root, the less room mould has to grow in storage. Our specifications set moisture at not more than 12 %, and every load's certificate of analysis gives it. The Russian monograph allows up to 14 %.
+Moisture matters twice: you pay for the water in the load, and the drier the root, the less room mould has to grow in storage. Our specifications set moisture at not more than 8 %, and every load's certificate of analysis gives it. The Russian monograph allows up to 14 %.
 
 ## Total ash and acid-insoluble ash {#ash}
 
@@ -33,7 +33,7 @@ Moisture matters twice: you pay for the water in the load, and the drier the roo
 | Russian State Pharmacopoeia, ФС.2.5.0040.15 | Not more than 8 % | Not more than 2.5 %; whole peeled root, not more than 1 % |
 | US 21 CFR 184.1408 (food use) | Not more than 9.5 %, anhydrous | Not more than 2.5 %, anhydrous |
 
-For the European Pharmacopoeia's limits, see monograph 0277 itself. Washing removes soil from the surface, and peeling removes it with the bark, so both lower acid-insoluble ash. Our specifications give ash as "on each load's certificate of analysis": the laboratory measures it for every load. Name the limit your specification sets in your enquiry.
+For the European Pharmacopoeia's limits, see monograph 0277 itself. Washing removes soil from the surface, and peeling removes it with the bark, so both lower acid-insoluble ash. Our specifications set ash at not more than 7 % for washed root, 6 % for peeled root and 10 % for unwashed root, and the laboratory measures it for every load. Sticks and fingers are unwashed unless you ask for washing. Name the limit your specification sets in your enquiry.
 
 ## Foreign matter {#foreign-matter}
 

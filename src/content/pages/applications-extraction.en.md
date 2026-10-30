@@ -17,7 +17,8 @@ Uzbekistan was the largest exporter of licorice extract by value in 2024 among t
 | Root | Medium roots, 5–20 mm across | Thin roots, under 7 mm across |
 | Cut | Pieces under 5 cm | Cut roughly into 2–5 cm pieces |
 | Glycyrrhizic acid | At least 4 % | At least 3.5 % |
-| Moisture | Not more than 12 % | Not more than 12 % |
+| Moisture | Not more than 8 % | Not more than 8 % |
+| Ash | Not more than 7 % | Not more than 10 % |
 | Processing | Washed by machine, steamed, cut by machine, dried, sieved | Not washed; dried in the open air, cut by machine, sieved |
 | Packing | PP bags of 20, 21, 25 or 30 kg | PP bags of 20, 21, 25 or 30 kg |
 

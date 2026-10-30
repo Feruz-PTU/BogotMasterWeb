@@ -42,11 +42,12 @@ The safety report needs the microbiological specification of each substance and 
 | Total plate count | Not more than 100,000 CFU/g |
 | Yeast and mould | Not more than 1,000 CFU/g |
 | *E. coli* and *Salmonella* | Absent |
-| Moisture | Not more than 12 % |
+| Moisture | Not more than 8 % |
+| Ash | Not more than 7 % for washed root, 6 % for peeled root, 10 % for unwashed root |
 | Foreign matter | Not more than 1 % |
 | Heavy metals and pesticide residues | Tested per load when you ask |
 
-These are the figures for dried root, the same on every root product page. Set the limits your own ingredient or product needs, and we quote against them.
+These are the figures for dried root, the same on every root product page except ash, which depends on whether the root is washed or peeled. Set the limits your own ingredient or product needs, and we quote against them.
 
 - **Certificate of analysis:** for every export load, from a professional laboratory in Uzbekistan that you can choose. It always covers glycyrrhizic acid, ash and moisture. Lead, cadmium, mercury, arsenic, pesticide residues or microbiology are added when you name them in your enquiry.
 - **Origin:** all our root is wild *Glycyrrhiza glabra*, dug across Khorezm under a permit from the National Committee of the Republic of Uzbekistan for Ecology and Climate Change. A certificate of origin goes with every load. More on the [origin page](/about/origin).

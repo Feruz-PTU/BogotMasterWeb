@@ -65,7 +65,7 @@ In summer the cut root dries in the open air, spread on tarps on our concrete ya
 
 On overcast summer days the root goes into air-circulation dryers, without heat. In winter, and in cold or rainy weather, it dries in a heated dryer. The thin extraction-grade root is dried in the open air.
 
-**Checked at this step:** moisture. We check it on site with a moisture analyser: a scale with a heating lamp, which weighs a sample, heats it to 105 °C until its weight stops changing, and gives the moisture from the weight lost. The specification allows at most 12 %, and the laboratory also measures the moisture of every load (see [testing each load](#testing)).
+**Checked at this step:** moisture. We check it on site with a moisture analyser: a scale with a heating lamp, which weighs a sample, heats it to 105 °C until its weight stops changing, and gives the moisture from the weight lost. The specification allows at most 8 %, and the laboratory also measures the moisture of every load (see [testing each load](#testing)).
 
 {{photos-processing-drying}}
 

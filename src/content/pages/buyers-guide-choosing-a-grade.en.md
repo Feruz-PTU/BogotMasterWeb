@@ -25,7 +25,7 @@ These are the usual choices, not rules: any form can be ordered for any use. The
 | [Industrial grade](/products/industrial-grade) | Machine-cut pieces | Under 5 cm long, from root 5–20 mm across |
 | [Extraction grade](/products/extraction-grade) | Cut roughly by machine | 2–5 cm long, from root under 7 mm across |
 
-Each product page gives the full specification, including moisture (not more than 12 %) and the processing steps; [Reading a specification](/buyers-guide/reading-a-specification) explains each line.
+Each product page gives the full specification, including moisture (not more than 8 %), ash and the processing steps; [Reading a specification](/buyers-guide/reading-a-specification) explains each line.
 
 ## Slice grades by root diameter {#slice-grades}
 
