@@ -71,12 +71,16 @@ export const FALLBACK_STRINGS = {
         grades_note_tablets: 'The ranges are approximate: tablets are sorted on sieves with round holes.',
         grades_note_all: 'The ranges are approximate: slices are sorted by hand, tablets on sieves with round holes.',
         grades_guide_link: 'How to choose a form and grade →',
+        // On slice and tablet pages (ProductDetail.jsx): how the two cuts differ.
+        cut_compare_title: 'Slices or tablets?',
+        cut_compare_slices: 'Cut at a shallow angle, so the fibres are longer and the pieces hold together in boiling water.',
+        cut_compare_tablets: 'Cut straight across the root: the cheaper cut for extraction.',
 
         about_mission_title: 'What we do and how we work',
 
-        home_cta_title: 'Ready to Partner with Us?',
+        home_cta_title: 'Need a quote or a sample?',
         home_cta_text:
-            'Contact us today to receive a personalized commercial proposal.',
+            'Tell us the product, quantity and destination, and we will send a quotation.',
 
         form_name_error: 'Please enter your name',
         form_reply_time: 'We reply to every enquiry within 24 hours.',
@@ -141,7 +145,7 @@ export const FALLBACK_STRINGS = {
             'Our minimum order is 1 t. A full truck or 40 ft container holds 22 t. Not sure yet? Leave the quantity blank.',
         rf_quantity_soft: 'Below our 1 t minimum order; we will still reply.',
         rf_annual: 'Expected annual volume',
-        rf_annual_hint: 'Helps us offer contract pricing.',
+        rf_annual_hint: 'Tells us whether to plan loads on a schedule.',
         rf_application: 'What will you use it for?',
         rf_application_hint: 'So we send the right spec.',
         rf_app_confectionery: 'Confectionery',
@@ -323,7 +327,7 @@ export const FALLBACK_STRINGS = {
 
         quote_optional_title: 'Shipping details (optional)',
         quote_optional_hint:
-            'Filling these in gets you an accurate quote first time. Leave them blank if you are not sure yet.',
+            'Fill these in if you know them; the quote will then be complete. Leave them blank if you are not sure yet.',
         quote_destination_country: 'Destination country',
         quote_destination_port: 'Port or city',
         quote_incoterms: 'Incoterms',
@@ -385,7 +389,7 @@ export const FALLBACK_STRINGS = {
         articles_intro_2:
             'The root tastes sweet because it contains glycyrrhizin, a compound about 50 times sweeter than sugar. The European Pharmacopoeia requires licorice root sold as a herbal drug to contain at least 4% of it. The root and its extract are used in confectionery, drinks, tobacco and herbal medicine.',
         articles_intro_3:
-            'In Uzbekistan licorice grows wild along the Amu Darya and Syr Darya rivers, including in Khorezm, and it is also grown on plantations. The articles below look at the plant in more depth.',
+            'In Uzbekistan licorice grows wild along the Amu Darya and Syr Darya rivers, including in Khorezm, and it is also grown on plantations. All the root we supply is wild. The articles below look at the plant in more depth.',
         articles_list_title: 'All articles',
         article_read: 'Read',
         article_english_only: 'In English',
@@ -438,7 +442,7 @@ export const FALLBACK_STRINGS = {
             'Дикорастущий корень солодки (Glycyrrhiza glabra) из Хорезма, Узбекистан, в указанных ниже формах и фракциях. Все позиции доступны оптом — сообщите нужную форму и объём, и мы подготовим предложение.',
         products_cta_title: 'Нужна позиция, которой нет в списке?',
         products_cta_text:
-            'Мы режем, калибруем и упаковываем под заказ. Пришлите вашу спецификацию, и мы скажем, что возможно.',
+            'Мы режем, сортируем и упаковываем под заказ. Пришлите вашу спецификацию, и мы скажем, что возможно.',
         products_groups_nav: 'Формы продукции',
         products_group_slices: 'Слайсы',
         products_group_tablets: 'Таблетки',
@@ -460,12 +464,15 @@ export const FALLBACK_STRINGS = {
         grades_note_tablets: 'Диапазоны приблизительные: таблетки сортируют на ситах с круглыми отверстиями.',
         grades_note_all: 'Диапазоны приблизительные: слайсы сортируют вручную, таблетки — на ситах с круглыми отверстиями.',
         grades_guide_link: 'Как выбрать форму и фракцию →',
+        cut_compare_title: 'Слайсы или таблетки?',
+        cut_compare_slices: 'Режут под острым углом: волокна длиннее, и при варке кусочки не распадаются.',
+        cut_compare_tablets: 'Режут поперёк корня — это более дешёвая нарезка для экстракции.',
 
         about_mission_title: 'Чем мы занимаемся и как работаем',
 
-        home_cta_title: 'Готовы начать сотрудничество?',
+        home_cta_title: 'Нужна цена или образец?',
         home_cta_text:
-            'Свяжитесь с нами сегодня, чтобы получить индивидуальное коммерческое предложение.',
+            'Укажите продукт, количество и место назначения, и мы подготовим предложение.',
 
         form_name_error: 'Пожалуйста, укажите ваше имя',
         form_reply_time: 'Мы отвечаем на каждый запрос в течение 24 часов.',
@@ -520,7 +527,7 @@ export const FALLBACK_STRINGS = {
             'Минимальный заказ — 1 т. Фура или 40-футовый контейнер — 22 т. Пока не знаете — оставьте количество пустым.',
         rf_quantity_soft: 'Меньше минимального заказа в 1 т; мы всё равно ответим.',
         rf_annual: 'Ожидаемый объём в год',
-        rf_annual_hint: 'Поможет предложить контрактную цену.',
+        rf_annual_hint: 'Показывает, нужно ли планировать отгрузки по графику.',
         rf_application: 'Для чего вы будете использовать?',
         rf_application_hint: 'Чтобы прислать нужную спецификацию.',
         rf_app_confectionery: 'Кондитерские изделия',
@@ -748,7 +755,7 @@ export const FALLBACK_STRINGS = {
         articles_intro_2:
             'Корень сладкий на вкус благодаря глицирризину — веществу, которое примерно в 50 раз слаще сахара. Европейская фармакопея требует, чтобы корень солодки как лекарственное растительное сырьё содержал его не менее 4%. Корень и его экстракт используют в кондитерском производстве, напитках, табачной промышленности и фитотерапии.',
         articles_intro_3:
-            'В Узбекистане солодка растёт в дикой природе по берегам Амударьи и Сырдарьи, в том числе в Хорезме, а также выращивается на плантациях. В статьях ниже растение рассмотрено подробнее.',
+            'В Узбекистане солодка растёт в дикой природе по берегам Амударьи и Сырдарьи, в том числе в Хорезме, а также выращивается на плантациях. Весь корень, который поставляем мы, дикорастущий. В статьях ниже растение рассмотрено подробнее.',
         articles_list_title: 'Все статьи',
         article_read: 'Читать',
         article_english_only: 'На английском',

@@ -222,6 +222,19 @@ const ProductDetail = () => {
                                     <GradeTable form={groupOf(product)} current={product.slug} className="pd-grades" />
                                 </div>
                             )}
+                            {/* How slices differ from tablets. It used to sit in every
+                                slice and tablet description, which the cards show. */}
+                            {GRADE_FORMS.includes(groupOf(product)) && (
+                                <div className="pd-spec-card">
+                                    <h3 className="pd-spec-card-title">{t('cut_compare_title')}</h3>
+                                    <dl className="pd-spec-list">
+                                        <dt>{t('products_group_slices')}</dt>
+                                        <dd>{t('cut_compare_slices')}</dd>
+                                        <dt>{t('products_group_tablets')}</dt>
+                                        <dd>{t('cut_compare_tablets')}</dd>
+                                    </dl>
+                                </div>
+                            )}
                             {processingSteps.length > 0 && (
                                 <div className="pd-spec-card">
                                     <h3 className="pd-spec-card-title">{t('spec_processing')}</h3>
