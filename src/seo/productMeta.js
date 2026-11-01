@@ -75,8 +75,10 @@ export function productDescription(product, t) {
         parts.push(`${t(labelKey)}: ${String(value).trim()}`);
     };
 
-    // Ordered by buyer relevance.
-    add('spec_cut_size', specs.cut_size);
+    // Ordered by buyer relevance. A size the description already states
+    // (granules "3–4 mm") is not repeated.
+    const cutSize = String(specs.cut_size ?? '').trim();
+    if (!cutSize || !base.includes(cutSize)) add('spec_cut_size', cutSize);
     add('spec_glycyrrhizin', specs.glycyrrhizin);
     add('spec_moisture', specs.moisture);
     add('spec_packaging', specs.packaging);
