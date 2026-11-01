@@ -9,7 +9,7 @@ The root goes into teas and infusions, and into dishes cooked with it. The extra
 ## Forms for food use {#forms}
 
 - **Slices:** cut at a shallow angle, so their fibres are long and they hold together in boiling water: the cut for cooking, as in traditional Korean dishes. Dried in the shade to keep their colour. Grades by diameter: [A](/products/slice-a), [B](/products/slice-b), [C](/products/slice-c) and [C1](/products/slice-c1); [L](/products/slice-l) and [S](/products/slice-s), cut from large and small sticks; [D](/products/slice-d), the irregular pieces; and [mixed sizes](/products/slice-mix).
-- **[Root fibre](/products/chips):** short strands of crushed root, the cheapest form, often taken for tea.
+- **[Root fibre](/products/chips):** short strands of crushed root, often taken for tea because it costs less.
 - **Granules and powder:** [granules](/products/granules), [peeled granules](/products/peeled-granules) and [powder](/products/powder), made from dried root that is washed or, for peeled granules, peeled.
 Licorice extract, made by our extraction partner, "Licorice Extract" LLC, is not offered for food: it is a raw material for further purification, into glycyrrhizic acid and the root's other components, not an extract for direct use. See our [extraction page](/applications/extraction#extract).
 
@@ -75,7 +75,7 @@ The statements were introduced by Commission Directive 2004/77/EC and carried in
 
 ## What food buyers ask for {#documents}
 
-Food buyers often ask for a food-safety certificate, such as HACCP, ISO 22000 or FSSC 22000. **We hold none of these yet.** What we offer instead:
+Food buyers often ask for a food-safety certificate, such as HACCP, ISO 22000 or FSSC 22000. **We hold none of these.** What we offer instead:
 
 - **Free samples:** 100–200 g of each grade, for companies; you pay the FedEx shipping, or use your own FedEx account.
 - **Visits and audits:** your team is welcome to see the site and our records. We help with the visa and hotel and meet you at the airport.

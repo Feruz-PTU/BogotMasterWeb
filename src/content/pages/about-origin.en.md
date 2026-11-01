@@ -4,7 +4,7 @@ Bogot Master digs wild licorice root, *Glycyrrhiza glabra*, across the Khorezm r
 
 Our site is in Bogot district, Khorezm region, in the north-west of Uzbekistan. The district's name is written Bogʻot in Uzbek, and Bagat in some English and Russian sources (Багатский район); our documents and this site use Bogot.
 
-Bogot Master is a family company, founded in 2014. More than 20 people work in harvesting, processing, packing and logistics, and we export more than 500 t of root a year. Every load is prepared at our site: the root is cleaned, cut, dried, sorted and packed there, and each product page lists its own steps. Loads leave by truck from the site, or by rail from Urgench railway station.
+Bogot Master is a family company, founded in 2014. More than 20 people work in harvesting, processing, packing and logistics, and our capacity is more than 500 t of root a year. Every load is prepared at our site: the root is cleaned, cut, dried, sorted and packed there, and each product page lists its own steps. Loads leave by truck from the site, or by rail from Urgench railway station.
 
 {{photos-origin-yard}}
 
@@ -24,7 +24,7 @@ Specimen records confirm that the species grows here. The Global Biodiversity In
 
 All our root is wild-dug; none is cultivated, so there are no separate wild and plantation lots.
 
-The difference matters in this region. An official account of a 2018 presidential meeting set the aim of moving from the collection of wild root to organised plantations (Press Service of the President 2018). A 2018 resolution provides for up to 25,000 ha of licorice plantations in Karakalpakstan (Cabinet of Ministers 2018), and since 2022 the "one district, one product" scheme has assigned licorice to every district of Khorezm and Karakalpakstan (President of the Republic of Uzbekistan 2022). Licorice root from the region may therefore be wild or plantation-grown, and a buyer can ask which.
+The difference matters in this region. An official account of a 2018 presidential meeting set the aim of moving from the collection of wild root to organised plantations (Press Service of the President 2018). A 2018 resolution provides for up to 25,000 ha of licorice plantations in Karakalpakstan (Cabinet of Ministers 2018), and since 2022 the "one district, one product" scheme has assigned licorice to every district of Khorezm and Karakalpakstan (President of the Republic of Uzbekistan 2022). Root from other suppliers in the region may therefore be plantation-grown; ours is not.
 
 Studies elsewhere report less glycyrrhizin in cultivated root than in wild root (Hayashi et al. 2016; Khaitov et al. 2022). None of them concerns Uzbek plantations or is known to have controlled plant age and site, so this is not a measured difference for this region.
 

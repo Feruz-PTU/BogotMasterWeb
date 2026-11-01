@@ -1,4 +1,4 @@
-Every load is prepared at our site in Bogot district, Khorezm. More than 20 people cut, clean, dry, sort and pack the wild root there, and we export more than 500 t of it a year. This page follows the root from delivery to the truck, and names the check made at a step wherever there is one. Each product page lists the steps for that product, in order; the [table at the end](#by-product) puts them side by side.
+Every load is prepared at our site in Bogot district, Khorezm. More than 20 people cut, clean, dry, sort and pack the wild root there, and our capacity is more than 500 t a year. The root is followed here from delivery to the truck, with each check made along the way. Each product page lists the steps for that product, in order; the [table at the end](#by-product) puts them side by side.
 
 ## 1. The raw root arrives {#receiving}
 
@@ -61,7 +61,7 @@ How to choose between the forms and grades is covered in the guide chapter [choo
 
 ## 6. Drying {#drying}
 
-In summer the cut root dries in the open air, spread on tarps on our concrete yard. Slices dry in the shade, because the sun slowly fades their colour. Tablets can dry in the sun: a slight fading of the outside does not matter for their uses.
+In summer the cut root dries in the open air, spread on tarps on our concrete yard. Slices dry in the shade, because the sun slowly fades their colour. Tablets do not need shade.
 
 On overcast summer days the root goes into air-circulation dryers, without heat. In winter, and in cold or rainy weather, it dries in a heated dryer. The thin extraction-grade root is dried in the open air.
 
@@ -74,7 +74,7 @@ On overcast summer days the root goes into air-circulation dryers, without heat.
 - **Slices A, B, C and C1** are sorted by diameter and picked over by hand. Because the sorting is by hand, the ranges are approximate: B is about 20–30 mm, C about 10–20 mm. Slices L and S are cut from separate sticks and never mix, so they are only sieved.
 - **Tablets and the other graded products** are sorted by size over sieves with round holes, of 12 mm, 16 mm and so on.
 - **Sticks and fingers** are cleaned in a rotating drum sieve, whose round holes are a little smaller than the pieces. The pieces rub against each other, and the dust and dirt fall out through the holes.
-- **Almost every other product** goes over a sieving machine, which removes the dust left by cutting. A magnet at the machine's bag collector catches any metal.
+- **Almost every other product** goes over a sieving machine, which removes the dust left by cutting. A magnet at the machine's bag collector catches iron particles.
 
 **Checked at this step:** size, by hand or by the sieve's holes; metal, by the magnet; and foreign matter, by hand picking and sieving. The specification allows at most 1 % foreign matter.
 
@@ -108,7 +108,7 @@ Buyers also test loads against their own specifications. Before you order, you c
 
 - **No step to reduce microbes.** Steaming is for the cut and the colour, and the root is neither sterilised nor irradiated. If your specification sets microbiology limits, name them, and the laboratory tests the load.
 - **No claim about glycyrrhizic acid.** We do not claim that any step raises or preserves it. The figure for each load is on its certificate of analysis; content tends to follow root diameter and harvest season, so lots richer in glycyrrhizic acid can be selected on request.
-- **No food-safety certificate.** We hold no HACCP, ISO 22000 or FSSC 22000 certificate yet. The check is on the root itself: the certificate of analysis, your own tests, samples and visits.
+- **No food-safety certificate.** We hold no HACCP, ISO 22000 or FSSC 22000 certificate. The check is on the root itself: the certificate of analysis, your own tests, samples and visits.
 
 ## Which steps each product goes through {#by-product}
 

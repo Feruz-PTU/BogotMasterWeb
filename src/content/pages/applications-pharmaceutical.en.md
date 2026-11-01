@@ -65,8 +65,6 @@ Each product page lists its own steps. In outline:
 
 ## What goes in a supplier file {#supplier-file}
 
-**Available today:**
-
 - **Specification:** for each grade, on its product page: identity, physical data, processing steps, quality and microbiology limits, storage and shelf life.
 - **Certificate of analysis:** for every export load, from a professional laboratory in Uzbekistan that you can choose: glycyrrhizic acid, ash and moisture always, and any other tests you ask for.
 - **Free samples:** 100–200 g of each grade, for companies; you pay the FedEx shipping, or use your own FedEx account.

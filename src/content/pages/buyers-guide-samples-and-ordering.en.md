@@ -1,4 +1,4 @@
-This chapter follows a purchase from the first sample to the day the load leaves: what a sample costs, what to put in an enquiry, what our quotation contains, how you can pay, and how long each step takes. The figures are our current terms, checked by our sales team.
+This chapter follows a purchase from the first sample to the day the load leaves: what a sample costs, what to put in an enquiry, what our quotation contains, how you can pay, and how long each step takes. The figures are our current terms.
 
 ## Free samples {#samples}
 
@@ -67,7 +67,7 @@ We keep a sample of each shipment for one year.
 
 ## Regular supply {#regular-supply}
 
-Our capacity is 500 t a year and more, and our root is harvested across Khorezm all year round, so the listed grades are available in every season. Today most buyers order load by load. If you need the same grade every month or every quarter, ask us about a yearly supply programme: tell us the grade, the yearly volume and how often you want loads.
+Our capacity is 500 t a year and more, and our root is harvested across Khorezm all year round, so we can prepare loads in any season. Today most buyers order load by load. If you need the same grade every month or every quarter, ask us about a yearly supply programme: tell us the grade, the yearly volume and how often you want loads.
 
 ## Next step {#next}
 

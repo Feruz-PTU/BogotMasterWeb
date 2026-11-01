@@ -46,7 +46,7 @@ If your extract goes into food in the EU, it must meet the ochratoxin A limit of
 
 ## Volume and supply {#supply}
 
-All our root is wild, dug across Khorezm all year round, except a few days of extreme cold, under a permit from the National Committee of the Republic of Uzbekistan for Ecology and Climate Change. We process and export more than 500 t of root a year. A load is 11 t in a 20 ft container, or 22 t in a 40 ft container or a tent truck; preparing a 22 t load takes about 30 days. Today we sell order by order. We welcome a yearly supply programme with loads on a schedule: predictable loads suit us too.
+All our root is wild, dug across Khorezm all year round, except a few days of extreme cold, under a permit from the National Committee of the Republic of Uzbekistan for Ecology and Climate Change. Our capacity is more than 500 t of root a year. A load is 11 t in a 20 ft container, or 22 t in a 40 ft container or a tent truck; preparing a 22 t load takes about 30 days. Today we sell order by order. We welcome a yearly supply programme with loads on a schedule.
 
 Every load comes with a certificate of analysis, a phytosanitary certificate, a certificate of origin and a fumigation certificate; see [shipping and documents](/logistics#documents).
 

@@ -71,7 +71,7 @@ export const PAGES = [
         },
         meta: {
             en: 'How licorice root ships from Khorezm, Uzbekistan: the Incoterms we quote, packing, loads per container or truck, routes and shipping documents.',
-            ru: 'Как корень солодки отправляется из Хорезма: условия Incoterms, упаковка, загрузка контейнера и фуры, маршруты и отгрузочные документы.',
+            ru: 'Как мы отправляем корень солодки из Хорезма: условия Incoterms, упаковка, загрузка контейнера и фуры, маршруты и отгрузочные документы.',
         },
         updated: '2026-10-25',
         priority: 0.7,
@@ -126,7 +126,7 @@ export const PAGES = [
         navTitle: { en: 'Choosing a form and grade', ru: 'Выбор формы и фракции' },
         meta: {
             en: 'Which licorice root form suits your process, slice and tablet grades by root diameter in mm, peeled or unpeeled, and when to order a custom cut.',
-            ru: 'Какая форма корня солодки подходит вашему производству, фракции слайсов и таблеток по диаметру в мм, очищенный корень и своя нарезка.',
+            ru: 'Какая форма корня солодки подойдёт вашему производству: фракции слайсов и таблеток по диаметру, очищенный корень и нарезка под заказ.',
         },
         updated: '2026-10-30',
         priority: 0.6,
@@ -281,7 +281,7 @@ export const PAGES = [
         navTitle: { en: 'Applications', ru: 'Применение' },
         meta: {
             en: 'Which licorice root forms suit pharmaceutical, food, extraction, cosmetics and tobacco use, and the rules each sector works under.',
-            ru: 'Какие формы корня солодки подходят для фармацевтики, пищевой, косметической и табачной отраслей и экстракции и по каким правилам работает каждая отрасль.',
+            ru: 'Какие формы корня солодки подходят для фармацевтики, пищи, косметики, табака и экстракции и какие правила действуют в каждой отрасли.',
         },
         updated: '2026-10-26',
         priority: 0.6,
@@ -386,8 +386,8 @@ export const PAGES = [
         },
         navTitle: { en: 'Cosmetics', ru: 'Для косметики' },
         meta: {
-            en: 'Licorice root for cosmetics makers: INCI names checked in CosIng, the EU Cosmetics Regulation, and the microbiology and heavy-metal data we provide.',
-            ru: 'Корень солодки для производителей косметики: названия INCI по базе CosIng, Регламент ЕС о косметике, данные по микробиологии и тяжёлым металлам.',
+            en: 'Licorice root for cosmetics makers: INCI names checked in CosIng, the EU Cosmetics Regulation, and the specification and test data we can supply.',
+            ru: 'Корень солодки для производителей косметики: названия INCI по базе CosIng, Регламент ЕС о косметике, спецификация и данные испытаний, которые мы передаём.',
         },
         updated: '2026-10-30',
         priority: 0.6,
@@ -496,8 +496,8 @@ export const PAGES = [
         },
         navTitle: { en: 'Origin', ru: 'Происхождение' },
         meta: {
-            en: 'Where our Glycyrrhiza glabra root comes from: wild root dug across Khorezm, Uzbekistan, all year round, under a state permit, and what is not known.',
-            ru: 'Откуда наш корень солодки голой: дикорастущий корень со всего Хорезма (Узбекистан), заготовка круглый год по разрешению, и чего мы не знаем.',
+            en: 'Where our Glycyrrhiza glabra root comes from: wild root dug across Khorezm, Uzbekistan, all year round, under a state permit.',
+            ru: 'Откуда наш корень Glycyrrhiza glabra: дикорастущий, со всего Хорезма, заготовка круглый год по разрешению. Что известно о районах сбора, а что нет.',
         },
         place: {
             en: [{ name: 'Bogot district', alternateName: ['Bogʻot district', 'Bagat district'] }, 'Khorezm Region', 'Uzbekistan'],
