@@ -17,11 +17,17 @@ import { useRef, useState, useCallback } from 'react';
  *
  * The honeypot is hidden with off-screen positioning rather than
  * `display:none`, because some bots specifically skip display:none fields.
+ *
+ * Its name must not look like any field a browser autofills. It used to be
+ * `company_website`: Chrome reads "company" as the organization field and
+ * filled it when a visitor used autofill, so real requests were silently
+ * dropped as bots (found 3 Nov 2026). Avoid words such as name, company,
+ * email, phone, address, city, country or zip here.
  */
 
 const MIN_SECONDS = 3;
 
-export const HONEYPOT_NAME = 'company_website';
+export const HONEYPOT_NAME = 'bm_hp';
 
 export const honeypotStyle = {
     position: 'absolute',

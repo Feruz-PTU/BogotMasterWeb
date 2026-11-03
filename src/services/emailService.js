@@ -61,7 +61,7 @@ const context = (formData) => ({
 
 /** Anti-bot signals, forwarded so the server can re-check them. */
 const guard = (formData) => ({
-    company_website: formData.company_website || '',
+    bm_hp: formData.bm_hp || '',
     elapsed_ms: formData.elapsed_ms || 0,
 });
 
@@ -111,7 +111,7 @@ function fitForDatabase(row) {
  * and the page context. The lead is saved first, so a failed email never loses it.
  */
 export const sendRequest = async (request, language = 'en') => {
-    const { company_website, elapsed_ms, page_url, referrer_host, ...fields } = request;
+    const { bm_hp, elapsed_ms, page_url, referrer_host, ...fields } = request;
     const reference = makeReference();
     // Only filled fields are stored and sent.
     const filled = Object.fromEntries(
@@ -133,6 +133,6 @@ export const sendRequest = async (request, language = 'en') => {
         ...(product ? { product } : {}),
         items: items.map((i) => ({ title: i.title, quantity: i.quantity || '' })),
         language,
-        ...guard({ company_website, elapsed_ms }),
+        ...guard({ bm_hp, elapsed_ms }),
     });
 };

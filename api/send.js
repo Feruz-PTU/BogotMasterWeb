@@ -405,7 +405,9 @@ function originAllowed(req) {
 // exist here too.
 const MIN_FILL_MS = 3000;
 function looksAutomated(body) {
-    if (typeof body.company_website === 'string' && body.company_website.trim() !== '') {
+    // The hidden field (src/hooks/useSpamGuard.js). Its old name,
+    // company_website, is ignored: browsers autofilled it for real visitors.
+    if (typeof body.bm_hp === 'string' && body.bm_hp.trim() !== '') {
         return true; // honeypot filled
     }
     const elapsed = Number(body.elapsed_ms);
