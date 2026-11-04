@@ -37,6 +37,7 @@ import {
     resolveLastmod,
     buildSitemapXml,
 } from './sitemap.mjs';
+import { INDEXNOW_KEY, KEY_FILE, submitChanges } from './indexnow.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
@@ -216,6 +217,14 @@ console.log(
     previous.reason
         ? `✓ sitemap.xml (${urlEntries.length} URLs, all dated now: no previous state, ${previous.reason})`
         : `✓ sitemap.xml (${urlEntries.length} URLs: ${changed} changed since the live build, ${urlEntries.length - changed} unchanged)`
+);
+
+// ── IndexNow ─────────────────────────────────────────────────────────────────
+// The key file proves the site sent the ping; the changed pages go to Bing,
+// Yandex, Naver and the others (production builds only, see indexnow.mjs).
+writeFileSync(join(DIST, KEY_FILE), INDEXNOW_KEY, 'utf8');
+console.log(
+    `✓ IndexNow: ${await submitChanges({ previous, current: sitemapState, now, siteUrl: SITE_URL })}`
 );
 
 // ── robots.txt ───────────────────────────────────────────────────────────────

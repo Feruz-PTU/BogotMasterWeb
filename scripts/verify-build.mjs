@@ -9,6 +9,7 @@ import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { join, resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { checkHtml } from './content-guard.mjs';
+import { INDEXNOW_KEY, KEY_FILE } from './indexnow.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
@@ -258,6 +259,9 @@ else {
 }
 
 if (!readFileSync(join(DIST, 'robots.txt'), 'utf8').split(/\r?\n/).includes(`Sitemap: ${SITE}/sitemap.xml`)) smFail('robots.txt does not point at the sitemap');
+
+// IndexNow: the engines refuse every ping if the key file is missing or wrong.
+if (!existsSync(join(DIST, KEY_FILE)) || readFileSync(join(DIST, KEY_FILE), 'utf8').trim() !== INDEXNOW_KEY) smFail(`IndexNow key file ${KEY_FILE} is missing or does not hold the key`);
 
 if (!smBad) ok(`${smEntries.length} sitemap URLs: schema order valid, each a real indexable page with a matching canonical, none missing`);
 
