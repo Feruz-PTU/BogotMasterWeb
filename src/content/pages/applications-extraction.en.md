@@ -40,7 +40,7 @@ Extract makers usually set these points; send yours with your enquiry, and we qu
 - **Packing**: bags, or pressed bales and cubes.
 - **Supply programme**: the tonnage over the year and how it is split into loads.
 
-Free samples of 100–200 g per grade go to companies; you pay the FedEx shipping, or use your own FedEx account.
+Free samples of 100–200 g per grade go to companies, with free EMS shipping (usually 1–2 weeks), or by DHL or FedEx on your own account.
 
 If your extract goes into food in the EU, it must meet the ochratoxin A limit of 80 µg/kg on the pure, undiluted extract. The regulation notes that 1 kg of extract is obtained from 3 to 4 kg of root; dried root itself has a limit of 20 µg/kg (Regulation (EU) 2023/915, Annex I, entry 1.2.19). Ochratoxin A is not part of the standard certificate of analysis, which covers glycyrrhizic acid, ash and moisture: name the test in your enquiry, and the laboratory adds it.
 

@@ -208,7 +208,7 @@ export const PAGES = [
             en: 'How to buy licorice root from us: free samples, what to put in an enquiry, what a quotation contains, payment terms and the steps from order to dispatch.',
             ru: 'Как купить у нас корень солодки: бесплатные образцы, что указать в запросе, что в коммерческом предложении, оплата и путь от заказа до отгрузки.',
         },
-        updated: '2026-10-24',
+        updated: '2026-11-05',
         priority: 0.6,
     },
     {
@@ -308,7 +308,7 @@ export const PAGES = [
             en: 'Liquorice root as a herbal substance: Ph. Eur. 0277, the EMA monograph, the Russian pharmacopoeia and the documents pharma buyers ask for.',
             ru: 'Корень солодки как лекарственное растительное сырьё: Ph. Eur. 0277, монография EMA, ФС.2.5.0040.15 и документы для фармацевтических закупок.',
         },
-        updated: '2026-10-30',
+        updated: '2026-11-05',
         priority: 0.6,
     },
     {
@@ -336,7 +336,7 @@ export const PAGES = [
             en: 'Licorice root for sweets, drinks and tea: the forms, EU labelling and ochratoxin A limits, US limits and the documents food buyers ask for.',
             ru: 'Корень солодки для кондитерских изделий, напитков и чая: формы поставки, маркировка и охратоксин A в ЕС, нормы США, документы.',
         },
-        updated: '2026-10-26',
+        updated: '2026-11-05',
         priority: 0.6,
     },
     {
@@ -362,7 +362,7 @@ export const PAGES = [
             en: "Licorice root as feedstock for extract makers: industrial and extraction grades, cut root, what to specify, yearly supply and our partner's extract.",
             ru: 'Корень солодки как сырьё для производителей экстрактов: промышленный и экстракционный сорта, резаный корень, спецификация, годовые поставки.',
         },
-        updated: '2026-10-30',
+        updated: '2026-11-05',
         priority: 0.6,
     },
     {

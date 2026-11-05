@@ -77,7 +77,7 @@ The statements were introduced by Commission Directive 2004/77/EC and carried in
 
 Food buyers often ask for a food-safety certificate, such as HACCP, ISO 22000 or FSSC 22000. **We hold none of these.** What we offer instead:
 
-- **Free samples:** 100–200 g of each grade, for companies; you pay the FedEx shipping, or use your own FedEx account.
+- **Free samples:** 100–200 g of each grade, for companies, with free EMS shipping (usually 1–2 weeks), or by DHL or FedEx on your own account.
 - **Visits and audits:** your team is welcome to see the site and our records. We help with the visa and hotel and meet you at the airport.
 - **Certificate of analysis:** issued for every export load.
 - **Retained samples:** we keep a sample of every shipment for one year.

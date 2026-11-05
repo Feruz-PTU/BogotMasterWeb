@@ -98,7 +98,7 @@ export const FALLBACK_STRINGS = {
         // and not in each product's data.
         sample_title: 'Free samples',
         sample_text:
-            '100–200 g of each grade, free of charge, for companies. Shipping is by FedEx at your cost, or on your own FedEx account; we send the sample after 3 business days. You are welcome to visit our facility before ordering: we help with the visa and hotel and meet you at the airport.',
+            '100–200 g of each grade, free of charge for companies, shipping included. We send samples by EMS (Uzbekistan Post) after 3 business days; delivery usually takes 1–2 weeks. For faster delivery, we ship by DHL or FedEx on your own account. We may decline a free sample or free shipping if we cannot confirm a business need. You are welcome to visit our facility before ordering: we help with the visa and hotel and meet you at the airport.',
         sample_btn: 'Request a free sample',
         sample_modal_title: 'Free sample request',
         sample_message: 'Free sample, 100–200 g',
@@ -190,7 +190,7 @@ export const FALLBACK_STRINGS = {
         rf_channel_phone: 'Phone call',
         rf_sample_address: 'Where should we send the sample?',
         rf_sample_address_hint: 'Street, city, postcode, country.',
-        rf_fedex: 'Your FedEx account',
+        rf_fedex: 'Your DHL or FedEx account (for express)',
         rf_message: 'Message',
         rf_message_hint: 'Anything else? Spec, packing, questions.',
         rf_submit_quote: 'Send quote request',
@@ -198,7 +198,7 @@ export const FALLBACK_STRINGS = {
         rf_submit_docs: 'Send me the documents',
         rf_submit_other: 'Send',
         rf_promise:
-            'We reply within 24 hours. Free samples for companies: 100–200 g per grade; you pay FedEx shipping or use your own FedEx account. We use your details only to answer this request. See our',
+            'We reply within 24 hours. Free samples for companies: 100–200 g per grade with free EMS shipping (usually 1–2 weeks), or DHL/FedEx on your own account. We use your details only to answer this request. See our',
         rf_or_message: 'Or message us directly:',
         rf_success_title: 'Request sent',
         rf_success_text: 'Thank you. We have your request and will reply within 24 hours.',
@@ -216,9 +216,9 @@ export const FALLBACK_STRINGS = {
         rf_next_quote:
             'Your quotation states the Incoterm and named place, how long the price is valid (7 days), payment terms (T/T, L/C or D/P), lead time and packing.',
         rf_next_sample_offer:
-            'Want to test first? Free samples, 100–200 g per grade, are sent by FedEx after 3 business days of preparation.',
+            'Want to test first? Free samples, 100–200 g per grade, are sent free by EMS after 3 business days of preparation.',
         rf_next_sample_ship:
-            'Your free sample is sent by FedEx after 3 business days of preparation, at your cost or on your own FedEx account.',
+            'Your free sample is sent by EMS at our cost after 3 business days of preparation; delivery usually takes 1–2 weeks. Need it faster? We ship by DHL or FedEx on your own account.',
         rf_next_docs: 'We send the specification and the documents you asked for.',
         rf_success_whatsapp: 'Message us on WhatsApp',
         rf_success_whatsapp_msg: 'Hello! About my request {ref}: ',
@@ -485,7 +485,7 @@ export const FALLBACK_STRINGS = {
 
         sample_title: 'Бесплатные образцы',
         sample_text:
-            '100–200 г каждой позиции бесплатно, для компаний. Доставка FedEx за ваш счёт или через ваш аккаунт FedEx; отправляем образец через 3 рабочих дня. Приглашаем посетить производство до заказа: поможем с визой и гостиницей, встретим в аэропорту.',
+            '100–200 г каждой позиции бесплатно для компаний, включая доставку. Отправляем образцы почтой EMS (Почта Узбекистана) через 3 рабочих дня; доставка обычно занимает 1–2 недели. Если нужно быстрее, отправим DHL или FedEx через ваш аккаунт. Мы можем отказать в бесплатном образце или бесплатной доставке, если не удастся подтвердить деловой интерес. Приглашаем посетить производство до заказа: поможем с визой и гостиницей, встретим в аэропорту.',
         sample_btn: 'Запросить образец',
         sample_modal_title: 'Запрос образца',
         sample_message: 'Бесплатный образец, 100–200 г',
@@ -572,7 +572,7 @@ export const FALLBACK_STRINGS = {
         rf_channel_phone: 'Звонок',
         rf_sample_address: 'Куда отправить образец?',
         rf_sample_address_hint: 'Улица, город, индекс, страна.',
-        rf_fedex: 'Ваш аккаунт FedEx',
+        rf_fedex: 'Ваш аккаунт DHL или FedEx (для экспресс-доставки)',
         rf_message: 'Сообщение',
         rf_message_hint: 'Что-то ещё? Спецификация, упаковка, вопросы.',
         rf_submit_quote: 'Отправить запрос',
@@ -580,7 +580,7 @@ export const FALLBACK_STRINGS = {
         rf_submit_docs: 'Прислать документы',
         rf_submit_other: 'Отправить',
         rf_promise:
-            'Отвечаем в течение 24 часов. Бесплатные образцы для компаний: 100–200 г каждой позиции; доставка FedEx за ваш счёт или через ваш аккаунт FedEx. Данные используем только для ответа на запрос. См.',
+            'Отвечаем в течение 24 часов. Бесплатные образцы для компаний: 100–200 г каждой позиции с бесплатной доставкой EMS (обычно 1–2 недели) или DHL/FedEx через ваш аккаунт. Данные используем только для ответа на запрос. См.',
         rf_or_message: 'Или напишите нам напрямую:',
         rf_success_title: 'Запрос отправлен',
         rf_success_text: 'Спасибо! Мы получили ваш запрос и ответим в течение 24 часов.',
@@ -596,9 +596,9 @@ export const FALLBACK_STRINGS = {
         rf_next_quote:
             'В коммерческом предложении будут базис поставки Incoterms с названным местом, срок действия цены (7 дней), условия оплаты (T/T, аккредитив или D/P), срок поставки и упаковка.',
         rf_next_sample_offer:
-            'Хотите сначала проверить качество? Бесплатные образцы, 100–200 г каждой позиции, отправляем FedEx через 3 рабочих дня подготовки.',
+            'Хотите сначала проверить качество? Бесплатные образцы, 100–200 г каждой позиции, отправляем бесплатно почтой EMS через 3 рабочих дня подготовки.',
         rf_next_sample_ship:
-            'Бесплатный образец отправим FedEx через 3 рабочих дня подготовки — доставка за ваш счёт или через ваш аккаунт FedEx.',
+            'Бесплатный образец отправим почтой EMS за наш счёт через 3 рабочих дня подготовки; доставка обычно занимает 1–2 недели. Нужно быстрее? Отправим DHL или FedEx через ваш аккаунт.',
         rf_next_docs: 'Мы пришлём спецификацию и запрошенные документы.',
         rf_success_whatsapp: 'Написать в WhatsApp',
         rf_success_whatsapp_msg: 'Здравствуйте! По моему запросу {ref}: ',

@@ -86,7 +86,7 @@ const INQUIRY_DETAILS = [
     ['Used for', 'application'],
     ['Standard', 'standard'],
     ['Sample address', 'sample_address'],
-    ['FedEx account', 'fedex_account'],
+    ['DHL/FedEx account', 'fedex_account'],
 ];
 
 const TRANSLATION_GROUPS = [

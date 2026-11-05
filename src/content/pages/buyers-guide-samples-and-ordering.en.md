@@ -4,8 +4,9 @@ This chapter follows a purchase from the first sample to the day the load leaves
 
 Samples are free for companies that buy for production or trade: 100–200 g of each grade you ask for. An individual can receive one with proof of a link to such a company.
 
-- **Shipping** is by FedEx at your cost, or on your own FedEx account if you give us its number.
-- **Timing:** we send the samples after 3 business days of preparation.
+- **Shipping** is by EMS (Uzbekistan Post), free of charge. For express, we ship by DHL or FedEx on your own account if you give us its number.
+- **Timing:** we send the samples after 3 business days of preparation; EMS delivery usually takes 1–2 weeks.
+- **When we decline:** we may decline a free sample or free shipping if we cannot confirm a business need.
 - **What:** licorice root in any of our forms and grades. Free samples do not cover the licorice extract, which our extraction partner makes; for the extract, ask us.
 - **Import papers:** plant material may need a permit or a phytosanitary certificate in your country even as a sample. Check your country's rules before you order a sample.
 

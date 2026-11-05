@@ -131,7 +131,7 @@ export function businessHtml(d) {
         ${row('Total quantity', totalQuantity(d.total_quantity, d.quantity_unit))}
         ${row('Needed by', d.timeline)}
         ${row('Sample address', d.sample_address)}
-        ${row('FedEx account', d.fedex_account)}
+        ${row('DHL/FedEx account', d.fedex_account)}
       </table>
       ${itemsRows}
       ${d.message ? `
@@ -175,8 +175,8 @@ const AUTO_REPLY = {
         via: { WhatsApp: 'on WhatsApp', Email: 'by email', Telegram: 'on Telegram', 'Phone call': 'by phone' },
         steps: {
             quote: 'Your quotation states the Incoterm and named place, how long the price is valid (7 days), payment terms (T/T, L/C or D/P), lead time and packing.',
-            sampleOffer: 'Want to test first? Free samples, 100–200 g per grade, are sent by FedEx after 3 business days of preparation.',
-            sampleShip: 'Your free sample is sent by FedEx after 3 business days of preparation, at your cost or on your own FedEx account.',
+            sampleOffer: 'Want to test first? Free samples, 100–200 g per grade, are sent free by EMS after 3 business days of preparation.',
+            sampleShip: 'Your free sample is sent by EMS at our cost after 3 business days of preparation; delivery usually takes 1–2 weeks. Need it faster? We ship by DHL or FedEx on your own account.',
             docs: 'We send the specification and the documents you asked for.',
         },
         replyNote: 'Reply to this email to add details or files.',
@@ -208,8 +208,8 @@ const AUTO_REPLY = {
         via: { WhatsApp: 'в WhatsApp', Email: 'по электронной почте', Telegram: 'в Telegram', 'Phone call': 'по телефону' },
         steps: {
             quote: 'В коммерческом предложении будут базис поставки Incoterms с названным местом, срок действия цены (7 дней), условия оплаты (T/T, аккредитив или D/P), срок поставки и упаковка.',
-            sampleOffer: 'Хотите сначала проверить качество? Бесплатные образцы, 100–200 г каждой позиции, отправляем FedEx через 3 рабочих дня подготовки.',
-            sampleShip: 'Бесплатный образец отправим FedEx через 3 рабочих дня подготовки — доставка за ваш счёт или через ваш аккаунт FedEx.',
+            sampleOffer: 'Хотите сначала проверить качество? Бесплатные образцы, 100–200 г каждой позиции, отправляем бесплатно почтой EMS через 3 рабочих дня подготовки.',
+            sampleShip: 'Бесплатный образец отправим почтой EMS за наш счёт через 3 рабочих дня подготовки; доставка обычно занимает 1–2 недели. Нужно быстрее? Отправим DHL или FedEx через ваш аккаунт.',
             docs: 'Мы пришлём спецификацию и запрошенные документы.',
         },
         replyNote: 'Ответьте на это письмо, чтобы добавить детали или файлы.',
