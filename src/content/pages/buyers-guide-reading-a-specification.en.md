@@ -75,7 +75,7 @@ The World Health Organization publishes a model COA for quality control laborato
 
 When one arrives, check that its lot number is the one on the invoice, the packing list and the bags (see the [checklist before payment](/buyers-guide/shipping-documents#checklist)); that its limits are your specification's; that it gives numbers, not only "complies"; and who did the testing.
 
-Each of our export loads has a certificate of analysis from a professional laboratory in Uzbekistan, and you can choose the laboratory. It always covers glycyrrhizic acid, ash and moisture; name any other tests your specification requires, such as microbiology, heavy metals or pesticide residues, in your enquiry. We keep a sample of each shipment for one year.
+Each of our export loads has a certificate of analysis from an ISO/IEC 17025-accredited laboratory in Uzbekistan, and you can choose the laboratory. It always covers glycyrrhizic acid, ash and moisture; name any other tests your specification requires, such as microbiology, heavy metals or pesticide residues, in your enquiry. We keep a sample of each shipment for one year.
 
 ## Sources {#sources}
 

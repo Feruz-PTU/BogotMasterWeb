@@ -66,7 +66,7 @@ Each product page lists its own steps. In outline:
 ## What goes in a supplier file {#supplier-file}
 
 - **Specification:** for each grade, on its product page: identity, physical data, processing steps, quality and microbiology limits, storage and shelf life.
-- **Certificate of analysis:** for every export load, from a professional laboratory in Uzbekistan that you can choose: glycyrrhizic acid, ash and moisture always, and any other tests you ask for.
+- **Certificate of analysis:** for every export load, from an ISO/IEC 17025-accredited laboratory in Uzbekistan that you can choose: glycyrrhizic acid, ash and moisture always, and any other tests you ask for.
 - **Free samples:** 100–200 g of each grade, for companies, with free EMS shipping (usually 1–2 weeks), or by DHL or FedEx on your own account.
 - **Origin and species:** wild *G. glabra*, harvested across Khorezm, Uzbekistan, all year round except a few days of extreme cold, under the national harvest permit.
 - **Processing:** the steps [above](#handling), and in full on each product page.

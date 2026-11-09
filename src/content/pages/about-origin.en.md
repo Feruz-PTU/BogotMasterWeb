@@ -45,7 +45,7 @@ At export, each load travels with a phytosanitary certificate and a certificate 
 Because the research leaves these gaps, the check is on the root itself:
 
 - **Samples:** free for companies, 100–200 g of each grade.
-- **Each load:** a certificate of analysis from a professional laboratory in Uzbekistan that you can choose. It always covers glycyrrhizic acid, ash and moisture, and the laboratory adds an identity test or any other test you name.
+- **Each load:** a certificate of analysis from an ISO/IEC 17025-accredited laboratory in Uzbekistan that you can choose. It always covers glycyrrhizic acid, ash and moisture, and the laboratory adds an identity test or any other test you name.
 - **Visits and audits:** welcome. We help with the visa and the hotel, meet you at the airport and show you round our site.
 
 ## Sources {#sources}

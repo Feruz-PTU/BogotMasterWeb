@@ -100,7 +100,7 @@ Loads leave by truck from our site, or by rail from Urgench railway station: 11 
 
 ## Testing each load {#testing}
 
-We have no laboratory of our own. Every export load has a certificate of analysis from a professional laboratory in Uzbekistan, and you can choose the laboratory. It always covers glycyrrhizic acid, ash and moisture. The laboratory adds microbiology, heavy metals, pesticide residues or any other test you name in your enquiry.
+We have no laboratory of our own. Every export load has a certificate of analysis from an ISO/IEC 17025-accredited laboratory in Uzbekistan, and you can choose the laboratory. It always covers glycyrrhizic acid, ash and moisture. The laboratory adds microbiology, heavy metals, pesticide residues or any other test you name in your enquiry.
 
 Buyers also test loads against their own specifications. Before you order, you can test a free sample of 100–200 g per grade, and you are welcome to visit or audit our site.
 

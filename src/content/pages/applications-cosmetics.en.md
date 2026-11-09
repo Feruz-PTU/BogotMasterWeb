@@ -49,7 +49,7 @@ The safety report needs the microbiological specification of each substance and 
 
 These are the figures for dried root, the same on every root product page except ash, which depends on whether the root is washed or peeled. Set the limits your own ingredient or product needs, and we quote against them.
 
-- **Certificate of analysis:** for every export load, from a professional laboratory in Uzbekistan that you can choose. It always covers glycyrrhizic acid, ash and moisture. Lead, cadmium, mercury, arsenic, pesticide residues or microbiology are added when you name them in your enquiry.
+- **Certificate of analysis:** for every export load, from an ISO/IEC 17025-accredited laboratory in Uzbekistan that you can choose. It always covers glycyrrhizic acid, ash and moisture. Lead, cadmium, mercury, arsenic, pesticide residues or microbiology are added when you name them in your enquiry.
 - **Origin:** all our root is wild *Glycyrrhiza glabra*, dug across Khorezm under a permit from the National Committee of the Republic of Uzbekistan for Ecology and Climate Change. A certificate of origin goes with every load. More on the [origin page](/about/origin).
 - **Treatment:** every load is fumigated with phosphine (aluminium phosphide) before shipping, and the root is never irradiated. The steps from dug root to packed bag are on the [processing page](/quality/processing).
 - **Certificates:** we hold no quality certificate, such as ISO or GMP, and no organic or natural-cosmetics certification. Instead, you can test free samples of 100–200 g per grade, and audit our site.

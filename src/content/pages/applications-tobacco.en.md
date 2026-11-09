@@ -27,7 +27,7 @@ These are the rules in force on 26 October 2026. Compliance of the finished prod
 Ingredient reporting needs consistent, documented material. For each load:
 
 - **Identity:** *Glycyrrhiza glabra*, root, wild, dug across Khorezm, Uzbekistan, under a permit from the National Committee of the Republic of Uzbekistan for Ecology and Climate Change.
-- **Certificate of analysis:** from a professional laboratory in Uzbekistan that you can choose. It always covers glycyrrhizic acid, ash and moisture; pesticide residues, heavy metals and other tests are added when you name them in your enquiry.
+- **Certificate of analysis:** from an ISO/IEC 17025-accredited laboratory in Uzbekistan that you can choose. It always covers glycyrrhizic acid, ash and moisture; pesticide residues, heavy metals and other tests are added when you name them in your enquiry.
 - **One lot number** on the bags, the invoice, the packing list and the certificate of analysis, and a retained sample of every shipment, kept for one year.
 - **Treatment:** every load is fumigated with phosphine (aluminium phosphide) before shipping, with a fumigation certificate; the root is never irradiated.
 - **Specification:** on each product page; send us yours, and we quote against it.
