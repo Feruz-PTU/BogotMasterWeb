@@ -260,7 +260,7 @@ export const SEED_TRANSLATIONS = {
         process_2_title: 'Переработка',
         process_2_desc: 'Корень моют, нарезают, сушат и сортируют в зависимости от требований к продукции. Мы поставляем целые корни, палочки, бочонки, слайсы, таблетки и другие виды нарезки. Отдельные категории проходят ручную сортировку.',
         process_3_title: 'Образцы и документы',
-        process_3_desc: 'Каждая экспортная партия сопровождается сертификатом анализа (COA) аккредитованной или компетентной лаборатории в Узбекистане. Предоставляем бесплатные образцы весом 100–200 г каждой позиции для предварительных испытаний. Контрольный образец каждой отгрузки хранится в течение одного года.',
+        process_3_desc: 'Каждая экспортная партия сопровождается сертификатом анализа (COA) от аккредитованной лаборатории в Узбекистане, которую вы можете выбрать. Предоставляем бесплатные образцы весом 100–200 г каждой позиции для предварительных испытаний. Контрольный образец каждой отгрузки хранится в течение одного года.',
         process_4_title: 'Упаковка и отгрузка',
         process_4_desc: 'Упаковываем продукцию в полипропиленовые мешки по 20–30 кг. По запросу доступна упаковка с логотипом заказчика. Перед отправкой проводится фумигация фосфином. Подготавливаем необходимый комплект экспортных документов для международных поставок.',
         // About Extra
@@ -429,7 +429,7 @@ export const SEED_TRANSLATIONS = {
         process_2_title: 'Processing',
         process_2_desc: 'Roots are washed, cut, dried and graded according to product requirements. We supply whole roots, sticks, fingers, slices, tablets and other cuts, with selected grades sorted by hand.',
         process_3_title: 'Quality & Samples',
-        process_3_desc: 'Every export shipment comes with a laboratory Certificate of Analysis from Uzbekistan. Request free samples of 100–200 g per grade for testing in your own laboratory. We retain shipment samples for one year.',
+        process_3_desc: 'Every export shipment comes with a Certificate of Analysis from an accredited laboratory in Uzbekistan, which you can choose. Request free samples of 100–200 g per grade for testing in your own laboratory. We retain shipment samples for one year.',
         process_4_title: 'Packing & Shipping',
         process_4_desc: 'We pack licorice in 20–30 kg PP bags, with custom-printed packaging available on request. Shipments are fumigated with phosphine before dispatch, with export documentation prepared for international delivery.',
         // About Extra
