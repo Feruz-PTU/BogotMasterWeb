@@ -169,6 +169,16 @@
     opacity: 0.85;
 }
 
+/* LinkedIn · Google Maps, under the sales contact. */
+.footer-address p.footer-profiles {
+    margin-top: 10px;
+}
+
+.footer-profiles a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
 /* Legal name and INN under the copyright line. */
 .footer-legal {
     margin-top: 6px;

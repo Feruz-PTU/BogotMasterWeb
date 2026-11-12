@@ -85,8 +85,9 @@ function organizationNode(t) {
                 closes: CONTACT_INFO.sales_contact.hours.closes,
             },
         })),
-        // `sameAs` is omitted entirely rather than shipped as an empty array.
-        // Add it once real company profile pages exist (LinkedIn, etc.).
+        // The company's own profiles (config.js), so search engines join the
+        // site, the Google Maps listing and LinkedIn into one company.
+        sameAs: Object.values(CONTACT_INFO.profiles),
     };
 }
 

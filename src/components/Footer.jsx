@@ -51,6 +51,16 @@ const Footer = () => {
                             <br />
                             <span>{t('sales_contact_hours')}</span>
                         </p>
+                        {/* Buyers check a supplier on LinkedIn and Google Maps. */}
+                        <p className="footer-profiles">
+                            <a href={CONTACT_INFO.profiles.linkedin} target="_blank" rel="noopener noreferrer">
+                                LinkedIn
+                            </a>
+                            {' · '}
+                            <a href={CONTACT_INFO.profiles.google_maps} target="_blank" rel="noopener noreferrer">
+                                Google Maps
+                            </a>
+                        </p>
                     </address>
                 </div>
                 <nav className="footer-nav reveal reveal-delay-2" aria-label={t('footer_nav_label')}>

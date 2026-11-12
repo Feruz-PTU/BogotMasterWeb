@@ -27,6 +27,13 @@ export const CONTACT_INFO = {
         whatsapp: '998995129826', // Phone number for WhatsApp (no + or spaces)
         telegram: 'e_f_r_u_z_0_0_2_6'   // Telegram username (without @)
     },
+    // The company's own profiles elsewhere: linked in the footer and listed
+    // as `sameAs` in the structured data (seo/schema.js). Public URLs only,
+    // never an admin or tracking link. Google Maps by its stable place ID.
+    profiles: {
+        linkedin: 'https://www.linkedin.com/company/111953522/',
+        google_maps: 'https://www.google.com/maps?cid=12781730201916658658',
+    },
     // The person who answers trade enquiries. The page text (name, title,
     // languages, hours) is in the translations: sales_contact_*.
     sales_contact: {
