@@ -4,8 +4,8 @@ import { track, EVENTS } from '../analytics';
 import { CONTACT_INFO } from '../config';
 
 // The company's registration documents, under English file names (folder 26).
-// The same files under their old Russian names stay in public/Certificate/,
-// so links shared before still work. The registry extract (cert_1) was
+// The old Russian file names redirect here (vercel.json), so links shared
+// before still work and Google drops the duplicates. The registry extract (cert_1) was
 // removed on purpose: it exposed the director's personal ID number and the
 // founders' ownership shares.
 const DOCUMENTS = [
